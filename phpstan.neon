@@ -1,0 +1,28 @@
+includes:
+    - vendor/nunomaduro/larastan/extension.neon
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    paths:
+        - app
+        - config
+        - database/factories
+        - database/seeders
+        - modules
+        - routes
+
+    # The level 9 is the highest level
+    level: max
+
+    excludePaths:
+        - vendor
+
+    ignoreErrors:
+        -
+            message: '#Undefined variable: \$this#'
+            path: routes/console.php
+
+    checkMissingIterableValueType: true
+    checkModelProperties: false
+    reportMaybesInPropertyPhpDocTypes: false
