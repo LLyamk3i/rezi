@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Model
+{
+    use \App\Concerns\Model\HasUlids;
+
+
+    public static function factory(): {{ class }}Factory
+    {
+        return {{ class }}Factory::new();
+    }
+}

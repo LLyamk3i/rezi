@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Modules\Client\Providers;
+namespace Modules\Residence\Providers;
 
 use Illuminate\Support\Facades\Route;
-use App\Providers\RouteServiceProvider as ParentServiceProvider;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class RouteServiceProvider extends ParentServiceProvider
+final class RouteServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
         $this->routes(static function (): void {
             Route::middleware('api')
-                ->prefix('api/client')
+                ->prefix('api/residence')
                 ->group(__DIR__ . '/../routes/api.php');
         });
     }

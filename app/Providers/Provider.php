@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -18,7 +20,8 @@ abstract class Provider extends ServiceProvider
         };
         array_walk(array: $this->providers['all'], callback: $callback);
         if ((bool) $this->app->environment('local')) {
-            array_walk(array: $this->providers['local'], callback: $callback);
+            $local = $this->providers['local'] ?? [];
+            array_walk(array: $local, callback: $callback);
         }
     }
 }

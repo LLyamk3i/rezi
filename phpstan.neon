@@ -1,4 +1,5 @@
 includes:
+    - phpstan-baseline.neon
     - vendor/nunomaduro/larastan/extension.neon
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
@@ -17,11 +18,7 @@ parameters:
 
     excludePaths:
         - vendor
-
-    ignoreErrors:
-        -
-            message: '#Undefined variable: \$this#'
-            path: routes/console.php
+        - *.test.php
 
     checkMissingIterableValueType: true
     checkModelProperties: false

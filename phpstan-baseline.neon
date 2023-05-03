@@ -1,0 +1,16 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#5 \\$config \\(array\\<string, mixed\\>\\) of method App\\\\Database\\\\ConnectionFactory\\:\\:createConnection\\(\\) should be contravariant with parameter \\$config \\(array\\) of method Illuminate\\\\Database\\\\Connectors\\\\ConnectionFactory\\:\\:createConnection\\(\\)$#"
+			count: 1
+			path: app/Database/ConnectionFactory.php
+
+		-
+			message: "#^Trying to invoke mixed but it's not a callable\\.$#"
+			count: 1
+			path: app/Database/ConnectionFactory.php
+
+		-
+			message: "#^Undefined variable\\: \\$this$#"
+			count: 1
+			path: routes/console.php

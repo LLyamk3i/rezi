@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use Illuminate\Foundation\Console\AboutCommand;
 
-class ApplicationDependenciesService
+final class ApplicationDependenciesService
 {
     public static function context(): void
     {
@@ -13,7 +15,7 @@ class ApplicationDependenciesService
         array_walk(
             array: $about,
             callback: static function (array $content, string $title): void {
-                AboutCommand::add(section: $title, data: static fn () => $content);
+                AboutCommand::add(section: $title, data: static fn (): array => $content);
             }
         );
     }

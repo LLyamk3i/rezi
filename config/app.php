@@ -198,7 +198,7 @@ return [
         /*
          * Modules Service Providers...
          */
-        // \Modules\Client\Providers\ClientServiceProvider::class,
+        \Modules\Residence\Providers\ResidenceServiceProvider::class,
     ],
 
     /*

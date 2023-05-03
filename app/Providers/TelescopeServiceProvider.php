@@ -8,7 +8,7 @@ use Laravel\Telescope\Telescope;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\TelescopeApplicationServiceProvider;
 
-class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
+final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 {
     /**
      * Register any application services.
@@ -19,23 +19,35 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
         $this->hideSensitiveRequestDetails();
 
-        Telescope::filter(function (IncomingEntry $entry) {
+        Telescope::filter(function (IncomingEntry $entry): bool {
             if ((bool) $this->app->environment('local')) {
                 return true;
             }
 
-            return $entry->isReportableException() ||
-                $entry->isFailedRequest() ||
-                $entry->isFailedJob() ||
-                $entry->isScheduledTask() ||
-                $entry->hasMonitoredTag();
+            if ($entry->isReportableException()) {
+                return true;
+            }
+
+            if ($entry->isFailedRequest()) {
+                return true;
+            }
+
+            if ($entry->isFailedJob()) {
+                return true;
+            }
+
+            if ($entry->isScheduledTask()) {
+                return true;
+            }
+
+            return $entry->hasMonitoredTag();
         });
     }
 
     /**
      * Prevent sensitive request details from being logged by Telescope.
      */
-    protected function hideSensitiveRequestDetails(): void
+    private function hideSensitiveRequestDetails(): void
     {
         if ((bool) $this->app->environment('local')) {
             return;

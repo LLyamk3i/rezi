@@ -6,7 +6,7 @@ namespace App\Providers;
 
 use App\Services\ApplicationDependenciesService;
 
-class AppServiceProvider extends Provider
+final class AppServiceProvider extends Provider
 {
     /**
      * @var array<string,array<int,class-string>>
@@ -14,10 +14,12 @@ class AppServiceProvider extends Provider
     protected array $providers = [
         'all' => [
             \App\Providers\EloquentServiceProvider::class,
+            \App\Providers\DatabaseServiceProvider::class,
         ],
         'local' => [
             \Laravel\Telescope\TelescopeServiceProvider::class,
             \App\Providers\TelescopeServiceProvider::class,
+            \App\Providers\EloquentServiceProvider::class,
         ],
     ];
 
@@ -30,5 +32,4 @@ class AppServiceProvider extends Provider
     {
         $this->providers();
     }
-
 }

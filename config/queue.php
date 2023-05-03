@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env(key:'QUEUE_CONNECTION', default: 'sync'),
+    'default' => env(key: 'QUEUE_CONNECTION', default: 'sync'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,19 +55,19 @@ return [
 
         'sqs' => [
             'driver' => 'sqs',
-            'key' => env(key:'AWS_ACCESS_KEY_ID'),
-            'secret' => env(key:'AWS_SECRET_ACCESS_KEY'),
-            'prefix' => env(key:'SQS_PREFIX', default: 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
-            'queue' => env(key:'SQS_QUEUE', default: 'default'),
-            'suffix' => env(key:'SQS_SUFFIX'),
-            'region' => env(key:'AWS_DEFAULT_REGION', default: 'us-east-1'),
+            'key' => env(key: 'AWS_ACCESS_KEY_ID'),
+            'secret' => env(key: 'AWS_SECRET_ACCESS_KEY'),
+            'prefix' => env(key: 'SQS_PREFIX', default: 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
+            'queue' => env(key: 'SQS_QUEUE', default: 'default'),
+            'suffix' => env(key: 'SQS_SUFFIX'),
+            'region' => env(key: 'AWS_DEFAULT_REGION', default: 'us-east-1'),
             'after_commit' => false,
         ],
 
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => env(key:'REDIS_QUEUE', default: 'default'),
+            'queue' => env(key: 'REDIS_QUEUE', default: 'default'),
             'retry_after' => 90,
             'block_for' => null,
             'after_commit' => false,
@@ -87,8 +87,8 @@ return [
     */
 
     'failed' => [
-        'driver' => env(key:'QUEUE_FAILED_DRIVER', default: 'database-uuids'),
-        'database' => env(key:'DB_CONNECTION', default: 'mysql'),
+        'driver' => env(key: 'QUEUE_FAILED_DRIVER', default: 'database-uuids'),
+        'database' => env(key: 'DB_CONNECTION', default: 'mysql'),
         'table' => 'failed_jobs',
     ],
 
