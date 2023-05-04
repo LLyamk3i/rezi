@@ -13,7 +13,7 @@ final class RouteServiceProvider extends ServiceProvider
     {
         $this->routes(static function (): void {
             Route::middleware('api')
-                ->prefix('api/residence')
+                ->prefix('api/residences')
                 ->group(__DIR__ . '/../routes/api.php');
         });
     }

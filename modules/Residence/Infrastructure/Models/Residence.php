@@ -9,19 +9,7 @@ use Modules\Residence\Infrastructure\Database\Factories\ResidenceFactory;
 
 final class Residence extends Model
 {
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The "type" of the primary key ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
+    use \Illuminate\Database\Eloquent\Concerns\HasUlids;
 
     public static function factory(): ResidenceFactory
     {

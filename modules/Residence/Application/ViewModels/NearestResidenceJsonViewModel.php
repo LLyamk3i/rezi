@@ -7,7 +7,7 @@ namespace Modules\Residence\Application\ViewModels;
 class NearestResidenceJsonViewModel
 {
     /**
-     * @param array<int,\Modules\Residence\Domain\Entity\Residence> $data
+     * @param array<int,\Modules\Residence\Domain\Entities\Residence> $data
      */
     public function __construct(
         public readonly int $status,

@@ -9,9 +9,9 @@ use Illuminate\Database\Query\Builder;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
-use Modules\Residence\Domain\Entity\Residence as Entity;
 use Modules\Residence\Domain\Factories\ResidenceFactory;
 use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
+use Modules\Residence\Domain\Entities\Residence as Entity;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 
 /**
@@ -39,9 +39,14 @@ final class EloquentResidenceRepository implements ResidenceRepository
     public function find(Ulid $id): Entity | null
     {
         /** @phpstan-var ResidenceRecord|null $residence */
-        $residence = $this->builder()->where('id', $id)->first(columns: $this->attributes());
+        $residence = $this->builder()->where('id', $id->value)
+            ->limit(1)
+            ->get(columns: $this->attributes())
+            ->first();
 
-        return \is_array(value: $residence) ? $this->factory->make(data: $residence) : null;
+        return \is_array(value: $residence)
+            ? $this->factory->make(data: $residence)
+            : null;
     }
 
     /**
@@ -92,6 +97,7 @@ final class EloquentResidenceRepository implements ResidenceRepository
             'id',
             'name',
             'address',
+            'rent',
             DB::raw('ST_X(location) AS latitude'),
             DB::raw('ST_Y(location) AS longitude'),
         ];

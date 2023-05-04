@@ -8,7 +8,7 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
-use Modules\Residence\Domain\Entity\Residence as Entity;
+use Modules\Residence\Domain\Entities\Residence as Entity;
 use Modules\Residence\Infrastructure\Models\Residence as Model;
 use Modules\Residence\Infrastructure\Factories\EloquentResidenceRepositoryFactory;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;

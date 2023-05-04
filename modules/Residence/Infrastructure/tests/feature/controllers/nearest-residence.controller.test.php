@@ -23,16 +23,18 @@ function row(float $latitude, float $longitude): array
         'id' => (string) Str::ulid()->generate(),
         'name' => fake()->streetAddress(),
         'location' => DB::raw("ST_PointFromText('POINT({$longitude} {$latitude})')"),
+        'rent' => fake()->randomFloat(nbMaxDecimals: 2, max: 1_000_000),
         'address' => fake()->address(),
         'created_at' => now(),
         'updated_at' => now(),
     ];
 }
+
 test(description: 'can not find nearest residence', closure: function (): void {
     $location = new Location(latitude: 48.864716, longitude: 2.349014); // Center longitude (Paris, France)
     $radius = new Radius(value: 25);
 
-    $response = getJson(uri: 'api/residence/nearest?' . http_build_query(data: [
+    $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [
         ...(array) $location,
         'radius' => $radius->value,
     ]));
@@ -70,7 +72,7 @@ test(description: 'can find nearest residence', closure: function (): void {
 
     DB::table(table: 'residences')->insert(values: $rows);
 
-    $response = getJson(uri: 'api/residence/nearest?' . http_build_query(data: [
+    $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [
         ...(array) $location,
         'radius' => $radius->value,
     ]));

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Domain\Hydrators;
 
-use Modules\Residence\Domain\Entity\Residence;
+use Modules\Residence\Domain\Entities\Residence;
 use Modules\Residence\Domain\Factories\ResidenceFactory;
 
 /**

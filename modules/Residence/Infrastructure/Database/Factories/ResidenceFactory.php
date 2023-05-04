@@ -29,6 +29,8 @@ final class ResidenceFactory extends Factory
             'id' => Ulid::generate(),
             'name' => fake()->streetAddress(),
             'address' => fake()->address(),
+            'location' => DB::raw("ST_PointFromText('POINT(48.864716 2.349014)')"),
+            'rent' => fake()->randomFloat(nbMaxDecimals: 2, max: 1_000_000),
             'created_at' => now(),
             'updated_at' => now(),
         ];

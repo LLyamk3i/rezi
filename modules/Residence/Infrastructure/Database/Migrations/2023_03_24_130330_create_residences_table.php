@@ -13,6 +13,7 @@ return new class extends Migration
         Schema::create(table: 'residences', callback: static function (Blueprint $table): void {
             $table->ulid(column: 'id')->primary();
             $table->string(column: 'name');
+            $table->float(column: 'rent', total: 10, places: 2, unsigned: true);
             $table->string(column: 'address')->nullable();
             $table->point(column: 'location');
 

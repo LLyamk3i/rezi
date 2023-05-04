@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Modules\Residence\Domain\Entity;
+namespace Modules\Residence\Domain\Entities;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
@@ -16,6 +17,7 @@ final class Residence
         public readonly string $address,
         public readonly Distance $distance,
         public readonly Location $location,
+        public readonly Price $rent,
         // public readonly Owner $owner,
     ) {
     }

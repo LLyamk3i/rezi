@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class {{ class }} extends Model
 {
-    use \App\Concerns\Model\HasUlids;
+    use \Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 
     public static function factory(): {{ class }}Factory

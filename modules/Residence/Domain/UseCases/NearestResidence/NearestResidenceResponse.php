@@ -9,7 +9,7 @@ class NearestResidenceResponse
     private bool $failed;
 
     /**
-     * @var array<int,\Modules\Residence\Domain\Entity\Residence>
+     * @var array<int,\Modules\Residence\Domain\Entities\Residence>
      */
     private array $residences;
 
@@ -19,7 +19,7 @@ class NearestResidenceResponse
     }
 
     /**
-     * @param array<int,\Modules\Residence\Domain\Entity\Residence> $value
+     * @param array<int,\Modules\Residence\Domain\Entities\Residence> $value
      */
     public function setResidences(array $value): void
     {
@@ -27,7 +27,7 @@ class NearestResidenceResponse
     }
 
     /**
-     * @return array<int,\Modules\Residence\Domain\Entity\Residence>
+     * @return array<int,\Modules\Residence\Domain\Entities\Residence>
      */
     public function residences(): array
     {

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 final class UserFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the model's default state.s
      *
      * @return array{name: string, email: string, email_verified_at: \Illuminate\Support\Carbon, password: string, remember_token: string}
      */
@@ -33,7 +33,7 @@ final class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(static fn (array $attributes): array => [
+        return $this->state(state: [
             'email_verified_at' => null,
         ]);
     }

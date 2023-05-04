@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\Residence\Domain\Entity;
+namespace Modules\Residence\Domain\Entities;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
 
-final class Owner
+final class Customer
 {
     public function __construct(
         public readonly Ulid $id,

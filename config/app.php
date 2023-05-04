@@ -199,6 +199,8 @@ return [
          * Modules Service Providers...
          */
         \Modules\Residence\Providers\ResidenceServiceProvider::class,
+        \Modules\Client\Providers\ClientServiceProvider::class,
+        \Modules\Reservation\Providers\ReservationServiceProvider::class,
     ],
 
     /*
