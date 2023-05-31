@@ -131,7 +131,7 @@ return [
     'cookie' => env(
         key: 'SESSION_COOKIE',
         default: Str::slug(
-            title: \strval(value: env(key: 'APP_NAME', default: 'laravel')),
+            title: string_value(value: env(key: 'APP_NAME', default: 'laravel')),
             separator: '_'
         ) . '_session'
     ),

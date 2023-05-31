@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Modules\Residence\Application\Presenters;
+namespace Modules\Residence\Application\UseCases\NearestResidence;
 
-use Modules\Residence\Domain\Contracts\NearestResidencePresenterContract;
-use Modules\Residence\Application\ViewModels\NearestResidenceJsonViewModel;
 use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidenceResponse;
+use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidencePresenterContract;
 
 class NearestResidenceJsonPresenter implements NearestResidencePresenterContract
 {

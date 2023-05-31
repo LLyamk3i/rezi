@@ -19,7 +19,7 @@ return [
 
     'stateful' => explode(
         separator: ',',
-        string: \strval(
+        string: string_value(
             value: env(
                 key: 'SANCTUM_STATEFUL_DOMAINS',
                 default: sprintf(

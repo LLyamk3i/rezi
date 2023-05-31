@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Residence\Application\ViewModels;
+namespace Modules\Residence\Application\UseCases\NearestResidence;
 
 class NearestResidenceJsonViewModel
 {

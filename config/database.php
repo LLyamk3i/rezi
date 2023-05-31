@@ -44,7 +44,7 @@ return [
                 key: 'DB_DATABASE',
                 default: database_path(
                     path: (string) Str::of(
-                        string: \strval(value: env(key: 'APP_NAME'))
+                        string: string_value(value: env(key: 'APP_NAME'))
                     )->slug()->append(values: '.sqlite')
                 )
             ),
@@ -137,7 +137,7 @@ return [
             'prefix' => env(
                 key: 'REDIS_PREFIX',
                 default: Str::slug(
-                    title: \strval(value: env(key: 'APP_NAME', default: 'laravel')),
+                    title: string_value(value: env(key: 'APP_NAME', default: 'laravel')),
                     separator: '_'
                 ) . '_database_'
             ),

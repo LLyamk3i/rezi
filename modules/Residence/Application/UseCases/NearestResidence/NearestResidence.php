@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Modules\Residence\Domain\UseCases\NearestResidence;
+namespace Modules\Residence\Application\UseCases\NearestResidence;
 
 use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
-use Modules\Residence\Domain\Contracts\NearestResidencePresenterContract;
+use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidenceRequest;
+use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidenceContract;
+use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidenceResponse;
+use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidencePresenterContract;
 
 class NearestResidence implements NearestResidenceContract
 {

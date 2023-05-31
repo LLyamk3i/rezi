@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Reservation\Domain\UseCases;
-
-use Modules\Reservation\Domain\Contracts\CreateReservationPresenterContract;
+namespace Modules\Reservation\Domain\UseCases\CreateReservation;
 
 interface CreateReservationContract
 {

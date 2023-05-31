@@ -7,8 +7,9 @@ namespace Modules\Client\Providers;
 use Modules\Client\Domain;
 use App\Providers\Provider;
 use Modules\Client\Infrastructure;
+use Illuminate\Support\ServiceProvider;
 
-final class ClientServiceProvider extends Provider
+final class ClientServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>
@@ -18,15 +19,6 @@ final class ClientServiceProvider extends Provider
         // Domain\UseCases\NearestClient\NearestClientContract::class => Domain\UseCases\NearestClient\NearestClient::class,
     ];
 
-    /**
-     * @var array<string,array<int,class-string>>
-     */
-    protected array $providers = [
-        'all' => [
-            // \Modules\Client\Providers\RouteServiceProvider::class,
-        ],
-    ];
-
     public function boot(): void
     {
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
@@ -34,6 +26,6 @@ final class ClientServiceProvider extends Provider
 
     public function register(): void
     {
-        $this->providers();
+        // $this->app->register(provider:\Modules\Client\Providers\RouteServiceProvider::class);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Reservation\Application\ViewModels;
+namespace Modules\Reservation\Application\UseCases\CreateReservation;
 
 class CreateReservationJsonViewModel
 {

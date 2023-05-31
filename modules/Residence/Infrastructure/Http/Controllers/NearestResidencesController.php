@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Modules\Residence\Application\Presenters\NearestResidenceJsonPresenter;
 use Modules\Residence\Infrastructure\Http\Requests\NearestResidenceRequest;
 use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidenceContract;
+use Modules\Residence\Application\UseCases\NearestResidence\NearestResidenceJsonPresenter;
 
 final class NearestResidencesController
 {

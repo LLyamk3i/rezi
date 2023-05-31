@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Modules\Reservation\Application\Presenters;
+namespace Modules\Reservation\Application\UseCases\CreateReservation;
 
-use Modules\Reservation\Domain\UseCases\CreateReservationResponse;
-use Modules\Reservation\Domain\Contracts\CreateReservationPresenterContract;
-use Modules\Reservation\Application\ViewModels\CreateReservationJsonViewModel;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationResponse;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationPresenterContract;
 
 class CreateReservationJsonPresenter implements CreateReservationPresenterContract
 {

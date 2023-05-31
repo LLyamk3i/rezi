@@ -4,25 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use App\Services\ApplicationDependenciesService;
 
-final class AppServiceProvider extends Provider
+final class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * @var array<string,array<int,class-string>>
-     */
-    protected array $providers = [
-        'all' => [
-            \App\Providers\EloquentServiceProvider::class,
-            \App\Providers\DatabaseServiceProvider::class,
-        ],
-        'local' => [
-            \Laravel\Telescope\TelescopeServiceProvider::class,
-            \App\Providers\TelescopeServiceProvider::class,
-            \App\Providers\EloquentServiceProvider::class,
-        ],
-    ];
-
     public function boot(): void
     {
         ApplicationDependenciesService::context();
@@ -30,6 +16,13 @@ final class AppServiceProvider extends Provider
 
     public function register(): void
     {
-        $this->providers();
+        $this->app->register(provider: \App\Providers\EloquentServiceProvider::class);
+        $this->app->register(provider: \App\Providers\DatabaseServiceProvider::class);
+
+        if (\boolval(value: $this->app->environment('local'))) {
+            $this->app->register(provider: \Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(provider: \App\Providers\TelescopeServiceProvider::class);
+            $this->app->register(provider: \App\Providers\EloquentServiceProvider::class);
+        }
     }
 }

@@ -4,27 +4,19 @@ declare(strict_types=1);
 
 namespace Modules\Reservation\Providers;
 
-use App\Providers\Provider;
 use Modules\Reservation\Domain;
+use Modules\Reservation\Application;
+use Illuminate\Support\ServiceProvider;
 use Modules\Reservation\Infrastructure;
 
-final class ReservationServiceProvider extends Provider
+final class ReservationServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>
      */
     public array $bindings = [
-        Domain\UseCases\CreateReservationContract::class => Domain\UseCases\CreateReservation::class,
+        Domain\UseCases\CreateReservation\CreateReservationContract::class => Application\UseCases\CreateReservation\CreateReservation::class,
         Domain\Repositories\ReservationRepository::class => Infrastructure\Eloquent\Repositories\EloquentReservationRepository::class,
-    ];
-
-    /**
-     * @var array<string,array<int,class-string>>
-     */
-    protected array $providers = [
-        'all' => [
-            \Modules\Reservation\Providers\RouteServiceProvider::class,
-        ],
     ];
 
     public function boot(): void
@@ -34,6 +26,6 @@ final class ReservationServiceProvider extends Provider
 
     public function register(): void
     {
-        $this->providers();
+        $this->app->register(provider: \Modules\Reservation\Providers\RouteServiceProvider::class);
     }
 }

@@ -109,7 +109,7 @@ return [
 
     'prefix' => env(
         key: 'CACHE_PREFIX',
-        default: Str::slug(title: \strval(value: env(key: 'APP_NAME')), separator: '_') . '_cache_'
+        default: Str::slug(title: string_value(value: env(key: 'APP_NAME')), separator: '_') . '_cache_'
     ),
 
 ];

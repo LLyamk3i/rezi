@@ -6,7 +6,7 @@ namespace Modules\Reservation\Infrastructure\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Shared\Domain\ValueObjects\Ulid;
-use Modules\Reservation\Domain\UseCases\CreateReservationRequest as Request;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationRequest as Request;
 
 class ReservationRequest extends FormRequest
 {
@@ -25,10 +25,10 @@ class ReservationRequest extends FormRequest
     public function approved(): Request
     {
         return new Request(
-            checkin: new \DateTime(datetime: \strval(value: $this->input(key: 'checkin_date'))),
-            checkout: new \DateTime(datetime: \strval(value: $this->input(key: 'checkout_date'))),
-            user: new Ulid(value: \strval(value: $this->user()?->id)),
-            residence: new Ulid(value: \strval(value: $this->input(key: 'residence_id'))),
+            checkin: new \DateTime(datetime: string_value(value: $this->input(key: 'checkin_date'))),
+            checkout: new \DateTime(datetime: string_value(value: $this->input(key: 'checkout_date'))),
+            user: new Ulid(value: string_value(value: $this->user()?->id)),
+            residence: new Ulid(value: string_value(value: $this->input(key: 'residence_id'))),
         );
     }
 }

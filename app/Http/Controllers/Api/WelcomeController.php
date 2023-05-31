@@ -10,7 +10,7 @@ use Illuminate\Foundation\Application;
 final class WelcomeController
 {
     /**
-     * @return array{message: string, data: array{service: string, version: string, language: string, support: string}}
+     * @return array{message: string, data: array{service: string, version: string, language: string, support: mixed}}
      */
     public function __invoke(Application $app, Repository $config): array
     {
@@ -20,9 +20,7 @@ final class WelcomeController
                 'service' => 'OPEN API',
                 'version' => '0.0.1',
                 'language' => $app->getLocale(),
-                'support' => \strval(
-                    value: $config->get(key: 'mail.from.address')
-                ),
+                'support' => $config->get(key: 'mail.from.address'),
             ],
         ];
     }

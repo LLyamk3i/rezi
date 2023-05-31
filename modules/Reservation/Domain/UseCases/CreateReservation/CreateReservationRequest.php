@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Reservation\Domain\UseCases;
+namespace Modules\Reservation\Domain\UseCases\CreateReservation;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
 

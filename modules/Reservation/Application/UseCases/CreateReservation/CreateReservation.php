@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Reservation\Domain\UseCases;
+namespace Modules\Reservation\Application\UseCases\CreateReservation;
 
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Price;
@@ -10,7 +10,10 @@ use Modules\Reservation\Domain\Entities\Reservation;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Reservation\Domain\Repositories\ReservationRepository;
 use Modules\Reservation\Domain\Services\CalculateReservationCostService;
-use Modules\Reservation\Domain\Contracts\CreateReservationPresenterContract;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationRequest;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationContract;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationResponse;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationPresenterContract;
 
 class CreateReservation implements CreateReservationContract
 {

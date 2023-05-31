@@ -4,27 +4,19 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Providers;
 
-use App\Providers\Provider;
 use Modules\Residence\Domain;
+use Modules\Residence\Application;
 use Modules\Residence\Infrastructure;
+use Illuminate\Support\ServiceProvider;
 
-final class ResidenceServiceProvider extends Provider
+final class ResidenceServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>
      */
     public array $bindings = [
         Domain\Repositories\ResidenceRepository::class => Infrastructure\Eloquent\Repositories\EloquentResidenceRepository::class,
-        Domain\UseCases\NearestResidence\NearestResidenceContract::class => Domain\UseCases\NearestResidence\NearestResidence::class,
-    ];
-
-    /**
-     * @var array<string,array<int,class-string>>
-     */
-    protected array $providers = [
-        'all' => [
-            \Modules\Residence\Providers\RouteServiceProvider::class,
-        ],
+        Domain\UseCases\NearestResidence\NearestResidenceContract::class => Application\UseCases\NearestResidence\NearestResidence::class,
     ];
 
     public function boot(): void
@@ -34,6 +26,6 @@ final class ResidenceServiceProvider extends Provider
 
     public function register(): void
     {
-        $this->providers();
+        $this->app->register(provider: \Modules\Residence\Providers\RouteServiceProvider::class);
     }
 }

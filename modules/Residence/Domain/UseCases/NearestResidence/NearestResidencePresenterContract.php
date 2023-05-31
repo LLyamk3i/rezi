@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Residence\Domain\Contracts;
-
-use Modules\Residence\Domain\UseCases\NearestResidence\NearestResidenceResponse;
+namespace Modules\Residence\Domain\UseCases\NearestResidence;
 
 interface NearestResidencePresenterContract
 {

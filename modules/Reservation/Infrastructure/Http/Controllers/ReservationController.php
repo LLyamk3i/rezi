@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Modules\Reservation\Infrastructure\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Modules\Reservation\Domain\UseCases\CreateReservationContract;
 use Modules\Reservation\Infrastructure\Http\Requests\ReservationRequest;
-use Modules\Reservation\Application\Presenters\CreateReservationJsonPresenter;
+use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationContract;
+use Modules\Reservation\Application\UseCases\CreateReservation\CreateReservationJsonPresenter;
 
 class ReservationController
 {
