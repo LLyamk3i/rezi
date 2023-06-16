@@ -15,7 +15,7 @@ use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationContr
 use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationResponse;
 use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationPresenterContract;
 
-class CreateReservation implements CreateReservationContract
+final class CreateReservation implements CreateReservationContract
 {
     public function __construct(
         private readonly ReservationRepository $reservationRepository,

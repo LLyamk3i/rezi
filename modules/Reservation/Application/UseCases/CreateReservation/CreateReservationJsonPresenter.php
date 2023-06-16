@@ -7,7 +7,7 @@ namespace Modules\Reservation\Application\UseCases\CreateReservation;
 use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationResponse;
 use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationPresenterContract;
 
-class CreateReservationJsonPresenter implements CreateReservationPresenterContract
+final class CreateReservationJsonPresenter implements CreateReservationPresenterContract
 {
     private CreateReservationJsonViewModel $view;
 

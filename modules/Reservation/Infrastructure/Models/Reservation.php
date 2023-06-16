@@ -7,9 +7,16 @@ namespace Modules\Reservation\Infrastructure\Models;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Reservation\Infrastructure\Database\Factories\ReservationFactory;
 
-class Reservation extends Model
+final class Reservation extends Model
 {
     use \Illuminate\Database\Eloquent\Concerns\HasUlids;
+
+    protected $casts = [
+        'checkin_at' => 'datetime:Y-m-d H:i:s',
+        'checkout_at' => 'datetime:Y-m-d H:i:s',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
 
     public static function factory(): ReservationFactory
     {

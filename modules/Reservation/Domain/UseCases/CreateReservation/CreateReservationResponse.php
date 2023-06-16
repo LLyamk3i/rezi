@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Reservation\Domain\UseCases\CreateReservation;
 
-class CreateReservationResponse
+final class CreateReservationResponse
 {
     private bool $failed;
 

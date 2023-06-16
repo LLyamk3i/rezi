@@ -16,7 +16,8 @@ final class ResidenceServiceProvider extends ServiceProvider
      */
     public array $bindings = [
         Domain\Repositories\ResidenceRepository::class => Infrastructure\Eloquent\Repositories\EloquentResidenceRepository::class,
-        Domain\UseCases\NearestResidence\NearestResidenceContract::class => Application\UseCases\NearestResidence\NearestResidence::class,
+        Domain\UseCases\NearestResidences\NearestResidencesContract::class => Application\UseCases\NearestResidences\NearestResidences::class,
+        Domain\UseCases\SearchResidences\SearchResidencesContract::class => Application\UseCases\SearchResidences\SearchResidences::class,
     ];
 
     public function boot(): void

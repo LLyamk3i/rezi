@@ -6,7 +6,7 @@ namespace App\Database;
 
 use Illuminate\Database\MySqlConnection as DatabaseMySqlConnection;
 
-class MySqlConnection extends DatabaseMySqlConnection
+final class MySqlConnection extends DatabaseMySqlConnection
 {
     protected $fetchMode = \PDO::FETCH_ASSOC;
 }

@@ -16,25 +16,27 @@ function file_path() {
 model=$1
 module=$2
 
-# Créer le modèle
-php artisan make:model $model -sf
-
 # Récupérer les noms de fichiers créés
 model_file=$(file_path "app/Models" $model)
 seeder_file=$(file_path "database/seeders" $model)
 factory_file=$(file_path "database/factories" $model)
 migration_file=$(file_path "database/migrations" $model)
+resource_file=$(file_path "app/Http/Resources" $model)
 
-mkdir -p "modules/${module}/Infrastructure/Models"
-mkdir -p "modules/${module}/Infrastructure/Database/Seeders"
-mkdir -p "modules/${module}/Infrastructure/Database/Factories"
-mkdir -p "modules/${module}/Infrastructure/Database/Migrations"
+echo "$resource_file"
 
-# # # Déplacer les fichiers dans le module
-phpactor class:move "$model_file" "modules/${module}/Infrastructure/Models/"
-phpactor class:move "$seeder_file" "modules/${module}/Infrastructure/Database/Seeders/"
-phpactor class:move "$factory_file" "modules/${module}/Infrastructure/Database/Factories/"
-mv "$migration_file" "modules/${module}/Infrastructure/Database/Migrations"
+[ -n "$model_file" ] && mkdir -p "modules/${module}/Infrastructure/Models"
+[ -n "$seeder_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Seeders"
+[ -n "$factory_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Factories"
+[ -n "$migration_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Migrations"
+[ -n "$resource_file" ] && mkdir -p "modules/${module}/Infrastructure/Resources"
+
+# # # # Déplacer les fichiers dans le module
+[ -n "$model_file" ] && phpactor class:move "$model_file" "modules/${module}/Infrastructure/Models/"
+[ -n "$seeder_file" ] && phpactor class:move "$seeder_file" "modules/${module}/Infrastructure/Database/Seeders/"
+[ -n "$factory_file" ] && phpactor class:move "$factory_file" "modules/${module}/Infrastructure/Database/Factories/"
+[ -n "$migration_file" ] && phpactor class:move "$resource_file" "modules/${module}/Infrastructure/Resources/"
+[ -n "$resource_file" ] && mv "$migration_file" "modules/${module}/Infrastructure/Database/Migrations"
 
 # # # Confirmer l'achèvement
-echo "Le modèle, le seeder et le factory ont été déplacés avec succès dans le module."
+echo "fichiers déplacés: $model_file $seeder_file $factory_file $migration_file $resource_file"

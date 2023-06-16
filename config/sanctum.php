@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Laravel\Sanctum\Sanctum;
 
+use function Modules\Shared\Infrastructure\Helpers\string_value;
+
 return [
 
     /*

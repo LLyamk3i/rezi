@@ -6,7 +6,7 @@ namespace Modules\Reservation\Domain\Services;
 
 use Modules\Shared\Domain\ValueObjects\Price;
 
-class CalculateReservationCostService
+final class CalculateReservationCostService
 {
     public function execute(\DateTime $start, \DateTime $end, Price $price): Price
     {

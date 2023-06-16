@@ -14,6 +14,6 @@ final class DatabaseServiceProvider extends ServiceProvider
         // The connection factory is used to create the actual connection instances on
         // the database. We will inject the factory into the manager so that it may
         // make the connections while they are actually needed and not of before.
-        $this->app->singleton('db.factory', fn ($app) => new ConnectionFactory($app));
+        $this->app->singleton('db.factory', static fn ($app) => new ConnectionFactory($app));
     }
 }

@@ -18,12 +18,9 @@ return new class extends Migration
             $table->ulid(column: 'user_id')->nullable();
             $table->ulid(column: 'residence_id')->nullable();
             $table->enum(column: 'status', allowed: Status::values());
-            $table->float(column: 'cost', total: 10, places: 2, unsigned: true);
+            $table->integer(column: 'cost', unsigned: true);
 
             $table->timestamps();
-
-            $table->foreign(columns: ['user_id'])->references(columns: 'id')->on(table: 'users')->nullOnDelete();
-            $table->foreign(columns: ['residence_id'])->references(columns: 'id')->on(table: 'residences')->nullOnDelete();
         });
     }
 

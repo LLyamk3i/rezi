@@ -7,12 +7,14 @@ namespace Modules\Residence\Infrastructure\Eloquent\Repositories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Domain\Factories\ResidenceFactory;
 use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
 use Modules\Residence\Domain\Entities\Residence as Entity;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
+use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
 
 /**
  * @phpstan-import-type ResidenceRecord from \Modules\Residence\Domain\Factories\ResidenceFactory
@@ -89,6 +91,20 @@ final class EloquentResidenceRepository implements ResidenceRepository
     }
 
     /**
+     * @return array<int,Entity>
+     */
+    public function search(?string $key = null, ?Duration $stay = null): array
+    {
+        /** @phpstan-var array<int,ResidenceRecord> $residences */
+        $residences = (new SearchResidenceBucket(query: $this->builder(), payloads: get_defined_vars()))
+            ->filter()
+            ->get(columns: $this->attributes())
+            ->toArray();
+
+        return $this->hydrator->hydrate(data: $residences);
+    }
+
+    /**
      * @return array<int,string|\Illuminate\Contracts\Database\Query\Expression>
      */
     private function attributes(): array
@@ -98,6 +114,7 @@ final class EloquentResidenceRepository implements ResidenceRepository
             'name',
             'address',
             'rent',
+            'description',
             DB::raw('ST_X(location) AS latitude'),
             DB::raw('ST_Y(location) AS longitude'),
         ];

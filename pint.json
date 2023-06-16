@@ -12,7 +12,6 @@
         "get_class_to_class_keyword": true,
         "native_constant_invocation": true,
         "native_function_invocation": true,
-        "no_empty_comment": true,
         "no_empty_phpdoc": true,
         "no_extra_blank_lines": true,
         "no_superfluous_elseif": true,
@@ -39,13 +38,8 @@
         "phpdoc_trim": true,
         "phpdoc_separation": true,
         "phpdoc_add_missing_param_annotation": true,
-        "php_unit_strict": true,
-        "php_unit_expectation": true,
-        "php_unit_dedicate_assert_internal_type": true,
-        "php_unit_dedicate_assert": true,
-        "php_unit_method_casing": {
-            "case": "snake_case"
-        },
+        "final_class": true,
+        "static_lambda": true,
         "phpdoc_align": {
             "align": "vertical"
         },
@@ -58,5 +52,12 @@
         "ordered_imports": {
             "sort_algorithm": "length"
         }
-    }
+    },
+    "exclude": [
+        "trash",
+        "database/factories"
+    ],
+    "notName": [
+        "*.test.php"
+    ]
 }

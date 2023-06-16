@@ -15,9 +15,9 @@ final class WelcomeController
     public function __invoke(Application $app, Repository $config): array
     {
         return [
-            'message' => 'Welcome to OPEN API',
+            'message' => 'Welcome to RESI API',
             'data' => [
-                'service' => 'OPEN API',
+                'service' => 'RESI API',
                 'version' => '0.0.1',
                 'language' => $app->getLocale(),
                 'support' => $config->get(key: 'mail.from.address'),
