@@ -6,7 +6,7 @@ namespace Modules\Residence\Infrastructure\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-final class ResidenceSeeder extends Seeder
+class ResidenceSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -9,7 +9,7 @@ use Modules\Reservation\Application;
 use Illuminate\Support\ServiceProvider;
 use Modules\Reservation\Infrastructure;
 
-final class ReservationServiceProvider extends ServiceProvider
+class ReservationServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>

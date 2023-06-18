@@ -7,7 +7,7 @@ namespace Modules\Residence\Application\Services\Location;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
-final class DistanceCalculatorService
+class DistanceCalculatorService
 {
     public function execute(Location $from, Location $to): int
     {

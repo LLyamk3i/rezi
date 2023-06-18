@@ -10,7 +10,7 @@ use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Residence\Infrastructure\Eloquent\Repositories\EloquentResidenceRepository;
 
-final class EloquentResidenceRepositoryFactory
+class EloquentResidenceRepositoryFactory
 {
     public function make(): ResidenceRepository
     {

@@ -6,7 +6,7 @@ namespace Modules\Reservation\Infrastructure\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-final class ReservationSeeder extends Seeder
+class ReservationSeeder extends Seeder
 {
     public function run(): void
     {

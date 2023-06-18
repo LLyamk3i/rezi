@@ -9,9 +9,9 @@ use Modules\Reservation\Infrastructure\Http\Requests\CreateReservationRequest;
 use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationContract;
 use Modules\Reservation\Application\UseCases\CreateReservation\CreateReservationJsonPresenter;
 
-final class CreateervationController
+final class CreateReservationController
 {
-    public function store(
+    public function __invoke(
         CreateReservationRequest $request,
         CreateReservationContract $useCase,
         CreateReservationJsonPresenter $presenter

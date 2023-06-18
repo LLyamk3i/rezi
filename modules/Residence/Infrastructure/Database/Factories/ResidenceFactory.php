@@ -16,7 +16,7 @@ use function Modules\Shared\Infrastructure\Helpers\integer_value;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Residence\Infrastructure\Models\Residence>
  */
-final class ResidenceFactory extends Factory
+class ResidenceFactory extends Factory
 {
     /**
      * @var class-string<\Modules\Residence\Infrastructure\Models\Residence>

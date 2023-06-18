@@ -9,7 +9,7 @@ use Modules\Residence\Application;
 use Modules\Residence\Infrastructure;
 use Illuminate\Support\ServiceProvider;
 
-final class ResidenceServiceProvider extends ServiceProvider
+class ResidenceServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>

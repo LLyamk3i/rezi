@@ -10,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Modules\Shared\Application\Utils\Timer;
 use Illuminate\Contracts\Foundation\Application;
 
-final class SharedServiceProvider extends ServiceProvider
+class SharedServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>

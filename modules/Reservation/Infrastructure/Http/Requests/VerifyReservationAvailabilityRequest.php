@@ -9,9 +9,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use function Modules\Shared\Infrastructure\Helpers\string_value;
-use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationRequest as Request;
 
-final class CreateReservationRequest extends FormRequest
+final class VerifyReservationAvailabilityRequest extends FormRequest
 {
     /**
      * @return array{checkin_date:string,checkout_date:string,residence_id:string}
@@ -25,15 +24,17 @@ final class CreateReservationRequest extends FormRequest
         ];
     }
 
-    public function approved(): Request
+    /**
+     * @return array{residence:Ulid,stay:Duration}
+     */
+    public function approved(): array
     {
-        return new Request(
-            user: new Ulid(value: string_value(value: $this->user()?->id)),
-            residence: new Ulid(value: string_value(value: $this->input(key: 'residence_id'))),
-            stay: new Duration(
+        return [
+            'residence' => new Ulid(value: string_value(value: $this->input(key: 'residence_id'))),
+            'stay' => new Duration(
                 start: new \DateTime(datetime: string_value(value: $this->input(key: 'checkin_date'))),
                 end: new \DateTime(datetime: string_value(value: $this->input(key: 'checkout_date'))),
             ),
-        );
+        ];
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Application\UseCases\NearestResidences;
 
-final class NearestResidencesJsonViewModel
+class NearestResidencesJsonViewModel
 {
     /**
      * @param array<int,\Modules\Residence\Domain\Entities\Residence> $data

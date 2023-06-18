@@ -34,8 +34,7 @@ final class CreateReservation implements CreateReservationContract
             $this->response->setMessage(value: 'résidence non trouvée');
         } else {
             $this->reservationRepository->save(entity: new Reservation(
-                checkin: $request->checkin,
-                checkout: $request->checkout,
+                stay: $request->stay,
                 user: $request->user,
                 residence: $request->residence,
                 cost: $this->cost(request: $request, rent: $residence->rent),
@@ -50,10 +49,6 @@ final class CreateReservation implements CreateReservationContract
 
     private function cost(CreateReservationRequest $request, Price $rent): Price
     {
-        return $this->calculator->execute(
-            start: $request->checkin,
-            end: $request->checkout,
-            price: $rent
-        );
+        return $this->calculator->execute(duration: $request->stay, price: $rent);
     }
 }

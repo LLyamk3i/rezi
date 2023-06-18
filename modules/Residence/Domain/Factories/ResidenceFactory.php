@@ -13,7 +13,7 @@ use Modules\Residence\Domain\ValueObjects\Location;
 /**
  * @phpstan-type ResidenceRecord array{id:string,name:string,address:string,description?:string,distance?:float,latitude?:float,longitude?:float,rent?:float}
  */
-final class ResidenceFactory
+class ResidenceFactory
 {
     /**
      * @phpstan-param ResidenceRecord $data

@@ -88,6 +88,7 @@ final class EloquentResidenceRepository implements ResidenceRepository
 
     public function save(Entity $residence): void
     {
+        //
     }
 
     /**
