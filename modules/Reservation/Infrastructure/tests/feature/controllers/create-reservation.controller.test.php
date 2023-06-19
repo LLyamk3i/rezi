@@ -6,7 +6,7 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
 
-use App\Models\User;
+use Modules\Auth\Infrastructure\Models\User;
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Residence\Infrastructure\Models\Residence;

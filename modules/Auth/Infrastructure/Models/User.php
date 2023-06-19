@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Modules\Auth\Infrastructure\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Database\Factories\UserFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Modules\Auth\Infrastructure\Database\Factories\UserFactory;
 
 final class User extends Authenticatable
 {
@@ -26,11 +27,19 @@ final class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
 
     /**
-     * @var array<string, string>
+     * @var array<string,string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return BelongsToMany<Role>
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
 
     public static function factory(): UserFactory
     {

@@ -6,9 +6,15 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-function file_path() {
+file_path() {
   folder="$1"
   name="$2"
+
+  if [ ! -d "$folder" ]; then
+    echo ""
+    return
+  fi
+
   find "$folder" -type f -iname "*$name*" -print
 }
 
@@ -35,8 +41,8 @@ echo "$resource_file"
 [ -n "$model_file" ] && phpactor class:move "$model_file" "modules/${module}/Infrastructure/Models/"
 [ -n "$seeder_file" ] && phpactor class:move "$seeder_file" "modules/${module}/Infrastructure/Database/Seeders/"
 [ -n "$factory_file" ] && phpactor class:move "$factory_file" "modules/${module}/Infrastructure/Database/Factories/"
-[ -n "$migration_file" ] && phpactor class:move "$resource_file" "modules/${module}/Infrastructure/Resources/"
-[ -n "$resource_file" ] && mv "$migration_file" "modules/${module}/Infrastructure/Database/Migrations"
+[ -n "$resource_file" ] && phpactor class:move "$resource_file" "modules/${module}/Infrastructure/Resources/"
+[ -n "$migration_file" ] && mv "$migration_file" "modules/${module}/Infrastructure/Database/Migrations/"
 
 # # # Confirmer l'achèvement
 echo "fichiers déplacés: $model_file $seeder_file $factory_file $migration_file $resource_file"

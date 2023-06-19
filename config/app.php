@@ -198,6 +198,7 @@ return [
         /*
          * Modules Service Providers...
          */
+        \Modules\Auth\Providers\AuthServiceProvider::class,
         \Modules\Shared\Providers\SharedServiceProvider::class,
         \Modules\Residence\Providers\ResidenceServiceProvider::class,
         \Modules\Reservation\Providers\ReservationServiceProvider::class,
