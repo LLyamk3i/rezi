@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Auth\Infrastructure\Database\Factories;
 
 use Modules\Auth\Domain\Enums\Roles;
+use Modules\Auth\Infrastructure\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class RoleFactory extends Factory
 {
+    protected $model = Role::class;
+
     /**
      * @return array<string,string>
      */

@@ -12,14 +12,14 @@ use Modules\Auth\Domain\Repositories\AuthRepository;
 final class EloquentAuthRepository implements AuthRepository
 {
     public function register(
-        string $id,
+        Ulid $id,
         string $name,
         string $surname,
         string $email,
         string $password
     ): bool {
         return DB::table(table: 'users')->insert(values: [
-            'id' => $id,
+            'id' => $id->value,
             'name' => $name,
             'surname' => $surname,
             'email' => $email,

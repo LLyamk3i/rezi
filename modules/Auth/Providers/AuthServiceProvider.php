@@ -8,6 +8,7 @@ use Modules\Auth\Domain;
 use Modules\Auth\Application;
 use Modules\Auth\Infrastructure;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,10 @@ class AuthServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Relation::enforceMorphMap([
+            'user' => Infrastructure\Models\User::class,
+        ]);
+
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
     }
 

@@ -8,7 +8,7 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 
 interface AuthRepository
 {
-    public function register(string $id, string $name, string $surname, string $email, string $password): bool;
+    public function register(Ulid $id, string $name, string $surname, string $email, string $password): bool;
 
     /**
      * @param array<int,string> $roles

@@ -28,6 +28,7 @@ seeder_file=$(file_path "database/seeders" $model)
 factory_file=$(file_path "database/factories" $model)
 migration_file=$(file_path "database/migrations" $model)
 resource_file=$(file_path "app/Http/Resources" $model)
+controller_file=$(file_path "app/Http/Controllers" $model)
 
 echo "$resource_file"
 
@@ -36,12 +37,14 @@ echo "$resource_file"
 [ -n "$factory_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Factories"
 [ -n "$migration_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Migrations"
 [ -n "$resource_file" ] && mkdir -p "modules/${module}/Infrastructure/Resources"
+[ -n "$controller_file" ] && mkdir -p "modules/${module}/Infrastructure/Http/Controllers"
 
 # # # # Déplacer les fichiers dans le module
 [ -n "$model_file" ] && phpactor class:move "$model_file" "modules/${module}/Infrastructure/Models/"
 [ -n "$seeder_file" ] && phpactor class:move "$seeder_file" "modules/${module}/Infrastructure/Database/Seeders/"
 [ -n "$factory_file" ] && phpactor class:move "$factory_file" "modules/${module}/Infrastructure/Database/Factories/"
 [ -n "$resource_file" ] && phpactor class:move "$resource_file" "modules/${module}/Infrastructure/Resources/"
+[ -n "$controller_file" ] && phpactor class:move "$controller_file" "modules/${module}/Infrastructure/Http/Controllers/"
 [ -n "$migration_file" ] && mv "$migration_file" "modules/${module}/Infrastructure/Database/Migrations/"
 
 # # # Confirmer l'achèvement
