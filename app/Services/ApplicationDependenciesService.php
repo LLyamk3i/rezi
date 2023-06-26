@@ -10,7 +10,7 @@ final class ApplicationDependenciesService
 {
     public static function context(): void
     {
-        $about = require base_path(path: 'templates/about/index.php');
+        $about = require resource_path(path: 'about/index.php');
 
         array_walk(
             array: $about,

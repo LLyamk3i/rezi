@@ -16,7 +16,7 @@ return [
     */
 
     'paths' => [
-        base_path(path: 'templates'),
+        resource_path(path: 'views'),
     ],
 
     /*

@@ -27,7 +27,7 @@ final class Residence
     }
 
     /**
-     * @return ResidenceFormat
+     * @phpstan-return ResidenceFormat
      */
     public function __serialize(): array
     {

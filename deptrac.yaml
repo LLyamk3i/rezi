@@ -1,0 +1,42 @@
+deptrac:
+  paths:
+    - ./app
+    - ./modules
+  exclude_files:
+    - "#.*.test.*#"
+  layers:
+    - name: Domains
+      collectors:
+        - type: glob
+          value: modules/**/Domain/**/*.php
+    - name: Applications
+      collectors:
+        - type: glob
+          value: modules/**/Application/**/*.php
+    - name: Infrastructures
+      collectors:
+        - type: glob
+          value: modules/**/Infrastructure/**/*.php
+
+    - name: Vendor
+      collectors:
+        - type: bool
+          must_not:
+            - type: directory
+              regex: ./(src|modules)/.*
+
+  ruleset:
+    Domains: ~
+    Applications:
+      - Domains
+    Infrastructures:
+      - Domains
+      - Vendor
+
+  formatters:
+    graphviz:
+      hidden_layers: []
+      groups: []
+      point_to_groups: false
+  
+  ignore_uncovered_internal_classes: false

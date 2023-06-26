@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92ece19294f73b2f25a01831f48fc3c9",
+    "content-hash": "56dedb7454f55c728646da6bbbbad584",
     "packages": [
         {
             "name": "archtechx/enums",
@@ -106,6 +106,57 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "cinetpay/cinetpay-php",
+            "version": "1.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cinetpay/cinetpay-php-legacy.git",
+                "reference": "8a4a53bce076036fc5d6781bee839719780f2028"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cinetpay/cinetpay-php-legacy/zipball/8a4a53bce076036fc5d6781bee839719780f2028",
+                "reference": "8a4a53bce076036fc5d6781bee839719780f2028",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CinetPay": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fawaz Adisa",
+                    "email": "adisaf@programmer.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "easily integrate cinetpay's gateway on your php web site.",
+            "homepage": "https://github.com/cinetpay/cinetpay-php-legacy",
+            "keywords": [
+                "cinetpay",
+                "integration",
+                "mobile",
+                "money"
+            ],
+            "support": {
+                "email": "support@cinetpay.com",
+                "issues": "https://github.com/cinetpay/cinetpay-php-legacy/issues",
+                "source": "https://github.com/cinetpay/cinetpay-php-legacy/tree/v1.9.2"
+            },
+            "time": "2020-11-30T00:00:00+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -610,6 +661,64 @@
                 }
             ],
             "time": "2023-02-25T20:23:15+00:00"
+        },
+        {
+            "name": "guysolamour/laravel-cinetpay",
+            "version": "v2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guysolamour/laravel-cinetpay.git",
+                "reference": "e54b0f0ec8635b83ff7b2b8ce11d6e810e4c308d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guysolamour/laravel-cinetpay/zipball/e54b0f0ec8635b83ff7b2b8ce11d6e810e4c308d",
+                "reference": "e54b0f0ec8635b83ff7b2b8ce11d6e810e4c308d",
+                "shasum": ""
+            },
+            "require": {
+                "cinetpay/cinetpay-php": "^1.9",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0|^6.0",
+                "phpunit/phpunit": "^8.4|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Guysolamour\\Cinetpay\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Guysolamour\\Cinetpay\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guy-roland ASSALE",
+                    "email": "rolandassale@gmail.com"
+                }
+            ],
+            "description": "A laravel wrapper for cinetpay",
+            "keywords": [
+                "cinetpay",
+                "laravel",
+                "payment"
+            ],
+            "support": {
+                "issues": "https://github.com/guysolamour/laravel-cinetpay/issues",
+                "source": "https://github.com/guysolamour/laravel-cinetpay/tree/v2.0"
+            },
+            "time": "2023-02-26T08:36:21+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -7997,6 +8106,61 @@
                 }
             ],
             "time": "2023-06-11T06:15:20+00:00"
+        },
+        {
+            "name": "qossmic/deptrac-shim",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qossmic/deptrac-shim.git",
+                "reference": "3179a2c4978654add865309e3c280ef3d60f0043"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qossmic/deptrac-shim/zipball/3179a2c4978654add865309e3c280ef3d60f0043",
+                "reference": "3179a2c4978654add865309e3c280ef3d60f0043",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-tokenizer": "*",
+                "ext-zlib": "*",
+                "php": "^8.1"
+            },
+            "replace": {
+                "qossmic/deptrac": "self.version"
+            },
+            "suggest": {
+                "ext-dom": "For using the JUnit output formatter"
+            },
+            "bin": [
+                "deptrac"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Glabisch"
+                },
+                {
+                    "name": "Simon Mönch",
+                    "email": "simon.moench@qossmic.com"
+                },
+                {
+                    "name": "Denis Brumann",
+                    "email": "denis.brumann@qossmic.com",
+                    "role": "maintainer"
+                }
+            ],
+            "description": "deptrac phar distribution",
+            "support": {
+                "issues": "https://github.com/qossmic/deptrac-shim/issues",
+                "source": "https://github.com/qossmic/deptrac-shim/tree/1.0.2"
+            },
+            "time": "2022-12-02T11:47:53+00:00"
         },
         {
             "name": "rector/rector",
