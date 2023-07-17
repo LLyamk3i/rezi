@@ -20,5 +20,10 @@ Artisan::command(signature: 'inspire', callback: function (): void {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command(signature: 'debug', callback: static function (): void {
-});
+Artisan::command(signature: 'app:setup', callback: function (): void {
+    Artisan::call(command: 'migrate:fresh');
+    app(abstract: \Modules\Auth\Infrastructure\Database\Seeders\RoleTableSeeder::class)->run();
+    app(abstract: \Modules\Admin\Infrastructure\Database\Seeders\AdminSeeder::class)->run();
+    exec(command: 'unlink ./public/dist');
+    exec(command: 'ln -s $(readlink -f ./modules/Admin/resources/frontend/build) $(readlink -f ./public/dist)');
+})->purpose('Set up the application');

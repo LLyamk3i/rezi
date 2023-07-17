@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Auth\Application\UseCases\RegisterUser;
 
 use Modules\Auth\Domain\Enums\Roles;
+use Modules\Auth\Domain\Entities\User;
 use Modules\Auth\Domain\Repositories\AuthRepository;
 use Modules\Auth\Domain\UseCases\RegisterUser\RegisterUserRequest;
 use Modules\Auth\Domain\UseCases\RegisterUser\RegisterUserContract;
@@ -21,7 +22,7 @@ final class RegisterUser implements RegisterUserContract
 
     public function execute(RegisterUserRequest $request, RegisterUserPresenterContract $presenter): void
     {
-        if (! $this->repository->register(...(array) $request)) {
+        if (! $this->repository->register(user: new User(...(array) $request))) {
             $presenter->present(response: new RegisterUserResponse(
                 failed: true,
                 message: "Échec de la création d'un utilisateur. Veuillez réessayer plus tard.",
@@ -30,10 +31,7 @@ final class RegisterUser implements RegisterUserContract
             return;
         }
 
-        if (! $this->repository->bind(
-            user: $request->id,
-            roles: [Roles::CLIENT->value, Roles::PROVIDER->value]
-        )) {
+        if (! $this->repository->bind(user: $request->id, roles: [Roles::CLIENT, Roles::PROVIDER])) {
             $presenter->present(response: new RegisterUserResponse(
                 failed: true,
                 message: "Échec de l'association du rôle à l'utilisateur. Veuillez réessayer.",

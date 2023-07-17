@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string(column: 'description')->nullable();
             $table->point(column: 'location');
 
+            $table->ulid(column: 'user_id')->nullable();
+
             $table->timestamps();
 
             $table->spatialIndex(columns: 'location', name: 'geo_location_spatialindex');

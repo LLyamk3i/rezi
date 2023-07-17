@@ -7,7 +7,7 @@ namespace Modules\Residence\Infrastructure\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-final class SearchResidencesResource extends JsonResource
+class SearchResidencesResource extends JsonResource
 {
     /**
      * The resource instance.

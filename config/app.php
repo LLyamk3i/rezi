@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Illuminate\Support\Facades\Facade;
 
 return [
 
@@ -202,6 +203,7 @@ return [
         \Modules\Shared\Providers\SharedServiceProvider::class,
         \Modules\Residence\Providers\ResidenceServiceProvider::class,
         \Modules\Reservation\Providers\ReservationServiceProvider::class,
+        \Modules\Admin\Providers\AdminServiceProvider::class,
     ],
 
     /*
@@ -215,6 +217,9 @@ return [
     |
     */
 
-    'aliases' => [],
+    'aliases' => Facade::defaultAliases()->merge([
+        'AdminLoginPageViewModel' => \Modules\Admin\Application\ViewModels\AdminLoginPageViewModel::class,
+        'ViteManifest' => \Modules\Admin\Infrastructure\Services\ViteManifestRetrieverService::class,
+    ])->toArray(),
 
 ];

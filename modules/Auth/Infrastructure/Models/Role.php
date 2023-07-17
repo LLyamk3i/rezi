@@ -34,6 +34,14 @@ final class Role extends Model
         return $this->belongsToMany(related: Permission::class);
     }
 
+    /**
+     * @return BelongsToMany<User>
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(related: User::class);
+    }
+
     public static function factory(): RoleFactory
     {
         return new RoleFactory;

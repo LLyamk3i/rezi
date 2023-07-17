@@ -1,21 +1,14 @@
 #!/bin/bash
+source ./bin/functions.sh
 
-# rm *.zip
-# zip -r open.zip app artisan bin bootstrap composer.json config database .env lang public routes .scribe storage templates vendor modules
+rm *.zip
+rm -r public/storage
 
-# Read the value of APP_NAME from .env file
-APP_NAME=$(grep -E "^APP_NAME=" .env | cut -d "=" -f2)
+FILENAME=$(get_app_name)
 
-# Replace spaces with underscores
-APP_NAME=$(echo "$APP_NAME" | tr ' ' '_')
+echo $FILENAME
 
-# Convert to lowercase
-APP_NAME=$(echo "$APP_NAME" | tr '[:upper:]' '[:lower:]')
-
-# Set the desired filename
-FILENAME="${APP_NAME}.zip"
-
-# Define the name of the .zipignore file
+# # Define the name of the .zipignore file
 zip_ignore=".zipignore"
 
 zip -r $FILENAME . --exclude @.zipignore

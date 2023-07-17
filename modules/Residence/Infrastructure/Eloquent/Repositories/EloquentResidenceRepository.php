@@ -38,7 +38,7 @@ final class EloquentResidenceRepository implements ResidenceRepository
         return $this->hydrator->hydrate(data: $residences);
     }
 
-    public function find(Ulid $id): Entity | null
+    public function find(Ulid $id): ?Entity
     {
         /** @phpstan-var ResidenceRecord|null $residence */
         $residence = $this->builder()->where('id', $id->value)

@@ -19,7 +19,7 @@ interface ResidenceRepository
 
     public function save(Residence $residence): void;
 
-    public function find(Ulid $id): Residence | null;
+    public function find(Ulid $id): ?Residence;
 
     /**
      * @return array<int,Residence>

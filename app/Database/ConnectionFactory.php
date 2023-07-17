@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Database;
 
 use Illuminate\Database\Connection;
-use Illuminate\Database\SQLiteConnection;
 use Illuminate\Database\PostgresConnection;
 use Illuminate\Database\SqlServerConnection;
 use Illuminate\Database\Connectors\ConnectionFactory as DatabaseConnectionFactory;

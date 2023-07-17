@@ -18,6 +18,10 @@ class AuthServiceProvider extends ServiceProvider
     public array $bindings = [
         Domain\Repositories\AuthRepository::class => Infrastructure\Eloquent\Repositories\EloquentAuthRepository::class,
         Domain\UseCases\RegisterUser\RegisterUserContract::class => Application\UseCases\RegisterUser\RegisterUser::class,
+        Domain\Contracts\VerifyUserAccessManagerContract::class => Infrastructure\Managers\VerifyUserAccessManager::class,
+        Domain\Contracts\CreateAccountManagerContract::class => Infrastructure\Managers\VerifyUserAccessManager::class,
+        Domain\Repositories\UserRoleRepository::class => Infrastructure\Eloquent\Repositories\EloquentUserRoleRepository::class,
+        Domain\Repositories\AccountRepository::class => Infrastructure\Eloquent\Repositories\EloquentAccountRepository::class,
     ];
 
     public function boot(): void

@@ -19,7 +19,7 @@ final class User extends Authenticatable
     /**
      * @var array<int,string>
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $guarded = ['id', 'email_verified_at', 'created_at', 'updated_at'];
 
     /**
      * @var array<int,string>
@@ -29,9 +29,7 @@ final class User extends Authenticatable
     /**
      * @var array<string,string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = ['email_verified_at' => 'datetime'];
 
     /**
      * @return BelongsToMany<Role>

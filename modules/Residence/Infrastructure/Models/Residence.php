@@ -18,6 +18,8 @@ final class Residence extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected $guarded = ['id', 'updated_at', 'created_at'];
+
     /**
      * @return HasMany<Reservation>
      */

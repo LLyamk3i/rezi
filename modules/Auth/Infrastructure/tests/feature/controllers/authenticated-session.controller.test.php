@@ -1,12 +1,10 @@
 <?php
 
-use Laravel\Sanctum\Sanctum;
-use function Pest\Laravel\json;
 use function Pest\Laravel\postJson;
-
 use function Pest\Laravel\deleteJson;
 use function PHPUnit\Framework\assertCount;
 
+use Laravel\Sanctum\Sanctum;
 use Modules\Auth\Infrastructure\Models\User;
 
 uses(

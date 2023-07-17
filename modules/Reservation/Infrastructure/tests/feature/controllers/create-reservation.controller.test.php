@@ -44,7 +44,6 @@ it(description: 'can create reservation', closure: function (): void {
     ));
 
     $response = actingAs(user: $user)->postJson(uri: '/api/reservations', data: $data);
-    dd($response->json());
 
     $response->assertCreated();
     $response->assertJson(value: [
