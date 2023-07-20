@@ -6,6 +6,7 @@ declare global {
         Alpine: Alpine;
     }
 }
+
 function positon_value(value: number | (() => number) | undefined): number | null {
     if (typeof value === 'undefined') {
         return null;
@@ -37,12 +38,15 @@ function map(state: any) {
         state: state,
 
         async init() {
+
+            if(state.initialValue){
+                position.lat = state.initialValue.latitude
+                position.lng = state.initialValue.longitude
+            }
+
             const { Map, AdvancedMarkerElement } = await api();
             const map = new Map(elements.map, { center: position, zoom: 12, mapId: '4504f8b37365c3d0' });
             const marker = new AdvancedMarkerElement({ map, position, gmpDraggable: true });
-
-            this.state = { latitude: position.lat, longitude: position.lng };
-            // this.fields.longitude = position.lng;
 
             marker.addListener('dragend', () => {
                 this.state = {

@@ -26,7 +26,7 @@ class ResidenceResource extends Resource
             Forms\Components\TextInput::make(name: 'rent')->required()->numeric(),
             Forms\Components\TextInput::make(name: 'address')->required()->columnSpan(span: 'full'),
             Forms\Components\Textarea::make(name: 'description')->required()->columnSpan(span: 'full'),
-            AdminForms\Components\Map::make(name: 'location')->columnSpan('full'),
+            AdminForms\Components\Map::make(name: 'location')->required()->columnSpan('full'),
         ]);
     }
 
