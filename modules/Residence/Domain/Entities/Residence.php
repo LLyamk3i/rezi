@@ -12,17 +12,17 @@ use Modules\Residence\Domain\ValueObjects\Location;
 /**
  * @phpstan-type ResidenceFormat array{id:string,name:string,address:string,description:string,distance:string,location:Location,rent:array{value:float,format:string,currency:string}}
  */
-final class Residence
+final readonly class Residence
 {
     public function __construct(
-        public readonly Ulid $id,
-        public readonly string $name,
-        public readonly string $address,
-        public readonly string $description,
-        public readonly Distance $distance,
-        public readonly Location $location,
-        public readonly Price $rent,
-        // public readonly Owner $owner,
+        public Ulid $id,
+        public string $name,
+        public string $address,
+        public string $description,
+        public Distance $distance,
+        public Location $location,
+        public Price $rent,
+        // public Owner $owner,
     ) {
     }
 

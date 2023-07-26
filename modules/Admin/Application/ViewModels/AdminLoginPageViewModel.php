@@ -7,14 +7,12 @@ namespace Modules\Admin\Application\ViewModels;
 class AdminLoginPageViewModel
 {
     /**
-     * @param array<string,string> $attributes
+     * @param array<int,array<string,string>> $fields
      */
     public function __construct(
-        public readonly string $email,
-        public readonly string $label,
+        public readonly array $fields,
         public readonly string $redirect,
         public readonly string $guard,
-        public readonly array $attributes,
     ) {
         //
     }

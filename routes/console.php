@@ -18,12 +18,15 @@ use Illuminate\Support\Facades\Artisan;
 
 Artisan::command(signature: 'inspire', callback: function (): void {
     $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+})->purpose(description: 'Display an inspiring quote');
 
 Artisan::command(signature: 'app:setup', callback: function (): void {
     Artisan::call(command: 'migrate:fresh');
-    app(abstract: \Modules\Auth\Infrastructure\Database\Seeders\RoleTableSeeder::class)->run();
-    app(abstract: \Modules\Admin\Infrastructure\Database\Seeders\AdminSeeder::class)->run();
+
     exec(command: 'unlink ./public/dist');
     exec(command: 'ln -s $(readlink -f ./modules/Admin/resources/frontend/build) $(readlink -f ./public/dist)');
-})->purpose('Set up the application');
+
+    app(abstract: \Modules\Auth\Infrastructure\Database\Seeders\RoleTableSeeder::class)->run();
+    app(abstract: \Modules\Admin\Infrastructure\Database\Seeders\AdminSeeder::class)->run();
+    app(abstract: \Modules\Auth\Infrastructure\Database\Seeders\ProviderSeeder::class)->run();
+})->purpose(description: 'Set up the application');

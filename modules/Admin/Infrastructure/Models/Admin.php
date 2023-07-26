@@ -35,9 +35,28 @@ final class Admin extends Authenticatable implements FilamentUser
 
     public function canAccessFilament(): bool
     {
-        /** @var VerifyUserAccessManagerContract $verify */
+        $key = "auth.{$this->id}.role";
+        $role = session()->get($key);
+
+        if (\is_string(value: $role) && \in_array(needle: $role, haystack: ['provider', 'admin'], strict: true)) {
+            return true;
+        }
+
+        /** @var \Modules\Auth\Infrastructure\Managers\VerifyUserAccessManager $verify */
         $verify = app(abstract: VerifyUserAccessManagerContract::class);
 
-        return $verify->admin(user: new Ulid(value: $this->id));
+        if ($verify->provider(user: new Ulid(value: $this->id))) {
+            session()->put($key, 'provider');
+
+            return true;
+        }
+
+        if ($verify->admin(user: new Ulid(value: $this->id))) {
+            session()->put($key, 'admin');
+
+            return true;
+        }
+
+        return false;
     }
 }

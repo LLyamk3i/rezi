@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Application\UseCases\NearestResidences;
 
-class NearestResidencesJsonViewModel
+final readonly class NearestResidencesJsonViewModel
 {
     /**
      * @param array<int,\Modules\Residence\Domain\Entities\Residence> $data
      */
     public function __construct(
-        public readonly int $status,
-        public readonly bool $success,
-        public readonly string $message,
-        public readonly array $data,
+        public int $status,
+        public bool $success,
+        public string $message,
+        public array $data,
     ) {
+        //
     }
 }

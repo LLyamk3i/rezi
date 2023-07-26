@@ -20,6 +20,11 @@ class SharedServiceProvider extends ServiceProvider
         Domain\Adapters\UlidGeneratorAdapterContract::class => Infrastructure\Adapters\UlidGeneratorAdapter::class,
     ];
 
+    public function boot(): void
+    {
+        $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
+    }
+
     public function register(): void
     {
         $this->app->bind(abstract: Timer::class, concrete: static function (Application $app): Timer {

@@ -7,12 +7,12 @@ namespace Modules\Reservation\Domain\UseCases\CreateReservation;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 
-final class CreateReservationRequest
+final readonly class CreateReservationRequest
 {
     public function __construct(
-        public readonly Duration $stay,
-        public readonly Ulid $user,
-        public readonly Ulid $residence,
+        public Duration $stay,
+        public Ulid $user,
+        public Ulid $residence,
     ) {
     }
 }

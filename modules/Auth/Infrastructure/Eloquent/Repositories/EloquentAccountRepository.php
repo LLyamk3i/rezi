@@ -8,10 +8,10 @@ use Modules\Auth\Domain\Entities\User;
 use Modules\Auth\Domain\Repositories\AuthRepository;
 use Modules\Auth\Domain\Repositories\AccountRepository;
 
-final class EloquentAccountRepository implements AccountRepository
+final readonly class EloquentAccountRepository implements AccountRepository
 {
     public function __construct(
-        private readonly AuthRepository $repository,
+        private AuthRepository $repository,
     ) {
         //
     }
@@ -26,7 +26,8 @@ final class EloquentAccountRepository implements AccountRepository
         }
 
         try {
-            return $this->repository->register(user: $user) && $this->repository->bind(user: $user->id, roles: $roles);
+            return $this->repository->register(user: $user)
+                && $this->repository->bind(user: $user->id, roles: $roles);
         } catch (\Throwable $th) {
             report(exception: $th);
 

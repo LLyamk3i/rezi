@@ -9,14 +9,14 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Shared\Domain\ValueObjects\Duration;
 
-final class Reservation
+final readonly class Reservation
 {
     public function __construct(
-        public readonly Duration $stay,
-        public readonly Ulid $user,
-        public readonly Ulid $residence,
-        public readonly Price $cost,
-        public readonly Status $status,
+        public Duration $stay,
+        public Ulid $user,
+        public Ulid $residence,
+        public Price $cost,
+        public Status $status,
     ) {
     }
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\Shared\Domain\ValueObjects;
 
-final class Duration
+final readonly class Duration
 {
     public function __construct(
-        public readonly \DateTime $start,
-        public readonly \DateTime $end,
+        public \DateTime $start,
+        public \DateTime $end,
     ) {
         //
     }

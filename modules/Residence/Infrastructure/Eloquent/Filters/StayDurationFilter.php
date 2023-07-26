@@ -8,11 +8,11 @@ use Illuminate\Database\Query\Builder;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\Contracts\FilterContract;
 
-final class StayDurationFilter implements FilterContract
+final readonly class StayDurationFilter implements FilterContract
 {
     public function __construct(
-        private readonly Builder $query,
-        private readonly Duration $payload,
+        private Builder $query,
+        private Duration $payload,
     ) {
         //
     }

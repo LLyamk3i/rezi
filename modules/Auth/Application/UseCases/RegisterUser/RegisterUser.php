@@ -12,10 +12,10 @@ use Modules\Auth\Domain\UseCases\RegisterUser\RegisterUserContract;
 use Modules\Auth\Domain\UseCases\RegisterUser\RegisterUserResponse;
 use Modules\Auth\Domain\UseCases\RegisterUser\RegisterUserPresenterContract;
 
-final class RegisterUser implements RegisterUserContract
+final readonly class RegisterUser implements RegisterUserContract
 {
     public function __construct(
-        private readonly AuthRepository $repository,
+        private AuthRepository $repository,
     ) {
         //
     }

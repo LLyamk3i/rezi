@@ -22,7 +22,6 @@ final class AppServiceProvider extends ServiceProvider
         if (\boolval(value: $this->app->environment('local'))) {
             $this->app->register(provider: \Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(provider: \App\Providers\TelescopeServiceProvider::class);
-            $this->app->register(provider: \App\Providers\EloquentServiceProvider::class);
         }
     }
 }

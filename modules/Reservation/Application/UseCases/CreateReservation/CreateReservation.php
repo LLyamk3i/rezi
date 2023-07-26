@@ -15,13 +15,13 @@ use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationContr
 use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationResponse;
 use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationPresenterContract;
 
-final class CreateReservation implements CreateReservationContract
+final readonly class CreateReservation implements CreateReservationContract
 {
     public function __construct(
-        private readonly ReservationRepository $reservationRepository,
-        private readonly ResidenceRepository $residenceRepository,
-        private readonly CalculateReservationCostService $calculator,
-        private readonly CreateReservationResponse $response,
+        private ReservationRepository $reservationRepository,
+        private ResidenceRepository $residenceRepository,
+        private CalculateReservationCostService $calculator,
+        private CreateReservationResponse $response,
     ) {
     }
 

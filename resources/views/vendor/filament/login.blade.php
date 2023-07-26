@@ -2,7 +2,9 @@
     @env('local')
     @inject('model', AdminLoginPageViewModel::class)
     <section>
-        <x-login-link :email="$model->email" :guard="$model->guard" :label="$model->label" :redirect-url="$model->redirect" />
+        @foreach ($model->fields as $field)
+            <x-login-link :email="$field['email']" :label="$field['label']" :guard="$model->guard" :redirect-url="$model->redirect" />
+        @endforeach
     </section>
     @endenv
     <form wire:submit.prevent="authenticate" class="space-y-8">

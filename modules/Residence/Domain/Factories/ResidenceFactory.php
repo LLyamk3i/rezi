@@ -11,7 +11,7 @@ use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
 /**
- * @phpstan-type ResidenceRecord array{id:string,name:string,address:string,description?:string,distance?:float,latitude?:float,longitude?:float,rent?:float}
+ * @phpstan-type ResidenceRecord array{id:string,user_id:string,name:string,address:string,description?:string,distance?:float,latitude?:float,longitude?:float,rent?:float}
  */
 class ResidenceFactory
 {

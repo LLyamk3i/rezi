@@ -20,7 +20,7 @@ uses(\Tests\SqliteTestCase::class);
 //     \Illuminate\Foundation\Testing\LazilyRefreshDatabase::class,
 // );
 
-test(description: 'create method can create user with owner role', closure: function () {
+test(description: 'it can create user with owner role', closure: function () {
     Artisan::call(command: 'migrate', parameters: ['--path' => 'modules/Auth/Infrastructure/Database/Migrations']);
 
     $role = Role::factory()->create(attributes: ['name' => Roles::OWNER]);
@@ -52,7 +52,7 @@ test(description: 'create method can create user with owner role', closure: func
     ]);
 });
 
-test(description: 'create method can create user with owner and admin role', closure: function () {
+test(description: 'it can create user with owner and admin role', closure: function () {
     Artisan::call(command: 'migrate', parameters: ['--path' => 'modules/Auth/Infrastructure/Database/Migrations']);
 
     $roles = Role::factory()
@@ -91,7 +91,7 @@ test(description: 'create method can create user with owner and admin role', clo
     ]);
 });
 
-test(description: 'create method cannot create user without role', closure: function () {
+test(description: 'it cannot create user without role', closure: function () {
     Artisan::call(command: 'migrate', parameters: ['--path' => 'modules/Auth/Infrastructure/Database/Migrations']);
 
     $repository = new EloquentAccountRepository(repository: new EloquentAuthRepository());

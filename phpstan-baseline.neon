@@ -11,6 +11,26 @@ parameters:
 			path: app/Database/ConnectionFactory.php
 
 		-
+			message: "#^Parameter \\#1 \\$data \\(array\\{user_id\\: string, location\\: array\\{latitude\\: float, longitude\\: float\\}\\}\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\CreateResidence\\:\\:mutateFormDataBeforeCreate\\(\\) should be contravariant with parameter \\$data \\(array\\) of method Filament\\\\Resources\\\\Pages\\\\CreateRecord\\:\\:mutateFormDataBeforeCreate\\(\\)$#"
+			count: 1
+			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/CreateResidence.php
+
+		-
+			message: "#^Parameter \\#1 \\$data \\(array\\{user_id\\: string, latitude\\: float, longitude\\: float\\}\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\EditResidence\\:\\:mutateFormDataBeforeFill\\(\\) should be contravariant with parameter \\$data \\(array\\) of method Filament\\\\Resources\\\\Pages\\\\EditRecord\\:\\:mutateFormDataBeforeFill\\(\\)$#"
+			count: 1
+			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/EditResidence.php
+
+		-
+			message: "#^Parameter \\#1 \\$data \\(array\\{user_id\\: string, location\\: array\\{latitude\\: float, longitude\\: float\\}\\}\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\EditResidence\\:\\:mutateFormDataBeforeSave\\(\\) should be contravariant with parameter \\$data \\(array\\) of method Filament\\\\Resources\\\\Pages\\\\EditRecord\\:\\:mutateFormDataBeforeSave\\(\\)$#"
+			count: 1
+			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/EditResidence.php
+
+		-
+			message: "#^Parameter \\#1 \\$key \\(string\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\EditResidence\\:\\:resolveRecord\\(\\) should be contravariant with parameter \\$key \\(mixed\\) of method Filament\\\\Resources\\\\Pages\\\\EditRecord\\:\\:resolveRecord\\(\\)$#"
+			count: 1
+			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/EditResidence.php
+
+		-
 			message: "#^Parameter \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\|string\\)\\: array\\{user_id\\: string, role_id\\: mixed\\}, Closure\\(array\\)\\: array\\{user_id\\: string, role_id\\: mixed\\} given\\.$#"
 			count: 1
 			path: modules/Auth/Infrastructure/Eloquent/Repositories/EloquentAuthRepository.php
@@ -29,6 +49,11 @@ parameters:
 			message: "#^Called 'first' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: modules/Residence/Infrastructure/Eloquent/Repositories/EloquentResidenceRepository.php
+
+		-
+			message: "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphOne\\<Modules\\\\Shared\\\\Infrastructure\\\\Models\\\\Media\\>\\:\\:where\\(\\)\\.$#"
+			count: 1
+			path: modules/Residence/Infrastructure/Models/Residence.php
 
 		-
 			message: "#^Undefined variable\\: \\$this$#"

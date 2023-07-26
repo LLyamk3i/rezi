@@ -127,13 +127,6 @@ return [
             'bubble' => false,
             'path' => storage_path(path: 'logs/debugs.log'),
         ],
-
-        'query' => [
-            'enabled' => (bool) env(key: 'LOG_QUERY_ENABLED', default: false),
-            'driver' => 'single',
-            'tap' => [\App\Logging\QueryFormatter::class],
-            'path' => storage_path(path: 'logs/queries.log'),
-        ],
     ],
 
 ];

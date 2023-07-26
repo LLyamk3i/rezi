@@ -7,11 +7,11 @@ namespace Modules\Residence\Infrastructure\Eloquent\Filters;
 use Illuminate\Database\Query\Builder;
 use Modules\Residence\Domain\Contracts\FilterContract;
 
-final class KeywordFilter implements FilterContract
+final readonly class KeywordFilter implements FilterContract
 {
     public function __construct(
-        private readonly Builder $query,
-        private readonly string $payload,
+        private Builder $query,
+        private string $payload,
     ) {
         //
     }

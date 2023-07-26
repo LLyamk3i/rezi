@@ -10,10 +10,10 @@ use Modules\Residence\Domain\Factories\ResidenceFactory;
 /**
  * @phpstan-import-type ResidenceRecord from \Modules\Residence\Domain\Factories\ResidenceFactory
  */
-final class ResidenceHydrator
+final readonly class ResidenceHydrator
 {
     public function __construct(
-        private readonly ResidenceFactory $factory,
+        private ResidenceFactory $factory,
     ) {
     }
 

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Domain\UseCases\NearestResidences;
 
-final class NearestResidencesRequest
+final readonly class NearestResidencesRequest
 {
     public function __construct(
-        public readonly float $latitude,
-        public readonly float $longitude,
-        public readonly int $radius = 15,
+        public float $latitude,
+        public float $longitude,
+        public int $radius = 15,
     ) {
     }
 }

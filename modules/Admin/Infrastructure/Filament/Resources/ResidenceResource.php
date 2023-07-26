@@ -50,13 +50,9 @@ class ResidenceResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
+    /**
+     * @return array{index:array<string,string>,create:array<string,string>,edit:array<string,string>}
+     */
     public static function getPages(): array
     {
         return [

@@ -8,11 +8,11 @@ use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
-final class RandomPositionGeneratorService
+final readonly class RandomPositionGeneratorService
 {
     public function __construct(
-        private readonly Location $location,
-        private readonly Radius $radius,
+        private Location $location,
+        private Radius $radius,
     ) {
     }
 

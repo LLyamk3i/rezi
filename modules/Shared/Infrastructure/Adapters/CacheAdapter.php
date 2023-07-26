@@ -7,10 +7,10 @@ namespace Modules\Shared\Infrastructure\Adapters;
 use Illuminate\Cache\CacheManager;
 use Modules\Shared\Domain\Adapters\CacheAdapterContract;
 
-final class CacheAdapter implements CacheAdapterContract
+final readonly class CacheAdapter implements CacheAdapterContract
 {
     public function __construct(
-        private readonly CacheManager $cache,
+        private CacheManager $cache,
     ) {
         //
     }

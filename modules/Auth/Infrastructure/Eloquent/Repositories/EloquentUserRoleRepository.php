@@ -18,11 +18,6 @@ final class EloquentUserRoleRepository implements RepositoriesUserRoleRepository
      */
     public function verify(Ulid $user, array $roles): bool
     {
-
-        // return Role::whereRelation('users', 'id', $user->value)
-        //     ->where(fn ($query)  =>array_walk(array: $roles, callback: fn (string $role) => $query->where('name', $role)))
-        //     ->exists();
-
         if ($roles === []) {
             return false;
         }

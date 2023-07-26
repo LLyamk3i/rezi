@@ -11,10 +11,10 @@ use Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesContract;
 use Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesResponse;
 use Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesPresenterContract;
 
-final class SearchResidences implements SearchResidencesContract
+final readonly class SearchResidences implements SearchResidencesContract
 {
     public function __construct(
-        private readonly ResidenceRepository $repository,
+        private ResidenceRepository $repository,
     ) {
         //
     }

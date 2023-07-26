@@ -12,6 +12,9 @@ final class ListResidences extends ListRecords
 {
     protected static string $resource = ResidenceResource::class;
 
+    /**
+     * @return array<int,\Filament\Pages\Actions\Action>
+     */
     protected function getActions(): array
     {
         return [

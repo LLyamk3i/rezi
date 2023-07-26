@@ -29,8 +29,8 @@ class DistanceCalculatorService
 
         // Calcul de la distance en kilomètres
         $pow = [
-            'latitude' => pow(num: sin(num: $difference['latitude'] / 2), exponent: 2),
-            'longitude' => pow(num: sin(num: $difference['longitude'] / 2), exponent: 2),
+            'latitude' => sin(num: $difference['latitude'] / 2) ** 2,
+            'longitude' => sin(num: $difference['longitude'] / 2) ** 2,
         ];
 
         $distance = 2 * Distance::EARTH_RADIUS * $this->asin(

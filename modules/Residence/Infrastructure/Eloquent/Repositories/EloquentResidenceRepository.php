@@ -19,11 +19,11 @@ use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
 /**
  * @phpstan-import-type ResidenceRecord from \Modules\Residence\Domain\Factories\ResidenceFactory
  */
-final class EloquentResidenceRepository implements ResidenceRepository
+final readonly class EloquentResidenceRepository implements ResidenceRepository
 {
     public function __construct(
-        private readonly ResidenceFactory $factory,
-        private readonly ResidenceHydrator $hydrator,
+        private ResidenceFactory $factory,
+        private ResidenceHydrator $hydrator,
     ) {
     }
 

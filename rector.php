@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use Rector\Config\RectorConfig;
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
-
-return static function (RectorConfig $rectorConfig): void {
+return static function (Rector\Config\RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/app',
         __DIR__ . '/config',
@@ -35,12 +32,12 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     // register a single rule
-    $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
+    $rectorConfig->rule(\Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector::class);
 
     // define sets of rules
     $rectorConfig->sets([
-        \Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_81,
-        \RectorLaravel\Set\LaravelSetList::LARAVEL_90,
+        \Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_82,
+        \RectorLaravel\Set\LaravelSetList::LARAVEL_100,
         \RectorLaravel\Set\LaravelSetList::LARAVEL_CODE_QUALITY,
         \Rector\Set\ValueObject\SetList::CODE_QUALITY,
         \Rector\Set\ValueObject\SetList::CODING_STYLE,

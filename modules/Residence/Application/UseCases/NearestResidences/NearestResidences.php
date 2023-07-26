@@ -12,10 +12,10 @@ use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesContrac
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesResponse;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesPresenterContract;
 
-final class NearestResidences implements NearestResidencesContract
+final readonly class NearestResidences implements NearestResidencesContract
 {
     public function __construct(
-        private readonly ResidenceRepository $repository,
+        private ResidenceRepository $repository,
     ) {
     }
 
