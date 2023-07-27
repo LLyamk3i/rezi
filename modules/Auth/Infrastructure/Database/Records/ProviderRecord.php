@@ -11,11 +11,16 @@ final class ProviderRecord
      */
     public static function data(): array
     {
-        return [
-            'email' => 'provider@resi.com',
-            'name' => 'provider',
-            'surname' => 'provider',
+        return [[
+            'email' => 'davon.provider@resi.com',
+            'name' => 'davon',
+            'surname' => 'romaguera',
             'password' => 'Pa$$w0rd!',
-        ];
+        ], [
+            'email' => 'kobe.provider@resi.com',
+            'name' => 'kobe',
+            'surname' => 'stroman',
+            'password' => 'Pa$$w0rd!',
+        ]];
     }
 }

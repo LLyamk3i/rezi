@@ -19,9 +19,8 @@ class ProviderSeeder extends Seeder
 
     public function run(): void
     {
-        $this->create->provider(attributes: [
-            ...ProviderRecord::data(),
-            'id' => Ulid::generate(),
-        ]);
+        foreach (ProviderRecord::data() as $record) {
+            $this->create->provider(attributes: [...$record, 'id' => Ulid::generate()]);
+        }
     }
 }
