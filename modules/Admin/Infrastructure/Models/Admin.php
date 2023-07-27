@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Models;
 
+use Modules\Auth\Domain\Enums\Roles;
 use Filament\Models\Contracts\FilamentUser;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,7 +39,7 @@ final class Admin extends Authenticatable implements FilamentUser
         $key = "auth.{$this->id}.role";
         $role = session()->get($key);
 
-        if (\is_string(value: $role) && \in_array(needle: $role, haystack: ['provider', 'admin'], strict: true)) {
+        if (\in_array(needle: $role, haystack: [Roles::PROVIDER, Roles::ADMIN], strict: true)) {
             return true;
         }
 
@@ -46,13 +47,13 @@ final class Admin extends Authenticatable implements FilamentUser
         $verify = app(abstract: VerifyUserAccessManagerContract::class);
 
         if ($verify->provider(user: new Ulid(value: $this->id))) {
-            session()->put($key, 'provider');
+            session()->put($key, Roles::PROVIDER);
 
             return true;
         }
 
         if ($verify->admin(user: new Ulid(value: $this->id))) {
-            session()->put($key, 'admin');
+            session()->put($key, Roles::ADMIN);
 
             return true;
         }

@@ -32,5 +32,6 @@ storage/framework/testing/*
 storage/logs/*
 stubs/*
 tests/*
+todo.md
 trash/*
 yarn-error.log

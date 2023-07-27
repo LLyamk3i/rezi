@@ -38,5 +38,5 @@ deptrac:
       hidden_layers: []
       groups: []
       point_to_groups: false
-  
+
   ignore_uncovered_internal_classes: false

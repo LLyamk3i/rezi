@@ -29,6 +29,7 @@ factory_file=$(file_path "database/factories" $model)
 migration_file=$(file_path "database/migrations" $model)
 resource_file=$(file_path "app/Http/Resources" $model)
 controller_file=$(file_path "app/Http/Controllers" $model)
+policy_file=$(file_path "app/Policies" $model)
 
 echo "$resource_file"
 
@@ -38,6 +39,7 @@ echo "$resource_file"
 [ -n "$migration_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Migrations"
 [ -n "$resource_file" ] && mkdir -p "modules/${module}/Infrastructure/Resources"
 [ -n "$controller_file" ] && mkdir -p "modules/${module}/Infrastructure/Http/Controllers"
+[ -n "$policy_file" ] && mkdir -p "modules/${module}/Infrastructure/Policies"
 
 # # # # Déplacer les fichiers dans le module
 [ -n "$model_file" ] && phpactor class:move "$model_file" "modules/${module}/Infrastructure/Models/"
@@ -46,6 +48,7 @@ echo "$resource_file"
 [ -n "$resource_file" ] && phpactor class:move "$resource_file" "modules/${module}/Infrastructure/Resources/"
 [ -n "$controller_file" ] && phpactor class:move "$controller_file" "modules/${module}/Infrastructure/Http/Controllers/"
 [ -n "$migration_file" ] && mv "$migration_file" "modules/${module}/Infrastructure/Database/Migrations/"
+[ -n "$policy_file" ] && phpactor class:move "$policy_file" "modules/${module}/Infrastructure/Policies/"
 
 # # # Confirmer l'achèvement
 echo "fichiers déplacés: $model_file $seeder_file $factory_file $migration_file $resource_file"

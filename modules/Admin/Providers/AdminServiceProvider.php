@@ -17,6 +17,8 @@ class AdminServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(provider: RouteServiceProvider::class);
+        $this->app->register(provider: AuthServiceProvider::class);
+
         $this->app->singleton(abstract: \AdminLoginPageViewModel::class, concrete: static fn () => AdminLoginPageViewModelFactory::make());
     }
 }

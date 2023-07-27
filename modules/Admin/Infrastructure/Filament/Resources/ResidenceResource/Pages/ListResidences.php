@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource\Pages;
 
 use Filament\Pages\Actions;
+use Modules\Auth\Domain\Enums\Roles;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
+use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource;
 
 final class ListResidences extends ListRecords
@@ -20,5 +23,16 @@ final class ListResidences extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+    protected function getTableQuery(): Builder
+    {
+        $query = Residence::query();
+        $user_id = auth()->id();
+
+        return match (session()->get("auth.{$user_id}.role")) {
+            Roles::PROVIDER => $query->where('user_id', $user_id),
+            Roles::ADMIN => $query,
+        };
     }
 }
