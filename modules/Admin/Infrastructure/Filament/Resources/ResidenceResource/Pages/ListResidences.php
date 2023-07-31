@@ -10,6 +10,7 @@ use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource;
+use Modules\Admin\Infrastructure\DataTransfertObjects\AuthenticatedObject;
 
 final class ListResidences extends ListRecords
 {
@@ -30,7 +31,7 @@ final class ListResidences extends ListRecords
         $query = Residence::query();
         $user_id = auth()->id();
 
-        return match (session()->get("auth.{$user_id}.role")) {
+        return match (AuthenticatedObject::make()->role(id: $user_id)) {
             Roles::PROVIDER => $query->where('user_id', $user_id),
             Roles::ADMIN => $query,
         };

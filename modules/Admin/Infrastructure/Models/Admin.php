@@ -9,6 +9,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Modules\Auth\Domain\Contracts\VerifyUserAccessManagerContract;
+use Modules\Admin\Infrastructure\DataTransfertObjects\AuthenticatedObject;
 
 final class Admin extends Authenticatable implements FilamentUser
 {
@@ -36,7 +37,7 @@ final class Admin extends Authenticatable implements FilamentUser
 
     public function canAccessFilament(): bool
     {
-        $key = "auth.{$this->id}.role";
+        $key = AuthenticatedObject::make()->key(id: $this->id, suffix: 'role');
         $role = session()->get($key);
 
         if (\in_array(needle: $role, haystack: [Roles::PROVIDER, Roles::ADMIN], strict: true)) {

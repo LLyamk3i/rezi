@@ -8,7 +8,7 @@ use Modules\Shared\Domain\Exceptions\InvalidValueObjectException;
 
 final readonly class Price
 {
-    public const CURRENCY = 'FCFA';
+    public const CURRENCY = 'Franc CFA';
 
     public function __construct(
         public float $value,

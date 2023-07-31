@@ -17,6 +17,7 @@ final class Residence extends Model
     use \Illuminate\Database\Eloquent\Concerns\HasUlids;
 
     protected $casts = [
+        'visible' => 'boolean',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
@@ -36,8 +37,7 @@ final class Residence extends Model
      */
     public function cover(): MorphOne
     {
-        return $this->morphOne(related: Media::class, name: 'fileable')
-            ->where('type', MediaType::Poster);
+        return $this->morphOne(related: Media::class, name: 'fileable')->where('type', MediaType::Poster);
     }
 
     public static function factory(): ResidenceFactory

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string(column: 'address')->nullable();
             $table->string(column: 'description')->nullable();
             $table->point(column: 'location');
+            $table->boolean(column: 'visible')->default(value: true);
 
             $table->ulid(column: 'user_id')->nullable();
 

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Filament\Pages;
-use Filament\Widgets;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -107,7 +105,7 @@ return [
         'namespace' => 'Modules\\Admin\\Infrastructure\\Filament\\Pages',
         'path' => base_path('modules/Admin/Infrastructure/Filament/Pages'),
         'register' => [
-            Pages\Dashboard::class,
+            \Modules\Admin\Infrastructure\Filament\Pages\Dashboard::class,
         ],
     ],
 
