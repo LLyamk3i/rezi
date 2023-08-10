@@ -20,13 +20,13 @@ final class AuthenticatedObject
         return sprintf($this->key . $suffix, $id);
     }
 
-    public function role(string $id): ?Roles
+    public function role(string $id): Roles
     {
         $role = session()->get(key: $this->key(id: $id, suffix: 'role'));
         if ($role instanceof Roles) {
             return $role;
         }
 
-        return null;
+        throw new \RuntimeException(message: 'Role must exist on authenticated user.', code: 1);
     }
 }

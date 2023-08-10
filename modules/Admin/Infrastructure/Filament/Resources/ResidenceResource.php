@@ -34,11 +34,13 @@ class ResidenceResource extends Resource
     {
         return $table
             ->columns(columns: [
-                Tables\Columns\TextColumn::make(name: 'name')->label(label: 'nom'),
-                Tables\Columns\TextColumn::make(name: 'rent')->label(label: 'prix par jour'),
-                Tables\Columns\TextColumn::make(name: 'address')->label(label: 'adresse'),
-                Tables\Columns\TextColumn::make(name: 'description'),
-                Admin\Tables\Columns\VisibilityColumn::make(name: 'visible'),
+                Tables\Columns\TextColumn::make(name: 'name')->sortable()->searchable()->label(label: 'nom'),
+                Tables\Columns\TextColumn::make(name: 'rent')->money()->searchable()->sortable()->label(label: 'prix par jour'),
+                Tables\Columns\TextColumn::make(name: 'address')->searchable()->label(label: 'adresse'),
+                Tables\Columns\TextColumn::make(name: 'description')->searchable(),
+                Admin\Tables\Columns\VisibilityColumn::make(name: 'visible')->sortable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters(filters: [
                 //

@@ -22,7 +22,7 @@ final class ResidencePolicy
      */
     public function view(Admin $admin, Residence $residence): bool
     {
-        return $admin->id === $residence->user_id;
+        return $admin->getAttribute(key: 'id') === $residence->getAttribute(key: 'user_id');
     }
 
     /**
@@ -38,7 +38,7 @@ final class ResidencePolicy
      */
     public function update(Admin $admin, Residence $residence): bool
     {
-        return $admin->id === $residence->user_id;
+        return $admin->getAttribute(key: 'id') === $residence->getAttribute(key: 'user_id');
     }
 
     /**
@@ -46,7 +46,7 @@ final class ResidencePolicy
      */
     public function delete(Admin $admin, Residence $residence): bool
     {
-        return $admin->id === $residence->user_id;
+        return $admin->getAttribute(key: 'id') === $residence->getAttribute(key: 'user_id');
     }
 
     /**

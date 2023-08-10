@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Shared\Domain\Enums\Media as MediaType;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Modules\Reservation\Infrastructure\Models\Reservation;
+use Modules\Residence\Infrastructure\Models\Attributes\VisibleAttribute;
 use Modules\Residence\Infrastructure\Database\Factories\ResidenceFactory;
 
 final class Residence extends Model
@@ -23,6 +24,11 @@ final class Residence extends Model
     ];
 
     protected $guarded = ['id', 'updated_at', 'created_at'];
+
+    public function visible(): VisibleAttribute
+    {
+        return new VisibleAttribute(residence: $this);
+    }
 
     /**
      * @return HasMany<Reservation>
