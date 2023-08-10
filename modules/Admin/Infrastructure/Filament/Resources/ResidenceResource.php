@@ -22,11 +22,11 @@ class ResidenceResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make(name: 'name')->required(),
-            Forms\Components\TextInput::make(name: 'rent')->required()->numeric(),
-            Forms\Components\TextInput::make(name: 'address')->required()->columnSpan(span: 'full'),
+            Forms\Components\TextInput::make(name: 'name')->required()->label(label: 'nom'),
+            Forms\Components\TextInput::make(name: 'rent')->required()->numeric()->prefix(label: 'Franc FCFA')->label(label: 'loyer'),
+            Forms\Components\TextInput::make(name: 'address')->required()->columnSpan(span: 'full')->label(label: 'adresse'),
             Forms\Components\Textarea::make(name: 'description')->required()->columnSpan(span: 'full'),
-            Admin\Forms\Components\Map::make(name: 'location')->required()->columnSpan(span: 'full'),
+            Admin\Forms\Components\Map::make(name: 'location')->required()->columnSpan(span: 'full')->label(label: 'localization'),
         ]);
     }
 
@@ -35,12 +35,13 @@ class ResidenceResource extends Resource
         return $table
             ->columns(columns: [
                 Tables\Columns\TextColumn::make(name: 'name')->sortable()->searchable()->label(label: 'nom'),
-                Tables\Columns\TextColumn::make(name: 'rent')->money()->searchable()->sortable()->label(label: 'prix par jour'),
+                Tables\Columns\TextColumn::make(name: 'rent')->money()->searchable()->sortable()->label(label: 'loyer'),
                 Tables\Columns\TextColumn::make(name: 'address')->searchable()->label(label: 'adresse'),
-                Tables\Columns\TextColumn::make(name: 'description')->searchable(),
+                Tables\Columns\TextColumn::make(name: 'description')->searchable()->toggleable(isToggledHiddenByDefault: true),
                 Admin\Tables\Columns\VisibilityColumn::make(name: 'visible')->sortable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
+                Container\Tables\Columns\ProviderColumn::make(),
+                Admin\Tables\Columns\DateTimeColumn::make(name: 'created_at')->label(label: 'date de création'),
+                Admin\Tables\Columns\DateTimeColumn::make(name: 'updated_at')->label(label: 'date de modification'),
             ])
             ->filters(filters: [
                 //

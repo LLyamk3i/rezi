@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Auth\Infrastructure\Models\User;
 use Modules\Shared\Infrastructure\Models\Media;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Shared\Domain\Enums\Media as MediaType;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Reservation\Infrastructure\Models\Reservation;
 use Modules\Residence\Infrastructure\Models\Attributes\VisibleAttribute;
 use Modules\Residence\Infrastructure\Database\Factories\ResidenceFactory;
@@ -36,6 +38,14 @@ final class Residence extends Model
     public function reservations(): HasMany
     {
         return $this->hasMany(related: Reservation::class);
+    }
+
+    /**
+     * @return BelongsTo<User,Residence>
+     */
+    public function provider(): BelongsTo
+    {
+        return $this->belongsTo(related: User::class, foreignKey: 'user_id');
     }
 
     /**

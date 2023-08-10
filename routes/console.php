@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Process;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Artisan::command(signature: 'inspire', callback: function (): void {
-    $this->comment(Inspiring::quote());
+    $this->comment(string: Inspiring::quote());
 })->purpose(description: 'Display an inspiring quote');
 
 Artisan::command(signature: 'app:setup', callback: function (): void {
@@ -30,3 +32,12 @@ Artisan::command(signature: 'app:setup', callback: function (): void {
     app(abstract: \Modules\Admin\Infrastructure\Database\Seeders\AdminSeeder::class)->run();
     app(abstract: \Modules\Auth\Infrastructure\Database\Seeders\ProviderSeeder::class)->run();
 })->purpose(description: 'Set up the application');
+
+Artisan::command(signature: 'admin:build', callback: function (): int {
+    $result = Process::path(path: __DIR__ . '/../modules/Admin/resources/frontend')
+        ->run(command: 'pnpm run build');
+
+    $this->line(string: $result->output());
+
+    return Command::SUCCESS;
+});

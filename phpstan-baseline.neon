@@ -54,8 +54,3 @@ parameters:
 			message: "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphOne\\<Modules\\\\Shared\\\\Infrastructure\\\\Models\\\\Media\\>\\:\\:where\\(\\)\\.$#"
 			count: 1
 			path: modules/Residence/Infrastructure/Models/Residence.php
-
-		-
-			message: "#^Undefined variable\\: \\$this$#"
-			count: 1
-			path: routes/console.php

@@ -1,0 +1,8 @@
+span {
+    display: inline-block;
+}
+
+thead span::first-letter,
+label span::first-letter {
+    text-transform: uppercase !important;
+}

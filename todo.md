@@ -17,13 +17,14 @@
 - [x] Trouver où mettre la clé "auth".
 - [x] Empêcher un provider de voir, de modifier ou de supprimer les résidences des autres.
 - [x] Permettre a un admin de validé ou de rejeté une résidence fournie par un provider.
-- [] Ajouter la monnaie "Franc CFA" sur les champs de type prix.
-- [] Ajouter sortable sur name et rent.
-- [] Ajouter searchable sur name et rent.
+- [+] Ajouter la monnaie "Franc CFA" sur la colonne de type prix.
+- [+] Ajouter la monnaie "Franc CFA" sur les champs de type prix.
+- [x] Ajouter sortable sur name et rent.
+- [x] Ajouter searchable sur name et rent.
 - [] Ajouter les champs donnés par Noël.
 - [] Ajouter une page de "viewing records" pour permettre à l'admin de voir la résidence.
 - [] Ajouter une couverture d'image dans le listage des résidences.
-- [] Ajouter un script css pour mettre la première lettre des labels, les titles nécessaires en majuscule.
+- [x] Ajouter un style css pour mettre la première lettre des labels, les titles nécessaires en majuscule.
 - [] Ajouter le bouton plus pour mettre au Providers d'ajouter un point fort s'il n'existe pas par default.
 - [] Ajouter les widgets cotés admin, provider.
 
