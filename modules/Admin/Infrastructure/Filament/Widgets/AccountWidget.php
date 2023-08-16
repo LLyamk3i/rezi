@@ -6,7 +6,7 @@ namespace Modules\Admin\Infrastructure\Filament\Widgets;
 
 use Filament\Widgets\Widget;
 
-class AccountWidget extends Widget
+final class AccountWidget extends Widget
 {
     protected static ?int $sort = -3;
 

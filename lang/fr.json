@@ -1,0 +1,15 @@
+{
+    "Visible": "visibilité",
+    "Provider": "prestataire",
+    "Rent": "loyer",
+    "Name": "nom",
+    "Created at": "date de création",
+    "Updated at": "date de modification",
+    "Checkin at": "date de début",
+    "Checkout at": "date de fin",
+    "Cost": "coût",
+    "Address": "adresse",
+    "Location": "localization",
+    "Rooms": "pièces",
+    "Features": "points forts"
+}

@@ -10,7 +10,7 @@ use Modules\Auth\Infrastructure;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-class AuthServiceProvider extends ServiceProvider
+final class AuthServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 use Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesRequest as Request;

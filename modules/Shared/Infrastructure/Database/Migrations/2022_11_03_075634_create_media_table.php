@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string(column: 'fileable_type', length: 4);
             $table->ulid(column: 'fileable_id');
             $table->string(column: 'name', length: 100)->nullable();
-            $table->string(column: 'path', length: 100);
+            $table->string(column: 'path', length: 255);
             $table->string(column: 'type', length: 50)->nullable();
 
             $table->timestamps();

@@ -15,6 +15,7 @@ final class User extends Authenticatable
     use \Laravel\Sanctum\HasApiTokens;
     use \Illuminate\Notifications\Notifiable;
     use \Illuminate\Database\Eloquent\Concerns\HasUlids;
+    use \Illuminate\Database\Eloquent\SoftDeletes;
 
     /**
      * @var array<int,string>

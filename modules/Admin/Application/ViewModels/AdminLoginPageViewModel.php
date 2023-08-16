@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Application\ViewModels;
 
-class AdminLoginPageViewModel
+final class AdminLoginPageViewModel
 {
     /**
      * @param array<int,array<string,string>> $fields

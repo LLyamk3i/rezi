@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Ulid;
-use Modules\Residence\Domain\ValueObjects\Radius;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Domain\Entities\Residence as Entity;

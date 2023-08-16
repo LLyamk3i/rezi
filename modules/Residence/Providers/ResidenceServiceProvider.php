@@ -8,8 +8,9 @@ use Modules\Residence\Domain;
 use Modules\Residence\Application;
 use Modules\Residence\Infrastructure;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
-class ResidenceServiceProvider extends ServiceProvider
+final class ResidenceServiceProvider extends ServiceProvider
 {
     /**
      * @var array<class-string,class-string>
@@ -22,6 +23,9 @@ class ResidenceServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Relation::enforceMorphMap([
+            'resi' => Infrastructure\Models\Residence::class,
+        ]);
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
     }
 

@@ -13,13 +13,16 @@ return new class extends Migration
         Schema::create(table: 'residences', callback: static function (Blueprint $table): void {
             $table->ulid(column: 'id')->primary();
             $table->string(column: 'name');
+            $table->string(column: 'type');
             $table->integer(column: 'rent', unsigned: true);
             $table->string(column: 'address')->nullable();
             $table->string(column: 'description')->nullable();
             $table->point(column: 'location');
-            $table->boolean(column: 'visible')->default(value: true);
+            $table->smallInteger(column: 'rooms', unsigned: true);
+            $table->boolean(column: 'visible')->default(value: false);
 
             $table->ulid(column: 'user_id')->nullable();
+            $table->ulid(column: 'type_id')->nullable();
 
             $table->timestamps();
 

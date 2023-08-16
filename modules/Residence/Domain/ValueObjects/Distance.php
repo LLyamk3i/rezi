@@ -6,7 +6,7 @@ namespace Modules\Residence\Domain\ValueObjects;
 
 use InvalidArgumentException;
 
-class Distance implements \Stringable
+final class Distance implements \Stringable
 {
     public const EARTH_RADIUS = 6371;
 

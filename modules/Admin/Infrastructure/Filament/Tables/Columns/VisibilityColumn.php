@@ -11,7 +11,8 @@ final class VisibilityColumn
     public static function make(string $name): BadgeColumn
     {
         return BadgeColumn::make(name: $name)
-            ->label(label: 'visibilité')
+            ->sortable()
+            ->translateLabel()
             ->enum(options: [false => 'désactivé', true => 'activé'])
             ->icons(icons: ['heroicon-o-x-circle' => false, 'heroicon-s-check-circle' => true])
             ->colors(colors: ['danger' => false, 'success' => true]);

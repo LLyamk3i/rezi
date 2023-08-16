@@ -1,7 +1,7 @@
 span {
     display: inline-block;
 }
-
+li.filament-sidebar-item  span::first-letter,
 thead span::first-letter,
 label span::first-letter {
     text-transform: uppercase !important;

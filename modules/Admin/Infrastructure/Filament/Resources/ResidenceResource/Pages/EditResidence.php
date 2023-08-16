@@ -37,12 +37,12 @@ final class EditResidence extends EditRecord
         $record = Residence::query()->where('id', $key)
             ->first(columns: [
                 '*',
-                DB::raw('ST_X(location) AS latitude'),
-                DB::raw('ST_Y(location) AS longitude'),
+                DB::raw(value: 'ST_X(location) AS latitude'),
+                DB::raw(value: 'ST_Y(location) AS longitude'),
             ]);
 
         if ($record === null) {
-            throw (new ModelNotFoundException())->setModel(Residence::class, [$key]);
+            throw (new ModelNotFoundException())->setModel(model: Residence::class, ids: [$key]);
         }
 
         return $record;
@@ -58,8 +58,8 @@ final class EditResidence extends EditRecord
         return [
             ...$data,
             'location' => [
-                'latitude' => $data['latitude'],
-                'longitude' => $data['longitude'],
+                'lat' => $data['latitude'],
+                'lng' => $data['longitude'],
             ],
         ];
     }
@@ -71,11 +71,11 @@ final class EditResidence extends EditRecord
      */
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $location = $data['location'];
-
         return [
             ...$data,
-            'location' => DB::raw("ST_PointFromText('POINT({$location['latitude']} {$location['longitude']})')"),
+            'location' => DB::raw(
+                value: "ST_PointFromText('POINT({$data['location']['latitude']} {$data['location']['longitude']})')"
+            ),
         ];
     }
 }

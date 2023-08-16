@@ -7,7 +7,9 @@ namespace Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource\Tabl
 use Filament\Tables\Actions\Action;
 use Modules\Auth\Domain\Enums\Roles;
 use Modules\Residence\Infrastructure\Models\Residence;
+
 use function Modules\Shared\Infrastructure\Helpers\string_value;
+
 use Modules\Admin\Infrastructure\DataTransfertObjects\AuthenticatedObject;
 
 use Modules\Admin\Infrastructure\Filament\Tables\Actions\ToggleVisibilityAction;

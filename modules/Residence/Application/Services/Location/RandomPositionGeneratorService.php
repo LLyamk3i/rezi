@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Application\Services\Location;
 
-use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 
 final readonly class RandomPositionGeneratorService
 {

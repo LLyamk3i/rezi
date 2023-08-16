@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Application\UseCases\SearchResidences;
 
-class SearchResidencesJsonViewModel
+final class SearchResidencesJsonViewModel
 {
     /**
      * @param array<int,\Modules\Residence\Domain\Entities\Residence> $data

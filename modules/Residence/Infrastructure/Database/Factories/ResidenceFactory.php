@@ -16,7 +16,7 @@ use function Modules\Shared\Infrastructure\Helpers\integer_value;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Residence\Infrastructure\Models\Residence>
  */
-class ResidenceFactory extends Factory
+final class ResidenceFactory extends Factory
 {
     /**
      * @var class-string<\Modules\Residence\Infrastructure\Models\Residence>
@@ -36,6 +36,7 @@ class ResidenceFactory extends Factory
             'rent' => random_int(min: 15_000, max: 1_000_000),
             'description' => fake()->sentence(),
             'visible' => rand(min: 0, max: 1),
+            'rooms' => rand(min: 1, max: 6),
             'created_at' => now(),
             'updated_at' => now(),
         ];

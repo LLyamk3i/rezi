@@ -9,7 +9,7 @@ use Symfony\Component\Uid\Ulid;
 use Illuminate\Support\Facades\DB;
 use Modules\Auth\Domain\Enums\Roles;
 
-class RoleTableSeeder extends Seeder
+final class RoleTableSeeder extends Seeder
 {
     use \Illuminate\Database\Console\Seeds\WithoutModelEvents;
 

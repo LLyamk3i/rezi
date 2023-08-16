@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Application\UseCases\NearestResidences;
 
-use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesRequest;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesContract;

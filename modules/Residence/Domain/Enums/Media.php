@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shared\Domain\Enums;
+namespace Modules\Residence\Domain\Enums;
 
 enum Media: string
 {
@@ -10,4 +10,5 @@ enum Media: string
 
     case Poster = 'poster';
     case Gallery = 'gallery';
+    case Icon = 'icon';
 }

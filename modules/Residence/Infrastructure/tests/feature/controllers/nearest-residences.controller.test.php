@@ -8,7 +8,7 @@ use PHPUnit\Framework\Assert;
 
 use function Pest\Laravel\getJson;
 use Illuminate\Support\Facades\DB;
-use Modules\Residence\Domain\ValueObjects\Radius;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
 

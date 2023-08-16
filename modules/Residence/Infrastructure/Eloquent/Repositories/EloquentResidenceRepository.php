@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
-use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Domain\Factories\ResidenceFactory;
 use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
 use Modules\Residence\Domain\Entities\Residence as Entity;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
 

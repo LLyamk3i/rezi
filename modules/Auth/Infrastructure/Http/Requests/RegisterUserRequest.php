@@ -9,7 +9,9 @@ use Symfony\Component\Uid\Ulid;
 use Illuminate\Validation\Rules\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use function Modules\Shared\Infrastructure\Helpers\string_value;
+
 use Modules\Shared\Domain\ValueObjects\Ulid as ValueObjectsUlid;
 use Modules\Auth\Domain\UseCases\RegisterUser\RegisterUserRequest as Request;
 

@@ -7,7 +7,7 @@ namespace Modules\Admin\Providers;
 use Illuminate\Support\ServiceProvider;
 use Modules\Admin\Infrastructure\Factories\AdminLoginPageViewModelFactory;
 
-class AdminServiceProvider extends ServiceProvider
+final class AdminServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {

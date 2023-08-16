@@ -14,7 +14,7 @@ use Modules\Reservation\Infrastructure\Models\Reservation;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Reservation\Infrastructure\Models\Reservation>
  */
-class ReservationFactory extends Factory
+final class ReservationFactory extends Factory
 {
     protected $model = Reservation::class;
 

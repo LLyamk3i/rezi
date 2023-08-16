@@ -2,6 +2,7 @@
 
 namespace {{ namespace }};
 
+use Database\Factories\{{ class }}Factory;
 use Illuminate\Database\Eloquent\Model;
 
 class {{ class }} extends Model

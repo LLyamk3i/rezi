@@ -9,7 +9,9 @@ use Modules\Auth\Domain\Enums\Roles;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\Residence\Infrastructure\Models\Residence;
+
 use function Modules\Shared\Infrastructure\Helpers\string_value;
+
 use Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource;
 
 use Modules\Admin\Infrastructure\DataTransfertObjects\AuthenticatedObject;

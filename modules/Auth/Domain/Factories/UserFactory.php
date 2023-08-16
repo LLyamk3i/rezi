@@ -10,7 +10,7 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 /**
  * @phpstan-type UserRecord array{id:string,name:string,surname:string,email:string,password:string}
  */
-class UserFactory
+final class UserFactory
 {
     /**
      * @phpstan-param UserRecord $data

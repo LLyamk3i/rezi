@@ -7,8 +7,8 @@ namespace Modules\Residence\Domain\Repositories;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Residence\Domain\Entities\Residence;
 use Modules\Shared\Domain\ValueObjects\Duration;
-use Modules\Residence\Domain\ValueObjects\Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 
 interface ResidenceRepository
 {

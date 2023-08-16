@@ -23,17 +23,16 @@ final class CreateResidence extends CreateRecord
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-
         if (! \is_string(value: auth()->id())) {
             throw new \UnexpectedValueException(message: 'User id must be string', code: 1);
         }
 
-        $data['user_id'] = auth()->id();
-        $location = $data['location'];
-
         return [
             ...$data,
-            'location' => DB::raw("ST_PointFromText('POINT({$location['latitude']} {$location['longitude']})')"),
+            'user_id' => auth()->id(),
+            'location' => DB::raw(
+                value: "ST_PointFromText('POINT({$data['location']['lat']} {$data['location']['lng']})')"
+            ),
         ];
     }
 }

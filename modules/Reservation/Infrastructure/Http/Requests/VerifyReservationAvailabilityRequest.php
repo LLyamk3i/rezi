@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
+
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class VerifyReservationAvailabilityRequest extends FormRequest

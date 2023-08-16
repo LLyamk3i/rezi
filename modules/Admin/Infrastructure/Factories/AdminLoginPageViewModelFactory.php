@@ -8,7 +8,7 @@ use Modules\Admin\Infrastructure\Database\Records\AdminRecord;
 use Modules\Auth\Infrastructure\Database\Records\ProviderRecord;
 use Modules\Admin\Application\ViewModels\AdminLoginPageViewModel;
 
-class AdminLoginPageViewModelFactory
+final class AdminLoginPageViewModelFactory
 {
     public static function make(): AdminLoginPageViewModel
     {

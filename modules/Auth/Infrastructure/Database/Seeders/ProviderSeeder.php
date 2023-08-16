@@ -9,7 +9,7 @@ use Symfony\Component\Uid\Ulid;
 use Modules\Auth\Domain\Contracts\CreateAccountManagerContract;
 use Modules\Auth\Infrastructure\Database\Records\ProviderRecord;
 
-class ProviderSeeder extends Seeder
+final class ProviderSeeder extends Seeder
 {
     public function __construct(
         private readonly CreateAccountManagerContract $create,

@@ -6,11 +6,12 @@ namespace Modules\Admin\Providers;
 
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
+
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 use Modules\Admin\Infrastructure\Services\ViteManifestRetrieverService;
 
-class FilamentServiceProvider extends ServiceProvider
+final class FilamentServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
