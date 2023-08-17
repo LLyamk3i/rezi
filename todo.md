@@ -4,7 +4,7 @@
 
 - [x] Ajouter une command app:setup pour migrate and seed elements.
 - [] Trouver comment rendre la monnaie "Franc CFA" réutilisable.
-- Régler le bug se suppression de final par ./bin/pint
+- [] Régler le bug se suppression de final par ./bin/pint
 
 ## Module Residence
 
@@ -51,15 +51,15 @@
   - [x] Type de résidence.
   - [x] Nombre de chambres.
   - [x] les points forts d'une résidence.
-- [] Ajouter une page de "viewing records" pour permettre à l'admin de voir la résidence.
-- [] Ajouter le bouton plus pour mettre au Providers d'ajouter un point fort s'il n'existe pas par default.
-- [] Fixer la suppression de la map.
+- [x] Ajouter le bouton plus pour mettre au Providers d'ajouter un point fort s'il n'existe pas par default.
+- [x] Fixer la suppression de la map.
 - [x] Changer l'icon.
 - [x] Refonte des label en utilisant la fonction "translateLabel".
-- [] Créé des enums pour la réutilisation:
+- [x] Créé des enums pour la réutilisation:
   - [x] les labels. (check les enums)
   - [x] les dossiers.
-- [] Tester la création
+- [x] Vérifier la création
+- [] Ajouter une page de "viewing records" pour permettre à l'admin de voir la résidence.
 
 ### ClientResource
 

@@ -3,7 +3,15 @@
     @inject('model', AdminLoginPageViewModel::class)
     <section>
         @foreach ($model->fields as $field)
-            <x-login-link :email="$field['email']" :label="$field['label']" :guard="$model->guard" :redirect-url="$model->redirect" />
+            {{-- blade-formatter-disable --}}
+            <x-dynamic-component
+                component="login-link"
+                :email="$field['email']"
+                :label="$field['label']"
+                :guard="$model->guard"
+                :redirect-url="$model->redirect"
+            />
+            {{-- blade-formatter-enable --}}
         @endforeach
     </section>
     @endenv
