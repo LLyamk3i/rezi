@@ -11,7 +11,12 @@ parameters:
 			path: app/Database/ConnectionFactory.php
 
 		-
-			message: "#^Parameter \\#1 \\$data \\(array\\{user_id\\: string, location\\: array\\{latitude\\: float, longitude\\: float\\}\\}\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\CreateResidence\\:\\:mutateFormDataBeforeCreate\\(\\) should be contravariant with parameter \\$data \\(array\\) of method Filament\\\\Resources\\\\Pages\\\\CreateRecord\\:\\:mutateFormDataBeforeCreate\\(\\)$#"
+			message: "#^Parameter \\$callback of static method Illuminate\\\\Support\\\\Facades\\\\App\\:\\:call\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|string, array\\{mixed, 'run'\\} given\\.$#"
+			count: 1
+			path: database/seeders/DatabaseSeeder.php
+
+		-
+			message: "#^Parameter \\#1 \\$data \\(array\\{user_id\\: string, location\\: array\\{lat\\: float, lng\\: float\\}\\}\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\CreateResidence\\:\\:mutateFormDataBeforeCreate\\(\\) should be contravariant with parameter \\$data \\(array\\) of method Filament\\\\Resources\\\\Pages\\\\CreateRecord\\:\\:mutateFormDataBeforeCreate\\(\\)$#"
 			count: 1
 			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/CreateResidence.php
 
@@ -21,7 +26,7 @@ parameters:
 			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/EditResidence.php
 
 		-
-			message: "#^Parameter \\#1 \\$data \\(array\\{user_id\\: string, location\\: array\\{latitude\\: float, longitude\\: float\\}\\}\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\EditResidence\\:\\:mutateFormDataBeforeSave\\(\\) should be contravariant with parameter \\$data \\(array\\) of method Filament\\\\Resources\\\\Pages\\\\EditRecord\\:\\:mutateFormDataBeforeSave\\(\\)$#"
+			message: "#^Parameter \\#1 \\$data \\(array\\{user_id\\: string, location\\: array\\{lat\\: float, lng\\: float\\}\\}\\) of method Modules\\\\Admin\\\\Infrastructure\\\\Filament\\\\Resources\\\\ResidenceResource\\\\Pages\\\\EditResidence\\:\\:mutateFormDataBeforeSave\\(\\) should be contravariant with parameter \\$data \\(array\\) of method Filament\\\\Resources\\\\Pages\\\\EditRecord\\:\\:mutateFormDataBeforeSave\\(\\)$#"
 			count: 1
 			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/EditResidence.php
 
@@ -31,19 +36,29 @@ parameters:
 			path: modules/Admin/Infrastructure/Filament/Resources/ResidenceResource/Pages/EditResidence.php
 
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Foundation\\\\Auth\\\\User\\>\\:\\:default\\(\\)\\.$#"
+			count: 1
+			path: modules/Admin/Infrastructure/Models/Admin.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:default\\(\\)\\.$#"
+			count: 1
+			path: modules/Admin/Infrastructure/Models/Client.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:default\\(\\)\\.$#"
+			count: 1
+			path: modules/Admin/Infrastructure/Models/Provider.php
+
+		-
 			message: "#^Parameter \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\|string\\)\\: array\\{user_id\\: string, role_id\\: mixed\\}, Closure\\(array\\)\\: array\\{user_id\\: string, role_id\\: mixed\\} given\\.$#"
 			count: 1
 			path: modules/Auth/Infrastructure/Eloquent/Repositories/EloquentAuthRepository.php
 
 		-
-			message: "#^Access to an undefined property Modules\\\\Auth\\\\Infrastructure\\\\Models\\\\User\\:\\:\\$password\\.$#"
+			message: "#^Method Modules\\\\Auth\\\\Infrastructure\\\\Models\\\\User\\:\\:query\\(\\) should return Modules\\\\Auth\\\\Infrastructure\\\\Eloquent\\\\QueryBuilders\\\\UserQueryBuilder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Foundation\\\\Auth\\\\User\\>\\.$#"
 			count: 1
-			path: modules/Auth/Infrastructure/Http/Controllers/AuthenticatedSessionController.php
-
-		-
-			message: "#^Dynamic call to static method Illuminate\\\\Http\\\\Request\\:\\:validate\\(\\)\\.$#"
-			count: 1
-			path: modules/Auth/Infrastructure/Http/Controllers/AuthenticatedSessionController.php
+			path: modules/Auth/Infrastructure/Models/User.php
 
 		-
 			message: "#^Called 'first' on Laravel collection, but could have been retrieved as a query\\.$#"

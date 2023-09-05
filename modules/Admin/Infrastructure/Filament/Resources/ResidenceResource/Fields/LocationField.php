@@ -18,6 +18,6 @@ final class LocationField
             ->geolocateLabel(geolocateLabel: Labels::Geolocate->value)
             ->required()
             ->translateLabel()
-            ->columnSpan(span: 'full');
+            ->columnSpanFull();
     }
 }

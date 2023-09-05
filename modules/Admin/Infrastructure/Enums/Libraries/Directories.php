@@ -7,4 +7,5 @@ namespace Modules\Admin\Infrastructure\Enums\Libraries;
 enum Directories: string
 {
     case Residence = 'images/residences';
+    case Feature = 'images/features';
 }

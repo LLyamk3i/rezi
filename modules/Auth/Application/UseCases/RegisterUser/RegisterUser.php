@@ -31,7 +31,7 @@ final readonly class RegisterUser implements RegisterUserContract
             return;
         }
 
-        if (! $this->repository->bind(user: $request->id, roles: [Roles::CLIENT, Roles::PROVIDER])) {
+        if (! $this->repository->bind(user: $request->id, roles: [Roles::Client, Roles::Provider])) {
             $presenter->present(response: new RegisterUserResponse(
                 failed: true,
                 message: "Échec de l'association du rôle à l'utilisateur. Veuillez réessayer.",

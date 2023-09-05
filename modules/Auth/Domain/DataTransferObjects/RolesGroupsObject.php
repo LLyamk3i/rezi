@@ -13,7 +13,7 @@ final class RolesGroupsObject
      */
     public function owner(): array
     {
-        return [Roles::OWNER, ...$this->admin()];
+        return [Roles::Owner, ...$this->admin()];
     }
 
     /**
@@ -21,7 +21,7 @@ final class RolesGroupsObject
      */
     public function admin(): array
     {
-        return [Roles::ADMIN, ...$this->provider()];
+        return [Roles::Admin, ...$this->provider()];
     }
 
     /**
@@ -29,6 +29,6 @@ final class RolesGroupsObject
      */
     public function provider(): array
     {
-        return [Roles::PROVIDER, Roles::CLIENT, Roles::GUEST];
+        return [Roles::Provider, Roles::Client, Roles::Guest];
     }
 }

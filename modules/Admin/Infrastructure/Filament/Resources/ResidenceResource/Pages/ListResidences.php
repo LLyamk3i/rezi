@@ -40,8 +40,8 @@ final class ListResidences extends ListRecords
         $role = AuthenticatedObject::make()->role(id: $user_id);
 
         return match ($role) {
-            Roles::PROVIDER => $query->where('user_id', $user_id),
-            Roles::ADMIN => $query,
+            Roles::Provider => $query->where('user_id', $user_id),
+            Roles::Admin => $query,
             default => throw new \LogicException(message: "Case '{$role->value}' is not implemented.", code: 1),
         };
     }

@@ -28,12 +28,12 @@ final class RoleFactory extends Factory
 
     public function client(): self
     {
-        return $this->state(state: ['name' => Roles::CLIENT]);
+        return $this->state(state: ['name' => Roles::Client]);
     }
 
     public function provider(): self
     {
         return $this->count(count: 2)
-            ->sequence(['name' => Roles::CLIENT], ['name' => Roles::PROVIDER]);
+            ->sequence(['name' => Roles::Client], ['name' => Roles::Provider]);
     }
 }

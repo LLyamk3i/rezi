@@ -14,23 +14,27 @@ use Modules\Admin\Infrastructure\Enums\Libraries\Directories;
 final class MediaUpload
 {
     /**
+     * @param array<int,string> $mimes
+     *
      * @return array<int,Field>
      */
     public static function make(
         Media $type,
         Directories $directory,
         bool $named = false,
-        bool $required = false
+        bool $required = false,
+        array $mimes = []
     ): array {
-        $field = FileUpload::make(name: 'path');
+        $file = FileUpload::make(name: 'path');
         if ($required) {
-            $field->required();
+            $file->required();
         }
+        $mimes === [] ? $file->image() : $file->acceptedFileTypes(types: $mimes);
 
         return array_filter(array: [
             $named ? TextInput::make(name: 'name')->translateLabel()->columnSpan(span: 'full') : null,
             Hidden::make(name: 'type')->default(state: $type->value),
-            $field
+            $file
                 ->directory(directory: $directory->value)
                 ->columnSpan(span: 'full')
                 ->label(label: 'fichier'),

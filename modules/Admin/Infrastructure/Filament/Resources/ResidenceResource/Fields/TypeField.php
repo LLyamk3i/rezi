@@ -11,14 +11,17 @@ final class TypeField
 {
     public static function make(): Select
     {
-        return Select::make(name: 'type')
+        return Select::make(name: 'type_id')
             ->relationship(relationshipName: 'type', titleColumnName: 'name')
             ->searchable()
             ->preload()
             ->required()
             ->translateLabel()
             ->createOptionForm([
-                TextInput::make(name: 'name')->required()->maxLength(length: 255),
+                TextInput::make(name: 'name')
+                    ->required()
+                    ->translateLabel()
+                    ->maxLength(length: 255),
             ]);
     }
 }

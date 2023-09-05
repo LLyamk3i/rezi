@@ -25,6 +25,7 @@ final class ResidenceServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'resi' => Infrastructure\Models\Residence::class,
+            'feat' => Infrastructure\Models\Feature::class,
         ]);
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
     }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Admin\Infrastructure\Enums\Libraries\Labels;
 use Filament\Tables\Columns\ImageColumn as FilamentImageColumn;
 
-final class ImageColumn
+final class ImageColum
 {
     public static function make(): FilamentImageColumn
     {

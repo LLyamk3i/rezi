@@ -25,13 +25,13 @@ final class ResidenceResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make(name: 'name')->required()->translateLabel(),
+            Forms\Components\TextInput::make(name: 'name')->required(),
             Forms\Components\TextInput::make(name: 'rent')->required()->numeric()->translateLabel()->prefix(label: 'Franc FCFA'),
             Forms\Components\TextInput::make(name: 'address')->required()->translateLabel(),
             Forms\Components\TextInput::make(name: 'rooms')->required()->numeric()->translateLabel()->minValue(value: 1)->maxValue(value: 8),
             Container\Fields\TypeField::make(),
             Container\Fields\FeaturesField::make(),
-            Forms\Components\Textarea::make(name: 'description')->columnSpan(span: 'full'),
+            Forms\Components\Textarea::make(name: 'description')->columnSpanFull(),
             Container\Fields\PosterField::make(),
             Container\Fields\LocationField::make(),
         ]);

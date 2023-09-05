@@ -6,7 +6,7 @@ namespace Modules\Shared\Infrastructure\Helpers;
 
 function string_value(mixed $value): string
 {
-    if (! \is_string($value)) {
+    if (! \is_string(value: $value)) {
         throw new \InvalidArgumentException(message: 'the value received is not a string');
     }
 
@@ -15,7 +15,7 @@ function string_value(mixed $value): string
 
 function boolean_value(mixed $value): bool
 {
-    if (! \is_bool($value)) {
+    if (! \is_bool(value: $value)) {
         throw new \InvalidArgumentException(message: 'the value received is not a boolean');
     }
 
@@ -24,7 +24,7 @@ function boolean_value(mixed $value): bool
 
 function integer_value(mixed $value): int
 {
-    if (! \is_int($value)) {
+    if (! \is_int(value: $value)) {
         throw new \InvalidArgumentException(message: 'the value received is not a integer');
     }
 

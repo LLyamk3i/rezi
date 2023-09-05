@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Auth\Infrastructure\Database\Records;
+namespace Modules\Admin\Infrastructure\Database\Records;
 
 final class ProviderRecord
 {
@@ -14,14 +14,14 @@ final class ProviderRecord
         return [
             [
                 'email' => 'davon.provider@resi.com',
-                'name' => 'davon',
+                'forename' => 'davon',
                 'surname' => 'romaguera',
-                'password' => 'Pa$$w0rd!',
+                'password' => bcrypt(value: 'Pa$$w0rd!'),
             ], [
                 'email' => 'kobe.provider@resi.com',
-                'name' => 'kobe',
+                'forename' => 'kobe',
                 'surname' => 'stroman',
-                'password' => 'Pa$$w0rd!',
+                'password' => bcrypt(value: 'Pa$$w0rd!'),
             ],
         ];
     }

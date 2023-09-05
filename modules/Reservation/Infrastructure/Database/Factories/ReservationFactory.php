@@ -19,20 +19,20 @@ final class ReservationFactory extends Factory
     protected $model = Reservation::class;
 
     /**
-     * @return array{id:string,checkin_at:Carbon,checkout_at:Carbon,user_id:null,residence_id:null,status:mixed,cost:int<10000,500000>,created_at:Carbon,updated_at:Carbon}
+     * @return array{id:string,checkin_at:string,checkout_at:string,user_id:null,residence_id:null,status:mixed,cost:int<10000,500000>,created_at:string,updated_at:string}
      */
     public function definition(): array
     {
         return [
             'id' => Ulid::generate(),
-            'checkin_at' => Carbon::now(),
-            'checkout_at' => Carbon::now()->addDay(),
+            'checkin_at' => (string) Carbon::now(),
+            'checkout_at' => (string) Carbon::now()->addDay(),
             'user_id' => null,
             'residence_id' => null,
             'status' => Arr::random(array: Status::values()),
             'cost' => random_int(min: 10000, max: 500_000),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => (string) Carbon::now(),
+            'updated_at' => (string) Carbon::now(),
         ];
     }
 }

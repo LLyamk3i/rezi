@@ -15,7 +15,7 @@ final class ProviderColumn
 {
     public static function make(): ?TextColumn
     {
-        if (AuthenticatedObject::make()->role(id: string_value(value: auth()->id())) === Roles::PROVIDER) {
+        if (AuthenticatedObject::make()->role(id: string_value(value: auth()->id())) === Roles::Provider) {
             return null;
         }
 

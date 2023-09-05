@@ -3,8 +3,9 @@
 ## Global
 
 - [x] Ajouter une command app:setup pour migrate and seed elements.
+- [x] Créé une class commande app:setup.
 - [] Trouver comment rendre la monnaie "Franc CFA" réutilisable.
-- [] Régler le bug se suppression de final par ./bin/pint
+- [+] Régler le bug se suppression de final par ./bin/pint
 
 ## Module Residence
 
@@ -16,7 +17,7 @@
 
 - [] Ajouter le paiement de sa réservation.
 
-## Module Reservation
+## Module Reservations
 
 - [] Ajouter l'annulation de réservation.
 - [] Notifiez le propriétaire d'une nouvelle réservation.
@@ -26,13 +27,12 @@
 - [] Ajouter les widgets cotés admin, provider.
 - [x] Ajouter ResidenceResource
 - [x] Ajouter ReservationResource
-- [] Ajouter TypeResource
-- [] Ajouter FeatureResource
-- [] Ajouter AdminResource
+- [x] Ajouter TypeResource
+- [x] Ajouter FeatureResource
+- [x] Ajouter AdminResource
 - [x] Ajouter ClientResource
-- [] Créé une class commande app:setup.
 - [x] Ajouter la traduction dans le fichier fr.json
-- [] Créer un ... contenant retournant [Hidden, FileUpload].
+- [x] Créer un ... contenant retournant [Hidden, FileUpload].
 
 
 ### ResidenceResource
@@ -60,6 +60,7 @@
   - [x] les dossiers.
 - [x] Vérifier la création
 - [] Ajouter une page de "viewing records" pour permettre à l'admin de voir la résidence.
+- [] Ajouter un BULK Action pour ajouter plusieurs  images
 
 ### ClientResource
 
@@ -76,3 +77,15 @@
 - [] Ajouter les champs:
   - [] carte d'identité (rector, verso).
 - [] Vérifier le compte avec un code OPT.
+
+## Seeding
+
+- [x] trouver comment injecter les donner appropriés dans la méthode run de chaque seeder.
+- [x] trouver comment rendre les positions random
+- [x] seeder la table residences
+  - [x] la colonne user_id (le propriétaire)
+  - [x] le colonne type_id
+  - [x] les point forts (features) dans la table feature_residence
+- [x] seeder la table reservation
+  - [x] seule les residence visible peuvent être réservées
+- [x] ajouter use \Illuminate\Database\Console\Seeds\WithoutModelEvents; dans toutes les seeders

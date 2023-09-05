@@ -7,7 +7,6 @@ namespace Modules\Residence\Infrastructure\Models;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Auth\Infrastructure\Models\User;
 use Modules\Shared\Infrastructure\Models\Media;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -78,7 +77,7 @@ final class Residence extends Model
     }
 
     /**
-     * @return HasOne<Type>
+     * @return BelongsTo<Type,Residence>
      */
     public function type(): BelongsTo
     {
@@ -86,7 +85,7 @@ final class Residence extends Model
     }
 
     /**
-     * @return BelongsToMany<Feature,Residence>
+     * @return BelongsToMany<Feature>
      */
     public function features(): BelongsToMany
     {

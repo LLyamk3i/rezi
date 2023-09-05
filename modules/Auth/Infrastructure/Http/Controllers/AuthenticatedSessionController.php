@@ -12,30 +12,34 @@ use Illuminate\Validation\ValidationException;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
+use Modules\Auth\Infrastructure\Http\Requests\AuthenticatedSessionRequest;
+
 final class AuthenticatedSessionController
 {
-    public function store(Request $request): JsonResponse
+    public function store(AuthenticatedSessionRequest $request): JsonResponse
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'device' => 'required|string',
-        ]);
+        $user = User::query()->where('email', $request->input(key: 'email'))->first();
 
-        $user = User::where('email', $request->email)->first();
-
-        if (\is_null(value: $user) || ! Hash::check(string_value(value: $request->password), $user->password)) {
-            throw ValidationException::withMessages([
+        if (
+            ! ($user instanceof User)
+            || ! Hash::check(
+                value: $request->str(key: 'password')->toString(),
+                hashedValue: string_value(value: $user->getAttribute(key: 'password'))
+            )
+        ) {
+            throw ValidationException::withMessages(messages: [
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
+
+        $token = $user->createToken(name: $request->str(key: 'device')->toString());
 
         return new JsonResponse(
             status: JsonResponse::HTTP_OK,
             data: [
                 'success' => true,
                 'message' => "L'utilisateur s'est connecté avec succès.",
-                'token' => $user->createToken(string_value(value: $request->device))->plainTextToken,
+                'token' => $token->plainTextToken,
             ]
         );
     }

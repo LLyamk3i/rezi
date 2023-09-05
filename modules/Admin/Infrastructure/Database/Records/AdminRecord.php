@@ -13,9 +13,11 @@ final class AdminRecord
     {
         return [
             'email' => 'admin@resi.com',
-            'name' => 'admin',
+            'forename' => 'admin',
             'surname' => 'admin',
-            'password' => 'Pa$$w0rd!',
+            'password' => bcrypt(
+                value: config(key: 'app.env') === 'production' ? '1INMe5ciws!YctjH2yTcbOL%acf^wwzQ' : 'Pa$$w0rd!'
+            ),
         ];
     }
 }

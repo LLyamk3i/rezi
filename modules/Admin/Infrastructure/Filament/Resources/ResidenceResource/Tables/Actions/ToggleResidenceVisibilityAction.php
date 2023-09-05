@@ -18,7 +18,7 @@ final class ToggleResidenceVisibilityAction
 {
     public static function make(): ?Action
     {
-        if (AuthenticatedObject::make()->role(id: string_value(value: auth()->id())) === Roles::PROVIDER) {
+        if (AuthenticatedObject::make()->role(id: string_value(value: auth()->id())) === Roles::Provider) {
             return null;
         }
 

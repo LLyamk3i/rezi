@@ -74,7 +74,7 @@ final class EditResidence extends EditRecord
         return [
             ...$data,
             'location' => DB::raw(
-                value: "ST_PointFromText('POINT({$data['location']['latitude']} {$data['location']['longitude']})')"
+                value: "ST_PointFromText('POINT({$data['location']['lat']} {$data['location']['lat']})')"
             ),
         ];
     }

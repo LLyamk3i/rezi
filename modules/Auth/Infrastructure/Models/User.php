@@ -7,37 +7,27 @@ namespace Modules\Auth\Infrastructure\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\Auth\Infrastructure\Database\Factories\UserFactory;
+use Modules\Auth\Infrastructure\Eloquent\QueryBuilders\UserQueryBuilder;
 
 final class User extends Authenticatable
 {
-    use \Laravel\Sanctum\HasApiTokens;
-    use \Illuminate\Notifications\Notifiable;
-    use \Illuminate\Database\Eloquent\Concerns\HasUlids;
     use \Illuminate\Database\Eloquent\SoftDeletes;
+    use \Illuminate\Notifications\Notifiable;
+    use \Laravel\Sanctum\HasApiTokens;
+    use \Modules\Shared\Infrastructure\Concerns\Model\UserConcern;
 
-    /**
-     * @var array<int,string>
-     */
-    protected $guarded = ['id', 'email_verified_at', 'created_at', 'updated_at'];
-
-    /**
-     * @var array<int,string>
-     */
-    protected $hidden = ['password', 'remember_token'];
-
-    /**
-     * @var array<string,string>
-     */
-    protected $casts = ['email_verified_at' => 'datetime'];
-
-    /**
-     * @return BelongsToMany<Role>
-     */
-    public function roles(): BelongsToMany
+    public static function query(): UserQueryBuilder
     {
-        return $this->belongsToMany(Role::class);
+        return parent::query();
+    }
+
+    /**
+     * @param \Illuminate\Database\Query\Builder $query
+     */
+    public function newEloquentBuilder($query): UserQueryBuilder
+    {
+        return new UserQueryBuilder(query: $query);
     }
 
     public static function factory(): UserFactory

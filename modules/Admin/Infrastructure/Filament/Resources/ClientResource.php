@@ -7,12 +7,15 @@ namespace Modules\Admin\Infrastructure\Filament\Resources;
 use Filament\Tables;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
-use Modules\Auth\Infrastructure\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Modules\Admin\Infrastructure\Models\Client;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Modules\Admin\Infrastructure\Filament as Admin;
 use Modules\Admin\Infrastructure\Filament\Resources\ClientResource\Pages;
 
 final class ClientResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = Client::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
@@ -23,25 +26,30 @@ final class ClientResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make(name: 'name')->searchable(),
-                Tables\Columns\TextColumn::make(name: 'surname')->searchable(),
-                Tables\Columns\TextColumn::make(name: 'email')->searchable(),
-                Tables\Columns\TextColumn::make(name: 'email_verified_at')->dateTime()->sortable(),
-                Tables\Columns\TextColumn::make(name: 'created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make(name: 'updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
+            ->columns(columns: Admin\Tables\Columns\UserColumns::make())
+            ->filters(filters: [
                 Tables\Filters\TrashedFilter::make(),
             ])
-            ->actions([
+            ->actions(actions: [
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
-            ->bulkActions([
+            ->bulkActions(actions: [
                 Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
+    }
+
+    /**
+     * @return Builder<Client>
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return Client::query()->withoutGlobalScopes(scopes: [
+            SoftDeletingScope::class,
+        ]);
     }
 
     /**

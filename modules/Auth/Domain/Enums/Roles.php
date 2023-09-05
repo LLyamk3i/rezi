@@ -8,9 +8,9 @@ enum Roles: string
 {
     use \ArchTech\Enums\Values;
 
-    case OWNER = 'owner';
-    case ADMIN = 'admin';
-    case PROVIDER = 'provider';
-    case CLIENT = 'client';
-    case GUEST = 'guest';
+    case Owner = 'owner';
+    case Admin = 'admin';
+    case Provider = 'provider';
+    case Client = 'client';
+    case Guest = 'guest';
 }

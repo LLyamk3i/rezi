@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource\Fields;
 
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 
 final class FeaturesField
 {
@@ -16,6 +17,12 @@ final class FeaturesField
             ->searchable()
             ->preload()
             ->required()
-            ->translateLabel();
+            ->translateLabel()
+            ->createOptionForm([
+                TextInput::make(name: 'name')
+                    ->required()
+                    ->translateLabel()
+                    ->maxLength(length: 255),
+            ]);
     }
 }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Domain\ValueObjects;
 
-use InvalidArgumentException;
-
 final class Distance implements \Stringable
 {
     public const EARTH_RADIUS = 6371;
@@ -17,11 +15,11 @@ final class Distance implements \Stringable
         public readonly string $unit = 'km',
     ) {
         if ($value < 0) {
-            throw new InvalidArgumentException(message: 'Value must be a non-negative number');
+            throw new \InvalidArgumentException(message: 'Value must be a non-negative number');
         }
 
         if (! \in_array(needle: $unit, haystack: ['km', 'mi'], strict: true)) {
-            throw new InvalidArgumentException(message: 'Invalid unit provided.');
+            throw new \InvalidArgumentException(message: 'Invalid unit provided.');
         }
     }
 
@@ -44,6 +42,6 @@ final class Distance implements \Stringable
             return new self(value: $this->value * 0.621371192, unit: $unit);
         }
 
-        throw new InvalidArgumentException(message: 'Invalid unit provided.');
+        throw new \InvalidArgumentException(message: 'Invalid unit provided.');
     }
 }

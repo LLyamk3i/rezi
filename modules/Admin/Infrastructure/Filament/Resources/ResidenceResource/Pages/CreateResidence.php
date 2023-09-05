@@ -9,7 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource;
 
 /**
- * @phpstan-type ResidencePostData array{user_id:string,location:array{latitude:float,longitude:float}}
+ * @phpstan-type ResidencePostData array{user_id:string,location:array{lat:float,lng:float}}
  * @phpstan-type ResidencePostDataTransformed array{user_id:string,location:\Illuminate\Contracts\Database\Query\Expression}
  */
 final class CreateResidence extends CreateRecord
