@@ -193,13 +193,13 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
+        // Auth\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         /*
          * Modules Service Providers...
          */
-        \Modules\Auth\Providers\AuthServiceProvider::class,
+        \Modules\Authentication\Providers\AuthenticationServiceProvider::class,
         \Modules\Shared\Providers\SharedServiceProvider::class,
         \Modules\Residence\Providers\ResidenceServiceProvider::class,
         \Modules\Reservation\Providers\ReservationServiceProvider::class,

@@ -53,12 +53,12 @@ parameters:
 		-
 			message: "#^Parameter \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\|string\\)\\: array\\{user_id\\: string, role_id\\: mixed\\}, Closure\\(array\\)\\: array\\{user_id\\: string, role_id\\: mixed\\} given\\.$#"
 			count: 1
-			path: modules/Auth/Infrastructure/Eloquent/Repositories/EloquentAuthRepository.php
+			path: modules/Authentication/Infrastructure/Eloquent/Repositories/EloquentAuthRepository.php
 
 		-
-			message: "#^Method Modules\\\\Auth\\\\Infrastructure\\\\Models\\\\User\\:\\:query\\(\\) should return Modules\\\\Auth\\\\Infrastructure\\\\Eloquent\\\\QueryBuilders\\\\UserQueryBuilder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Foundation\\\\Auth\\\\User\\>\\.$#"
+			message: "#^Method Modules\\\\Authentication\\\\Infrastructure\\\\Models\\\\User\\:\\:query\\(\\) should return Modules\\\\Authentication\\\\Infrastructure\\\\Eloquent\\\\QueryBuilders\\\\UserQueryBuilder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Foundation\\\\Auth\\\\User\\>\\.$#"
 			count: 1
-			path: modules/Auth/Infrastructure/Models/User.php
+			path: modules/Authentication/Infrastructure/Models/User.php
 
 		-
 			message: "#^Called 'first' on Laravel collection, but could have been retrieved as a query\\.$#"

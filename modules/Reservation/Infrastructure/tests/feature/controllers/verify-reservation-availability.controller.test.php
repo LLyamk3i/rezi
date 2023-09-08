@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Modules\Auth\Infrastructure\Models\User;
+use Modules\Authentication\Infrastructure\Models\User;
 
 use Symfony\Component\Uid\Ulid;
 

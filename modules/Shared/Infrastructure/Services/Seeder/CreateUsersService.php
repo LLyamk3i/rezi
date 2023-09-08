@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace Modules\Shared\Infrastructure\Services\Seeder;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Auth\Infrastructure\Models\User;
+use Modules\Authentication\Infrastructure\Models\User;
 
+/**
+ * @phpstan-import-type UserRecord from \Modules\Admin\Infrastructure\Database\Records\OwnerRecord
+ * @phpstan-import-type UserFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\UserFactory
+ */
 final class CreateUsersService
 {
     /**
-     * @param array<int,array{email:string,name:string,surname:string,password:string}> $basic
+     * @phpstan-param array<int,UserRecord> $basic
      *
-     * @return array<int,array{id:string,email:string,name:string,surname:string,password:string}>
+     * @phpstan-return array<int,UserFactoryResponse>
      */
     public function run(int $count, array $basic = []): array
     {

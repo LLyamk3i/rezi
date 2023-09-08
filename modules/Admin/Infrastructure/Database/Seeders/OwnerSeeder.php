@@ -10,6 +10,10 @@ use Modules\Admin\Infrastructure\Database\Records\OwnerRecord;
 use Modules\Shared\Infrastructure\Services\Seeder\SaveUserRoles;
 use Modules\Shared\Infrastructure\Services\Seeder\CreateUsersService;
 
+/**
+ * @phpstan-import-type UserFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\UserFactory
+ * @phpstan-import-type RoleFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\RoleFactory
+ */
 final class OwnerSeeder extends Seeder
 {
     use \Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,9 +26,9 @@ final class OwnerSeeder extends Seeder
     }
 
     /**
-     * @param array<string,array{id:string,name:string,created_at:\Illuminate\Support\Carbon,updated_at:\Illuminate\Support\Carbon}> $roles
+     * @phpstan-param array<string,RoleFactoryResponse> $roles
      *
-     * @return array{owners:array<int,array{id:string,email:string,name:string,surname:string,password:string}>}
+     * @phpstan-return array{owners:array<int,UserFactoryResponse>}
      */
     public function run(array $roles, int $count, bool $persiste): array
     {

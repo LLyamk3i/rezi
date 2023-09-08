@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Eloquent\QueryBuilders;
 
-use Modules\Auth\Domain\Enums\Roles;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\Authentication\Domain\Enums\Roles;
 
 /**
  * @extends Builder<\Modules\Admin\Infrastructure\Models\Admin>

@@ -53,19 +53,19 @@ it(description: 'should find the nearest residences to a given location', closur
     $radius = new Radius(value: 10);
     $generator = new RandomPositionGeneratorService(location: $location, radius: $radius);
 
-    $rows = [];
+    $residences = [];
     // Insert 10 positions within the radius
     for ($i = 1; $i <= 10; $i++) {
         $coordinates = $generator->execute();
-        $rows[] = row(latitude: $coordinates['latitude'], longitude: $coordinates['longitude']);
+        $residences[] = residence_factory(latitude: $coordinates['latitude'], longitude: $coordinates['longitude']);
     }
     // Insert 8 positions outside the radius
     for ($i = 1; $i <= 8; $i++) {
         $coordinates = $generator->execute();
-        $rows[] = row(latitude: $coordinates['latitude'] * 2, longitude: $coordinates['longitude'] * 2);
+        $residences[] = residence_factory(latitude: $coordinates['latitude'] * 2, longitude: $coordinates['longitude'] * 2);
     }
 
-    DB::table(table: 'residences')->insert(values: $rows);
+    DB::table(table: 'residences')->insert(values: $residences);
 
     $result = repository()->nearest(location: $location, radius: $radius);
 

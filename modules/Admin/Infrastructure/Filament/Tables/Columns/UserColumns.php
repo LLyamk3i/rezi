@@ -8,6 +8,9 @@ use Filament\Tables\Columns\TextColumn;
 
 final class UserColumns
 {
+    /**
+     * @return array<int,\Filament\Tables\Columns\Column>
+     */
     public static function make(): array
     {
         return [

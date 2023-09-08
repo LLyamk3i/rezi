@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Auth\Infrastructure\Models\User;
 use Modules\Shared\Infrastructure\Models\Media;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Residence\Domain\Enums\Media as MediaType;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\Reservation\Infrastructure\Models\Reservation;

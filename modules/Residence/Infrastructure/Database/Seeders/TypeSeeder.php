@@ -8,6 +8,9 @@ use Illuminate\Database\Seeder;
 use Symfony\Component\Uid\Ulid;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @phpstan-import-type TypeFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\TypeFactory
+ */
 final class TypeSeeder extends Seeder
 {
     use \Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,7 +21,7 @@ final class TypeSeeder extends Seeder
     ];
 
     /**
-     * @return array{types:array<int,array{id:string,name:string,created_at:string,updated_at:string}>}
+     * @phpstan-return array{types:array<int,TypeFactoryResponse>}
      */
     public function run(bool $persiste): array
     {

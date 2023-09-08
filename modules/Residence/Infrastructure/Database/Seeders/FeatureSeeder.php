@@ -8,6 +8,9 @@ use Illuminate\Database\Seeder;
 use Symfony\Component\Uid\Ulid;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @phpstan-import-type FeatureFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\FeatureFactory
+ */
 final class FeatureSeeder extends Seeder
 {
     private const FEATURES = [
@@ -15,7 +18,7 @@ final class FeatureSeeder extends Seeder
     ];
 
     /**
-     * @return array{features:array<int,array{id:string,name:string,created_at:string,updated_at:string}>}
+     * @phpstan-return array{features:array<int,FeatureFactoryResponse>}
      */
     public function run(bool $persiste): array
     {

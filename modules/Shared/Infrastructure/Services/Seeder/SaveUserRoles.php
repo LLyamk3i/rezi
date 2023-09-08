@@ -7,11 +7,15 @@ namespace Modules\Shared\Infrastructure\Services\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @phpstan-import-type RoleFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\RoleFactory
+ * @phpstan-import-type UserFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\UserFactory
+ */
 final class SaveUserRoles
 {
     /**
-     * @param array<int,array{id:string,email:string,name:string,surname:string,password:string}>                                    $users
-     * @param array<string,array{id:string,name:string,created_at:\Illuminate\Support\Carbon,updated_at:\Illuminate\Support\Carbon}> $roles
+     * @phpstan-param array<int,UserFactoryResponse> $users
+     * @phpstan-param array<string,RoleFactoryResponse> $roles
      */
     public function run(array $users, array $roles): void
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\DataTransfertObjects;
 
-use Modules\Auth\Domain\Enums\Roles;
+use Modules\Authentication\Domain\Enums\Roles;
 
 final class AuthenticatedObject
 {

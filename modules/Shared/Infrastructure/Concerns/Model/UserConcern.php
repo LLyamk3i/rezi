@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Shared\Infrastructure\Concerns\Model;
 
-use Modules\Auth\Infrastructure\Models\Role;
+use Modules\Authentication\Infrastructure\Models\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait UserConcern

@@ -21,7 +21,7 @@ final readonly class RandomPositionGeneratorService
      */
     public function execute(int $precision = 4): array
     {
-        $radius_in_km = $this->radius->value / Distance::LATITUDE_APPROXIMATE_LENGTH;
+        $radius_in_km = $this->radius->value / Distance::EARTH_LATITUDE_APPROXIMATE_LENGTH;
         $random_distance = $radius_in_km * sqrt(num: lcg_value());
         $random_angle = 2 * \M_PI * lcg_value();
         $delta_latitude = $random_distance * cos(num: $random_angle);

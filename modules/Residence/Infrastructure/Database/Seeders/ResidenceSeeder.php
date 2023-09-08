@@ -11,13 +11,16 @@ use Modules\Residence\Infrastructure\Models\Residence;
 
 /**
  * @phpstan-import-type ResidenceFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactory
+ * @phpstan-import-type FeatureFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\FeatureFactory
+ * @phpstan-import-type TypeFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\TypeFactory
+ * @phpstan-import-type UserFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\UserFactory
  */
 final class ResidenceSeeder extends Seeder
 {
     /**
-     * @param array<int,array{id:string,email:string,name:string,surname:string,password:string}> $providers
-     * @param array<int,array{id:string,name:string,created_at:string,updated_at:string}>         $types
-     * @param array<int,array{id:string,name:string,created_at:string,updated_at:string}>         $features
+     * @phpstan-param array<int,UserFactoryResponse> $providers
+     * @phpstan-param array<int,TypeFactoryResponse> $types
+     * @phpstan-param array<int,FeatureFactoryResponse> $features
      *
      * @phpstan-return array{residences:array<int,ResidenceFactoryResponse>}
      */

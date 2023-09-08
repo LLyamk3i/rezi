@@ -28,10 +28,10 @@ final class BoundsCalculatorService
         $asin = asin(num: $radius->value / Distance::EARTH_RADIUS);
         $cos = cos(num: deg2rad(num: $location->latitude));
 
-        if ('min' === $extremity) {
+        if ($extremity === 'min') {
             return $location->longitude - rad2deg(num: $asin / $cos);
         }
-        if ('max' === $extremity) {
+        if ($extremity === 'max') {
             return $location->longitude + rad2deg(num: $asin / $cos);
         }
 

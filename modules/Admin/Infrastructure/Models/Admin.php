@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Models;
 
-use Modules\Auth\Domain\Enums\Roles;
 use Filament\Models\Contracts\HasName;
 use Filament\Models\Contracts\FilamentUser;
 use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Authentication\Domain\Enums\Roles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Modules\Auth\Domain\Contracts\VerifyUserAccessManagerContract;
 use Modules\Admin\Infrastructure\DataTransfertObjects\AuthenticatedObject;
 use Modules\Admin\Infrastructure\Eloquent\QueryBuilders\AdminQueryBuilder;
+use Modules\Authentication\Domain\Contracts\VerifyUserAccessManagerContract;
 
 final class Admin extends Authenticatable implements FilamentUser, HasName
 {
@@ -39,7 +39,7 @@ final class Admin extends Authenticatable implements FilamentUser, HasName
             return true;
         }
 
-        /** @var \Modules\Auth\Infrastructure\Managers\VerifyUserAccessManager $verify */
+        /** @var \Modules\Authentication\Infrastructure\Managers\VerifyUserAccessManager $verify */
         $verify = app(abstract: VerifyUserAccessManagerContract::class);
 
         if ($verify->provider(user: new Ulid(value: $this->id))) {
@@ -59,6 +59,6 @@ final class Admin extends Authenticatable implements FilamentUser, HasName
 
     public function getFilamentName(): string
     {
-        return "{$this->forename} {$this->surname}";
+        return $this->getAttribute(key: 'forename') . ' ' . $this->getAttribute(key: 'surname');
     }
 }

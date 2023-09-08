@@ -7,30 +7,28 @@ use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert;
 
 use function Pest\Laravel\getJson;
+use function Pest\Laravel\handleExceptions;
+
 use Illuminate\Support\Facades\DB;
 use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
+use Modules\Residence\Infrastructure\Models\Residence;
 
 uses(
     \Tests\TestCase::class,
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-function row(float $latitude, float $longitude): array
+function residence_factory(float $latitude, float $longitude): array
 {
-    return [
-        'id' => (string) Str::ulid()->generate(),
-        'name' => fake()->streetAddress(),
-        'location' => DB::raw("ST_PointFromText('POINT({$longitude} {$latitude})')"),
-        'rent' => fake()->randomFloat(nbMaxDecimals: 2, max: 1_000_000),
-        'address' => fake()->address(),
-        'created_at' => now(),
-        'updated_at' => now(),
-    ];
+    return Residence::factory()
+        ->location(value: new Location(...[$latitude, $longitude]))
+        ->make()
+        ->getAttributes();
 }
 
-test(description: 'can not find nearest residence', closure: function (): void {
+it(description: 'can not find nearest residence', closure: function (): void {
     $location = new Location(latitude: 48.864716, longitude: 2.349014); // Center longitude (Paris, France)
     $radius = new Radius(value: 25);
 
@@ -53,24 +51,24 @@ test(description: 'can not find nearest residence', closure: function (): void {
     });
 });
 
-test(description: 'can find nearest residence', closure: function (): void {
+it(description: 'can find nearest residence', closure: function (): void {
     $location = new Location(latitude: 48.864716, longitude: 2.349014); // Center longitude (Paris, France)
     $radius = new Radius(value: 25);
     $generator = new RandomPositionGeneratorService(location: $location, radius: $radius);
 
-    $rows = [];
+    $residences = [];
     // Insert 10 positions within the radius
     for ($i = 1; $i <= 10; $i++) {
         $coordinates = $generator->execute();
-        $rows[] = row(latitude: $coordinates['latitude'], longitude: $coordinates['longitude']);
+        $residences[] = residence_factory(latitude: $coordinates['latitude'], longitude: $coordinates['longitude']);
     }
     // Insert 8 positions outside the radius
     for ($i = 1; $i <= 8; $i++) {
         $coordinates = $generator->execute();
-        $rows[] = row(latitude: $coordinates['latitude'] * 2, longitude: $coordinates['longitude'] * 2);
+        $residences[] = residence_factory(latitude: $coordinates['latitude'] * 2, longitude: $coordinates['longitude'] * 2);
     }
 
-    DB::table(table: 'residences')->insert(values: $rows);
+    DB::table(table: 'residences')->insert(values: $residences);
 
     $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [
         ...(array) $location,

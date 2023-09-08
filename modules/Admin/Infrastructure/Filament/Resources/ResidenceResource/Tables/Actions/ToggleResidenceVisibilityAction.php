@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource\Tables\Actions;
 
 use Filament\Tables\Actions\Action;
-use Modules\Auth\Domain\Enums\Roles;
+use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Residence\Infrastructure\Models\Residence;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;

@@ -9,8 +9,20 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Modules\Reservation\Infrastructure\Models\Reservation;
 
+/**
+ * @phpstan-import-type ResidenceFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactory
+ * @phpstan-import-type ReservationFactoryResponse from \Modules\Reservation\Infrastructure\Database\Factories\ReservationFactory
+ */
 final class ReservationSeeder extends Seeder
 {
+    /**
+     * @param array<int,array{id:string,email:string,name:string,surname:string,password:string}> $admins
+     * @param array<int,array{id:string,email:string,name:string,surname:string,password:string}> $providers
+     *
+     * @phpstan-param array{residences:array<int,ResidenceFactoryResponse>}$residences
+     *
+     * @phpstan-return array{reservations:array<int,ReservationFactoryResponse>}
+     */
     public function run(array $admins, array $providers, array $residences, int $count, bool $persiste): array
     {
         $clients = array_merge($admins, $providers);

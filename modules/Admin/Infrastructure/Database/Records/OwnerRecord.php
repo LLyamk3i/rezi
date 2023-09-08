@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Database\Records;
 
+/**
+ * @phpstan-type UserRecord array{email:string,forename:string,surname:string,password:string}
+ */
 final class OwnerRecord
 {
     /**
-     * @return array{email:string,name:string,surname:string,password:string}
+     * @phpstan-return UserRecord
      */
     public static function data(): array
     {

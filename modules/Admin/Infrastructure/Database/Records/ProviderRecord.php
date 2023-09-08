@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Database\Records;
 
+/**
+ * @phpstan-import-type UserRecord from \Modules\Admin\Infrastructure\Database\Records\OwnerRecord
+ */
 final class ProviderRecord
 {
     /**
-     * @return array{array{email:string,name:string,surname:string,password:string}}
+     * @phpstan-return array<int,UserRecord>
      */
     public static function data(): array
     {

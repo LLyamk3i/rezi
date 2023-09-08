@@ -1,0 +1,110 @@
+<?php
+
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Modules\Authentication\Domain\Entities\User as Entity;
+use Modules\Authentication\Domain\Enums\Roles;
+use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentAccountRepository;
+use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentAuthRepository;
+use Modules\Authentication\Infrastructure\Models\Role;
+use Modules\Authentication\Infrastructure\Models\User as Model;
+use Modules\Shared\Domain\ValueObjects\Ulid;
+use Symfony\Component\Uid\Ulid as SymphonyUlid;
+
+use function Pest\Laravel\assertDatabaseHas;
+use function PHPUnit\Framework\assertTrue;
+
+uses(\Tests\SqliteTestCase::class);
+// uses(
+//     \Tests\TestCase::class,
+//     \Illuminate\Foundation\Testing\LazilyRefreshDatabase::class,
+// );
+
+test(description: 'it can create user with owner role', closure: function () {
+    Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
+
+    $role = Role::factory()->create(attributes: ['name' => Roles::Owner]);
+
+    $repository = new EloquentAccountRepository(repository: new EloquentAuthRepository());
+
+    $entity = new Entity(
+        id: new Ulid(value: SymphonyUlid::generate()),
+        forename: 'test',
+        surname: 'test',
+        email: 'test@test.com',
+        password: 'test',
+    );
+
+    $result = $repository->create(user: $entity, roles: [$role->name]);
+
+    assertTrue(condition: $result === true);
+
+    assertDatabaseHas(table: 'users', data: [
+        'id' => $entity->id->value,
+        'forename' => $entity->forename,
+        'surname' => $entity->surname,
+        'email' => $entity->email,
+    ]);
+
+    assertDatabaseHas(table: 'role_user', data: [
+        'user_id' =>  $entity->id->value,
+        'role_id' => $role->id,
+    ]);
+});
+
+test(description: 'it can create user with owner and admin role', closure: function () {
+    Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
+
+    $roles = Role::factory()
+        ->count(count: 2)
+        ->sequence(['name' => Roles::Owner], ['name' => Roles::Admin])
+        ->create();
+
+    $repository = new EloquentAccountRepository(repository: new EloquentAuthRepository());
+
+    $entity = new Entity(
+        id: new Ulid(value: SymphonyUlid::generate()),
+        forename: 'test',
+        surname: 'test',
+        email: 'test@test.com',
+        password: 'test',
+    );
+
+    $result = $repository->create(user: $entity, roles: $roles->pluck(value: 'name')->toArray());
+
+    assertTrue(condition: $result === true);
+
+    assertDatabaseHas(table: 'users', data: [
+        'id' => $entity->id->value,
+        'forename' => $entity->forename,
+        'surname' => $entity->surname,
+        'email' => $entity->email,
+    ]);
+
+    assertDatabaseHas(table: 'role_user', data: [
+        'user_id' =>  $entity->id->value,
+        'role_id' => $roles->first()->id,
+    ]);
+    assertDatabaseHas(table: 'role_user', data: [
+        'user_id' =>  $entity->id->value,
+        'role_id' => $roles->last()->id,
+    ]);
+});
+
+test(description: 'it cannot create user without role', closure: function () {
+    Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
+
+    $repository = new EloquentAccountRepository(repository: new EloquentAuthRepository());
+
+    $result = $repository->create(roles: [], user: new Entity(
+        id: new Ulid(value: SymphonyUlid::generate()),
+        forename: 'test',
+        surname: 'test',
+        email: 'test@test.com',
+        password: 'test',
+    ));
+
+    assertTrue(condition: $result === false);
+    assertTrue(condition: Model::count() === 0);
+    assertTrue(condition: DB::table(table: 'role_user')->count() === 0);
+});

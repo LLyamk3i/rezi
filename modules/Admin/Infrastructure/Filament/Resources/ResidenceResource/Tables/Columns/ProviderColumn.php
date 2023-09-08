@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource\Tables\Columns;
 
-use Modules\Auth\Domain\Enums\Roles;
 use Filament\Tables\Columns\TextColumn;
+use Modules\Authentication\Domain\Enums\Roles;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 

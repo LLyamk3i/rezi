@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource\Pages;
 
 use Filament\Pages\Actions;
-use Modules\Auth\Domain\Enums\Roles;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Residence\Infrastructure\Models\Residence;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;

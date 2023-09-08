@@ -27,7 +27,7 @@ final readonly class NearestResidences implements NearestResidencesContract
             location: new Location(latitude: $request->latitude, longitude: $request->longitude),
             radius: new Radius(value: $request->radius),
         );
-        $response->setFailed(value: [] === $residences);
+        $response->setFailed(value: $residences === []);
         $response->setResidences(value: $residences);
 
         $presenter->present(response: $response);

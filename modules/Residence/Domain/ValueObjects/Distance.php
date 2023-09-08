@@ -8,7 +8,7 @@ final class Distance implements \Stringable
 {
     public const EARTH_RADIUS = 6371;
 
-    public const LATITUDE_APPROXIMATE_LENGTH = 111.3; // 111.3 km is the approximate length of 1 degree of latitude in kilometers
+    public const EARTH_LATITUDE_APPROXIMATE_LENGTH = 111.3; // 111.3 km is the approximate length of 1 degree of latitude in kilometers
 
     public function __construct(
         public readonly float $value,
@@ -34,11 +34,11 @@ final class Distance implements \Stringable
             return $this;
         }
 
-        if ('km' === $unit) {
+        if ($unit === 'km') {
             return new self(value: $this->value * 1.609344, unit: $unit);
         }
 
-        if ('mi' === $unit) {
+        if ($unit === 'mi') {
             return new self(value: $this->value * 0.621371192, unit: $unit);
         }
 

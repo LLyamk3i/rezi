@@ -14,10 +14,10 @@ final class DatabaseSeeder extends Seeder
     private const PERSISTE = true;
 
     private const SEEDERS = [
-        \Modules\Auth\Infrastructure\Database\Seeders\RoleTableSeeder::class => [],
+        \Modules\Authentication\Infrastructure\Database\Seeders\RoleTableSeeder::class => [],
         \Modules\Admin\Infrastructure\Database\Seeders\OwnerSeeder::class => ['count' => 1],
         \Modules\Admin\Infrastructure\Database\Seeders\AdminSeeder::class => ['count' => 5],
-        \Modules\Auth\Infrastructure\Database\Seeders\ProviderSeeder::class => ['count' => 15],
+        \Modules\Authentication\Infrastructure\Database\Seeders\ProviderSeeder::class => ['count' => 15],
         \Modules\Residence\Infrastructure\Database\Seeders\TypeSeeder::class => [],
         \Modules\Residence\Infrastructure\Database\Seeders\FeatureSeeder::class => [],
         \Modules\Residence\Infrastructure\Database\Seeders\ResidenceSeeder::class => ['count' => 30],

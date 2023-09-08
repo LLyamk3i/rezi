@@ -7,11 +7,15 @@ namespace Modules\Admin\Infrastructure\Database\Seeders;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Auth\Domain\Enums\Roles;
+use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Admin\Infrastructure\Database\Records\AdminRecord;
 use Modules\Shared\Infrastructure\Services\Seeder\SaveUserRoles;
 use Modules\Shared\Infrastructure\Services\Seeder\CreateUsersService;
 
+/**
+ * @phpstan-import-type UserFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\UserFactory
+ * @phpstan-import-type RoleFactoryResponse from \Modules\Authentication\Infrastructure\Database\Factories\RoleFactory
+ */
 final class AdminSeeder extends Seeder
 {
     use \Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,9 +28,9 @@ final class AdminSeeder extends Seeder
     }
 
     /**
-     * @param array<string,array{id:string,name:string,created_at:\Illuminate\Support\Carbon,updated_at:\Illuminate\Support\Carbon}> $roles
+     * @phpstan-param array<string,RoleFactoryResponse> $roles
      *
-     * @return array{admins:array<int,array{id:string,email:string,name:string,surname:string,password:string}>}
+     * @phpstan-return array{admins:array<int,UserFactoryResponse>}
      */
     public function run(array $roles, int $count, bool $persiste): array
     {

@@ -8,9 +8,9 @@ use Filament\Tables;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
-use Modules\Auth\Infrastructure\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Modules\Admin\Infrastructure\Filament as Admin;
+use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Admin\Infrastructure\Filament\Resources\ClientResource\Pages;
 
 final class UserResource extends Resource
