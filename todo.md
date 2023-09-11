@@ -72,7 +72,7 @@
 - [] restreindre seulement au panel owner
 - [x] Changer l'icon.
 
-## Module Auth
+## Module Authentication
 
 - [] Ajouter les champs:
   - [] carte d'identité (rector, verso).

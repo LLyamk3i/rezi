@@ -1,18 +1,19 @@
 <?php
 
 use function Pest\Laravel\postJson;
-use Illuminate\Support\Facades\Hash;
-use Modules\Authentication\Domain\Enums\Roles;
 
+use Illuminate\Support\Facades\Hash;
+use Modules\Authentication\Infrastructure\Notifications\OneTimePassword;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Notification;
+use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Authentication\Infrastructure\Database\Seeders\RoleTableSeeder;
 
-uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\LazilyRefreshDatabase::class,
-);
+uses(\Tests\SqliteTestCase::class);
 
 it(description: 'can register user', closure: function () {
+    Notification::fake();
     $data = [
         'forename' => 'test forename',
         'surname' => 'test surname',
@@ -21,6 +22,7 @@ it(description: 'can register user', closure: function () {
         'password_confirmation' => 'password',
     ];
 
+    Artisan::call(command: 'migrate', parameters: ['--path' => 'modules/Authentication/Infrastructure/Database/Migrations']);
     RoleTableSeeder::make()->run();
 
     $response = postJson(uri: '/api/auth/register', data: $data);
@@ -39,4 +41,8 @@ it(description: 'can register user', closure: function () {
     expect(value: $user->surname)->toBe(expected: $data['surname']);
     expect(value: $user->email)->toBe(expected: $data['email']);
     expect(value: Hash::check(value: $data['password'], hashedValue: $user->password))->toBeTrue();
+    Notification::assertSentTo(
+        notifiable: [new User(attributes: ['email' => $user->email])],
+        notification: OneTimePassword::class
+    );
 });

@@ -23,6 +23,7 @@ model=$1
 module=$2
 
 # Récupérer les noms de fichiers créés
+notification_file=$(file_path "app/Notifications" $model)
 model_file=$(file_path "app/Models" $model)
 seeder_file=$(file_path "database/seeders" $model)
 factory_file=$(file_path "database/factories" $model)
@@ -33,6 +34,7 @@ policy_file=$(file_path "app/Policies" $model)
 
 echo "$resource_file"
 
+[ -n "$notification_file" ] && mkdir -p "modules/${module}/Infrastructure/Notifications"
 [ -n "$model_file" ] && mkdir -p "modules/${module}/Infrastructure/Models"
 [ -n "$seeder_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Seeders"
 [ -n "$factory_file" ] && mkdir -p "modules/${module}/Infrastructure/Database/Factories"
@@ -42,6 +44,7 @@ echo "$resource_file"
 [ -n "$policy_file" ] && mkdir -p "modules/${module}/Infrastructure/Policies"
 
 # # # # Déplacer les fichiers dans le module
+[ -n "$notification_file" ] && phpactor class:move "$notification_file" "modules/${module}/Infrastructure/Notifications/"
 [ -n "$model_file" ] && phpactor class:move "$model_file" "modules/${module}/Infrastructure/Models/"
 [ -n "$seeder_file" ] && phpactor class:move "$seeder_file" "modules/${module}/Infrastructure/Database/Seeders/"
 [ -n "$factory_file" ] && phpactor class:move "$factory_file" "modules/${module}/Infrastructure/Database/Factories/"
@@ -51,4 +54,4 @@ echo "$resource_file"
 [ -n "$policy_file" ] && phpactor class:move "$policy_file" "modules/${module}/Infrastructure/Policies/"
 
 # # # Confirmer l'achèvement
-echo "fichiers déplacés: $model_file $seeder_file $factory_file $migration_file $resource_file"
+echo "fichiers déplacés: "$notification_file $model_file $seeder_file $factory_file $resource_file $controller_file $migration_file $policy_file"

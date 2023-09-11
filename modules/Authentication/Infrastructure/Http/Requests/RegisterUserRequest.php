@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Infrastructure\Http\Requests;
 
-use Symfony\Component\Uid\Ulid;
-
 use Illuminate\Validation\Rules\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-use Modules\Shared\Domain\ValueObjects\Ulid as ValueObjectsUlid;
 use Modules\Authentication\Domain\UseCases\RegisterUser\RegisterUserRequest as Request;
 
 final class RegisterUserRequest extends FormRequest
@@ -33,7 +30,6 @@ final class RegisterUserRequest extends FormRequest
     public function approved(): Request
     {
         return new Request(
-            id: new ValueObjectsUlid(value: Ulid::generate()),
             forename: string_value(value: $this->input(key: 'forename')),
             surname: string_value(value: $this->input(key: 'surname')),
             email: string_value(value: $this->input(key: 'email')),
