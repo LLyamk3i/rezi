@@ -51,6 +51,11 @@ parameters:
 			path: modules/Admin/Infrastructure/Models/Provider.php
 
 		-
+			message: "#^Called 'first' on Laravel collection, but could have been retrieved as a query\\.$#"
+			count: 1
+			path: modules/Authentication/Infrastructure/Eloquent/Repositories/EloquentAccountRepository.php
+
+		-
 			message: "#^Parameter \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\|string\\)\\: array\\{user_id\\: string, role_id\\: mixed\\}, Closure\\(array\\)\\: array\\{user_id\\: string, role_id\\: mixed\\} given\\.$#"
 			count: 1
 			path: modules/Authentication/Infrastructure/Eloquent/Repositories/EloquentAuthRepository.php

@@ -27,7 +27,9 @@ final class AuthenticationServiceProvider extends ServiceProvider
         Domain\Repositories\AccountRepository::class => Infrastructure\Eloquent\Repositories\EloquentAccountRepository::class,
         Domain\Repositories\UserRoleRepository::class => Infrastructure\Eloquent\Repositories\EloquentUserRoleRepository::class,
         Domain\Commands\RememberOneTimePasswordRequestContract::class => Infrastructure\Commands\RememberOneTimePasswordRequest::class,
+        Domain\Commands\RetrievesOneTimePasswordContract::class => Infrastructure\Commands\RetrievesOneTimePassword::class,
         Domain\Commands\SendOneTimePasswordNotificationContract::class => Infrastructure\Commands\SendOneTimePasswordNotification::class,
+        Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract::class => Application\UseCases\VerifyUserAccount::class,
     ];
 
     public function boot(): void

@@ -7,6 +7,7 @@ declare(strict_types=1);
         'modules/Shared/Infrastructure/Helpers/Commons.php',
         'modules/Shared/Infrastructure/Helpers/Instances.php',
         'modules/Shared/Infrastructure/Helpers/Values.php',
+        'modules/Shared/Infrastructure/Helpers/Tests.php',
     ];
 
     foreach ($files as $file) {

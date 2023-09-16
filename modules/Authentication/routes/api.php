@@ -8,6 +8,7 @@ use Modules\Authentication\Infrastructure\Http\Controllers;
 Route::middleware('guest')->group(callback: static function (): void {
     Route::post(uri: '/register', action: Controllers\RegisterUserController::class);
     Route::post(uri: '/login', action: [Controllers\AuthenticatedSessionController::class, 'store']);
+    Route::patch(uri: '/email/verification', action: Controllers\EmailVerificationController::class);
 });
 
 Route::middleware('auth:sanctum')->group(callback: static function (): void {

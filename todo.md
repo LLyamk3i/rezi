@@ -74,9 +74,10 @@
 
 ## Module Authentication
 
+- [x] Notifier un code OPT.
+- [] Vérifier le compte avec le code OPT.
 - [] Ajouter les champs:
   - [] carte d'identité (rector, verso).
-- [] Vérifier le compte avec un code OPT.
 
 ## Seeding
 

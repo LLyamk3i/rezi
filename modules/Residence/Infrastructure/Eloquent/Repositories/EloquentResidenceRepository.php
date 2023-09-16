@@ -42,7 +42,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     {
         /** @phpstan-var ResidenceRecord|null $residence */
         $residence = $this->builder()->where('id', $id->value)
-            ->limit(1)
+            ->limit(value: 1)
             ->get(columns: $this->attributes())
             ->first();
 

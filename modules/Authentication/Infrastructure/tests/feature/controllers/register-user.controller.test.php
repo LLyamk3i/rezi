@@ -1,5 +1,6 @@
 <?php
 
+use function Modules\Shared\Infrastructure\Helpers\migrate_authentication;
 use function Pest\Laravel\postJson;
 
 use Illuminate\Support\Facades\Hash;
@@ -21,8 +22,7 @@ it(description: 'can register user', closure: function () {
         'password' => 'password',
         'password_confirmation' => 'password',
     ];
-
-    Artisan::call(command: 'migrate', parameters: ['--path' => 'modules/Authentication/Infrastructure/Database/Migrations']);
+    migrate_authentication();
     RoleTableSeeder::make()->run();
 
     $response = postJson(uri: '/api/auth/register', data: $data);
