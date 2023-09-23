@@ -11,7 +11,10 @@ use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Authentication\Infrastructure\Database\Seeders\RoleTableSeeder;
 
-uses(\Tests\SqliteTestCase::class);
+uses(
+    \Tests\TestCase::class,
+    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+);
 
 it(description: 'can register user', closure: function () {
     Notification::fake();
@@ -22,7 +25,7 @@ it(description: 'can register user', closure: function () {
         'password' => 'password',
         'password_confirmation' => 'password',
     ];
-    migrate_authentication();
+    
     RoleTableSeeder::make()->run();
 
     $response = postJson(uri: '/api/auth/register', data: $data);

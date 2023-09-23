@@ -6,10 +6,11 @@ namespace Modules\Authentication\Domain\Repositories;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Domain\Entities\User;
+use Modules\Authentication\Domain\ValueObjects\Email;
 
 interface AccountRepository
 {
-    public function find(Ulid $id): ?User;
+    public function find(Email $email): ?User;
 
     public function verify(Ulid $id): bool;
 

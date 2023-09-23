@@ -21,7 +21,7 @@ final class VerifyUserAccount implements VerifyUserAccountContract
 
     public function execute(VerifyUserAccountRequest $request): VerifyUserAccountResponse
     {
-        $account = $this->repository->find(id: $request->id);
+        $account = $this->repository->find(email: $request->email);
 
         if (\is_null(value: $account)) {
             return new VerifyUserAccountResponse(
@@ -49,7 +49,7 @@ final class VerifyUserAccount implements VerifyUserAccountContract
             );
         }
 
-        if (! $this->repository->verify(id: $request->id)) {
+        if (! $this->repository->verify(id: $account->id)) {
             return new VerifyUserAccountResponse(
                 status: 500,
                 failed: true,

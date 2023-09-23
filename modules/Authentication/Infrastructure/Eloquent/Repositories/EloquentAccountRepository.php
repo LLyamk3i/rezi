@@ -7,6 +7,8 @@ namespace Modules\Authentication\Infrastructure\Eloquent\Repositories;
 use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Domain\Entities\User;
+use Modules\Authentication\Domain\ValueObjects\Email;
+use Modules\Shared\Application\Repositories\Repository;
 use Modules\Authentication\Domain\Factories\UserFactory;
 use Modules\Authentication\Domain\Repositories\AuthRepository;
 use Modules\Authentication\Domain\Repositories\AccountRepository;
@@ -18,19 +20,18 @@ final readonly class EloquentAccountRepository implements AccountRepository
 {
     public function __construct(
         private UserFactory $factory,
+        private Repository $parent,
         private AuthRepository $repository,
     ) {
         //
     }
 
-    public function find(Ulid $id): ?User
+    public function find(Email $email): ?User
     {
         /** @phpstan-var UserRecord|null $result */
-        $result = DB::table(table: 'users')
-            ->where('id', $id->value)
-            ->limit(value: 1)
-            ->get()
-            ->first();
+        $result = $this->parent->find(
+            query: DB::table(table: 'users')->where('email', $email->value)
+        );
 
         return \is_array(value: $result)
             ? $this->factory->make(data: $result)

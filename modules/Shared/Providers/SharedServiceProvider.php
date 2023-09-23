@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Shared\Providers;
 
 use Modules\Shared\Domain;
+use Modules\Shared\Application;
 use Modules\Shared\Infrastructure;
 use Illuminate\Support\ServiceProvider;
 use Modules\Shared\Application\Utils\Timer;
@@ -19,6 +20,7 @@ final class SharedServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $bindings = [
+        Application\Repositories\Repository::class => Infrastructure\Repositories\QueryRepository::class,
         Domain\Adapters\CacheAdapterContract::class => Infrastructure\Adapters\CacheAdapter::class,
         Domain\Adapters\UlidGeneratorAdapterContract::class => Infrastructure\Adapters\UlidGeneratorAdapter::class,
     ];

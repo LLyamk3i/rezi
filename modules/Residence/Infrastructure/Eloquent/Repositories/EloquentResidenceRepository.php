@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Eloquent\Repositories;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Query\Builder;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Shared\Application\Repositories\Repository;
 use Modules\Residence\Domain\Factories\ResidenceFactory;
 use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
 use Modules\Residence\Domain\Entities\Residence as Entity;
@@ -23,6 +23,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
 {
     public function __construct(
         private ResidenceFactory $factory,
+        private Repository $parent,
         private ResidenceHydrator $hydrator,
     ) {
     }
@@ -33,21 +34,21 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     public function all(): array
     {
         /** @phpstan-var array<int,ResidenceRecord> $residences */
-        $residences = $this->builder()->get(columns: $this->attributes())->toArray();
+        $residences = DB::table(table: 'residences')->get(columns: $this->attributes())->toArray();
 
         return $this->hydrator->hydrate(data: $residences);
     }
 
     public function find(Ulid $id): ?Entity
     {
-        /** @phpstan-var ResidenceRecord|null $residence */
-        $residence = $this->builder()->where('id', $id->value)
-            ->limit(value: 1)
-            ->get(columns: $this->attributes())
-            ->first();
+        /** @phpstan-var ResidenceRecord|null $result */
+        $result = $this->parent->find(
+            query: DB::table(table: 'residences')->where('id', $id->value),
+            columns: $this->attributes()
+        );
 
-        return \is_array(value: $residence)
-            ? $this->factory->make(data: $residence)
+        return \is_array(value: $result)
+            ? $this->factory->make(data: $result)
             : null;
     }
 
@@ -86,21 +87,17 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
         return $this->hydrator->hydrate(data: $residences);
     }
 
-    public function save(Entity $residence): void
-    {
-        //
-    }
-
     /**
      * @return array<int,Entity>
      */
     public function search(?string $key = null, ?Duration $stay = null): array
     {
+        $bucket = new SearchResidenceBucket(
+            query: DB::table(table: 'residences'),
+            payloads: get_defined_vars()
+        );
         /** @phpstan-var array<int,ResidenceRecord> $residences */
-        $residences = (new SearchResidenceBucket(query: $this->builder(), payloads: get_defined_vars()))
-            ->filter()
-            ->get(columns: $this->attributes())
-            ->toArray();
+        $residences = $bucket->filter()->get(columns: $this->attributes())->toArray();
 
         return $this->hydrator->hydrate(data: $residences);
     }
@@ -111,18 +108,9 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     private function attributes(): array
     {
         return [
-            'id',
-            'name',
-            'address',
-            'rent',
-            'description',
+            'id', 'name', 'address', 'rent', 'description',
             DB::raw('ST_X(location) AS latitude'),
             DB::raw('ST_Y(location) AS longitude'),
         ];
-    }
-
-    private function builder(): Builder
-    {
-        return DB::table(table: 'residences');
     }
 }

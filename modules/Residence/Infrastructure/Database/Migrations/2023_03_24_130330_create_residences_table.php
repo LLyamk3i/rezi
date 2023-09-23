@@ -25,7 +25,9 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->spatialIndex(columns: 'location', name: 'geo_location_spatialindex');
+            if (config(key: 'database.default') === 'sqlite') {
+                $table->spatialIndex(columns: 'location', name: 'geo_location_spatialindex');
+            }
         });
     }
 

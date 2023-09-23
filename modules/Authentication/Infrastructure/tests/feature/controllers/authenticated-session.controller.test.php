@@ -7,7 +7,10 @@ use function PHPUnit\Framework\assertCount;
 use Laravel\Sanctum\Sanctum;
 use Modules\Authentication\Infrastructure\Models\User;
 
-uses(\Tests\SqliteTestCase::class);
+uses(
+    \Tests\TestCase::class,
+    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+);
 
 test(description: 'user can login', closure: function () {
 

@@ -51,11 +51,6 @@ parameters:
 			path: modules/Admin/Infrastructure/Models/Provider.php
 
 		-
-			message: "#^Called 'first' on Laravel collection, but could have been retrieved as a query\\.$#"
-			count: 1
-			path: modules/Authentication/Infrastructure/Eloquent/Repositories/EloquentAccountRepository.php
-
-		-
 			message: "#^Parameter \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\|string\\)\\: array\\{user_id\\: string, role_id\\: mixed\\}, Closure\\(array\\)\\: array\\{user_id\\: string, role_id\\: mixed\\} given\\.$#"
 			count: 1
 			path: modules/Authentication/Infrastructure/Eloquent/Repositories/EloquentAuthRepository.php
@@ -64,11 +59,6 @@ parameters:
 			message: "#^Method Modules\\\\Authentication\\\\Infrastructure\\\\Models\\\\User\\:\\:query\\(\\) should return Modules\\\\Authentication\\\\Infrastructure\\\\Eloquent\\\\QueryBuilders\\\\UserQueryBuilder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Foundation\\\\Auth\\\\User\\>\\.$#"
 			count: 1
 			path: modules/Authentication/Infrastructure/Models/User.php
-
-		-
-			message: "#^Called 'first' on Laravel collection, but could have been retrieved as a query\\.$#"
-			count: 1
-			path: modules/Residence/Infrastructure/Eloquent/Repositories/EloquentResidenceRepository.php
 
 		-
 			message: "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphOne\\<Modules\\\\Shared\\\\Infrastructure\\\\Models\\\\Media\\>\\:\\:where\\(\\)\\.$#"
@@ -84,3 +74,13 @@ parameters:
 			message: "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphOne\\<Modules\\\\Shared\\\\Infrastructure\\\\Models\\\\Media\\>\\:\\:where\\(\\)\\.$#"
 			count: 1
 			path: modules/Residence/Infrastructure/Models/Residence.php
+
+		-
+			message: "#^Called 'first' on Laravel collection, but could have been retrieved as a query\\.$#"
+			count: 1
+			path: modules/Shared/Infrastructure/Repositories/QueryRepository.php
+
+		-
+			message: "#^Method Modules\\\\Shared\\\\Infrastructure\\\\Repositories\\\\QueryRepository\\:\\:find\\(\\) should return array\\<string, float\\|int\\|string\\>\\|null but returns mixed\\.$#"
+			count: 1
+			path: modules/Shared/Infrastructure/Repositories/QueryRepository.php

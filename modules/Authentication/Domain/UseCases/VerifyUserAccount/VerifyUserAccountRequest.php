@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Domain\UseCases\VerifyUserAccount;
 
-use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Domain\ValueObjects\Otp;
+use Modules\Authentication\Domain\ValueObjects\Email;
 
 final class VerifyUserAccountRequest
 {
     public function __construct(
-        public readonly Ulid $id,
+        public readonly Email $email,
         public readonly Otp $code,
     ) {
         //

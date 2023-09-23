@@ -5,30 +5,38 @@ declare(strict_types=1);
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Ulid;
-use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Residence\Domain\Factories\ResidenceFactory;
+use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
 use Modules\Residence\Domain\Entities\Residence as Entity;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Infrastructure\Models\Residence as Model;
-use Modules\Residence\Infrastructure\Factories\EloquentResidenceRepositoryFactory;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
 use Modules\Residence\Infrastructure\Eloquent\Repositories\EloquentResidenceRepository;
+use Modules\Shared\Infrastructure\Repositories\QueryRepository;
 
 uses(
     \Tests\TestCase::class,
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-function repository(): EloquentResidenceRepository
+function residence_repository(): EloquentResidenceRepository
 {
-    return (new EloquentResidenceRepositoryFactory())->make();
+    $factory = new ResidenceFactory();
+
+    return new EloquentResidenceRepository(
+        factory: $factory,
+        parent: new QueryRepository(),
+        hydrator: new ResidenceHydrator(factory: $factory)
+    );
 }
 
 it(description: 'should fetch all residences from the database', closure: function (): void {
     $location = new Location(latitude: 48.864716, longitude: 2.349014);
     Model::factory()->location(value: $location)->count(count: 10)->create();
 
-    $result = repository()->all();
+    $result = residence_repository()->all();
 
     expect(value: $result)->toBeArray();
     expect(value: $result[0])->toBeInstanceOf(class: Entity::class);
@@ -42,7 +50,7 @@ it(description: 'should find a residence by Ulid', closure: function (): void {
 
     Model::factory()->id(value: (string) $residence_id)->location(value: $location)->create();
 
-    $result = repository()->find(id: $residence_id);
+    $result = residence_repository()->find(id: $residence_id);
 
     expect(value: $result)->toBeInstanceOf(class: Entity::class);
     expect(value: $result->id)->toEqual(expected: $residence_id);
@@ -67,7 +75,7 @@ it(description: 'should find the nearest residences to a given location', closur
 
     DB::table(table: 'residences')->insert(values: $residences);
 
-    $result = repository()->nearest(location: $location, radius: $radius);
+    $result = residence_repository()->nearest(location: $location, radius: $radius);
 
     expect(value: $result)->toBeArray();
     expect(value: $result)->toHaveCount(count: 10);

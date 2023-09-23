@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bc286b7f34d7e29ba7c9c363ed94cb4",
+    "content-hash": "2ce2b5d01368100111f4004f8cc3ae71",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -4343,16 +4343,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.20",
+            "version": "v0.11.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "0fa27040553d1d280a67a4393194df5228afea5b"
+                "reference": "bcb22101107f3bf770523b65630c9d547f60c540"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/0fa27040553d1d280a67a4393194df5228afea5b",
-                "reference": "0fa27040553d1d280a67a4393194df5228afea5b",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/bcb22101107f3bf770523b65630c9d547f60c540",
+                "reference": "bcb22101107f3bf770523b65630c9d547f60c540",
                 "shasum": ""
             },
             "require": {
@@ -4382,6 +4382,10 @@
             "extra": {
                 "branch-alias": {
                     "dev-main": "0.11.x-dev"
+                },
+                "bamarni-bin": {
+                    "bin-links": false,
+                    "forward-command": false
                 }
             },
             "autoload": {
@@ -4413,9 +4417,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.20"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.21"
             },
-            "time": "2023-07-31T14:32:22+00:00"
+            "time": "2023-09-17T21:15:54+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -8366,16 +8370,16 @@
         },
         {
             "name": "knuckleswtf/scribe",
-            "version": "4.23.1",
+            "version": "4.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/knuckleswtf/scribe.git",
-                "reference": "4960403638439ef3fc83a0843e795fb92a5fc4f1"
+                "reference": "6b4715b8cc46233f3dcaef1c9cc3fd37b8fbb1d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/4960403638439ef3fc83a0843e795fb92a5fc4f1",
-                "reference": "4960403638439ef3fc83a0843e795fb92a5fc4f1",
+                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/6b4715b8cc46233f3dcaef1c9cc3fd37b8fbb1d1",
+                "reference": "6b4715b8cc46233f3dcaef1c9cc3fd37b8fbb1d1",
                 "shasum": ""
             },
             "require": {
@@ -8449,7 +8453,7 @@
             ],
             "support": {
                 "issues": "https://github.com/knuckleswtf/scribe/issues",
-                "source": "https://github.com/knuckleswtf/scribe/tree/4.23.1"
+                "source": "https://github.com/knuckleswtf/scribe/tree/4.24.0"
             },
             "funding": [
                 {
@@ -8457,7 +8461,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-08-25T16:33:56+00:00"
+            "time": "2023-09-16T15:18:08+00:00"
         },
         {
             "name": "laradumps/laradumps",

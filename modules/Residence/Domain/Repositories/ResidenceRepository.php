@@ -17,8 +17,6 @@ interface ResidenceRepository
      */
     public function all(): array;
 
-    public function save(Residence $residence): void;
-
     public function find(Ulid $id): ?Residence;
 
     /**

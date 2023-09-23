@@ -17,7 +17,7 @@
         "doctrine/dbal": "^3.6.6",
         "driftingly/rector-laravel": "^0.17.0",
         "fakerphp/faker": "^1.23.0",
-        "knuckleswtf/scribe": "^4.23.1",
+        "knuckleswtf/scribe": "^4.24.0",
         "laradumps/laradumps": "^2.2",
         "laravel/pint": "^1.13.1",
         "laravel/telescope": "^4.16.2",

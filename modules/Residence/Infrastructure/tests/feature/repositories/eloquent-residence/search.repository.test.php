@@ -27,7 +27,7 @@ it(description: 'could search residences in specified fields', closure: function
 
     DB::table(table: 'residences')->insert(values: $seeds->toArray());
 
-    $results = repository()->search(key: $search['key']);
+    $results = residence_repository()->search(key: $search['key']);
 
     expect(value: $results)->toBeArray();
     expect(value: $results)->toHaveCount(count: \count(value: $search['data']));
@@ -52,7 +52,7 @@ it(description: 'can only return residences not reserved', closure: function () 
         'residence_id' => $seeds[0]->id,
     ]);
 
-    $results = repository()->search(key: $search['key'], stay: $stay);
+    $results = residence_repository()->search(key: $search['key'], stay: $stay);
 
     expect(value: $results)->toBeArray();
     expect(value: $results)->toHaveCount(count: \count(value: $search['data']) - 1);

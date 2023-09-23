@@ -7,7 +7,10 @@ use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentUserRoleRepository;
 
-uses(\Tests\SqliteTestCase::class);
+uses(
+    \Tests\TestCase::class,
+    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+);
 // uses(
 //     \Tests\TestCase::class,
 //     \Illuminate\Foundation\Testing\LazilyRefreshDatabase::class,
