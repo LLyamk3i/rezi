@@ -24,12 +24,13 @@ final class AuthenticationServiceProvider extends ServiceProvider
         Domain\Repositories\AuthRepository::class => Infrastructure\Eloquent\Repositories\EloquentAuthRepository::class,
         Domain\Contracts\VerifyUserAccessManagerContract::class => Infrastructure\Managers\VerifyUserAccessManager::class,
         Domain\UseCases\RegisterUser\RegisterUserContract::class => Application\UseCases\RegisterUser\RegisterUser::class,
+        Domain\Commands\RetrievesOneTimePasswordContract::class => Infrastructure\Commands\RetrievesOneTimePassword::class,
+        Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract::class => Application\UseCases\VerifyUserAccount::class,
         Domain\Repositories\AccountRepository::class => Infrastructure\Eloquent\Repositories\EloquentAccountRepository::class,
+        Domain\UseCases\UploadIdentityCard\UploadIdentityCardContract::class => Application\UseCases\UploadIdentityCard::class,
         Domain\Repositories\UserRoleRepository::class => Infrastructure\Eloquent\Repositories\EloquentUserRoleRepository::class,
         Domain\Commands\RememberOneTimePasswordRequestContract::class => Infrastructure\Commands\RememberOneTimePasswordRequest::class,
-        Domain\Commands\RetrievesOneTimePasswordContract::class => Infrastructure\Commands\RetrievesOneTimePassword::class,
         Domain\Commands\SendOneTimePasswordNotificationContract::class => Infrastructure\Commands\SendOneTimePasswordNotification::class,
-        Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract::class => Application\UseCases\VerifyUserAccount::class,
     ];
 
     public function boot(): void
@@ -39,6 +40,7 @@ final class AuthenticationServiceProvider extends ServiceProvider
         ]);
 
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
+        $this->loadTranslationsFrom(path: __DIR__ . '/../lang', namespace: 'authentication');
     }
 
     public function register(): void

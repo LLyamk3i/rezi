@@ -50,7 +50,8 @@
             "space": "single"
         },
         "ordered_imports": {
-            "sort_algorithm": "length"
+            "sort_algorithm": "length",
+            "imports_order": ["const","class","function"]
         }
     },
     "exclude": [

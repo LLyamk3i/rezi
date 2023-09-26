@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Modules\Authentication\Infrastructure\Models\User;
 
-use function Modules\Shared\Infrastructure\Helpers\string_value;
-
 use Modules\Authentication\Infrastructure\Http\Requests\AuthenticatedSessionRequest;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class AuthenticatedSessionController
 {

@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Residence\Infrastructure\Models\Residence;
 
-use function Modules\Shared\Infrastructure\Helpers\string_value;
-
 use Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource;
 
 use Modules\Admin\Infrastructure\DataTransfertObjects\AuthenticatedObject;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class ListResidences extends ListRecords
 {

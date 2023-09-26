@@ -10,6 +10,8 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Domain\Entities\User;
 use Modules\Authentication\Domain\Repositories\AuthRepository;
 
+use function Modules\Shared\Infrastructure\Helpers\string_value;
+
 final class EloquentAuthRepository implements AuthRepository
 {
     public function register(User $user): bool
@@ -19,7 +21,7 @@ final class EloquentAuthRepository implements AuthRepository
             'forename' => $user->forename,
             'surname' => $user->surname,
             'email' => $user->email,
-            'password' => Hash::make(value: $user->password),
+            'password' => Hash::make(value: string_value(value: $user->password)),
         ]);
     }
 

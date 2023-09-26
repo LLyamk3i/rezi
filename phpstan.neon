@@ -23,8 +23,3 @@ parameters:
     checkMissingIterableValueType: true
     checkModelProperties: false
     reportMaybesInPropertyPhpDocTypes: false
-
-    ignoreErrors:
-        -
-            message: "#^Undefined variable\\: \\$this$#"
-            path: routes/console.php

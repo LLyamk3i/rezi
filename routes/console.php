@@ -3,9 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Console\Command;
+
 use Illuminate\Foundation\Inspiring;
+
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Process;
+
+use function Laravel\Prompts\note;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +23,12 @@ use Illuminate\Support\Facades\Process;
 */
 
 Artisan::command(signature: 'inspire', callback: function (): void {
-    $this->comment(string: Inspiring::quote());
+    note(message: Inspiring::quote());
 })->purpose(description: 'Display an inspiring quote');
 
 Artisan::command(signature: 'admin:build', callback: function (): int {
     $result = Process::path(path: __DIR__ . '/../modules/Admin/resources/frontend')->run(command: 'pnpm run build');
-    $this->line(string: $result->output());
+    note(message: $result->output());
 
     return Command::SUCCESS;
 });

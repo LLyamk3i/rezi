@@ -8,9 +8,9 @@ use Illuminate\Validation\Rules\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use function Modules\Shared\Infrastructure\Helpers\string_value;
-
 use Modules\Authentication\Domain\UseCases\RegisterUser\RegisterUserRequest as Request;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class RegisterUserRequest extends FormRequest
 {

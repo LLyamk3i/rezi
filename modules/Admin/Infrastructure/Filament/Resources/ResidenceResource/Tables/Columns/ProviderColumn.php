@@ -7,9 +7,9 @@ namespace Modules\Admin\Infrastructure\Filament\Resources\ResidenceResource\Tabl
 use Filament\Tables\Columns\TextColumn;
 use Modules\Authentication\Domain\Enums\Roles;
 
-use function Modules\Shared\Infrastructure\Helpers\string_value;
-
 use Modules\Admin\Infrastructure\DataTransfertObjects\AuthenticatedObject;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class ProviderColumn
 {

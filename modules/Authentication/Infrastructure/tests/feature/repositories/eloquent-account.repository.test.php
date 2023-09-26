@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\DB;
 use Modules\Authentication\Domain\Entities\User as Entity;
 use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentAccountRepository;
-use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentAuthRepository;
 use Modules\Authentication\Infrastructure\Models\Role;
 use Modules\Authentication\Infrastructure\Models\User as Model;
 use Modules\Shared\Domain\ValueObjects\Ulid;

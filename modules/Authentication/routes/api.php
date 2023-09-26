@@ -12,5 +12,8 @@ Route::middleware('guest')->group(callback: static function (): void {
 });
 
 Route::middleware('auth:sanctum')->group(callback: static function (): void {
+    Route::middleware('verified')->group(callback: static function (): void {
+        Route::post(uri: '/upload/identity-card', action: Controllers\UploadIdentityCardController::class);
+    });
     Route::delete(uri: '/logout', action: [Controllers\AuthenticatedSessionController::class, 'destroy']);
 });

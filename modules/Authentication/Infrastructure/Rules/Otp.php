@@ -6,10 +6,11 @@ namespace Modules\Authentication\Infrastructure\Rules;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 
-use function Modules\Shared\Infrastructure\Helpers\string_value;
-
 use Modules\Shared\Domain\Exceptions\InvalidValueObjectException;
+
 use Modules\Authentication\Domain\ValueObjects\Otp as ValueObjectsOTP;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class Otp implements ValidationRule
 {

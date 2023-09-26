@@ -12,10 +12,11 @@ use Modules\Residence\Domain\ValueObjects\Location;
 
 use Modules\Residence\Infrastructure\Models\Residence;
 
-use function Modules\Shared\Infrastructure\Helpers\timer;
-use function Modules\Shared\Infrastructure\Helpers\integer_value;
-
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
+
+use function Modules\Shared\Infrastructure\Helpers\timer;
+
+use function Modules\Shared\Infrastructure\Helpers\integer_value;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Residence\Infrastructure\Models\Residence>

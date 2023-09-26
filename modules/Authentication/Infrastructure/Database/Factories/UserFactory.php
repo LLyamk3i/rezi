@@ -43,4 +43,9 @@ final class UserFactory extends Factory
     {
         return $this->state(state: ['email_verified_at' => null]);
     }
+
+    public function verified(): static
+    {
+        return $this->state(state: ['email_verified_at' => (string) now()]);
+    }
 }

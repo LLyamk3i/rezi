@@ -7,9 +7,9 @@ namespace Modules\Admin\Providers;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 
-use function Modules\Shared\Infrastructure\Helpers\string_value;
-
 use Modules\Admin\Infrastructure\Services\ViteManifestRetrieverService;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class FilamentServiceProvider extends ServiceProvider
 {

@@ -6,9 +6,9 @@ namespace Modules\Authentication\Infrastructure\Commands;
 
 use Illuminate\Support\Facades\Cache;
 
-use function Modules\Shared\Infrastructure\Helpers\string_value;
-
 use Modules\Authentication\Domain\Commands\RetrievesOneTimePasswordContract;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class RetrievesOneTimePassword implements RetrievesOneTimePasswordContract
 {

@@ -8,7 +8,7 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Domain\Entities\User;
 
 /**
- * @phpstan-type UserRecord array{id:string,forename:string,surname:string,email:string,password:string,email_verified_at:string|null}
+ * @phpstan-type UserRecord array{id:string,forename:string,surname:string,email:string,password?:string,email_verified_at:string|null}
  */
 final class UserFactory
 {
@@ -22,7 +22,7 @@ final class UserFactory
             forename: $data['forename'],
             surname: $data['surname'],
             email: $data['email'],
-            password: $data['password'],
+            password: $data['password'] ?? null,
             verified: ! \is_null(value: $data['email_verified_at'])
         );
     }
