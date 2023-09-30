@@ -6,6 +6,7 @@ namespace Modules\Shared\Providers;
 
 use Modules\Shared\Domain;
 use Modules\Shared\Application;
+use Symfony\Component\Uid\Ulid;
 use Modules\Shared\Infrastructure;
 use Illuminate\Support\ServiceProvider;
 use Modules\Shared\Application\Utils\Timer;
@@ -24,7 +25,6 @@ final class SharedServiceProvider extends ServiceProvider
     public array $bindings = [
         Domain\Adapters\CacheAdapterContract::class => Infrastructure\Adapters\CacheAdapter::class,
         Application\Repositories\Repository::class => Infrastructure\Repositories\QueryRepository::class,
-        Domain\Adapters\UlidGeneratorAdapterContract::class => Infrastructure\Adapters\UlidGeneratorAdapter::class,
     ];
 
     public function boot(): void
@@ -38,13 +38,12 @@ final class SharedServiceProvider extends ServiceProvider
         $this->app->bind(abstract: GenerateUlidContract::class, concrete: static fn (): GenerateUlid => new GenerateUlid(generator: new UlidGenerator()));
         $this->app->bind(abstract: Timer::class, concrete: static function (Laravel $app): Timer {
             $cache = $app->get(Domain\Adapters\CacheAdapterContract::class);
-            $ulid = $app->get(Domain\Adapters\UlidGeneratorAdapterContract::class);
 
-            if ((! $cache instanceof Domain\Adapters\CacheAdapterContract) || (! $ulid instanceof Domain\Adapters\UlidGeneratorAdapterContract)) {
+            if ((! $cache instanceof Domain\Adapters\CacheAdapterContract)) {
                 throw new \TypeError(message: 'Error Processing Request');
             }
 
-            return new Timer(cache: $cache, key: $ulid->generate());
+            return new Timer(cache: $cache, key: Ulid::generate());
         });
     }
 }

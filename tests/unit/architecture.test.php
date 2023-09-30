@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\unit;
 
 test('globals')
-    ->skip()
     ->expect(['dd', 'dump'])
     ->not->toBeUsed();
 test('facades')

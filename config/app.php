@@ -204,6 +204,7 @@ return [
         \Modules\Residence\Providers\ResidenceServiceProvider::class,
         \Modules\Reservation\Providers\ReservationServiceProvider::class,
         \Modules\Admin\Providers\AdminServiceProvider::class,
+        \Modules\Payment\Providers\PaymentServiceProvider::class,
     ],
 
     /*
