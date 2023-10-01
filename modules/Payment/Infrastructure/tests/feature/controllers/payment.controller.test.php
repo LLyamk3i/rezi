@@ -5,6 +5,7 @@ use Modules\Payment\Domain\Enums\Status;
 
 use function Pest\Laravel\assertDatabaseHas;
 use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Payment\Infrastructure\Models\Payment;
 use Modules\Reservation\Infrastructure\Models\Reservation;
 
 uses(
@@ -24,8 +25,12 @@ it(description: 'can generate payment id for transaction', closure: function () 
 
     $response->assertCreated();
 
+    $payment = Payment::query()->where(['user_id' => $user->id, 'reservation_id' => $reservation->id])->first();
+
     $response->assertJson(value: [
         'success' => true,
+        'id' => $payment->id,
+        'amount' => $amount,
         'message' => trans(key: 'payment::messages.initialization.success')
     ]);
 

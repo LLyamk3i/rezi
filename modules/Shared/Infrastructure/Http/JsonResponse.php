@@ -12,6 +12,7 @@ final class JsonResponse implements Responsable
 {
     public function __construct(
         private readonly Response $response,
+        private readonly array $data = [],
     ) {
         //
     }
@@ -30,6 +31,7 @@ final class JsonResponse implements Responsable
             data: [
                 'success' => ! $this->response->failed,
                 'message' => $this->response->message,
+                ...$this->data,
             ]
         );
     }

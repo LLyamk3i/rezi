@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Payment\Infrastructure\Http\Controllers;
 
-use Modules\Shared\Infrastructure\Http\JsonResponse;
+use Illuminate\Http\JsonResponse;
 use Modules\Payment\Infrastructure\Models\StorePaymentRequest;
 use Modules\Payment\Domain\UseCases\GeneratePaymentKey\GeneratePaymentKeyContract;
 
@@ -17,6 +17,11 @@ final class PaymentController
     {
         $response = $payment->execute(request: $request->approved());
 
-        return new JsonResponse(response: $response);
+        return response()->json(status: $response->status, data: [
+            'success' => ! $response->failed,
+            'message' => $response->message,
+            'id' => $response->id,
+            'amount' => $response->amount,
+        ]);
     }
 }
