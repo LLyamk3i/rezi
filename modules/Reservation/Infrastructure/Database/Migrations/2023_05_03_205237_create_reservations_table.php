@@ -15,8 +15,8 @@ return new class extends Migration
             $table->ulid(column: 'id')->primary();
             $table->timestamp(column: 'checkin_at');
             $table->timestamp(column: 'checkout_at');
-            $table->ulid(column: 'user_id')->nullable();
-            $table->ulid(column: 'residence_id')->nullable();
+            $table->ulid(column: 'user_id');
+            $table->ulid(column: 'residence_id');
             $table->enum(column: 'status', allowed: Status::values());
             $table->integer(column: 'cost', unsigned: true);
 

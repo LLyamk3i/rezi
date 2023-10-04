@@ -10,6 +10,9 @@ use Illuminate\Http\JsonResponse as HttpJsonResponse;
 
 final class JsonResponse implements Responsable
 {
+    /**
+     * @param array<string,int|string> $data
+     */
     public function __construct(
         private readonly Response $response,
         private readonly array $data = [],
@@ -18,11 +21,7 @@ final class JsonResponse implements Responsable
     }
 
     /**
-     * Create an HTTP response that represents the object.
-     *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function toResponse($request): HttpJsonResponse
     {

@@ -10,7 +10,7 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Payment\Domain\ValueObjects\Amount;
 
 /**
- * @phpstan-type PaymentRecord array{id:string,amount:integer,user_id:string,reservation_id:string,status:string,payed_at:string}
+ * @phpstan-type PaymentRecord array{id:string,amount:integer,user_id:string,reservation_id:string,status:string,payed_at:?string}
  */
 final class PaymentFactory
 {

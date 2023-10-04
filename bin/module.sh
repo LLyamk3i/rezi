@@ -34,6 +34,7 @@ sources=(
   "app/Http/Requests"
   "app/Http/Controllers"
   "app/Policies"
+  "app/Http/Middleware"
 )
 destinations=(
   "Notifications"
@@ -45,21 +46,17 @@ destinations=(
   "Http/Requests"
   "Http/Controllers"
   "Policies"
+  "Http/Middleware"
 )
 
 # Loop through the file types and move files
-for ((i=0; i<${#sources[@]}; i++)); do
-  source="${sources[$i]}"
-  destination="${destinations[$i]}"
-  if [ ! -d "$source" ] && [ "$source" = "app/Models" ]; then
-      source="app"
-  fi
-  source_file=$(file_path "$source" "$model")
+for ((i = 0; i < ${#sources[@]}; i++)); do
+  source_file=$(file_path "${sources[$i]}" "$model")
   if [ -n "$source_file" ]; then
-    destination_folder="modules/${module}/Infrastructure/${destination}/"
+    destination_folder="modules/${module}/Infrastructure/${destinations[$i]}/"
     mkdir -p "$destination_folder"
     phpactor class:move "$source_file" "$destination_folder"
-    echo "moved $source_file";
+    echo "moved $source_file"
   fi
 done
 
@@ -67,10 +64,10 @@ done
 migration_file=$(file_path "database/migrations" "$model")
 if [ -n "$migration_file" ]; then
   if [ ! -d "modules/${module}/Infrastructure/Database/Migrations" ]; then
-    mkdir -p "modules/${module}/Infrastructure/Database/Migrations";
+    mkdir -p "modules/${module}/Infrastructure/Database/Migrations"
   fi
   mv "$migration_file" "modules/${module}/Infrastructure/Database/Migrations/"
-    echo "moved $migration_file";
+  echo "moved $migration_file"
 fi
 
 # Confirm completion

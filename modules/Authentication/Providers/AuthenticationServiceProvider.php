@@ -19,6 +19,7 @@ final class AuthenticationServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $bindings = [
+        Domain\Services\AuthenticatedUserService::class => Infrastructure\Services\AuthenticatedUserService::class,
         Domain\Actions\DispatchOneTimePasswordContract::class => Application\Actions\DispatchOneTimePassword::class,
         Domain\Contracts\CreateAccountManagerContract::class => Infrastructure\Managers\CreateAccountManager::class,
         Domain\Repositories\AuthRepository::class => Infrastructure\Eloquent\Repositories\EloquentAuthRepository::class,

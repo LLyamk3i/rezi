@@ -11,12 +11,13 @@ use Symfony\Component\Uid\Ulid as SymfonyUlid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Reservation\Domain\Entities\Reservation as Entity;
 use Modules\Reservation\Domain\Repositories\ReservationRepository;
+use Modules\Reservation\Domain\Contracts\ReservationVerificationQueryContract;
 
 final class EloquentReservationRepository implements ReservationRepository
 {
     public function save(Entity $entity): void
     {
-        $this->builder()->insert(values: [
+        DB::table(table: 'reservations')->insert(values: [
             'id' => SymfonyUlid::generate(),
             'checkin_at' => $entity->stay->start,
             'checkout_at' => $entity->stay->end,
@@ -27,24 +28,24 @@ final class EloquentReservationRepository implements ReservationRepository
         ]);
     }
 
-    public function exists(Duration $stay, Ulid $residence): bool
-    {
-        $query = $this->builder()
-            ->where('residence_id', $residence->value)
-            ->where(static function (Builder $query) use ($stay): void {
-                $query->whereBetween('checkin_at', [$stay->start, $stay->end])
-                    ->orWhereBetween('checkout_at', [$stay->start, $stay->end])
-                    ->orWhere(static function (Builder $query) use ($stay): void {
-                        $query->where('checkin_at', '<=', $stay->start)
-                            ->where('checkout_at', '>=', $stay->end);
-                    });
-            });
+    // public function exists(Duration $stay, Ulid $residence): bool
+    // {
+    //     $query = DB::table(table: 'reservations')
+    //         ->where('residence_id', $residence->value)
+    //         ->where(static function (Builder $query) use ($stay): void {
+    //             $query->whereBetween('checkin_at', [$stay->start, $stay->end])
+    //                 ->orWhereBetween('checkout_at', [$stay->start, $stay->end])
+    //                 ->orWhere(static function (Builder $query) use ($stay): void {
+    //                     $query->where('checkin_at', '<=', $stay->start)
+    //                         ->where('checkout_at', '>=', $stay->end);
+    //                 });
+    //         });
 
-        return $query->exists();
-    }
+    //     return $query->exists();
+    // }
 
-    private function builder(): Builder
+    public function exists(ReservationVerificationQueryContract $checker): bool
     {
-        return DB::table(table: 'reservations');
+        return $checker->run();
     }
 }

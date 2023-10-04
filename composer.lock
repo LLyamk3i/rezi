@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a838cc04443975ff41cd8f56c73c0235",
+    "content-hash": "c35a12b2901138027a265eb75d4b060a",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -2294,16 +2294,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.25.2",
+            "version": "v10.26.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6014dd456b414b305fb0b408404efdcec18e64bc"
+                "reference": "6e5440f7c518f26b4495e5d7e4796ec239e26df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6014dd456b414b305fb0b408404efdcec18e64bc",
-                "reference": "6014dd456b414b305fb0b408404efdcec18e64bc",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/6e5440f7c518f26b4495e5d7e4796ec239e26df9",
+                "reference": "6e5440f7c518f26b4495e5d7e4796ec239e26df9",
                 "shasum": ""
             },
             "require": {
@@ -2490,20 +2490,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-09-28T14:08:59+00:00"
+            "time": "2023-10-03T14:24:20+00:00"
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.1.10",
+            "version": "v0.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "37ed55f6950d921a87d5beeab16d03f8de26b060"
+                "reference": "cce65a90e64712909ea1adc033e1d88de8455ffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/37ed55f6950d921a87d5beeab16d03f8de26b060",
-                "reference": "37ed55f6950d921a87d5beeab16d03f8de26b060",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/cce65a90e64712909ea1adc033e1d88de8455ffd",
+                "reference": "cce65a90e64712909ea1adc033e1d88de8455ffd",
                 "shasum": ""
             },
             "require": {
@@ -2545,9 +2545,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.1.10"
+                "source": "https://github.com/laravel/prompts/tree/v0.1.11"
             },
-            "time": "2023-09-29T07:26:07+00:00"
+            "time": "2023-10-03T01:07:35+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -8060,16 +8060,16 @@
     "packages-dev": [
         {
             "name": "brianium/paratest",
-            "version": "v7.2.7",
+            "version": "v7.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paratestphp/paratest.git",
-                "reference": "1526eb4fd195f65075456dee394d14742ae0a66c"
+                "reference": "882b02d197328138686bb06ce7d8cbb98fc0a16c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paratestphp/paratest/zipball/1526eb4fd195f65075456dee394d14742ae0a66c",
-                "reference": "1526eb4fd195f65075456dee394d14742ae0a66c",
+                "url": "https://api.github.com/repos/paratestphp/paratest/zipball/882b02d197328138686bb06ce7d8cbb98fc0a16c",
+                "reference": "882b02d197328138686bb06ce7d8cbb98fc0a16c",
                 "shasum": ""
             },
             "require": {
@@ -8139,7 +8139,7 @@
             ],
             "support": {
                 "issues": "https://github.com/paratestphp/paratest/issues",
-                "source": "https://github.com/paratestphp/paratest/tree/v7.2.7"
+                "source": "https://github.com/paratestphp/paratest/tree/v7.2.8"
             },
             "funding": [
                 {
@@ -8151,7 +8151,7 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2023-09-14T14:10:09+00:00"
+            "time": "2023-10-04T13:38:04+00:00"
         },
         {
             "name": "driftingly/rector-laravel",
@@ -9866,16 +9866,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.36",
+            "version": "1.10.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ffa3089511121a672e62969404e4fddc753f9b15"
+                "reference": "058ba07e92f744d4dcf6061ae75283d0c6456f2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ffa3089511121a672e62969404e4fddc753f9b15",
-                "reference": "ffa3089511121a672e62969404e4fddc753f9b15",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/058ba07e92f744d4dcf6061ae75283d0c6456f2e",
+                "reference": "058ba07e92f744d4dcf6061ae75283d0c6456f2e",
                 "shasum": ""
             },
             "require": {
@@ -9924,7 +9924,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-29T14:07:45+00:00"
+            "time": "2023-10-02T16:18:37+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",

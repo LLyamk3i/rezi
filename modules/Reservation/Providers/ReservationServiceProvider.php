@@ -17,6 +17,7 @@ final class ReservationServiceProvider extends ServiceProvider
     public array $bindings = [
         Domain\UseCases\CreateReservation\CreateReservationContract::class => Application\UseCases\CreateReservation\CreateReservation::class,
         Domain\Repositories\ReservationRepository::class => Infrastructure\Eloquent\Repositories\EloquentReservationRepository::class,
+        Domain\Commands\VerifyReservationOwnershipContracts::class => Application\Commands\VerifyReservationOwnership::class,
     ];
 
     public function boot(): void

@@ -60,6 +60,11 @@ final class ResidenceFactory extends Factory
         ];
     }
 
+    public function unlocated(): self
+    {
+        return $this->state(state: ['location' => null]);
+    }
+
     public function location(Location $value): self
     {
         return $this->state(state: ['location' => DB::raw("ST_PointFromText('POINT({$value->longitude} {$value->latitude})')")]);

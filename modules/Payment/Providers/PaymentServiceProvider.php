@@ -18,6 +18,8 @@ final class PaymentServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $bindings = [
+        Domain\UseCases\UpdatePayment\UpdatePaymentContract::class => Application\UseCases\UpdatePayment::class,
+        Domain\Commands\VerifyPaymentOwnershipContract::class => Application\Commands\VerifyPaymentOwnership::class,
         Domain\Repositories\PaymentRepository::class => Infrastructure\Eloquent\Repositories\EloquentPaymentRepository::class,
         Domain\UseCases\GeneratePaymentKey\GeneratePaymentKeyContract::class => Application\UseCases\GeneratePaymentKey::class,
     ];

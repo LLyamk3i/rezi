@@ -11,3 +11,4 @@ sed -i 's/static //g' ./routes/console.php
 # while IFS= read -r filename; do
 #     find ./modules -type f -iname "*$filename*" -exec sed -i 's/final class /class /g' {} +
 # done <<<"$result"
+find . -type d -empty ! -path "./app/Models*" ! -path "./database/factories*" -exec rmdir {} \;
