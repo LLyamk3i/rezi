@@ -8,10 +8,10 @@ use Modules\Residence\Infrastructure\Models\Residence;
 
 use function Modules\Shared\Infrastructure\Helpers\boolean_value;
 
-final class VisibleAttribute
+final readonly class VisibleAttribute
 {
     public function __construct(
-        private readonly Residence $residence,
+        private Residence $residence,
     ) {
         //
     }

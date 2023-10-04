@@ -30,6 +30,7 @@ final class CreateReservationResponse
         if (! \is_null(value: $this->message)) {
             return $this->message;
         }
+
         if ($this->failed) {
             return 'Impossible de créer la réservation. Veuillez vérifier les informations fournies et réessayer.';
         }

@@ -7,11 +7,11 @@ namespace Modules\Authentication\Domain\UseCases\VerifyUserAccount;
 use Modules\Authentication\Domain\ValueObjects\Otp;
 use Modules\Authentication\Domain\ValueObjects\Email;
 
-final class VerifyUserAccountRequest
+final readonly class VerifyUserAccountRequest
 {
     public function __construct(
-        public readonly Email $email,
-        public readonly Otp $code,
+        public Email $email,
+        public Otp $code,
     ) {
         //
     }

@@ -12,7 +12,7 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-test(description: 'user can login', closure: function () {
+test(description: 'user can login', closure: function (): void {
 
     $user = User::factory()->create();
 
@@ -30,7 +30,7 @@ test(description: 'user can login', closure: function () {
     ]);
 });
 
-test(description: 'users can not authenticate with invalid password', closure: function () {
+test(description: 'users can not authenticate with invalid password', closure: function (): void {
     $user = User::factory()->create();
 
     $response = postJson(uri: '/api/auth/login', data: [
@@ -41,7 +41,7 @@ test(description: 'users can not authenticate with invalid password', closure: f
     $response->assertJsonValidationErrors(errors: ['email' => 'The provided credentials are incorrect.']);
 });
 
-test(description: 'users can logout', closure: function () {
+test(description: 'users can logout', closure: function (): void {
     $user = User::factory()->create();
     Sanctum::actingAs(user: $user);
 

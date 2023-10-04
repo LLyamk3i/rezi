@@ -10,11 +10,11 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Reservation\Domain\Contracts\ReservationVerificationQueryContract;
 
-final class ReservationAvailabilityVerificationQuery implements ReservationVerificationQueryContract
+final readonly class ReservationAvailabilityVerificationQuery implements ReservationVerificationQueryContract
 {
     public function __construct(
-        private readonly Duration $stay,
-        private readonly Ulid $residence,
+        private Duration $stay,
+        private Ulid $residence,
     ) {
         //
     }

@@ -12,7 +12,7 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-it(description: 'can verify user account', closure: function () {
+it(description: 'can verify user account', closure: function (): void {
     
 
     $user = User::factory()->unverified()->create();

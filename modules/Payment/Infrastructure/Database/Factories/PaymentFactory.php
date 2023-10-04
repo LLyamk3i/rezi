@@ -19,13 +19,13 @@ final class PaymentFactory extends Factory
     protected $model = Payment::class;
 
     /**
-     * @return array<string,mixed>
+     * @return array{id: string, amount: int, status: string, payed_at: null, user_id: \Illuminate\Database\Eloquent\Collection<int, \Illuminate\Database\Eloquent\Model>|\Illuminate\Database\Eloquent\Model, reservation_id: \Modules\Reservation\Infrastructure\Database\Factories\ReservationFactory}
      */
     public function definition(): array
     {
         return [
             'id' => Ulid::generate(),
-            'amount' => rand(min: 10_000, max: 100_000_000),
+            'amount' => random_int(min: 10_000, max: 100_000_000),
             'status' => Status::Pending->value,
             'payed_at' => null,
             'user_id' => $client = User::factory()->create(),

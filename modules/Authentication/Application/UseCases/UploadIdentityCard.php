@@ -12,11 +12,11 @@ use Modules\Authentication\Domain\UseCases\UploadIdentityCard\UploadIdentityCard
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-final class UploadIdentityCard implements UploadIdentityCardContract
+final readonly class UploadIdentityCard implements UploadIdentityCardContract
 {
     public function __construct(
-        private readonly Translator $translator,
-        private readonly MediaRepository $repository,
+        private Translator $translator,
+        private MediaRepository $repository,
     ) {
     }
 
@@ -24,8 +24,8 @@ final class UploadIdentityCard implements UploadIdentityCardContract
     {
         try {
             $identity = $request->upload->run();
-        } catch (\Throwable $th) {
-            report($th);
+        } catch (\Throwable $throwable) {
+            report($throwable);
 
             return new Response(
                 status: 500,
@@ -40,8 +40,8 @@ final class UploadIdentityCard implements UploadIdentityCardContract
                 user: $request->account->id,
                 context: $request->map,
             );
-        } catch (\Throwable $th) {
-            report($th);
+        } catch (\Throwable $throwable) {
+            report($throwable);
 
             return new Response(
                 status: 500,

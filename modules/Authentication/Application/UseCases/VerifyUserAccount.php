@@ -10,11 +10,11 @@ use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountRe
 use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract;
 use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountResponse;
 
-final class VerifyUserAccount implements VerifyUserAccountContract
+final readonly class VerifyUserAccount implements VerifyUserAccountContract
 {
     public function __construct(
-        private readonly AccountRepository $repository,
-        private readonly RetrievesOneTimePasswordContract $retriever,
+        private AccountRepository $repository,
+        private RetrievesOneTimePasswordContract $retriever,
     ) {
         //
     }
@@ -41,7 +41,7 @@ final class VerifyUserAccount implements VerifyUserAccountContract
 
         $code = $this->retriever->handle(email: $account->email);
 
-        if (! ($code === $request->code->value)) {
+        if ($code !== $request->code->value) {
             return new VerifyUserAccountResponse(
                 status: 500,
                 failed: true,

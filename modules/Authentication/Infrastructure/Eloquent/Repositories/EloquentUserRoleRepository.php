@@ -31,7 +31,7 @@ final class EloquentUserRoleRepository implements RepositoriesUserRoleRepository
         }
 
         return $results
-            ->diff(array_map(callback: static fn (Roles $role) => $role->value, array: $roles))
+            ->diff(array_map(callback: static fn (Roles $role): string => $role->value, array: $roles))
             ->isEmpty();
     }
 }

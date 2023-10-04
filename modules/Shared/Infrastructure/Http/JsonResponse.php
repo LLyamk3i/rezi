@@ -8,14 +8,14 @@ use Modules\Shared\Domain\UseCases\Response;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
 
-final class JsonResponse implements Responsable
+final readonly class JsonResponse implements Responsable
 {
     /**
      * @param array<string,int|string> $data
      */
     public function __construct(
-        private readonly Response $response,
-        private readonly array $data = [],
+        private Response $response,
+        private array $data = [],
     ) {
         //
     }

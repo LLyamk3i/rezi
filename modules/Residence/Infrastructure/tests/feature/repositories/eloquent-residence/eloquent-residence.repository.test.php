@@ -63,12 +63,13 @@ it(description: 'should find the nearest residences to a given location', closur
 
     $residences = [];
     // Insert 10 positions within the radius
-    for ($i = 1; $i <= 10; $i++) {
+    for ($i = 1; $i <= 10; ++$i) {
         $coordinates = $generator->execute();
         $residences[] = residence_factory(latitude: $coordinates['latitude'], longitude: $coordinates['longitude']);
     }
+
     // Insert 8 positions outside the radius
-    for ($i = 1; $i <= 8; $i++) {
+    for ($i = 1; $i <= 8; ++$i) {
         $coordinates = $generator->execute();
         $residences[] = residence_factory(latitude: $coordinates['latitude'] * 2, longitude: $coordinates['longitude'] * 2);
     }

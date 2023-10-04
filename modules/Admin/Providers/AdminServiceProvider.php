@@ -20,6 +20,6 @@ final class AdminServiceProvider extends ServiceProvider
         $this->app->register(provider: AuthServiceProvider::class);
         $this->app->register(provider: FilamentServiceProvider::class);
 
-        $this->app->singleton(abstract: \AdminLoginPageViewModel::class, concrete: static fn () => AdminLoginPageViewModelFactory::make());
+        $this->app->singleton(abstract: \AdminLoginPageViewModel::class, concrete: static fn (): \Modules\Admin\Application\ViewModels\AdminLoginPageViewModel => AdminLoginPageViewModelFactory::make());
     }
 }

@@ -14,11 +14,11 @@ use Modules\Payment\Domain\Repositories\PaymentRepository;
 /**
  * @phpstan-import-type PaymentRecord from \Modules\Payment\Application\Factories\PaymentFactory
  */
-final class EloquentPaymentRepository implements PaymentRepository
+final readonly class EloquentPaymentRepository implements PaymentRepository
 {
     public function __construct(
-        private readonly Repository $parent,
-        private readonly PaymentFactory $factory,
+        private Repository $parent,
+        private PaymentFactory $factory,
     ) {
         //
     }

@@ -9,12 +9,12 @@ use Modules\Authentication\Domain\Commands\GenerateOneTimePasswordContract;
 use Modules\Authentication\Domain\Commands\RememberOneTimePasswordRequestContract;
 use Modules\Authentication\Domain\Commands\SendOneTimePasswordNotificationContract;
 
-final class DispatchOneTimePassword implements DispatchOneTimePasswordContract
+final readonly class DispatchOneTimePassword implements DispatchOneTimePasswordContract
 {
     public function __construct(
-        private readonly GenerateOneTimePasswordContract $code,
-        private readonly SendOneTimePasswordNotificationContract $notification,
-        private readonly RememberOneTimePasswordRequestContract $remember,
+        private GenerateOneTimePasswordContract $code,
+        private SendOneTimePasswordNotificationContract $notification,
+        private RememberOneTimePasswordRequestContract $remember,
     ) {
         //
     }

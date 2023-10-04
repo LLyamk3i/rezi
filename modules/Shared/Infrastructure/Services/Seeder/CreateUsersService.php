@@ -23,8 +23,8 @@ final class CreateUsersService
         return User::factory()
             ->count(count: $count)
             ->make()
-            ->map(callback: static function (Model $model, int $key) use ($basic) {
-                if (\in_array(needle: $key, haystack: array_keys(array: $basic), strict: true)) {
+            ->map(callback: static function (Model $model, int $key) use ($basic): array {
+                if (\array_key_exists(key: $key, array: $basic)) {
                     return [...$model->getAttributes(), ...$basic[$key]];
                 }
 

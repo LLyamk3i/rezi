@@ -9,6 +9,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Modules\Residence\Infrastructure\Models\Residence;
 
+use function Modules\Shared\Infrastructure\Helpers\integer_value;
+
 /**
  * @phpstan-import-type ResidenceFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactory
  * @phpstan-import-type FeatureFactoryResponse from \Modules\Residence\Infrastructure\Database\Factories\FeatureFactory
@@ -34,7 +36,7 @@ final class ResidenceSeeder extends Seeder
         $residences = Residence::factory()
             ->count(count: $count)
             ->make()
-            ->map(static fn (Residence $residence) => [
+            ->map(static fn (Residence $residence): array => [
                 ...$residence->getAttributes(),
                 'user_id' => value(static fn (array $values) => $values['id'], Arr::random(array: $providers)),
                 'type_id' => value(static fn (array $values) => $values['id'], Arr::random(array: $types)),
@@ -45,8 +47,10 @@ final class ResidenceSeeder extends Seeder
             DB::table(table: 'feature_residence')->insert(values: Arr::flatten(depth: 1, array: array_map(
                 array: Arr::pluck(array: $residences, value: 'id'),
                 callback: static fn (string $residence_id): array => array_map(
-                    array: collect(value: $features)->pluck(value: 'id')->random(number: rand(min: 1, max: \count(value: $features) - 1))->toArray(),
-                    callback: static fn (string $feature_id): array => ['residence_id' => $residence_id, 'feature_id' => $feature_id]
+                    array: collect(value: $features)->pluck(value: 'id')
+                        ->random(number: integer_value(value: with(1, static fn (int $value): int => $value < 0 ? 0 : random_int(min: 0, max: $value))))
+                        ->toArray(),
+                    callback: static fn (string $feature_id): array => ['residence_id' => $residence_id, 'feature_id' => $feature_id],
                 )
             )));
         }

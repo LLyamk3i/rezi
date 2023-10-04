@@ -21,6 +21,27 @@ use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
  */
 final readonly class EloquentResidenceRepository implements ResidenceRepository
 {
+    /**
+     * @var string
+     */
+    private const STATEMENT = 'SELECT id, name, address,
+            ST_X(location) AS latitude,
+            ST_Y(location) AS longitude,
+            (6371 * ACOS(COS(RADIANS(:lat))
+            * COS(RADIANS(ST_Y(location)))
+            * COS(RADIANS(ST_X(location)) 
+            - RADIANS(:lng))
+            + SIN(RADIANS(:lat))
+            * SIN(RADIANS(ST_Y(location))))
+            ) AS distance
+        FROM residences
+        WHERE MBRContains(
+            LineString(
+                Point(:lng + :rad / (111.320 * COS(RADIANS(:lat))),:lat + :rad / 111.133),
+                Point (:lng - :rad / (111.320 * COS(RADIANS(:lat))), :lat - :rad / 111.133)
+            ),location)
+        HAVING distance < :rad ORDER By distance;';
+
     public function __construct(
         private ResidenceFactory $factory,
         private Repository $parent,
@@ -59,29 +80,11 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
      */
     public function nearest(Location $location, Radius $radius): array
     {
-        $statement = 'SELECT id, name, address,
-            ST_X(location) AS latitude,
-            ST_Y(location) AS longitude,
-            (6371 * ACOS(COS(RADIANS(:lat))
-            * COS(RADIANS(ST_Y(location)))
-            * COS(RADIANS(ST_X(location)) 
-            - RADIANS(:lng))
-            + SIN(RADIANS(:lat))
-            * SIN(RADIANS(ST_Y(location))))
-            ) AS distance
-        FROM residences
-        WHERE MBRContains(
-            LineString(
-                Point(:lng + :rad / (111.320 * COS(RADIANS(:lat))),:lat + :rad / 111.133),
-                Point (:lng - :rad / (111.320 * COS(RADIANS(:lat))), :lat - :rad / 111.133)
-            ),location)
-        HAVING distance < :rad ORDER By distance;';
-
         /** @phpstan-var array<int,ResidenceRecord> $residences */
         $residences = DB::select(query: str_replace(
             search: [':lat', ':lng', ':rad'],
             replace: [$location->latitude, $location->longitude, $radius->value],
-            subject: $statement
+            subject: self::STATEMENT
         ));
 
         return $this->hydrator->hydrate(data: $residences);

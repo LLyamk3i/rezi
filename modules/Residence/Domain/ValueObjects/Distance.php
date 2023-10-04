@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Domain\ValueObjects;
 
-final class Distance implements \Stringable
+final readonly class Distance implements \Stringable
 {
     public const EARTH_RADIUS = 6371;
 
     public const EARTH_LATITUDE_APPROXIMATE_LENGTH = 111.3; // 111.3 km is the approximate length of 1 degree of latitude in kilometers
 
     public function __construct(
-        public readonly float $value,
-        public readonly string $unit = 'km',
+        public float $value,
+        public string $unit = 'km',
     ) {
         if ($value < 0) {
             throw new \InvalidArgumentException(message: 'Value must be a non-negative number');

@@ -8,10 +8,10 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Payment\Domain\Repositories\PaymentRepository;
 use Modules\Payment\Domain\Commands\VerifyPaymentOwnershipContract;
 
-final class VerifyPaymentOwnership implements VerifyPaymentOwnershipContract
+final readonly class VerifyPaymentOwnership implements VerifyPaymentOwnershipContract
 {
     public function __construct(
-        private readonly PaymentRepository $repository,
+        private PaymentRepository $repository,
     ) {
         //
     }

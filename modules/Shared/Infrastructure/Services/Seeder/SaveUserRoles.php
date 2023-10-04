@@ -21,9 +21,9 @@ final class SaveUserRoles
     {
         DB::table(table: 'role_user')->insert(values: Arr::flatten(depth: 1, array: array_map(
             array: array_column(array: $users, column_key: 'id'),
-            callback: static fn (string $user) => array_map(
+            callback: static fn (string $user): array => array_map(
                 array: collect(value: $roles)->pluck(value: 'id')->toArray(),
-                callback: static fn (string $role_id) => ['user_id' => $user, 'role_id' => $role_id],
+                callback: static fn (string $role_id): array => ['user_id' => $user, 'role_id' => $role_id],
             )
         )));
     }

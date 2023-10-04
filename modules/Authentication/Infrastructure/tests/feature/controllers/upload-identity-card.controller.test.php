@@ -15,7 +15,7 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-it(description: 'can save and register uploaded user identity card', closure: function () {
+it(description: 'can save and register uploaded user identity card', closure: function (): void {
     Storage::fake(disk: $disk = config(key: 'app.upload.disk'));
 
     $user = User::factory()->verified()->create();
@@ -31,10 +31,10 @@ it(description: 'can save and register uploaded user identity card', closure: fu
         'message' => trans(key: 'authentication::messages.uploads.identity-card.success'),
     ]);
 
-    array_walk(array: $card, callback: function (File $file) use ($disk, $user) {
+    array_walk(array: $card, callback: function (File $file) use ($disk, $user): void {
         $path = 'users/identity-cards/' . $file->hashName();
         
-        tap(value: Storage::disk(name: $disk), callback: function (FilesystemAdapter $storage) use ($path) {
+        tap(value: Storage::disk(name: $disk), callback: function (FilesystemAdapter $storage) use ($path): void {
             $storage->assertExists(path: $path);
         });
 

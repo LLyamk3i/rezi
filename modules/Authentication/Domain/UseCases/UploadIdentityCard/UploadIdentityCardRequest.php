@@ -7,12 +7,12 @@ namespace Modules\Authentication\Domain\UseCases\UploadIdentityCard;
 use Modules\Authentication\Domain\Entities\User;
 use Modules\Authentication\Domain\Services\UploadIdentityCardServiceContract;
 
-final class UploadIdentityCardRequest
+final readonly class UploadIdentityCardRequest
 {
     public function __construct(
-        public readonly string $map,
-        public readonly User $account,
-        public readonly UploadIdentityCardServiceContract $upload,
+        public string $map,
+        public User $account,
+        public UploadIdentityCardServiceContract $upload,
     ) {
         //
     }

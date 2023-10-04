@@ -13,7 +13,7 @@ final class NumberGenerator implements GeneratorContract
     {
         try {
             $number = random_int(min: 000_000, max: 999_999);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             throw new OneTimePasswordGenerationException(message: 'Failed to generate a random integer');
         }
 

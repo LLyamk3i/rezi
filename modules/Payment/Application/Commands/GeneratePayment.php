@@ -11,10 +11,10 @@ use Modules\Payment\Domain\ValueObjects\Amount;
 use Modules\Shared\Domain\Contracts\GeneratorContract;
 use Modules\Payment\Domain\Commands\GeneratePaymentContract;
 
-final class GeneratePayment implements GeneratePaymentContract
+final readonly class GeneratePayment implements GeneratePaymentContract
 {
     public function __construct(
-        private readonly GeneratorContract $ulid,
+        private GeneratorContract $ulid,
     ) {
     }
 

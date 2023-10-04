@@ -8,7 +8,7 @@ use Modules\Authentication\Domain\Enums\Roles;
 
 final class AuthenticatedObject
 {
-    private string $key = 'auth.%s.';
+    private const KEY = 'auth.%s.';
 
     public static function make(): self
     {
@@ -17,7 +17,7 @@ final class AuthenticatedObject
 
     public function key(string $id, string $suffix): string
     {
-        return sprintf($this->key . $suffix, $id);
+        return sprintf(self::KEY . $suffix, $id);
     }
 
     public function role(string $id): Roles

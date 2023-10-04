@@ -34,7 +34,7 @@ trait UserConcern
     }
 
     /**
-     * @return array<string,string>
+     * @return array{email_verified_at: string}
      */
     public function getCasts(): array
     {

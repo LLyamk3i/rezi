@@ -8,10 +8,10 @@ use Illuminate\Http\JsonResponse;
 use Modules\Authentication\Infrastructure\Http\Requests\EmailVerificationRequest;
 use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract;
 
-final class EmailVerificationController
+final readonly class EmailVerificationController
 {
     public function __construct(
-        private readonly VerifyUserAccountContract $useCase,
+        private VerifyUserAccountContract $useCase,
     ) {
         //
     }

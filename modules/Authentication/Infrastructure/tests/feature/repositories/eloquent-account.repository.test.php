@@ -23,7 +23,7 @@ function account_repository(): EloquentAccountRepository
     return resolve(name: EloquentAccountRepository::class);
 }
 
-function user_entity_factory()
+function user_entity_factory(): \Modules\Authentication\Domain\Entities\User
 {
     return new Entity(
         id: new Ulid(value: SymphonyUlid::generate()),
@@ -34,7 +34,7 @@ function user_entity_factory()
     );
 }
 
-test(description: 'it can create user with owner role', closure: function () {
+test(description: 'it can create user with owner role', closure: function (): void {
     Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
 
     $role = Role::factory()->create(attributes: ['name' => Roles::Owner]);
@@ -43,7 +43,7 @@ test(description: 'it can create user with owner role', closure: function () {
 
     $result = account_repository()->create(user: $entity, roles: [$role->name]);
 
-    assertTrue(condition: $result === true);
+    assertTrue(condition: $result);
 
     assertDatabaseHas(table: 'users', data: [
         'id' => $entity->id->value,
@@ -58,7 +58,7 @@ test(description: 'it can create user with owner role', closure: function () {
     ]);
 });
 
-test(description: 'it can create user with owner and admin role', closure: function () {
+test(description: 'it can create user with owner and admin role', closure: function (): void {
     Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
 
     $roles = Role::factory()
@@ -70,7 +70,7 @@ test(description: 'it can create user with owner and admin role', closure: funct
 
     $result = account_repository()->create(user: $entity, roles: $roles->pluck(value: 'name')->toArray());
 
-    assertTrue(condition: $result === true);
+    assertTrue(condition: $result);
 
     assertDatabaseHas(table: 'users', data: [
         'id' => $entity->id->value,
@@ -89,7 +89,7 @@ test(description: 'it can create user with owner and admin role', closure: funct
     ]);
 });
 
-test(description: 'it cannot create user without role', closure: function () {
+test(description: 'it cannot create user without role', closure: function (): void {
     Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
 
     $result = account_repository()->create(roles: [], user: new Entity(

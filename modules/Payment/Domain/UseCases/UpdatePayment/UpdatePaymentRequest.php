@@ -8,12 +8,12 @@ use Modules\Payment\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Domain\Entities\User;
 
-final class UpdatePaymentRequest
+final readonly class UpdatePaymentRequest
 {
     public function __construct(
-        public readonly User $client,
-        public readonly Status $status,
-        public readonly Ulid $payment,
+        public User $client,
+        public Status $status,
+        public Ulid $payment,
     ) {
         //
     }

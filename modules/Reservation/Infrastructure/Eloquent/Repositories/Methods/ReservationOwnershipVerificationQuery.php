@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Reservation\Domain\Contracts\ReservationVerificationQueryContract;
 
-final class ReservationOwnershipVerificationQuery implements ReservationVerificationQueryContract
+final readonly class ReservationOwnershipVerificationQuery implements ReservationVerificationQueryContract
 {
     public function __construct(
-        private readonly Ulid $owner,
-        private readonly Ulid $reservation,
+        private Ulid $owner,
+        private Ulid $reservation,
     ) {
         //
     }

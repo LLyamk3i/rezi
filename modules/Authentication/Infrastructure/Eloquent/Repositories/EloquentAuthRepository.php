@@ -33,10 +33,11 @@ final class EloquentAuthRepository implements AuthRepository
         if ($roles === []) {
             return false;
         }
+
         $data = DB::table(table: 'roles')
             ->whereIn(column: 'name', values: $roles)
             ->get(columns: ['id'])
-            ->map(callback: static fn (array $data) => [
+            ->map(callback: static fn (array $data): array => [
                 'user_id' => $user->value,
                 'role_id' => $data['id'],
             ]);

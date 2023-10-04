@@ -29,6 +29,7 @@ final class MediaUpload
         if ($required) {
             $file->required();
         }
+
         $mimes === [] ? $file->image() : $file->acceptedFileTypes(types: $mimes);
 
         return array_filter(array: [

@@ -16,7 +16,7 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-it(description: 'can register user', closure: function () {
+it(description: 'can register user', closure: function (): void {
     Notification::fake();
     $data = [
         'forename' => 'test forename',

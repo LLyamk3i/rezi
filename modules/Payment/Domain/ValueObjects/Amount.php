@@ -6,10 +6,10 @@ namespace Modules\Payment\Domain\ValueObjects;
 
 use Modules\Shared\Domain\Exceptions\InvalidValueObjectException;
 
-final class Amount
+final readonly class Amount
 {
     public function __construct(
-        public readonly int $value,
+        public int $value,
     ) {
         if ($value < 0) {
             throw new InvalidValueObjectException(value: $value, object: self::class);

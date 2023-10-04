@@ -15,7 +15,7 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-it(description: 'must reject payment attempt from non owner reservation', closure: function () {
+it(description: 'must reject payment attempt from non owner reservation', closure: function (): void {
 
     $owner = User::factory()->verified()->create();
     $buyer = User::factory()->verified()->create();
@@ -33,7 +33,7 @@ it(description: 'must reject payment attempt from non owner reservation', closur
     ]);
 });
 
-it(description: 'can generate payment id for transaction', closure: function () {
+it(description: 'can generate payment id for transaction', closure: function (): void {
 
     $user = User::factory()->verified()->create();
     $reservation = Reservation::factory()->client(model: $user)->create();
@@ -63,7 +63,7 @@ it(description: 'can generate payment id for transaction', closure: function () 
     ]);
 });
 
-it(description: 'can patch the payment record with new response from payment getaway', closure: function (Status $status) {
+it(description: 'can patch the payment record with new response from payment getaway', closure: function (Status $status): void {
 
     $user = User::factory()->verified()->create();
     $payment = Payment::factory()->client(model: $user)->create();

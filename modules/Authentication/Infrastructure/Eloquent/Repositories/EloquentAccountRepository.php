@@ -48,10 +48,13 @@ final readonly class EloquentAccountRepository implements AccountRepository
         }
 
         try {
-            return $this->repository->register(user: $user)
-                && $this->repository->bind(user: $user->id, roles: $roles);
-        } catch (\Throwable $th) {
-            report(exception: $th);
+            if (! $this->repository->register(user: $user)) {
+                return false;
+            }
+
+            return $this->repository->bind(user: $user->id, roles: $roles);
+        } catch (\Throwable $throwable) {
+            report(exception: $throwable);
 
             return false;
         }

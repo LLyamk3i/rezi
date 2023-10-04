@@ -53,8 +53,8 @@ final class ResidenceFactory extends Factory
             'location' => DB::raw("ST_PointFromText('POINT({$coordinates['latitude']} {$coordinates['longitude']})')"),
             'rent' => random_int(min: 15_000, max: 1_000_000),
             'description' => fake()->sentence(),
-            'visible' => rand(min: 0, max: 1),
-            'rooms' => rand(min: 1, max: 6),
+            'visible' => random_int(min: 0, max: 1),
+            'rooms' => random_int(min: 1, max: 6),
             'created_at' => (string) now(),
             'updated_at' => (string) now(),
         ];

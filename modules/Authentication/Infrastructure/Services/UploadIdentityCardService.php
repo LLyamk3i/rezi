@@ -13,19 +13,19 @@ use Modules\Authentication\Domain\Services\UploadIdentityCardServiceContract;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-final class UploadIdentityCardService implements UploadIdentityCardServiceContract
+final readonly class UploadIdentityCardService implements UploadIdentityCardServiceContract
 {
     public function __construct(
-        private readonly UploadedFile $recto,
-        private readonly UploadedFile $verso,
-        private readonly FileFactory $factory,
-        private readonly string $disk,
+        private UploadedFile $recto,
+        private UploadedFile $verso,
+        private FileFactory $factory,
+        private string $disk,
     ) {
     }
 
     public function run(): Identity
     {
-        $files = array_map(array: $this->files(), callback: function (UploadedFile $file) {
+        $files = array_map(array: $this->files(), callback: function (UploadedFile $file): \Modules\Shared\Domain\ValueObjects\File {
             $path = Storage::disk(name: $this->disk)->put(path: 'users/identity-cards', contents: $file);
 
             return $this->factory->make(

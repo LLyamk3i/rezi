@@ -19,7 +19,7 @@ final class SearchResidencesResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @return array<string, mixed>
+     * @return array{id: string, name: string, address: string, description: string, distance: string, location: \Modules\Residence\Domain\ValueObjects\Location, rent: array{value: float, format: string, currency: string}}
      */
     public function toArray(Request $request): array
     {

@@ -14,7 +14,7 @@ final class AdminQueryBuilder extends Builder
 {
     public function default(): static
     {
-        return $this->whereHas(relation: 'roles', callback: static fn (Builder $query) => $query->where('name', Roles::Admin))
-            ->whereDoesntHave(relation: 'roles', callback: static fn (Builder $query) => $query->where('name', Roles::Owner));
+        return $this->whereHas(relation: 'roles', callback: static fn (Builder $query): \Illuminate\Database\Eloquent\Builder => $query->where('name', Roles::Admin))
+            ->whereDoesntHave(relation: 'roles', callback: static fn (Builder $query): \Illuminate\Database\Eloquent\Builder => $query->where('name', Roles::Owner));
     }
 }

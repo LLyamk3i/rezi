@@ -15,7 +15,7 @@ final class AdminLoginPageViewModelFactory
         $admin = ['label' => 'Login as admin', 'email' => AdminRecord::data()['email']];
 
         $providers = array_map(
-            callback: static fn (array $record) => ['label' => 'Login as provider ' . $record['surname'], 'email' => $record['email']],
+            callback: static fn (array $record): array => ['label' => 'Login as provider ' . $record['surname'], 'email' => $record['email']],
             array: ProviderRecord::data(),
         );
 

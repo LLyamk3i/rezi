@@ -41,12 +41,14 @@ final class UploadUserIdentityCardRequest extends FormRequest
         if (! ($user instanceof User)) {
             throw new \RuntimeException(message: 'Account not found', code: 1);
         }
+
         /** @phpstan-var UserRecord $data */
         $data = $user->toArray();
 
         if (! ($recto instanceof UploadedFile)) {
             throw new \RuntimeException(message: 'Identity card not uploaded', code: 1);
         }
+
         if (! ($verso instanceof UploadedFile)) {
             throw new \RuntimeException(message: 'Identity card not uploaded', code: 1);
         }

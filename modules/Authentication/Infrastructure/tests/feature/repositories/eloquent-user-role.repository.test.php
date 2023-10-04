@@ -15,7 +15,7 @@ uses(
 //     \Tests\TestCase::class,
 //     \Illuminate\Foundation\Testing\LazilyRefreshDatabase::class,
 // );
-test(description: 'it can verify if user has owner role', closure: function () {
+test(description: 'it can verify if user has owner role', closure: function (): void {
 
     Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
 
@@ -32,7 +32,7 @@ test(description: 'it can verify if user has owner role', closure: function () {
     expect(value: $result)->toBeTrue();
 });
 
-test(description: 'it can verify if user has owner and admin roles', closure: function () {
+test(description: 'it can verify if user has owner and admin roles', closure: function (): void {
 
     Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
 
@@ -50,7 +50,7 @@ test(description: 'it can verify if user has owner and admin roles', closure: fu
     expect(value: $result)->toBeTrue();
 });
 
-test(description: 'it cannot verify if user has owner role', closure: function () {
+test(description: 'it cannot verify if user has owner role', closure: function (): void {
 
     Artisan::call(command: 'migrate', parameters: ['--path' => 'Modules/Authentication/Infrastructure/Database/Migrations']);
 

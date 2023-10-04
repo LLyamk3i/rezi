@@ -31,6 +31,7 @@ final class BoundsCalculatorService
         if ($extremity === 'min') {
             return $location->longitude - rad2deg(num: $asin / $cos);
         }
+
         if ($extremity === 'max') {
             return $location->longitude + rad2deg(num: $asin / $cos);
         }

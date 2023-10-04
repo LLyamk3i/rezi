@@ -16,12 +16,12 @@ use Modules\Payment\Domain\UseCases\UpdatePayment\UpdatePaymentResponse;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-final class UpdatePayment implements UpdatePaymentContract
+final readonly class UpdatePayment implements UpdatePaymentContract
 {
     public function __construct(
-        private readonly PaymentRepository $repository,
-        private readonly Translator $translator,
-        private readonly ExceptionHandler $exception,
+        private PaymentRepository $repository,
+        private Translator $translator,
+        private ExceptionHandler $exception,
     ) {
         //
     }
@@ -49,8 +49,8 @@ final class UpdatePayment implements UpdatePaymentContract
 
         try {
             $this->repository->update(id: $request->payment, payment: $updated);
-        } catch (\Throwable $th) {
-            $this->exception->report(e: $th);
+        } catch (\Throwable $throwable) {
+            $this->exception->report(e: $throwable);
 
             return new UpdatePaymentResponse(
                 status: Http::INTERNAL_SERVER_ERROR->value,

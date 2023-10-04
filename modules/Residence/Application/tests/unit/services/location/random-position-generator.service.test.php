@@ -13,7 +13,7 @@ test(description: 'Random position generator service returns valid coordinates w
     $distanceCalculatorService = new DistanceCalculatorService();
     $randomPositionGeneratorService = new RandomPositionGeneratorService(location: $location, radius: $radius);
 
-    for ($i = 0; $i < 10; $i++) {
+    for ($i = 0; $i < 10; ++$i) {
         $coordinates = $randomPositionGeneratorService->execute();
         $distance = $distanceCalculatorService->execute(
             from: $location,

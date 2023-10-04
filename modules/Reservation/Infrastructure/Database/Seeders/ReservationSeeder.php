@@ -25,7 +25,7 @@ final class ReservationSeeder extends Seeder
      */
     public function run(array $admins, array $providers, array $residences, int $count, bool $persiste): array
     {
-        $clients = array_merge($admins, $providers);
+        $clients = [...$admins, ...$providers];
         $bookables = Arr::where(array: $residences, callback: static fn (array $residence): bool => $residence['visible'] === 1);
 
         $reservations = Reservation::factory()

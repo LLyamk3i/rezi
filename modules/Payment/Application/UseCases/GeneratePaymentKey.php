@@ -14,13 +14,13 @@ use Modules\Payment\Domain\UseCases\GeneratePaymentKey\GeneratePaymentKeyRespons
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-final class GeneratePaymentKey implements GeneratePaymentKeyContract
+final readonly class GeneratePaymentKey implements GeneratePaymentKeyContract
 {
     public function __construct(
-        private readonly GeneratePaymentContract $generator,
-        private readonly PaymentRepository $repository,
-        private readonly ExceptionHandler $exception,
-        private readonly Translator $translator,
+        private GeneratePaymentContract $generator,
+        private PaymentRepository $repository,
+        private ExceptionHandler $exception,
+        private Translator $translator,
     ) {
         //
     }
@@ -35,8 +35,8 @@ final class GeneratePaymentKey implements GeneratePaymentKeyContract
 
         try {
             $this->repository->create(payment: $payment);
-        } catch (\Throwable $th) {
-            $this->exception->report(e: $th);
+        } catch (\Throwable $throwable) {
+            $this->exception->report(e: $throwable);
 
             return new GeneratePaymentKeyResponse(
                 status: 500,

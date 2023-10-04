@@ -11,7 +11,7 @@ final class NearestResidencesResponse
     /**
      * @var array<int,\Modules\Residence\Domain\Entities\Residence>
      */
-    private array $residences;
+    private array $residences = [];
 
     public function setFailed(bool $value): void
     {

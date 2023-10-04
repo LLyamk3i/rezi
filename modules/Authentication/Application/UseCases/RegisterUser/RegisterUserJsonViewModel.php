@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Application\UseCases\RegisterUser;
 
-final class RegisterUserJsonViewModel
+final readonly class RegisterUserJsonViewModel
 {
     public function __construct(
-        public readonly bool $success,
-        public readonly string $message,
+        public bool $success,
+        public string $message,
     ) {
         //
     }

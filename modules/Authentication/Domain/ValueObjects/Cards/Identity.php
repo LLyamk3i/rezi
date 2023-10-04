@@ -6,11 +6,11 @@ namespace Modules\Authentication\Domain\ValueObjects\Cards;
 
 use Modules\Shared\Domain\ValueObjects\File;
 
-final class Identity
+final readonly class Identity
 {
     public function __construct(
-        public readonly File $recto,
-        public readonly File $verso,
+        public File $recto,
+        public File $verso,
     ) {
         //
     }

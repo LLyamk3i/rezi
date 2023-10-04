@@ -11,10 +11,10 @@ use Modules\Authentication\Domain\UseCases\UploadIdentityCard\UploadIdentityCard
 /**
  * @see \Modules\Authentication\Application\UseCases\UploadIdentityCard
  */
-final class UploadIdentityCardController
+final readonly class UploadIdentityCardController
 {
     public function __construct(
-        private readonly UploadIdentityCardContract $useCase,
+        private UploadIdentityCardContract $useCase,
     ) {
         //
     }

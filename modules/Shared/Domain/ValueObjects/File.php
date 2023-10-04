@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Modules\Shared\Domain\ValueObjects;
 
-final class File
+final readonly class File
 {
     public function __construct(
-        public readonly string $name,
-        public readonly string $mime,
-        public readonly string $path,
-        public readonly string $disk,
-        public readonly string $hash,
-        public readonly int $size,
-        public readonly string $original,
-        public readonly string $collection,
+        public string $name,
+        public string $mime,
+        public string $path,
+        public string $disk,
+        public string $hash,
+        public int $size,
+        public string $original,
+        public string $collection,
     ) {
     }
 

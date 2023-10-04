@@ -15,6 +15,9 @@ final readonly class RegisterUserRequest
         //
     }
 
+    /**
+     * @return array{forename: string, surname: string, email: string, password: string}
+     */
     public function __serialize(): array
     {
         return [

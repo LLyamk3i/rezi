@@ -14,9 +14,9 @@ final class ClientQueryBuilder extends Builder
 {
     public function default(): static
     {
-        return $this->whereHas(relation: 'roles', callback: static fn (Builder $query) => $query->where('name', Roles::Client))
-            ->whereDoesntHave(relation: 'roles', callback: static fn (Builder $query) => $query->where('name', Roles::Admin))
-            ->whereDoesntHave(relation: 'roles', callback: static fn (Builder $query) => $query->where('name', Roles::Owner));
+        return $this->whereHas(relation: 'roles', callback: static fn (Builder $query): \Illuminate\Database\Eloquent\Builder => $query->where('name', Roles::Client))
+            ->whereDoesntHave(relation: 'roles', callback: static fn (Builder $query): \Illuminate\Database\Eloquent\Builder => $query->where('name', Roles::Admin))
+            ->whereDoesntHave(relation: 'roles', callback: static fn (Builder $query): \Illuminate\Database\Eloquent\Builder => $query->where('name', Roles::Owner));
     }
 
     public function lol(): static

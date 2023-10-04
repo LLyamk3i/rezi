@@ -11,10 +11,10 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\Contracts\GeneratorContract;
 use Modules\Shared\Domain\Repositories\MediaRepository;
 
-final class EloquentMediaRepository implements MediaRepository
+final readonly class EloquentMediaRepository implements MediaRepository
 {
     public function __construct(
-        private readonly GeneratorContract $ulid,
+        private GeneratorContract $ulid,
     ) {
     }
 
@@ -27,14 +27,12 @@ final class EloquentMediaRepository implements MediaRepository
 
         DB::table(table: 'media')->insert(values: array_map(
             array: Arr::wrap($media),
-            callback: static function (File $file) use ($user, $context, $ulid): array {
-                return [
-                    'id' => $ulid->generate(),
-                    ...$file->toArray(),
-                    'fileable_type' => $context,
-                    'fileable_id' => $user->value,
-                ];
-            }
+            callback: static fn (File $file): array => [
+                'id' => $ulid->generate(),
+                ...$file->toArray(),
+                'fileable_type' => $context,
+                'fileable_id' => $user->value,
+            ]
         ));
     }
 }
