@@ -4,63 +4,63 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Policies;
 
-use Modules\Admin\Infrastructure\Models\Admin;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Modules\Residence\Infrastructure\Models\Residence;
 
 final class ResidencePolicy
 {
     /**
-     * Determine whether the admin can view any models.
+     * Determine whether the user can view any models.
      */
-    public function viewAny(Admin $admin): bool
+    public function viewAny(): bool
     {
         return true;
     }
 
     /**
-     * Determine whether the admin can view the model.
+     * Determine whether the user can view the model.
      */
-    public function view(Admin $admin, Residence $residence): bool
+    public function view(Authenticatable $user, Residence $residence): bool
     {
-        return $admin->getAttribute(key: 'id') === $residence->getAttribute(key: 'user_id');
+        return $user->getAuthIdentifier() === $residence->getAttribute(key: 'user_id');
     }
 
     /**
-     * Determine whether the admin can create models.
+     * Determine whether the user can create models.
      */
-    public function create(Admin $admin): bool
+    public function create(): bool
     {
         return true;
     }
 
     /**
-     * Determine whether the admin can update the model.
+     * Determine whether the user can update the model.
      */
-    public function update(Admin $admin, Residence $residence): bool
+    public function update(Authenticatable $user, Residence $residence): bool
     {
-        return $admin->getAttribute(key: 'id') === $residence->getAttribute(key: 'user_id');
+        return $user->getAuthIdentifier() === $residence->getAttribute(key: 'user_id');
     }
 
     /**
-     * Determine whether the admin can delete the model.
+     * Determine whether the user can delete the model.
      */
-    public function delete(Admin $admin, Residence $residence): bool
+    public function delete(Authenticatable $user, Residence $residence): bool
     {
-        return $admin->getAttribute(key: 'id') === $residence->getAttribute(key: 'user_id');
+        return $user->getAuthIdentifier() === $residence->getAttribute(key: 'user_id');
     }
 
     /**
-     * Determine whether the admin can restore the model.
+     * Determine whether the user can restore the model.
      */
-    public function restore(Admin $admin, Residence $residence): bool
+    public function restore(): bool
     {
         return false;
     }
 
     /**
-     * Determine whether the admin can permanently delete the model.
+     * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(Admin $admin, Residence $residence): bool
+    public function forceDelete(): bool
     {
         return false;
     }

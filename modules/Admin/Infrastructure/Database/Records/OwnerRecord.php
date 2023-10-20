@@ -15,7 +15,7 @@ final class OwnerRecord
     public static function data(): array
     {
         return [
-            'email' => 'owner@resi.com',
+            'email' => 'owner@rezi.com',
             'forename' => 'owner',
             'surname' => 'owner',
             'password' => bcrypt(

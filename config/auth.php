@@ -42,9 +42,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'web:owner' => [
+            'driver' => 'session',
+            'provider' => 'owner',
+        ],
         'web:admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+        'web:provider' => [
+            'driver' => 'session',
+            'provider' => 'providers',
         ],
     ],
 
@@ -70,10 +78,17 @@ return [
             'driver' => 'eloquent',
             'model' => \Modules\Authentication\Infrastructure\Models\User::class,
         ],
-
+        'owner' => [
+            'driver' => 'eloquent',
+            'model' => \Modules\Admin\Infrastructure\Models\Owner::class,
+        ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => \Modules\Admin\Infrastructure\Models\Admin::class,
+        ],
+        'providers' => [
+            'driver' => 'eloquent',
+            'model' => \Modules\Admin\Infrastructure\Models\Provider::class,
         ],
     ],
 

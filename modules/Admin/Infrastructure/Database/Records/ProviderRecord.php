@@ -16,12 +16,12 @@ final class ProviderRecord
     {
         return [
             [
-                'email' => 'davon.provider@resi.com',
+                'email' => 'davon.provider@rezi.com',
                 'forename' => 'davon',
                 'surname' => 'romaguera',
                 'password' => bcrypt(value: 'Pa$$w0rd!'),
             ], [
-                'email' => 'kobe.provider@resi.com',
+                'email' => 'kobe.provider@rezi.com',
                 'forename' => 'kobe',
                 'surname' => 'stroman',
                 'password' => bcrypt(value: 'Pa$$w0rd!'),

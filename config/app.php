@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -219,7 +220,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'AdminLoginPageViewModel' => \Modules\Admin\Application\ViewModels\AdminLoginPageViewModel::class,
+        'Store' => Modules\Shared\Infrastructure\Facades\Store::class,
         'ViteManifest' => \Modules\Admin\Infrastructure\Services\ViteManifestRetrieverService::class,
     ])->toArray(),
 

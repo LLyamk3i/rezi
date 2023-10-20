@@ -15,10 +15,10 @@
 
 ## Module Payment
 
-- [] Ajouter le paiement de sa réservation.
-- [] Générer un ID de paiement
-- [] Permet la validation de paiement
-- [] Ajouter l'annulation dun paiement
+- [x] Ajouter le paiement de sa réservation.
+- [x] Générer un ID de paiement
+- [x] Permet la validation de paiement
+- [x] Ajouter l'annulation dun paiement
 
 ## Module Reservations
 

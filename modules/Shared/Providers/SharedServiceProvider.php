@@ -27,6 +27,13 @@ final class SharedServiceProvider extends ServiceProvider
         Application\Repositories\Repository::class => Infrastructure\Repositories\QueryRepository::class,
     ];
 
+    /**
+     * @var array<class-string,class-string>
+     */
+    public array $singletons = [
+        Domain\Contracts\StoreContract::class => Infrastructure\Supports\Store::class,
+    ];
+
     public function boot(): void
     {
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');

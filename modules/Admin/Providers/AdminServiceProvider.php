@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Infrastructure\Factories\AdminLoginPageViewModelFactory;
+use Modules\Admin\Providers\Filament\FilamentServiceProvider;
 
 final class AdminServiceProvider extends ServiceProvider
 {
@@ -19,7 +19,5 @@ final class AdminServiceProvider extends ServiceProvider
         $this->app->register(provider: RouteServiceProvider::class);
         $this->app->register(provider: AuthServiceProvider::class);
         $this->app->register(provider: FilamentServiceProvider::class);
-
-        $this->app->singleton(abstract: \AdminLoginPageViewModel::class, concrete: static fn (): \Modules\Admin\Application\ViewModels\AdminLoginPageViewModel => AdminLoginPageViewModelFactory::make());
     }
 }

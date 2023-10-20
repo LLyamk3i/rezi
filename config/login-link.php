@@ -22,7 +22,7 @@ return [
      * we'll take a look at the model used for the `users`
      * provider in config/auth.php
      */
-    'user_model' => \Modules\Admin\Infrastructure\Models\Admin::class,
+    'user_model' => null,
 
     /*
      * After a login link is clicked, we'll redirect the user to this route.

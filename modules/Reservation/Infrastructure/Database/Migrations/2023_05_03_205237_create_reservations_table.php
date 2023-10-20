@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create(table: 'reservations', callback: static function (Blueprint $table): void {
             $table->ulid(column: 'id')->primary();
-            $table->timestamp(column: 'checkin_at');
-            $table->timestamp(column: 'checkout_at');
+            $table->dateTime(column: 'checkin_at');
+            $table->dateTime(column: 'checkout_at');
             $table->ulid(column: 'user_id');
             $table->ulid(column: 'residence_id');
             $table->enum(column: 'status', allowed: Status::values());

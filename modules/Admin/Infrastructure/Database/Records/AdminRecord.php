@@ -15,7 +15,7 @@ final class AdminRecord
     public static function data(): array
     {
         return [
-            'email' => 'admin@resi.com',
+            'email' => 'admin@rezi.com',
             'forename' => 'admin',
             'surname' => 'admin',
             'password' => bcrypt(
