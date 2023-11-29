@@ -25,16 +25,25 @@ final class Timer
         $this->cache->put(key: $this->key, value: $counter);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function value(): int
     {
         return integer_value(value: $this->cache->get(key: $this->key));
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function loop(): int
     {
         return $this->counter - $this->value();
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function decrease(): int
     {
         $count = $this->value();

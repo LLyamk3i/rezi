@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Reservation\Domain\Commands;
 
-interface VerifyReservationOwnershipContracts
+interface VerifyReservationOwnershipContract
 {
     public function handle(): bool;
 }

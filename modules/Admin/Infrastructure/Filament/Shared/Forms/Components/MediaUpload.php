@@ -19,6 +19,8 @@ final class MediaUpload
      * @param array<int,string> $mimes
      *
      * @return array<int,Field>
+     *
+     * @throws \InvalidArgumentException
      */
     public static function make(
         Media $type,

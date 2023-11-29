@@ -13,7 +13,7 @@ final readonly class User
         public string $forename,
         public string $surname,
         public string $email,
-        public ?string $password = null,
+        public null | string $password = null,
         public bool $verified = false,
     ) {
         //

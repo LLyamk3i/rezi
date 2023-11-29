@@ -53,7 +53,7 @@ it(description: 'can save and register uploaded user identity card', closure: fu
                 filename: string_value(
                     value: with(
                         value: Storage::disk(name: $disk),
-                        callback: static fn (FilesystemAdapter $filesystem): string => $filesystem->path(path: $path)
+                        callback: fn (FilesystemAdapter $filesystem): string => $filesystem->path(path: $path)
                     )
                 ),
             ),

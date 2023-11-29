@@ -9,7 +9,7 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 
 interface PaymentRepository
 {
-    public function find(Ulid $id): ?Payment;
+    public function find(Ulid $id): null | Payment;
 
     public function create(Payment $payment): bool;
 

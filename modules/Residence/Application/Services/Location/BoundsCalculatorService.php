@@ -12,6 +12,8 @@ final class BoundsCalculatorService
 {
     /**
      * @return array{max_latitude:float,min_latitude:float,max_longitude:float,min_longitude:float}
+     *
+     * @throws \InvalidArgumentException
      */
     public function execute(Location $location, Radius $radius): array
     {
@@ -23,6 +25,9 @@ final class BoundsCalculatorService
         ];
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     private function longitude(Location $location, Radius $radius, string $extremity): float
     {
         $asin = asin(num: $radius->value / Distance::EARTH_RADIUS);

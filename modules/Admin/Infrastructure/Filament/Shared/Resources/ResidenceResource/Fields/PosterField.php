@@ -15,6 +15,9 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class PosterField
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public static function make(): Fieldset
     {
         return Fieldset::make(label: 'photo')

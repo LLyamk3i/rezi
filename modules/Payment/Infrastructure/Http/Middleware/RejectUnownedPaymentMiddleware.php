@@ -20,6 +20,11 @@ final class RejectUnownedPaymentMiddleware
      * Handle an incoming request.
      *
      * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function handle(Request $request, Closure $next): Response
     {

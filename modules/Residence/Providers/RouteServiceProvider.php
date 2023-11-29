@@ -12,6 +12,9 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 final class RouteServiceProvider extends ServiceProvider
 {
+    /**
+     * @throws \RuntimeException
+     */
     public function boot(): void
     {
         $this->configureRateLimiting();
@@ -24,7 +27,7 @@ final class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Configure the rate limiters for the application.
+     * @throws \RuntimeException
      */
     private function configureRateLimiting(): void
     {

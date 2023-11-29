@@ -16,8 +16,11 @@ final class GalleryRelationManager extends RelationManager
 {
     protected static string $relationship = 'gallery';
 
-    protected static ?string $recordTitleAttribute = 'path';
+    protected static null | string $recordTitleAttribute = 'path';
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function form(Forms\Form $form): Forms\Form
     {
         return $form

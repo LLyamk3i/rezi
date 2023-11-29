@@ -11,6 +11,9 @@ use Modules\Reservation\Application\UseCases\CreateReservation\CreateReservation
 
 final class CreateReservationController
 {
+    /**
+     * @throws \Exception
+     */
     public function __invoke(
         CreateReservationRequest $request,
         CreateReservationContract $useCase,

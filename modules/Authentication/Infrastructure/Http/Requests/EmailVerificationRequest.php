@@ -23,6 +23,9 @@ final class EmailVerificationRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function approved(): VerifyUserAccountRequest
     {
         return new VerifyUserAccountRequest(

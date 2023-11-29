@@ -25,6 +25,9 @@ final readonly class GeneratePaymentKey implements GeneratePaymentKeyContract
         //
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function execute(GeneratePaymentKeyRequest $request): GeneratePaymentKeyResponse
     {
         $payment = $this->generator->handle(

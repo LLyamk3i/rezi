@@ -27,6 +27,10 @@ final class CreateReservationRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
     public function approved(): Request
     {
         return new Request(

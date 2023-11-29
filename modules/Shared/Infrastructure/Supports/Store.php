@@ -17,7 +17,7 @@ final class Store implements StoreContract
     {
         $stored = $this->store[$key];
         if ($stored instanceof \Closure) {
-            $this->put(key: $key, value: $value = $stored($key));
+            $this->put($key, $value = $stored($key));
 
             return $value;
         }
@@ -37,10 +37,10 @@ final class Store implements StoreContract
 
     public function remember(string $key, \Closure $callback): mixed
     {
-        if ($this->has(key: $key)) {
-            return $this->get(key: $key);
+        if ($this->has($key)) {
+            return $this->get($key);
         }
-        $this->put(key: $key, value: $result = $callback($key));
+        $this->put($key, $result = $callback($key));
 
         return $result;
     }

@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Modules\Shared\Infrastructure\Repositories;
 
 use Illuminate\Contracts\Database\Query\Builder;
+use Modules\Shared\Domain\Contracts\HydratorContract;
 use Modules\Shared\Application\Repositories\Repository;
+use Modules\Shared\Domain\ValueObjects\Pagination\Page;
+use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
 
 final class QueryRepository implements Repository
 {
@@ -14,9 +17,46 @@ final class QueryRepository implements Repository
      *
      * @return array<string,string|int|float>|null
      */
-    public function find(Builder $query, array $columns = ['*']): ?array
+    public function find(Builder $query, array $columns = []): null | array
     {
         /** @var \Illuminate\Database\Query\Builder $query */
-        return $query->limit(value: 1)->get(columns: $columns)->first();
+        return $query->limit(value: 1)->get(columns: $this->columns(value: $columns))->first();
+    }
+
+    /**
+     * @template H1
+     * @template H2
+     *
+     * @param HydratorContract<H1,H2>                                           $hydrator
+     * @param array<int,\Illuminate\Contracts\Database\Query\Expression|string> $columns
+     *
+     * @return PaginatedObject<H2>
+     */
+    public function paginate(Builder $query, Page $page, HydratorContract $hydrator, array $columns = []): PaginatedObject
+    {
+        /** @var \Illuminate\Database\Query\Builder $query */
+        $pagination = $query->paginate(
+            perPage: $page->per,
+            page: $page->current,
+            columns: $this->columns(value: $columns)
+        );
+
+        return new PaginatedObject(
+            total: $pagination->total(),
+            per_page: $pagination->perPage(),
+            last_page: $pagination->lastPage(),
+            current_page: $pagination->currentPage(),
+            items: $hydrator->hydrate(data: $pagination->items())
+        );
+    }
+
+    /**
+     * @param array<int,\Illuminate\Contracts\Database\Query\Expression|string> $value
+     *
+     * @return array<int,\Illuminate\Contracts\Database\Query\Expression|string>
+     */
+    private function columns(array $value): array
+    {
+        return $value === [] ? ['*'] : $value;
     }
 }

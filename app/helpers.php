@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 (static function (): void {
     $files = [
-        'modules/Shared/Infrastructure/Helpers/Commons.php',
-        'modules/Shared/Infrastructure/Helpers/Instances.php',
-        'modules/Shared/Infrastructure/Helpers/Tests.php',
-        'modules/Shared/Application/Helpers/Values.php',
-        'modules/Shared/Application/Helpers/Factories.php',
+        'modules/Shared/Application/Helpers/values.php',
+        'modules/Shared/Infrastructure/Helpers/test.php',
+        'modules/Shared/Application/Helpers/factories.php',
+        'modules/Shared/Infrastructure/Helpers/commons.php',
+        'modules/Shared/Infrastructure/Helpers/database.php',
+        'modules/Shared/Infrastructure/Helpers/instances.php',
     ];
 
     foreach ($files as $file) {

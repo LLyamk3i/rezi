@@ -17,6 +17,9 @@ final class Owner extends Authenticatable implements FilamentUser, HasName
     use \Modules\Admin\Infrastructure\Concerns\Model\UserConcern;
     use \Modules\Shared\Infrastructure\Concerns\Model\UserConcern;
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function canAccessPanel(Panel $panel): bool
     {
         /** @var \Modules\Authentication\Domain\Contracts\VerifyUserAccessManagerContract $verify */

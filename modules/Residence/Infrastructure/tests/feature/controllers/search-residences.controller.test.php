@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-use function Pest\Laravel\getJson;
+use Filament\Support\Assets\Asset;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Testing\Assert;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Infrastructure\Models\Residence;
-use function Modules\Shared\Infrastructure\Helpers\route;
 use Modules\Reservation\Infrastructure\Models\Reservation;
+
+use function Pest\Laravel\getJson;
+use function Modules\Shared\Infrastructure\Helpers\route;
+use function PHPUnit\Framework\callback;
 
 uses(
     \Tests\TestCase::class,
@@ -16,11 +19,11 @@ uses(
 );
 
 it(description: 'can search residences by address', closure: function (): void {
-
+    $keyword = 'fadiga';
     $data = [
-        ['name' => 'residence xvrdbgjnnjd'],
-        ['description' => 'welcome to residence xvrdbgjnnjddd'],
-        ['address' => '456 Ghana Avenue, Kumasi, xvrdbgjnnjddsfdfbd'],
+        ['name' => "residence $keyword"],
+        ['description' => "welcome to residence $keyword"],
+        ['address' => "456 Ghana Avenue, Kumasi, rue $keyword"],
     ];
 
     $seeds = Residence::factory()->template(data: $data)->count(count: 8)->make();
@@ -36,23 +39,32 @@ it(description: 'can search residences by address', closure: function (): void {
     Reservation::factory()->create(attributes: [
         'checkin_at' => $stay->start,
         'checkout_at' => $stay->end,
-        'residence_id' => $seeds[0]->id,
+        'residence_id' => $seeds->first()->id,
     ]);
 
     $response = getJson(uri: route(path: 'api/residences/search', queries: [
+        'location' => $keyword,
         'checkin_date' => $stay->start->format(format: 'Y-m-d H:i'),
         'checkout_date' => $stay->start->format(format: 'Y-m-d H:i'),
-        'location' => 'xvrdbgjnnjd xvrdbgjnnjddd xvrdbgjnnjddsfdfbd',
     ]));
 
     $response->assertOk();
+    $searchables = array_slice(array: $data, offset: 1, length: 2);
 
     $response->assertJson(value: [
         'success' => true,
-        'message' => 'Search completed successfully.',
-        'total' => 2,
+        'message' => count(value: $searchables) . ' résidences ont été trouvées pour les paramètres de recherche donnés.',
+        'residences' => ['total' => count(value: $searchables)],
     ]);
 
-    $response->assertJsonPath(path: 'data.0.description', expect: $data[1]['description']);
-    $response->assertJsonPath(path: 'data.1.address', expect: $data[2]['address']);
+    $response->assertJsonPath(path: 'residences.items', expect: function (array $residences) use ($searchables): bool {
+        for ($i = 0; $i < count(value: $searchables); $i++) {
+            $searchable = $searchables[$i];
+            foreach ($searchable as $key => $value) {
+                Assert::assertTrue(condition: isset($residences[$i][$key]));
+                Assert::assertTrue(condition: $residences[$i][$key] === $value);
+            }
+        }
+        return true;
+    });
 });

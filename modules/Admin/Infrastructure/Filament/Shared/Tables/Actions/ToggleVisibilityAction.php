@@ -20,6 +20,9 @@ final class ToggleVisibilityAction
             ->label(label: static fn (Model $record): string => self::value(record: $record) ? Labels::Deactivated->value : Labels::Activated->value);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     private static function value(Model $record): bool
     {
         return boolean_value($record->getAttribute(key: 'visible'));

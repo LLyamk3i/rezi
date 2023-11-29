@@ -26,6 +26,9 @@ final readonly class UpdatePayment implements UpdatePaymentContract
         //
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function execute(UpdatePaymentRequest $request): UpdatePaymentResponse
     {
         $payment = $this->repository->find(id: $request->payment);

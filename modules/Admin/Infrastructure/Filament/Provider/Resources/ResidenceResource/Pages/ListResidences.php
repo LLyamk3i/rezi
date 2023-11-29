@@ -13,6 +13,8 @@ final class ListResidences extends ParentResidences
 {
     /**
      * @return Builder<Residence>
+     *
+     * @throws \RuntimeException
      */
     protected function getTableQuery(): Builder
     {

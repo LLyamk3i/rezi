@@ -20,6 +20,8 @@ final class UserFactory extends Factory
 
     /**
      * @phpstan-return UserFactoryResponse
+     *
+     * @throws \OverflowException
      */
     public function definition(): array
     {

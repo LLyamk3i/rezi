@@ -16,17 +16,19 @@ final class ResidenceServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $bindings = [
+        Domain\UseCases\ListResidences\ListResidencesContract::class => Application\UseCases\ListResidences::class,
+        Domain\UseCases\SearchResidences\SearchResidencesContract::class => Application\UseCases\SearchResidences::class,
+        Domain\UseCases\NearestResidences\NearestResidencesContract::class => Application\UseCases\NearestResidences::class,
         Domain\Repositories\ResidenceRepository::class => Infrastructure\Eloquent\Repositories\EloquentResidenceRepository::class,
-        Domain\UseCases\NearestResidences\NearestResidencesContract::class => Application\UseCases\NearestResidences\NearestResidences::class,
-        Domain\UseCases\SearchResidences\SearchResidencesContract::class => Application\UseCases\SearchResidences\SearchResidences::class,
     ];
 
     public function boot(): void
     {
         Relation::enforceMorphMap([
-            'resi' => Infrastructure\Models\Residence::class,
             'feat' => Infrastructure\Models\Feature::class,
+            'resi' => Infrastructure\Models\Residence::class,
         ]);
+        $this->loadTranslationsFrom(path: __DIR__ . '/../lang', namespace: 'residence');
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
     }
 

@@ -32,6 +32,10 @@ final class UploadUserIdentityCardRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     */
     public function approved(): Request
     {
         $user = $this->user();

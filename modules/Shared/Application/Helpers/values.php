@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Shared\Infrastructure\Helpers;
 
+/**
+ * @throws \InvalidArgumentException
+ */
 function string_value(mixed $value): string
 {
     if (! \is_string(value: $value)) {
@@ -13,6 +16,9 @@ function string_value(mixed $value): string
     return $value;
 }
 
+/**
+ * @throws \InvalidArgumentException
+ */
 function boolean_value(mixed $value): bool
 {
     if (! \is_bool(value: $value)) {
@@ -22,6 +28,9 @@ function boolean_value(mixed $value): bool
     return $value;
 }
 
+/**
+ * @throws \InvalidArgumentException
+ */
 function integer_value(mixed $value): int
 {
     if (! \is_int(value: $value)) {

@@ -13,13 +13,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 final class ClientResource extends Resource
 {
-    protected static ?string $model = Client::class;
+    protected static null | string $model = Client::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static null | string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?string $navigationLabel = 'clients';
+    protected static null | string $navigationLabel = 'clients';
 
-    protected static ?int $navigationSort = 3;
+    protected static null | int $navigationSort = 3;
 
     public static function table(Tables\Table $table): Tables\Table
     {

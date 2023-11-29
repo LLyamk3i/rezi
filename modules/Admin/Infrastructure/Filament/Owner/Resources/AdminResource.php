@@ -13,11 +13,11 @@ use Modules\Admin\Infrastructure\Filament\Owner\Resources\AdminResource\Pages;
 
 final class AdminResource extends Resource
 {
-    protected static ?string $model = Model::class;
+    protected static null | string $model = Model::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
+    protected static null | string $navigationIcon = 'heroicon-o-exclamation-circle';
 
-    protected static ?int $navigationSort = 5;
+    protected static null | int $navigationSort = 5;
 
     public static function form(Forms\Form $form): Forms\Form
     {

@@ -10,6 +10,9 @@ final readonly class Price
 {
     public const CURRENCY = 'Franc CFA';
 
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function __construct(
         public float $value,
     ) {

@@ -22,6 +22,8 @@ final readonly class JsonResponse implements Responsable
 
     /**
      * @param \Illuminate\Http\Request $request
+     *
+     * @throws \InvalidArgumentException
      */
     public function toResponse($request): HttpJsonResponse
     {

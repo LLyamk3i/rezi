@@ -27,6 +27,9 @@ final class StorePaymentRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function approved(): GeneratePaymentKeyRequest
     {
         /** @var \Modules\Authentication\Domain\Services\AuthenticatedUserService $service */

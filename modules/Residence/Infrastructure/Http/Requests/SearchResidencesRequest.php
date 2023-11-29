@@ -24,6 +24,10 @@ final class SearchResidencesRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \Exception
+     * @throws \InvalidArgumentException
+     */
     public function approved(): Request
     {
         return new Request(

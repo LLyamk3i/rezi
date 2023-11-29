@@ -8,7 +8,7 @@ final class CreateReservationResponse
 {
     private bool $failed;
 
-    private ?string $message = null;
+    private null | string $message = null;
 
     public function setFailed(bool $value): void
     {

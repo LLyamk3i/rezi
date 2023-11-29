@@ -23,10 +23,14 @@ final readonly class EloquentPaymentRepository implements PaymentRepository
         //
     }
 
-    public function find(Ulid $id): ?Payment
+    /**
+     * @throws \Exception
+     */
+    public function find(Ulid $id): null | Payment
     {
         /** @phpstan-var PaymentRecord|null $result */
         $result = $this->parent->find(
+            columns: ['*'],
             query: DB::table(table: 'payments')->where('id', $id->value)
         );
 

@@ -13,6 +13,9 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class FileFactory
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function make(UploadedFile $file, string $path, string $disk, string $collection): File
     {
         return new File(

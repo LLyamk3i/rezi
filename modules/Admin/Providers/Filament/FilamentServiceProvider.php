@@ -21,6 +21,9 @@ final class FilamentServiceProvider extends ServiceProvider
         ]));
     }
 
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     */
     public function register(): void
     {
         $this->app->register(provider: OwnerPanelProvider::class);

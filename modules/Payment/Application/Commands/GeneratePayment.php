@@ -18,6 +18,9 @@ final readonly class GeneratePayment implements GeneratePaymentContract
     ) {
     }
 
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function handle(Amount $amount, Ulid $client, Ulid $reservation): Payment
     {
         return new Payment(

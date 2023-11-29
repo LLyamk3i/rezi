@@ -10,6 +10,9 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 return new class extends Migration
 {
+    /**
+     * @throws \RuntimeException
+     */
     public function up(): void
     {
         Schema::create('media', static function (Blueprint $table): void {
@@ -33,6 +36,9 @@ return new class extends Migration
         });
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public function down(): void
     {
         Schema::dropIfExists('media');

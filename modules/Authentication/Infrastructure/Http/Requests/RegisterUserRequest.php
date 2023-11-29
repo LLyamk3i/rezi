@@ -27,6 +27,9 @@ final class RegisterUserRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function approved(): Request
     {
         return new Request(

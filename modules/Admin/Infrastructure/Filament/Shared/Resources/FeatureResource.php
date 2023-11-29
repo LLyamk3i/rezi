@@ -14,14 +14,17 @@ use Modules\Admin\Infrastructure\Enums\Libraries\Directories;
 
 final class FeatureResource extends Resource
 {
-    protected static ?string $model = Feature::class;
+    protected static null | string $model = Feature::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-squares-plus';
+    protected static null | string $navigationIcon = 'heroicon-o-squares-plus';
 
-    protected static ?int $navigationSort = 6;
+    protected static null | int $navigationSort = 6;
 
-    protected static ?string $navigationLabel = 'points forts';
+    protected static null | string $navigationLabel = 'points forts';
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form

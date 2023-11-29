@@ -10,6 +10,9 @@ use Modules\Shared\Infrastructure\Supports\Enum;
 
 return new class extends Migration
 {
+    /**
+     * @throws \RuntimeException
+     */
     public function up(): void
     {
         Enum::api(enum: Status::class);
@@ -27,6 +30,9 @@ return new class extends Migration
         });
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public function down(): void
     {
         Schema::dropIfExists(table: 'payments');

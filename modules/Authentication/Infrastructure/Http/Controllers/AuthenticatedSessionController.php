@@ -16,6 +16,11 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class AuthenticatedSessionController
 {
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(AuthenticatedSessionRequest $request): JsonResponse
     {
         $user = User::query()->where('email', $request->input(key: 'email'))->first();

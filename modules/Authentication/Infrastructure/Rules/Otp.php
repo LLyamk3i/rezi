@@ -18,6 +18,8 @@ final class Otp implements ValidationRule
      * Run the validation rule.
      *
      * @param \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString $fail
+     *
+     * @throws \InvalidArgumentException
      */
     public function validate(string $attribute, mixed $value, \Closure $fail): void
     {

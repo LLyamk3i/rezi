@@ -21,6 +21,10 @@ final readonly class AuthenticatedUserService implements Contract
         //
     }
 
+    /**
+     * @throws \RuntimeException
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function run(): User
     {
         if (! ($this->user instanceof \Modules\Authentication\Infrastructure\Models\User)) {

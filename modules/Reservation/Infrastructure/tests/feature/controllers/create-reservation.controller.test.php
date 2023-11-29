@@ -33,14 +33,14 @@ it(description: 'can create reservation', closure: function (): void {
     $calculator = new CalculateReservationCostService();
 
     $data = [
+        'residence_id' => $residence->id,
         'checkin_date' => now()->addDays(value: 5)->toDateString(),
         'checkout_date' => now()->addDays(value: 10)->toDateString(),
-        'residence_id' => $residence->id,
     ];
 
     $cost = $calculator->execute(price: new Price(value: $residence->rent), duration: new Duration(
-        start: new \DateTime(datetime: $data['checkin_date']),
         end: new \DateTime(datetime: $data['checkout_date']),
+        start: new \DateTime(datetime: $data['checkin_date']),
     ));
 
     $response = actingAs(user: $user)->postJson(uri: '/api/reservations', data: $data);
@@ -51,11 +51,11 @@ it(description: 'can create reservation', closure: function (): void {
         'message' => 'La réservation a été créée avec succès.',
     ]);
     assertDatabaseHas(table: 'reservations', data: [
-        'checkin_at' => $data['checkin_date'],
-        'checkout_at' => $data['checkout_date'],
         'cost' => $cost->value,
         'user_id' => $user->id,
-        'residence_id' => $residence->id,
         'status' => Status::PENDING,
+        'residence_id' => $residence->id,
+        'checkin_at' => $data['checkin_date'] . ' 00:00:00',
+        'checkout_at' => $data['checkout_date'] . ' 00:00:00',
     ]);
 });

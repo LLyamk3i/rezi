@@ -27,6 +27,9 @@ final class VerifyReservationAvailabilityRequest extends FormRequest
 
     /**
      * @return array{residence:Ulid,stay:Duration}
+     *
+     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function approved(): array
     {

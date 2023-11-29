@@ -16,11 +16,17 @@ final readonly class VisibleAttribute
         //
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function value(): bool
     {
         return boolean_value($this->residence->getAttribute(key: 'visible'));
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function toggle(): void
     {
         $this->residence->update(attributes: [

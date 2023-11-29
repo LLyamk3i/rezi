@@ -16,7 +16,7 @@ final readonly class Payment
         public Ulid $user,
         public Ulid $reservation,
         public Status $status,
-        public ?\DateTime $payed,
+        public null | \DateTime $payed,
     ) {
     }
 }

@@ -14,7 +14,7 @@ final class ViteManifestRetrieverService
     /**
      * @return array<string,array<string,string|bool>>|string|null
      */
-    public function run(?string $file = null): array | string | null
+    public function run(null | string $file = null): array | string | null
     {
         $json = file_get_contents(filename: __DIR__ . '/../../resources/frontend/build/manifest.json');
 

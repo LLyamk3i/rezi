@@ -10,6 +10,9 @@ use Filament\Tables\Columns\ImageColumn as FilamentImageColumn;
 
 final class ImageColum
 {
+    /**
+     * @throws \RuntimeException
+     */
     public static function make(): FilamentImageColumn
     {
         return FilamentImageColumn::make(name: 'poster.path')

@@ -25,6 +25,9 @@ final class EditResidence extends EditRecord
         ];
     }
 
+    /**
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
+     */
     protected function resolveRecord(int | string $key): Residence
     {
         parent::resolveRecord($key);
@@ -62,6 +65,8 @@ final class EditResidence extends EditRecord
      * @param array<string,mixed> $data
      *
      * @return array<string,mixed>
+     *
+     * @throws \Exception
      */
     protected function mutateFormDataBeforeSave(array $data): array
     {

@@ -16,6 +16,9 @@ final class CreateResidence extends CreateRecord
      * @param array<string,mixed> $data
      *
      * @return array<string,mixed>
+     *
+     * @throws \UnexpectedValueException
+     * @throws \Exception
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {

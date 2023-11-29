@@ -1,10 +1,10 @@
 #!/bin/bash
 
-temp_file="/tmp/unfinalize-classes.txt"
+temp_file="./trash/tmp/unfinalize-classes.txt"
 output=$(./bin/check.sh 2>&1)
 
 # Check the exit status of the command (0 indicates success)
-if [ $? ] >0; then
+if [ $? -gt 0 ]; then
     unprocessed=$(echo "$output" | grep "cannot extend final class")
     if [ -n "$unprocessed" ]; then
 
@@ -51,6 +51,5 @@ if [ $? ] >0; then
                 grep -q "$file" "$temp_file" || echo "$file" >>"$temp_file"
             fi
         done
-
     fi
 fi

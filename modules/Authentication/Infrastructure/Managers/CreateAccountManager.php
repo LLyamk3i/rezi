@@ -24,6 +24,8 @@ final readonly class CreateAccountManager implements CreateAccountManagerContrac
 
     /**
      * @phpstan-param UserRecord $attributes
+     *
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
     public function owner(array $attributes): bool
     {
@@ -35,6 +37,8 @@ final readonly class CreateAccountManager implements CreateAccountManagerContrac
 
     /**
      * @phpstan-param UserRecord $attributes
+     *
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
     public function admin(array $attributes): bool
     {
@@ -46,6 +50,8 @@ final readonly class CreateAccountManager implements CreateAccountManagerContrac
 
     /**
      * @phpstan-param UserRecord $attributes
+     *
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
     public function provider(array $attributes): bool
     {

@@ -24,6 +24,10 @@ final class UpdatePaymentRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
     public function approved(): Request
     {
         /** @var \Modules\Authentication\Domain\Services\AuthenticatedUserService $service */

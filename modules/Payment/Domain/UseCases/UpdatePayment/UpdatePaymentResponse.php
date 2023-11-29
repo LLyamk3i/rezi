@@ -10,8 +10,8 @@ final readonly class UpdatePaymentResponse
         public int $status,
         public bool $failed,
         public string $message,
-        public ?string $payment_id = null,
-        public ?string $payment_status = null,
+        public null | string $payment_id = null,
+        public null | string $payment_status = null,
     ) {
     }
 }

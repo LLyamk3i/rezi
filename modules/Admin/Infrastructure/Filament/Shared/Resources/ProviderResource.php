@@ -11,13 +11,13 @@ use Modules\Admin\Infrastructure\Models\Provider;
 
 final class ProviderResource extends Resource
 {
-    protected static ?string $model = Provider::class;
+    protected static null | string $model = Provider::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-identification';
+    protected static null | string $navigationIcon = 'heroicon-o-identification';
 
-    protected static ?string $navigationLabel = 'propriétaires';
+    protected static null | string $navigationLabel = 'propriétaires';
 
-    protected static ?int $navigationSort = 4;
+    protected static null | int $navigationSort = 4;
 
     public static function table(Tables\Table $table): Tables\Table
     {

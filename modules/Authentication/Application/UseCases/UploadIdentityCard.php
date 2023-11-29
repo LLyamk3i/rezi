@@ -20,6 +20,9 @@ final readonly class UploadIdentityCard implements UploadIdentityCardContract
     ) {
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function execute(UploadIdentityCardRequest $request): Response
     {
         try {

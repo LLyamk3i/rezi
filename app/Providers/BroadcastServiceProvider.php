@@ -11,6 +11,8 @@ final class BroadcastServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
+     *
+     * @throws \RuntimeException
      */
     public function boot(): void
     {

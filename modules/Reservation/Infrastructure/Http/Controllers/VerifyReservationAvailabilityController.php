@@ -11,6 +11,9 @@ use Modules\Reservation\Infrastructure\Eloquent\Repositories\Methods\Reservation
 
 final class VerifyReservationAvailabilityController
 {
+    /**
+     * @throws \Exception
+     */
     public function __invoke(VerifyReservationAvailabilityRequest $request, ReservationRepository $repository): JsonResponse
     {
         $data = $request->approved();

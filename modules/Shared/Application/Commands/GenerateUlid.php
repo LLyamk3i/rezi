@@ -16,6 +16,9 @@ final readonly class GenerateUlid implements GenerateUlidContract
         //
     }
 
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function handle(): Ulid
     {
         return new Ulid(value: $this->generator->generate());

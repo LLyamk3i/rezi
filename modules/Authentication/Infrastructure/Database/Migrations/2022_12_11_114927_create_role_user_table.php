@@ -9,7 +9,7 @@ use Illuminate\Database\Migrations\Migration;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * @throws \RuntimeException
      */
     public function up(): void
     {
@@ -22,7 +22,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * @throws \RuntimeException
      */
     public function down(): void
     {

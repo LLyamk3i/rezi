@@ -31,6 +31,9 @@ final class Admin extends Authenticatable implements FilamentUser, HasName
         return new AdminQueryBuilder(query: $query);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function canAccessPanel(Panel $panel): bool
     {
         /** @var \Modules\Authentication\Domain\Contracts\VerifyUserAccessManagerContract $verify */

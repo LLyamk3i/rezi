@@ -9,111 +9,94 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Shared\Application\Repositories\Repository;
+use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 use Modules\Residence\Domain\Factories\ResidenceFactory;
 use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
 use Modules\Residence\Domain\Entities\Residence as Entity;
 use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
+use Modules\Residence\Infrastructure\Factories\ColumnsFactory;
+use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
 use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
+use Modules\Residence\Infrastructure\Factories\NearestResidencesQueryStatementFactory;
 
 /**
  * @phpstan-import-type ResidenceRecord from \Modules\Residence\Domain\Factories\ResidenceFactory
  */
 final readonly class EloquentResidenceRepository implements ResidenceRepository
 {
-    /**
-     * @var string
-     */
-    private const STATEMENT = 'SELECT id, name, address,
-            ST_X(location) AS latitude,
-            ST_Y(location) AS longitude,
-            (6371 * ACOS(COS(RADIANS(:lat))
-            * COS(RADIANS(ST_Y(location)))
-            * COS(RADIANS(ST_X(location)) 
-            - RADIANS(:lng))
-            + SIN(RADIANS(:lat))
-            * SIN(RADIANS(ST_Y(location))))
-            ) AS distance
-        FROM residences
-        WHERE MBRContains(
-            LineString(
-                Point(:lng + :rad / (111.320 * COS(RADIANS(:lat))),:lat + :rad / 111.133),
-                Point (:lng - :rad / (111.320 * COS(RADIANS(:lat))), :lat - :rad / 111.133)
-            ),location)
-        HAVING distance < :rad ORDER By distance;';
-
     public function __construct(
-        private ResidenceFactory $factory,
         private Repository $parent,
+        private ColumnsFactory $columns,
+        private ResidenceFactory $factory,
         private ResidenceHydrator $hydrator,
     ) {
     }
 
     /**
-     * @return array<int,Entity>
+     * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    public function all(): array
+    public function all(Page $page = new Page): PaginatedObject
     {
-        /** @phpstan-var array<int,ResidenceRecord> $residences */
-        $residences = DB::table(table: 'residences')->get(columns: $this->attributes())->toArray();
-
-        return $this->hydrator->hydrate(data: $residences);
+        return $this->parent->paginate(
+            page: $page,
+            hydrator: $this->hydrator,
+            columns: $this->columns->make(),
+            query: DB::table(table: 'residences'),
+        );
     }
 
-    public function find(Ulid $id): ?Entity
+    /**
+     * @throws \InvalidArgumentException
+     */
+    public function find(Ulid $id): null | Entity
     {
         /** @phpstan-var ResidenceRecord|null $result */
         $result = $this->parent->find(
+            columns: $this->columns->make(),
             query: DB::table(table: 'residences')->where('id', $id->value),
-            columns: $this->attributes()
         );
 
-        return \is_array(value: $result)
-            ? $this->factory->make(data: $result)
-            : null;
+        return \is_array(value: $result) ? $this->factory->make(data: $result) : null;
     }
 
     /**
      * get nearest residences from database
      *
-     * @return array<int,Entity>
+     * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
+     *
+     * @throws \InvalidArgumentException
      */
-    public function nearest(Location $location, Radius $radius): array
+    public function nearest(Location $location, Radius $radius, Page $page = new Page): PaginatedObject
     {
-        /** @phpstan-var array<int,ResidenceRecord> $residences */
-        $residences = DB::select(query: str_replace(
-            search: [':lat', ':lng', ':rad'],
-            replace: [$location->latitude, $location->longitude, $radius->value],
-            subject: self::STATEMENT
-        ));
-
-        return $this->hydrator->hydrate(data: $residences);
-    }
-
-    /**
-     * @return array<int,Entity>
-     */
-    public function search(?string $key = null, ?Duration $stay = null): array
-    {
-        $bucket = new SearchResidenceBucket(
-            query: DB::table(table: 'residences'),
-            payloads: get_defined_vars()
+        $factory = new NearestResidencesQueryStatementFactory(
+            radius: $radius,
+            location: $location,
+            columns: $this->columns->make(),
         );
-        /** @phpstan-var array<int,ResidenceRecord> $residences */
-        $residences = $bucket->filter()->get(columns: $this->attributes())->toArray();
 
-        return $this->hydrator->hydrate(data: $residences);
+        return $this->parent->paginate(
+            page: $page,
+            query: $factory->make(),
+            hydrator: $this->hydrator,
+        );
     }
 
     /**
-     * @return array<int,string|\Illuminate\Contracts\Database\Query\Expression>
+     * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    private function attributes(): array
+    public function search(string $key, Duration $stay, Page $page = new Page): PaginatedObject
     {
-        return [
-            'id', 'name', 'address', 'rent', 'description',
-            DB::raw('ST_X(location) AS latitude'),
-            DB::raw('ST_Y(location) AS longitude'),
-        ];
+        $bucket = new SearchResidenceBucket(query: DB::table(table: 'residences'), payloads: [
+            'key' => $key,
+            'stay' => $stay,
+        ]);
+
+        return $this->parent->paginate(
+            page: $page,
+            query: $bucket->filter(),
+            hydrator: $this->hydrator,
+            columns: $this->columns->make(),
+        );
     }
 }

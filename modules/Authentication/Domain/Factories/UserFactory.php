@@ -14,6 +14,8 @@ final class UserFactory
 {
     /**
      * @phpstan-param UserRecord $data
+     *
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
     public function make(array $data): User
     {

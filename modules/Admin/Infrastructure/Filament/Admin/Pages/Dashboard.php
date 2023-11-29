@@ -8,5 +8,5 @@ use Filament\Pages\Dashboard as FilamentDashboard;
 
 final class Dashboard extends FilamentDashboard
 {
-    protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
+    protected static null | string $navigationIcon = 'heroicon-o-computer-desktop';
 }

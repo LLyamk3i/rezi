@@ -9,6 +9,9 @@ use Modules\Shared\Domain\ValueObjects\Duration;
 
 final class CalculateReservationCostService
 {
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function execute(Duration $duration, Price $price): Price
     {
         return new Price(value: $duration->length() * $price->value);

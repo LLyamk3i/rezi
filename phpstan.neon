@@ -23,3 +23,7 @@ parameters:
     checkMissingIterableValueType: true
     checkModelProperties: false
     reportMaybesInPropertyPhpDocTypes: false
+    exceptions:
+        check:
+            tooWideThrowType: true
+            missingCheckedExceptionInThrows: true

@@ -10,7 +10,7 @@ use Modules\Authentication\Domain\ValueObjects\Email;
 
 interface AccountRepository
 {
-    public function find(Email $email): ?User;
+    public function find(Email $email): null | User;
 
     public function verify(Ulid $id): bool;
 

@@ -20,6 +20,9 @@ final readonly class CacheAdapter implements CacheAdapterContract
         $this->cache->put($key, $value);
     }
 
+    /**
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
     public function get(string $key): mixed
     {
         return $this->cache->get($key);

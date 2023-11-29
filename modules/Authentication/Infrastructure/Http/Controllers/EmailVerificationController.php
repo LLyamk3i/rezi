@@ -16,6 +16,9 @@ final readonly class EmailVerificationController
         //
     }
 
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function __invoke(EmailVerificationRequest $request): JsonResponse
     {
         $response = $this->useCase->execute(request: $request->approved());

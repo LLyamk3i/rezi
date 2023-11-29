@@ -14,6 +14,10 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final class EloquentAuthRepository implements AuthRepository
 {
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     */
     public function register(User $user): bool
     {
         return DB::table(table: 'users')->insert(values: [

@@ -20,6 +20,8 @@ final class PaymentFactory extends Factory
 
     /**
      * @return array{id: string, amount: int, status: string, payed_at: null, user_id: \Illuminate\Database\Eloquent\Collection<int, \Illuminate\Database\Eloquent\Model>|\Illuminate\Database\Eloquent\Model, reservation_id: \Modules\Reservation\Infrastructure\Database\Factories\ReservationFactory}
+     *
+     * @throws \Random\RandomException
      */
     public function definition(): array
     {

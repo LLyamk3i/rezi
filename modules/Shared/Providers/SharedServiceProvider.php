@@ -37,6 +37,7 @@ final class SharedServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
+        $this->loadTranslationsFrom(path: __DIR__ . '/../lang', namespace: 'shared');
     }
 
     public function register(): void

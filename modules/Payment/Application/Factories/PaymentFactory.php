@@ -15,6 +15,9 @@ use Modules\Payment\Domain\ValueObjects\Amount;
 final class PaymentFactory
 {
     /**
+     * @throws \Exception
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     *
      * @phpstan-param PaymentRecord $data
      */
     public function make(array $data): Payment

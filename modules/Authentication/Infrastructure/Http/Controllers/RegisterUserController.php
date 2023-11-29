@@ -11,6 +11,9 @@ use Modules\Authentication\Application\UseCases\RegisterUser\RegisterUserJsonPre
 
 final class RegisterUserController
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function __invoke(
         RegisterUserRequest $request,
         RegisterUserContract $useCase,

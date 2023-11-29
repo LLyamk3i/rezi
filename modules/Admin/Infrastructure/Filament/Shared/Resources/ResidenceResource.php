@@ -13,12 +13,15 @@ use Modules\Admin\Infrastructure\Enums\Libraries\Labels;
 
 class ResidenceResource extends Resource
 {
-    protected static ?string $model = Residence::class;
+    protected static null | string $model = Residence::class;
 
-    protected static ?int $navigationSort = 1;
+    protected static null | int $navigationSort = 1;
 
-    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static null | string $navigationIcon = 'heroicon-o-home-modern';
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema(components: [

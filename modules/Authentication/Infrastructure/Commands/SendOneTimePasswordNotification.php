@@ -11,6 +11,9 @@ use Modules\Authentication\Domain\Commands\SendOneTimePasswordNotificationContra
 
 final class SendOneTimePasswordNotification implements SendOneTimePasswordNotificationContract
 {
+    /**
+     * @throws \RuntimeException
+     */
     public function handle(string $code, string $email): void
     {
         $user = new User(attributes: ['email' => $email]);

@@ -15,23 +15,32 @@ use function Modules\Shared\Infrastructure\Helpers\boolean_value;
 final readonly class VerifyUserAccessManager implements VerifyUserAccessManagerContract
 {
     public function __construct(
-        private UserRoleRepository $repository,
-        private RolesGroupsObject $groups,
         private StoreContract $store,
+        private RolesGroupsObject $groups,
+        private UserRoleRepository $repository,
     ) {
         //
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function owner(Ulid $user): bool
     {
         return $this->verify(user: $user, role: 'owner', roles: $this->groups->owner());
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function admin(Ulid $user): bool
     {
         return $this->verify(user: $user, role: 'admin', roles: $this->groups->admin());
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function provider(Ulid $user): bool
     {
         return $this->verify(user: $user, role: 'provider', roles: $this->groups->provider());
@@ -39,6 +48,8 @@ final readonly class VerifyUserAccessManager implements VerifyUserAccessManagerC
 
     /**
      * @param array<int,\Modules\Authentication\Domain\Enums\Roles> $roles
+     *
+     * @throws \InvalidArgumentException
      */
     private function verify(Ulid $user, string $role, array $roles): bool
     {

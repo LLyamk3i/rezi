@@ -12,11 +12,11 @@ use Modules\Residence\Infrastructure\Models\Type;
 
 final class TypeResource extends Resource
 {
-    protected static ?string $model = Type::class;
+    protected static null | string $model = Type::class;
 
-    protected static ?int $navigationSort = 7;
+    protected static null | int $navigationSort = 7;
 
-    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
+    protected static null | string $navigationIcon = 'heroicon-o-sparkles';
 
     public static function form(Forms\Form $form): Forms\Form
     {

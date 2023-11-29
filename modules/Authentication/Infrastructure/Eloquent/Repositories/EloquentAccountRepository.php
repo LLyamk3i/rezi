@@ -26,11 +26,15 @@ final readonly class EloquentAccountRepository implements AccountRepository
         //
     }
 
-    public function find(Email $email): ?User
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
+    public function find(Email $email): null | User
     {
         /** @phpstan-var UserRecord|null $result */
         $result = $this->parent->find(
-            query: DB::table(table: 'users')->where('email', $email->value)
+            columns: ['*'],
+            query: DB::table(table: 'users')->where('email', $email->value),
         );
 
         return \is_array(value: $result)

@@ -13,13 +13,13 @@ use Modules\Authentication\Infrastructure\Models\User;
 
 final class UserResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static null | string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static null | string $navigationIcon = 'heroicon-o-user-group';
 
-    protected static ?string $navigationLabel = 'utilisateurs';
+    protected static null | string $navigationLabel = 'utilisateurs';
 
-    protected static ?int $navigationSort = 3;
+    protected static null | int $navigationSort = 3;
 
     public static function table(Tables\Table $table): Tables\Table
     {

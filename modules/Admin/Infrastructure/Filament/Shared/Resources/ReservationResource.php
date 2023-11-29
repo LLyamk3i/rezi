@@ -11,11 +11,11 @@ use Modules\Reservation\Infrastructure\Models\Reservation;
 
 final class ReservationResource extends Resource
 {
-    protected static ?string $model = Reservation::class;
+    protected static null | string $model = Reservation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static null | string $navigationIcon = 'heroicon-o-calendar';
 
-    protected static ?int $navigationSort = 2;
+    protected static null | int $navigationSort = 2;
 
     public static function table(Tables\Table $table): Tables\Table
     {

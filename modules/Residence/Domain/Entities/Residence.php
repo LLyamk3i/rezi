@@ -10,7 +10,7 @@ use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
 /**
- * @phpstan-type ResidenceFormat array{id:string,name:string,address:string,description:string,distance:string,location:Location,rent:array{value:float,format:string,currency:string}}
+ * @phpstan-type ResidenceFormat array{id:string,name:string,address:string,description:string,distance:string,location:Location,rent:array{value:float,format:string}}
  */
 final readonly class Residence
 {
@@ -22,7 +22,7 @@ final readonly class Residence
         public Distance $distance,
         public Location $location,
         public Price $rent,
-        // public Owner $owner,
+        public Owner | null $owner = null,
     ) {
     }
 
@@ -38,10 +38,10 @@ final readonly class Residence
             'description' => $this->description,
             'distance' => (string) $this->distance,
             'location' => $this->location,
+            'owner' => $this->owner?->name,
             'rent' => [
                 'value' => $this->rent->value,
-                'format' => number_format(num: $this->rent->value, thousands_separator: ' '),
-                'currency' => Price::CURRENCY,
+                'format' => number_format(num: $this->rent->value, thousands_separator: ' ') . ' ' . Price::CURRENCY,
             ],
         ];
     }

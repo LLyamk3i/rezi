@@ -14,6 +14,8 @@ final class PaymentController
 {
     /**
      * @see \Modules\Payment\Application\UseCases\GeneratePaymentKey
+     *
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
     public function store(StorePaymentRequest $request, GeneratePaymentKeyContract $payment): JsonResponse
     {
@@ -29,6 +31,8 @@ final class PaymentController
 
     /**
      * @see \Modules\Payment\Application\UseCases\UpdatePayment
+     *
+     * @throws \Exception
      */
     public function update(UpdatePaymentRequest $request, UpdatePaymentContract $update): JsonResponse
     {

@@ -19,6 +19,10 @@ final readonly class UploadIdentityCardController
         //
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     */
     public function __invoke(UploadUserIdentityCardRequest $request): JsonResponse
     {
         $response = $this->useCase->execute(request: $request->approved());

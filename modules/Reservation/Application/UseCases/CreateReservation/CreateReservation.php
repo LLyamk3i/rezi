@@ -25,6 +25,9 @@ final readonly class CreateReservation implements CreateReservationContract
     ) {
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function execute(CreateReservationRequest $request, CreateReservationPresenterContract $presenter): void
     {
         $residence = $this->residenceRepository->find(id: $request->residence);
@@ -47,6 +50,9 @@ final readonly class CreateReservation implements CreateReservationContract
         $presenter->present(response: $this->response);
     }
 
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     private function cost(CreateReservationRequest $request, Price $rent): Price
     {
         return $this->calculator->execute(duration: $request->stay, price: $rent);

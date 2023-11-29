@@ -10,6 +10,9 @@ final readonly class Distance implements \Stringable
 
     public const EARTH_LATITUDE_APPROXIMATE_LENGTH = 111.3; // 111.3 km is the approximate length of 1 degree of latitude in kilometers
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function __construct(
         public float $value,
         public string $unit = 'km',
@@ -28,6 +31,9 @@ final readonly class Distance implements \Stringable
         return $this->value . ' ' . $this->unit;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function convert(string $unit): self
     {
         if ($unit === $this->unit) {

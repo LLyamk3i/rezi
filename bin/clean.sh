@@ -1,18 +1,20 @@
 #!/bin/bash
 
-temp_file="/tmp/unfinalize-classes.txt"
-
 if [ "$1" == "survey" ]; then
-    ./bin/check/survey.sh
+    ./bin/clean/survey.sh
+    ./bin/clean/unfinalize.sh
 fi
 
 rm ./storage/logs/*.log
 ./artisan clear-compiled
 ./artisan optimize:clear
-./bin/pint.sh
+./vendor/bin/pint
 
-content=$(cat $temp_file)
-IFS=$'\n' read -rd '' -a unfinalizes <<<"$content"
-for unfinalize in "${unfinalizes[@]}"; do
-    sed -i "s/final //g" "$unfinalize"
-done
+# remove static on unstatic closure
+./bin/clean/unstatic.sh
+
+# remove empty folders
+find . -type d -empty ! -path "./app/Models*" ! -path "./database/factories*" -exec rmdir {} \;
+
+# remove final on inherited class
+./bin/clean/unfinalize.sh

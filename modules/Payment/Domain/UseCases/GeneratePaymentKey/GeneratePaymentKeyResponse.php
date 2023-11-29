@@ -10,8 +10,8 @@ final readonly class GeneratePaymentKeyResponse
         public int $status,
         public bool $failed,
         public string $message,
-        public ?string $id = null,
-        public ?int $amount = null,
+        public null | string $id = null,
+        public null | int $amount = null,
     ) {
         //
     }

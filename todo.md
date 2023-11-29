@@ -7,11 +7,30 @@
 - [] Trouver comment rendre la monnaie "Franc CFA" réutilisable.
 - [+] Régler le bug se suppression de final par ./bin/pint
 
+## Module Shared
+
+- [x] Ajouter la méthode paginate() dans le repository
+- [x] Créé un DTO PaginatedObject
+
 ## Module Residence
 
 - [x] Ajouter la recherche de résidence.
 - [x] Demander a chatgpt comment faire une recherche avec: le nom de la vile, les dates d'enté et sorti de la réservation.
 - [x] Ajouter la vésication de disponibilité d'une résidence.
+- [+] Ajouter le listage de tous les residences.
+  - [] Avec le poster.
+- [x] Ajouter la pagination:
+  - [x] le listage de tous les residences.
+  - [x] la recherche de residence.
+  - [x] les residence proches.
+- [x] Déplacer tous les messages dans le dossier lang
+- [x] Supprimer les ViewModels et Presenters
+- [x] Utiliser une seule Response (ResidenceResponse)
+- [x] Le status de la Response doit être de type Modules\Shared\Domain\Enums\Http
+- [x] Utiliser une ValueObject Pagination/Page(current:int,per:int)
+- [x] Utiliser le DTO PaginatedObject
+- [x] Utiliser le shared repository pour le find
+- [x] Créer une factory NearestResidencesQueryStatementFactory avec une méthode static make()
 
 ## Module Payment
 
@@ -37,6 +56,12 @@
 - [x] Ajouter la traduction dans le fichier fr.json
 - [x] Créer un ... contenant retournant [Hidden, FileUpload].
 
+## Module Authentication
+
+- [x] Notifier un code OPT.
+- [x] Vérifier le compte avec le code OPT.
+- [x] Ajouter les champs:
+  - [x] carte d'identité (rector, verso).
 
 ### ResidenceResource
 
@@ -64,23 +89,17 @@
 - [x] Vérifier la création
 - [] Ajouter une page de "viewing records" pour permettre à l'admin de voir la résidence.
 - [] Ajouter un BULK Action pour ajouter plusieurs  images
+- [] Remplacer la class déprécier DeleteAction dans EditResidence
 
 ### ClientResource
 
-- [] Blocker l’accès au provider.
+- [] limiter l’accès au providers (affiché seulement les client du provider).
 - [x] Changer l'icon.
 
 ### AdminResource
 
 - [] restreindre seulement au panel owner
 - [x] Changer l'icon.
-
-## Module Authentication
-
-- [x] Notifier un code OPT.
-- [] Vérifier le compte avec le code OPT.
-- [] Ajouter les champs:
-  - [] carte d'identité (rector, verso).
 
 ## Seeding
 
