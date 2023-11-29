@@ -14,6 +14,8 @@ final class ResidenceController
 {
     /**
      * @see \Modules\Residence\Application\UseCases\ListResidences
+     *
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
     public function index(Request $request, ListResidencesContract $useCase): ResidencesResponse
     {

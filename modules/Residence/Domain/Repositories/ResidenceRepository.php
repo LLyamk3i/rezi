@@ -17,7 +17,7 @@ interface ResidenceRepository
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    public function all(Page $page = new Page): PaginatedObject;
+    public function all(Page $page): PaginatedObject;
 
     /**
      * @throws \InvalidArgumentException
@@ -31,10 +31,10 @@ interface ResidenceRepository
      *
      * @throws \InvalidArgumentException
      */
-    public function nearest(Location $location, Radius $radius, Page $page = new Page): PaginatedObject;
+    public function nearest(Location $location, Radius $radius, Page $page): PaginatedObject;
 
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    public function search(string $key, Duration $stay, Page $page = new Page): PaginatedObject;
+    public function search(string $key, Duration | null $stay = null, Page $page): PaginatedObject;
 }

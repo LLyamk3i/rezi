@@ -36,7 +36,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    public function all(Page $page = new Page): PaginatedObject
+    public function all(Page $page): PaginatedObject
     {
         return $this->parent->paginate(
             page: $page,
@@ -67,7 +67,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
      *
      * @throws \InvalidArgumentException
      */
-    public function nearest(Location $location, Radius $radius, Page $page = new Page): PaginatedObject
+    public function nearest(Location $location, Radius $radius, Page $page): PaginatedObject
     {
         $factory = new NearestResidencesQueryStatementFactory(
             radius: $radius,
@@ -85,12 +85,12 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    public function search(string $key, Duration $stay, Page $page = new Page): PaginatedObject
+    public function search(string $key, null | Duration $stay = null, Page $page): PaginatedObject
     {
-        $bucket = new SearchResidenceBucket(query: DB::table(table: 'residences'), payloads: [
-            'key' => $key,
-            'stay' => $stay,
-        ]);
+        $bucket = new SearchResidenceBucket(
+            query: DB::table(table: 'residences'),
+            payloads: array_filter(array: ['key' => $key, 'stay' => $stay]),
+        );
 
         return $this->parent->paginate(
             page: $page,

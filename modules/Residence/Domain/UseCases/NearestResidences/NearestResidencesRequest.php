@@ -9,10 +9,11 @@ use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 final readonly class NearestResidencesRequest
 {
     public function __construct(
+        public Page $page,
+        public int $radius,
         public float $latitude,
         public float $longitude,
-        public int $radius = 15,
-        public Page $page = new Page(),
     ) {
+        //
     }
 }

@@ -7,7 +7,6 @@ namespace Modules\Residence\Application\UseCases;
 use Modules\Shared\Domain\Enums\Http;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Translation\Translator;
-use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\UseCases\ResidencesResponse;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesRequest;
@@ -33,8 +32,8 @@ final readonly class SearchResidences implements SearchResidencesContract
         try {
             $pagination = $this->repository->search(
                 page: $request->page,
+                stay: $request->stay,
                 key: $request->location,
-                stay: new Duration(start: $request->checkin, end: $request->checkout)
             );
         } catch (\Throwable $throwable) {
             $this->exception->report(e: $throwable);

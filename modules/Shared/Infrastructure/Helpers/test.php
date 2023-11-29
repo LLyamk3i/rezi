@@ -46,3 +46,9 @@ function residence_factory(float $latitude, float $longitude): array
         ->make()
         ->getAttributes();
 }
+
+function api_dd(...$vars): void
+{
+    var_dump(value: $vars);
+    exit;
+}

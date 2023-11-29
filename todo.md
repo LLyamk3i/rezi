@@ -31,6 +31,7 @@
 - [x] Utiliser le DTO PaginatedObject
 - [x] Utiliser le shared repository pour le find
 - [x] Créer une factory NearestResidencesQueryStatementFactory avec une méthode static make()
+- [] Rendre la vérification de disponibilité dans la recherche optionnel.
 
 ## Module Payment
 

@@ -8,8 +8,8 @@ use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 
 final readonly class ListResidencesRequest
 {
-    public function __construct(
-        public Page $page = new Page(),
-    ) {
+    public function __construct(public Page $page)
+    {
+        //
     }
 }

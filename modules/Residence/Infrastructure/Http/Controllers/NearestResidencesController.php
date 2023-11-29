@@ -13,6 +13,9 @@ use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesContrac
  */
 final class NearestResidencesController
 {
+    /**
+     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     */
     public function __invoke(NearestResidencesRequest $request, NearestResidencesContract $useCase): ResidencesResponse
     {
         return new ResidencesResponse(
