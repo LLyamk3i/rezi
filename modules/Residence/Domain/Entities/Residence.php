@@ -23,7 +23,9 @@ final readonly class Residence
         public Location $location,
         public Price $rent,
         public Owner | null $owner = null,
+        public string | null $poster = null
     ) {
+        //
     }
 
     /**
@@ -38,7 +40,11 @@ final readonly class Residence
             'description' => $this->description,
             'distance' => (string) $this->distance,
             'location' => $this->location,
-            'owner' => $this->owner?->name,
+            'poster' => $this->poster,
+            'owner' => [
+                'id' => $this->owner?->id->value,
+                'name' => $this->owner?->name,
+            ],
             'rent' => [
                 'value' => $this->rent->value,
                 'format' => number_format(num: $this->rent->value, thousands_separator: ' ') . ' ' . Price::CURRENCY,

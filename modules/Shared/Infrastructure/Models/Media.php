@@ -6,6 +6,7 @@ namespace Modules\Shared\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Modules\Shared\Infrastructure\Database\Factories\MediaFactory;
 
 final class Media extends Model
 {
@@ -22,5 +23,10 @@ final class Media extends Model
     public function fileable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public static function factory(): MediaFactory
+    {
+        return new MediaFactory();
     }
 }

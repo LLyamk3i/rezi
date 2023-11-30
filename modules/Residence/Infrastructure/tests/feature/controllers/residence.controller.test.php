@@ -1,9 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
-use Modules\Residence\Infrastructure\Models\Residence;
-
+use Illuminate\Support\Arr;
+use Illuminate\Testing\Assert;
 use function Pest\Laravel\getJson;
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Testing\Fluent\AssertableJson;
+use Modules\Residence\Infrastructure\Models\Residence;
 
 uses(
     \Tests\TestCase::class,
@@ -28,8 +31,10 @@ it(description: 'can list all residences', closure: function (): void {
 it(description: 'can paginate residences', closure: function (): void {
     $total = 10;
     $page = ['max' => 3, 'current' => 2];
+
     DB::table(table: 'residences')->truncate();
-    $residences = Residence::factory()->count(count: $total)->create();
+    $residences = Residence::factory()->poster()->owners(count: 3)->count(count: $total)->create();
+
     $ids = $residences->forPage(page: $page['current'], perPage: $page['max'])->pluck(value: 'id');
 
     $response = getJson(uri: 'api/residences?' . http_build_query(data: ['page' => $page['current'], 'per_page' =>  $page['max']]));
@@ -47,9 +52,12 @@ it(description: 'can paginate residences', closure: function (): void {
             ]
         ]
     ]);
-    $response->assertJsonPath(path: 'residences.items', expect: function (array $results) use ($ids, $page): bool {
-        collect(value: $results)->each(callback: function (array $residence) use ($ids): void {
-            $ids->contains(key: $residence['id']);
+    $response->assertJsonPath(path: 'residences.items', expect: function (array $residences) use ($ids): bool {
+        collect(value: $residences)->each(callback: function (array $residence) use ($ids): void {
+            Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'poster')));
+            Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'owner.id')));
+            Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'owner.name')));
+            Assert::assertTrue(condition: $ids->contains(key: $residence['id']));
         });
         return true;
     });

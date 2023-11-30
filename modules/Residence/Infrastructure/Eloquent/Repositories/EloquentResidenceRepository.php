@@ -17,6 +17,7 @@ use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Residence\Infrastructure\Factories\ColumnsFactory;
 use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
+use Modules\Residence\Infrastructure\Factories\ResidenceQueryFactory;
 use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
 use Modules\Residence\Infrastructure\Factories\NearestResidencesQueryStatementFactory;
 
@@ -30,6 +31,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
         private ColumnsFactory $columns,
         private ResidenceFactory $factory,
         private ResidenceHydrator $hydrator,
+        private ResidenceQueryFactory $query,
     ) {
     }
 
@@ -41,8 +43,8 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
         return $this->parent->paginate(
             page: $page,
             hydrator: $this->hydrator,
+            query: $this->query->make(),
             columns: $this->columns->make(),
-            query: DB::table(table: 'residences'),
         );
     }
 

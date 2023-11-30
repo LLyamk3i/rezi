@@ -16,7 +16,9 @@ final class ColumnsFactory
     public function make(): array
     {
         return array_filter(array: [
-            'id', 'name', 'address', 'rent', 'description',
+            'residences.id', 'residences.name',
+            'residences.address', 'residences.rent', 'residences.description',
+            'users.id as owner_id', 'users.forename as owner_forename', 'users.surname as owner_surname', 'media.path as poster',
             can_use_spatial_index() ? DB::raw('ST_X(location) AS latitude') : null,
             can_use_spatial_index() ? DB::raw('ST_Y(location) AS longitude') : null,
         ]);

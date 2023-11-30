@@ -6,11 +6,14 @@ namespace Modules\Residence\Infrastructure\Database\Factories;
 
 use Symfony\Component\Uid\Ulid;
 use Illuminate\Support\Facades\DB;
+use Modules\Shared\Infrastructure\Models\Media;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Residence\Infrastructure\Models\Residence;
+use Modules\Residence\Domain\Enums\Media as EnumsMedia;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
 
 use function Modules\Shared\Infrastructure\Helpers\timer;
@@ -65,6 +68,30 @@ final class ResidenceFactory extends Factory
         );
     }
 
+    public function poster(): self
+    {
+        return $this->has(
+            relationship: 'poster',
+            factory: Media::factory()->type(value: EnumsMedia::Poster->value),
+        );
+    }
+
+    public function gallery(): self
+    {
+        return $this->has(
+            relationship: 'gallery',
+            factory: Media::factory()->count(count: rand(min: 1, max: 5))
+                ->type(value: EnumsMedia::Poster->value),
+        );
+    }
+
+    public function owners(int $count): self
+    {
+        $owners = User::factory()->count(count: $count)->create();
+
+        return $this->state(state: ['user_id' => fn () => $owners->random()]);
+    }
+
     public function unlocated(): self
     {
         return $this->state(state: ['location' => null]);
@@ -105,8 +132,10 @@ final class ResidenceFactory extends Factory
      */
     private function coordinates(array $value): null | Expression
     {
-        return can_use_spatial_index()
-            ? DB::raw("ST_PointFromText('POINT({$value['latitude']} {$value['longitude']})')")
-            : null;
+        if (can_use_spatial_index()) {
+            return DB::raw("ST_PointFromText('POINT({$value['latitude']} {$value['longitude']})')");
+        }
+
+        return null;
     }
 }
