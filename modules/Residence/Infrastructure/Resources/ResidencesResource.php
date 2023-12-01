@@ -6,6 +6,7 @@ namespace Modules\Residence\Infrastructure\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Shared\Infrastructure\Factories\ImageUrlFactory;
 
 final class ResidencesResource extends JsonResource
 {
@@ -20,23 +21,11 @@ final class ResidencesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return array_filter(
-            array: [...$this->resource->__serialize(), 'poster' => $this->image()],
+            array: [
+                ...$this->resource->__serialize(),
+                'poster' => ImageUrlFactory::make(path: $this->resource->poster),
+            ],
             callback: static fn (mixed $value) => ! \is_null(value: $value),
         );
-    }
-
-    /**
-     * @return array{value:string,usage:string}|null
-     */
-    private function image(): array | null
-    {
-        if (\is_null(value: $this->resource->poster)) {
-            return null;
-        }
-
-        return [
-            'value' => $this->resource->poster,
-            'usage' => route(name: 'image.show', parameters: ['path' => $this->resource->poster, 'w' => 500, 'h' => 500]),
-        ];
     }
 }

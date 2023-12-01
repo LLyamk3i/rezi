@@ -15,4 +15,11 @@ return [
         'error' => "Aucune résidence n'a été trouvée.",
         'success' => 'La récupération des résidences a été effectuée avec succès.',
     ],
+
+    'type' => [
+        'listing' => 'La récupération des types résidences a été effectuée avec succès.',
+    ],
+    'feature' => [
+        'listing' => 'La récupération des points forts résidentiels a été menée à bien.',
+    ],
 ];
