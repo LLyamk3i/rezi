@@ -6,8 +6,10 @@ namespace Modules\Authentication\Infrastructure\Database\Factories;
 
 use Illuminate\Support\Str;
 use Symfony\Component\Uid\Ulid;
+use Modules\Shared\Infrastructure\Models\Media;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Residence\Domain\Enums\Media as EnumsMedia;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Authentication\Infrastructure\Models\User>
@@ -36,6 +38,14 @@ final class UserFactory extends Factory
             'created_at' => (string) now(),
             'updated_at' => (string) now(),
         ];
+    }
+
+    public function avatar(): self
+    {
+        return $this->has(
+            relationship: 'avatar',
+            factory: Media::factory()->type(value: EnumsMedia::Avatar->value),
+        );
     }
 
     /**

@@ -8,7 +8,8 @@ enum Media: string
 {
     use \ArchTech\Enums\Values;
 
-    case Poster = 'images/poster';
-    case Gallery = 'images/gallery';
     case Icon = 'images/icon';
+    case Poster = 'images/poster';
+    case Avatar = 'images/avatar';
+    case Gallery = 'images/gallery';
 }
