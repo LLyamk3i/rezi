@@ -17,12 +17,13 @@ final class ReservationServiceProvider extends ServiceProvider
     public array $bindings = [
         Domain\Commands\VerifyReservationOwnershipContract::class => Application\Commands\VerifyReservationOwnership::class,
         Domain\Repositories\ReservationRepository::class => Infrastructure\Eloquent\Repositories\EloquentReservationRepository::class,
-        Domain\UseCases\CreateReservation\CreateReservationContract::class => Application\UseCases\CreateReservation\CreateReservation::class,
+        Domain\UseCases\MakeReservation\MakeReservationContract::class => Application\UseCases\MakeReservation\MakeReservation::class,
     ];
 
     public function boot(): void
     {
         $this->loadMigrationsFrom(paths: __DIR__ . '/../Infrastructure/Database/Migrations');
+        $this->loadTranslationsFrom(path: __DIR__ . '/../lang', namespace: 'reservation');
     }
 
     public function register(): void

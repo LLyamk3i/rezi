@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Application\UseCases;
 
+use Modules\Shared\Domain\Enums\Http;
 use Modules\Shared\Domain\UseCases\Response;
 use Illuminate\Contracts\Translation\Translator;
 use Modules\Shared\Domain\Repositories\MediaRepository;
@@ -31,8 +32,8 @@ final readonly class UploadIdentityCard implements UploadIdentityCardContract
             report($throwable);
 
             return new Response(
-                status: 500,
                 failed: true,
+                status: Http::INTERNAL_SERVER_ERROR,
                 message: string_value(value: $this->translator->get(key: 'authentication::messages.uploads.identity-card.errors.upload')),
             );
         }
@@ -47,15 +48,15 @@ final readonly class UploadIdentityCard implements UploadIdentityCardContract
             report($throwable);
 
             return new Response(
-                status: 500,
                 failed: true,
+                status: Http::INTERNAL_SERVER_ERROR,
                 message: string_value(value: $this->translator->get(key: 'authentication::messages.uploads.identity-card.errors.save')),
             );
         }
 
         return new Response(
-            status: 200,
             failed: false,
+            status: Http::OK,
             message: string_value(value: $this->translator->get(key: 'authentication::messages.uploads.identity-card.success')),
         );
     }

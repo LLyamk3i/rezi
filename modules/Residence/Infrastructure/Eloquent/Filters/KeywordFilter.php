@@ -18,7 +18,7 @@ final readonly class KeywordFilter implements FilterContract
 
     public function filter(): void
     {
-        $attributes = ['name', 'address', 'description'];
+        $attributes = ['residences.name', 'residences.address', 'residences.description'];
         $key = $this->payload;
 
         $this->query->where(static function (Builder $query) use ($key, $attributes): void {

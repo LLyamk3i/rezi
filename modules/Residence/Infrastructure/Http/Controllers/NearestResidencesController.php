@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Infrastructure\Http\Controllers;
 
-use Modules\Residence\Infrastructure\Http\Responses\ResidencesResponse;
+use Modules\Residence\Infrastructure\Http\Responses\ResidenceResponse;
 use Modules\Residence\Infrastructure\Http\Requests\NearestResidencesRequest;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesContract;
 
@@ -16,9 +16,9 @@ final class NearestResidencesController
     /**
      * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
-    public function __invoke(NearestResidencesRequest $request, NearestResidencesContract $useCase): ResidencesResponse
+    public function __invoke(NearestResidencesRequest $request, NearestResidencesContract $useCase): ResidenceResponse
     {
-        return new ResidencesResponse(
+        return new ResidenceResponse(
             response: $useCase->execute(request: $request->approved())
         );
     }

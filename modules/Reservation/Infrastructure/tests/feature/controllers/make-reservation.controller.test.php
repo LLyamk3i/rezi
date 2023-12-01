@@ -18,13 +18,13 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-test(description: 'an unauthenticated user cannot create a reservation', closure: function (): void {
+test(description: 'an unauthenticated user cannot make a reservation', closure: function (): void {
     $response = postJson(uri: '/api/reservations', data: []);
 
     $response->assertUnauthorized();
 });
 
-it(description: 'can create reservation', closure: function (): void {
+it(description: 'can make reservation', closure: function (): void {
     // \Illuminate\Support\Facades\DB::table('reservations')->truncate();
 
     /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
@@ -48,7 +48,7 @@ it(description: 'can create reservation', closure: function (): void {
     $response->assertCreated();
     $response->assertJson(value: [
         'success' => true,
-        'message' => 'La réservation a été créée avec succès.',
+        'message' => 'La réservation a été effectuée avec succès.',
     ]);
     assertDatabaseHas(table: 'reservations', data: [
         'cost' => $cost->value,

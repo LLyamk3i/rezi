@@ -6,11 +6,11 @@ namespace Modules\Residence\Infrastructure\Eloquent\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Shared\Application\Repositories\Repository;
 use Modules\Shared\Domain\ValueObjects\Pagination\Page;
-use Modules\Residence\Domain\Factories\ResidenceFactory;
 use Modules\Residence\Domain\Hydrators\ResidenceHydrator;
 use Modules\Residence\Domain\Entities\Residence as Entity;
 use Modules\Residence\Domain\ValueObjects\Distance as Radius;
@@ -29,7 +29,6 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     public function __construct(
         private Repository $parent,
         private ColumnsFactory $columns,
-        private ResidenceFactory $factory,
         private ResidenceHydrator $hydrator,
         private ResidenceQueryFactory $query,
     ) {
@@ -49,17 +48,25 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function find(Ulid $id): null | Entity
     {
-        /** @phpstan-var ResidenceRecord|null $result */
-        $result = $this->parent->find(
-            columns: $this->columns->make(),
-            query: DB::table(table: 'residences')->where('id', $id->value),
-        );
+        throw new \Exception(message: 'Unimplemented method', code: 1);
+    }
 
-        return \is_array(value: $result) ? $this->factory->make(data: $result) : null;
+    /**
+     * @throws \InvalidArgumentException
+     */
+    public function rent(Ulid $id): null | Price
+    {
+        $rent = DB::table(table: 'residences')->where('id', $id->value)->value(column: 'rent');
+
+        if (\is_int(value: $rent)) {
+            return new Price(value: $rent);
+        }
+
+        return null;
     }
 
     /**
@@ -74,6 +81,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
         $factory = new NearestResidencesQueryStatementFactory(
             radius: $radius,
             location: $location,
+            query: $this->query,
             columns: $this->columns->make(),
         );
 
@@ -90,7 +98,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     public function search(string $key, null | Duration $stay = null, Page $page): PaginatedObject
     {
         $bucket = new SearchResidenceBucket(
-            query: DB::table(table: 'residences'),
+            query: $this->query->make(),
             payloads: array_filter(array: ['key' => $key, 'stay' => $stay]),
         );
 

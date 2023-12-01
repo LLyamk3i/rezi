@@ -54,7 +54,8 @@ it(description: 'can paginate residences', closure: function (): void {
     ]);
     $response->assertJsonPath(path: 'residences.items', expect: function (array $residences) use ($ids): bool {
         collect(value: $residences)->each(callback: function (array $residence) use ($ids): void {
-            Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'poster')));
+            Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'poster.value')));
+            Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'poster.usage')));
             Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'owner.id')));
             Assert::assertTrue(condition: is_string(value: Arr::get(array: $residence, key: 'owner.name')));
             Assert::assertTrue(condition: $ids->contains(key: $residence['id']));

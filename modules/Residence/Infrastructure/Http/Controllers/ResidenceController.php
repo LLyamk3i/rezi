@@ -6,7 +6,7 @@ namespace Modules\Residence\Infrastructure\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Modules\Shared\Domain\ValueObjects\Pagination\Page;
-use Modules\Residence\Infrastructure\Http\Responses\ResidencesResponse;
+use Modules\Residence\Infrastructure\Http\Responses\ResidenceResponse;
 use Modules\Residence\Domain\UseCases\ListResidences\ListResidencesRequest;
 use Modules\Residence\Domain\UseCases\ListResidences\ListResidencesContract;
 
@@ -17,9 +17,9 @@ final class ResidenceController
      *
      * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      */
-    public function index(Request $request, ListResidencesContract $useCase): ResidencesResponse
+    public function index(Request $request, ListResidencesContract $useCase): ResidenceResponse
     {
-        return new ResidencesResponse(
+        return new ResidenceResponse(
             response: $useCase->execute(request: new ListResidencesRequest(
                 page: new Page(
                     current: $request->integer(key: 'page', default: 1),

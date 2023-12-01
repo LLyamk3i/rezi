@@ -10,7 +10,7 @@ use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
 /**
- * @phpstan-type ResidenceFormat array{id:string,name:string,address:string,description:string,distance:string,location:Location,rent:array{value:float,format:string}}
+ * @phpstan-type ResidenceFormat array{id:string,name:string,address:string,description:string,distance:string,location:Location,poster?:string,rent:array{value:float,format:string},owner?:array{id:string,name:string}}
  */
 final readonly class Residence
 {
@@ -33,22 +33,25 @@ final readonly class Residence
      */
     public function __serialize(): array
     {
-        return [
-            'id' => $this->id->value,
-            'name' => $this->name,
-            'address' => $this->address,
-            'description' => $this->description,
-            'distance' => (string) $this->distance,
-            'location' => $this->location,
-            'poster' => $this->poster,
-            'owner' => [
-                'id' => $this->owner?->id->value,
-                'name' => $this->owner?->name,
+        return array_filter(
+            array: [
+                'id' => $this->id->value,
+                'name' => $this->name,
+                'address' => $this->address,
+                'description' => $this->description,
+                'distance' => (string) $this->distance,
+                'location' => $this->location,
+                'poster' => $this->poster,
+                'owner' => \is_null(value: $this->owner) ? null : [
+                    'id' => $this->owner->id->value,
+                    'name' => $this->owner->name,
+                ],
+                'rent' => [
+                    'value' => $this->rent->value,
+                    'format' => number_format(num: $this->rent->value, thousands_separator: ' ') . ' ' . Price::CURRENCY,
+                ],
             ],
-            'rent' => [
-                'value' => $this->rent->value,
-                'format' => number_format(num: $this->rent->value, thousands_separator: ' ') . ' ' . Price::CURRENCY,
-            ],
-        ];
+            callback: static fn (mixed $value) => ! \is_null(value: $value),
+        );
     }
 }

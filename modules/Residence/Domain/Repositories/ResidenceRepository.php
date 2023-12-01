@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Residence\Domain\Repositories;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Residence\Domain\Entities\Residence;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\ValueObjects\Location;
@@ -20,9 +21,14 @@ interface ResidenceRepository
     public function all(Page $page): PaginatedObject;
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function find(Ulid $id): null | Residence;
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    public function rent(Ulid $id): null | Price;
 
     /**
      * get nearest residences from database

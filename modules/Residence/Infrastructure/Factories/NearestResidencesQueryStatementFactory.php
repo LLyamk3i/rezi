@@ -33,11 +33,14 @@ final class NearestResidencesQueryStatementFactory
      */
     private readonly array $columns;
 
+    private readonly ResidenceQueryFactory $query;
+
     /**
      * @param array<int,\Illuminate\Contracts\Database\Query\Expression|string> $columns
      */
-    public function __construct(Radius $radius, Location $location, array $columns)
+    public function __construct(Radius $radius, Location $location, array $columns, ResidenceQueryFactory $query)
     {
+        $this->query = $query;
         $this->columns = $columns;
         $this->statements = self::replace(radius: $radius, location: $location);
     }
@@ -47,7 +50,7 @@ final class NearestResidencesQueryStatementFactory
      */
     public function make(): Builder
     {
-        return DB::table(table: 'residences')
+        return $this->query->make()
             ->select(columns: [DB::raw(value: $this->statements['select']), ...$this->columns])
             ->whereRaw(sql: $this->statements['where'])
             ->havingRaw(sql: $this->statements['having'])

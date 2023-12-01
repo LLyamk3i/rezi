@@ -9,11 +9,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 
-use Modules\Reservation\Domain\UseCases\CreateReservation\CreateReservationRequest as Request;
+use Modules\Reservation\Domain\UseCases\MakeReservation\MakeReservationRequest as Request;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-final class CreateReservationRequest extends FormRequest
+final class MakeReservationRequest extends FormRequest
 {
     /**
      * @return array{checkin_date:string,checkout_date:string,residence_id:string}

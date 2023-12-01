@@ -22,8 +22,8 @@ final readonly class StayDurationFilter implements FilterContract
         $stay = $this->payload;
 
         $this->query->whereNotExists(static function (Builder $query) use ($stay): void {
-            $query->select('id')
-                ->from('reservations')
+            $query->select(columns: ['id'])
+                ->from(table: 'reservations')
                 ->whereColumn('reservations.residence_id', 'residences.id')
                 ->where(static function (Builder $query) use ($stay): void {
                     $query->whereBetween('reservations.checkin_at', [$stay->start, $stay->end])

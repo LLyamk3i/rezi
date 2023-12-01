@@ -28,7 +28,7 @@ final readonly class JsonResponse implements Responsable
     public function toResponse($request): HttpJsonResponse
     {
         return new HttpJsonResponse(
-            status: $this->response->status,
+            status: $this->response->status->value,
             data: [
                 'success' => ! $this->response->failed,
                 'message' => $this->response->message,
