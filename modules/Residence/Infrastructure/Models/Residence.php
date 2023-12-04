@@ -45,6 +45,14 @@ final class Residence extends Model
     |--------------------------------------------------------------------------
     */
     /**
+     * @return HasMany<Favorite>
+     */
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(related: Favorite::class);
+    }
+
+    /**
      * @return HasMany<Reservation>
      */
     public function reservations(): HasMany

@@ -46,6 +46,11 @@ parameters:
 			path: modules/Authentication/Infrastructure/Models/User.php
 
 		-
+			message: "#^Dynamic call to static method Illuminate\\\\Http\\\\Request\\:\\:validate\\(\\)\\.$#"
+			count: 1
+			path: modules/Residence/Infrastructure/Http/Controllers/FavoriteResidenceController.php
+
+		-
 			message: "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphOne\\<Modules\\\\Shared\\\\Infrastructure\\\\Models\\\\Media\\>\\:\\:where\\(\\)\\.$#"
 			count: 1
 			path: modules/Residence/Infrastructure/Models/Feature.php

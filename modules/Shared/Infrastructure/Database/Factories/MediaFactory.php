@@ -22,19 +22,22 @@ final class MediaFactory extends Factory
      */
     public function definition(): array
     {
+        $id = Ulid::generate();
+        $original = $id . '.jpg';
+
         return [
-            'id' => $id = Ulid::generate(),
+            'id' => $id,
             'type' => 'image',
             'disk' => 'public',
-            'original' => $original = $id . '.jpg',
+            'original' => $original,
             'collection' => 'images',
+            'created_at' => (string) now(),
+            'updated_at' => (string) now(),
             'path' => "path/to/{$original}",
             'mime' => $this->faker->mimeType(),
             'name' => $this->faker->word() . '.jpg',
             'hash' => hash(algo: 'sha256', data: $id),
             'size' => $this->faker->numberBetween(int1: 1000, int2: 9000),
-            'created_at' => (string) now(),
-            'updated_at' => (string) now(),
         ];
     }
 

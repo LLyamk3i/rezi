@@ -22,4 +22,9 @@ return [
     'feature' => [
         'listing' => 'La récupération des points forts résidentiels a été menée à bien.',
     ],
+    'favorite' => [
+        'listing' => 'Voici la liste de vos éléments favoris.',
+        'add' => 'La residence a été ajouté à votre liste de favoris avec succès.',
+        'remove' => 'a été retiré de votre liste de favoris avec succès.',
+    ],
 ];
