@@ -13,6 +13,6 @@ Route::get(uri: '/types', action: [Controllers\TypeController::class, 'index']);
 Route::get(uri: '/features', action: [Controllers\FeatureController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(callback: static function (): void {
-    Route::resource(name: 'favorites', controller: Controllers\FavoriteResidenceController::class)
-        ->only(methods: ['index', 'store', 'destroy']);
+    Route::post(uri: 'views', action: [Controllers\ViewController::class, 'store']);
+    Route::resource(name: 'favorites', controller: Controllers\FavoriteController::class)->only(methods: ['index', 'store', 'destroy']);
 });

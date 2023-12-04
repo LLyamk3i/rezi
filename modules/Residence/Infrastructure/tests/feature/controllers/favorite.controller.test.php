@@ -7,6 +7,7 @@ use Modules\Residence\Infrastructure\Models\Residence;
 use Symfony\Component\Uid\Ulid;
 
 use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseEmpty;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
 
@@ -33,7 +34,7 @@ it(description: 'returns a list of favorite residences', closure: function () {
     $response->assertJsonCount(count: $favorites->count(), key: 'residences');
     $response->assertJson(value: [
         'success' => true,
-        'message' => 'Voici la liste de vos éléments favoris.',
+        'message' => 'Voici la liste de vos résidences favoris.',
     ]);
 });
 
@@ -46,7 +47,7 @@ it(description: 'stores a new favorite residence', closure: function () {
     $response->assertOk();
     $response->assertJson(value: [
         'success' => true,
-        'message' => "La residence a été ajouté à votre liste de favoris avec succès."
+        'message' => "La résidence a été ajoutée à votre liste de favoris avec succès."
     ]);
 
     assertDatabaseHas(table: 'favorites', data: [
@@ -62,15 +63,15 @@ it(description: 'removes a favorite residence', closure: function () {
 
     Favorite::query()->create(attributes: [
         'id' => $id,
-        'user_id' => $client,
-        'residence_id' => $residence
+        'user_id' => $client->id,
+        'residence_id' => $residence->id,
     ]);
 
     $response = actingAs(user: $client)->deleteJson(uri: "/api/residences/favorites/{$residence->id}");
     $response->assertOk();
     $response->assertJson(value: [
         'success' => true,
-        'message' => "a été retiré de votre liste de favoris avec succès."
+        'message' => "La résidence a été retirée de votre liste de favoris avec succès."
     ]);
 
     assertDatabaseMissing(table: 'favorites', data: [
@@ -78,4 +79,6 @@ it(description: 'removes a favorite residence', closure: function () {
         'user_id' => $client->id,
         'residence_id' => $residence->id,
     ]);
+
+    assertDatabaseEmpty(table: 'favorites');
 });

@@ -12,7 +12,7 @@ use Modules\Residence\Infrastructure\Models\Favorite;
 use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Residence\Infrastructure\Http\Resources\FavoriteResidenceResource;
 
-final class FavoriteResidenceController
+final class FavoriteController
 {
     /**
      * @throws \RuntimeException
@@ -39,7 +39,7 @@ final class FavoriteResidenceController
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate(rules: ['residence_id']);
+        $request->validate(rules: ['residence_id' => 'required|exists:residences,id']);
 
         try {
             Favorite::query()->create(attributes: [
@@ -64,7 +64,7 @@ final class FavoriteResidenceController
     public function destroy(string $residence): JsonResponse
     {
         try {
-            Favorite::query()->where('residence_id', $residence)->delete();
+            Favorite::query()->where(column: 'residence_id', operator: '=', value: $residence)->delete();
         } catch (\Throwable $th) {
             report(exception: $th);
 

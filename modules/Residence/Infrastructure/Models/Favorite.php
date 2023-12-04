@@ -12,7 +12,7 @@ final class Favorite extends Model
 {
     use \Illuminate\Database\Eloquent\Concerns\HasUlids;
 
-    protected $fillable = ['user_id', 'residence_id'];
+    protected $guarded = ['id', 'updated_at', 'created_at'];
 
     /**
      * @return BelongsTo<Residence,Favorite>

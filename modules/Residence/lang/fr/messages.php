@@ -23,8 +23,14 @@ return [
         'listing' => 'La récupération des points forts résidentiels a été menée à bien.',
     ],
     'favorite' => [
-        'listing' => 'Voici la liste de vos éléments favoris.',
-        'add' => 'La residence a été ajouté à votre liste de favoris avec succès.',
-        'remove' => 'a été retiré de votre liste de favoris avec succès.',
+        'listing' => 'Voici la liste de vos résidences favoris.',
+        'add' => 'La résidence a été ajoutée à votre liste de favoris avec succès.',
+        'remove' => 'La résidence a été retirée de votre liste de favoris avec succès.',
+    ],
+    'view' => [
+        'add' => [
+            'success' => 'La résidence a été marquée comme vue par :id avec succès.',
+            'error' => 'La résidence a été déjà marquée comme vue par :id.',
+        ],
     ],
 ];

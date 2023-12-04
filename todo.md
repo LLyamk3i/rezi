@@ -17,12 +17,11 @@
 - [x] Ajouter la recherche de résidence.
 - [x] Demander a chatgpt comment faire une recherche avec: le nom de la vile, les dates d'enté et sorti de la réservation.
 - [x] Ajouter la vésication de disponibilité d'une résidence.
-- [+] Ajouter le listage de tous les residences.
-  - [] Avec le poster.
+- [x] Ajouter le listage de tous les residences.
+  - [x] Avec le poster.
 - [x] Ajouter la pagination:
   - [x] le listage de tous les residences.
   - [x] la recherche de residence.
-  - [x] les residence proches.
 - [x] Déplacer tous les messages dans le dossier lang
 - [x] Supprimer les ViewModels et Presenters
 - [x] Utiliser une seule Response (ResidenceResponse)
@@ -32,6 +31,18 @@
 - [x] Utiliser le shared repository pour le find
 - [x] Créer une factory NearestResidencesQueryStatementFactory avec une méthode static make()
 - [] Rendre la vérification de disponibilité dans la recherche optionnel.
+- [x] Permet l'ajout, la suppression et la récupération de favoris.
+- [] Ajouter des vues.
+- [] les residence proches:
+  - [] Supprimer la pagination.
+  - [] Retourner seulement le nom, l'address, la position et la distance.
+- [] Pointer le listage des residences sur le filtrage sans clé.
+- [] Créer un endpoint pour les détails d'une résidence:
+  - [] Le nombre de vue.
+  - [] Un booléen pour mis en favoris.
+  - [] Le poster.
+  - [] La gallérie.
+  - [] Les réservations.
 
 ## Module Payment
 

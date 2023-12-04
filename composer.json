@@ -21,6 +21,7 @@
         "fakerphp/faker": "^1.23.0",
         "filament/upgrade": "^3.0-stable",
         "laradumps/laradumps": "^2.2.1",
+        "laravel-lang/lang": "^13.10",
         "laravel/pint": "^1.13.6",
         "laravel/telescope": "^4.17.2",
         "mockery/mockery": "^1.6.6",

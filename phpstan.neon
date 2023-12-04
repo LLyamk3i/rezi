@@ -27,3 +27,5 @@ parameters:
         check:
             tooWideThrowType: true
             missingCheckedExceptionInThrows: true
+    ignoreErrors:
+        		-"#^Dynamic call to static method Illuminate\\\\Http\\\\Request\\:\\:validate\\(\\)\\.$#"
