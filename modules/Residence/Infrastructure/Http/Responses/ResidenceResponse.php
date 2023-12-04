@@ -43,6 +43,13 @@ final class ResidenceResponse implements Responsable
             return null;
         }
 
+        if (\is_array(value: $this->response->residences)) {
+            return [
+                'total' => \count(value: $this->response->residences),
+                'items' => ResidencesResource::collection(resource: $this->response->residences),
+            ];
+        }
+
         return [
             'total' => $this->response->residences->total,
             'items' => ResidencesResource::collection(resource: $this->response->residences->items),

@@ -72,24 +72,18 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     /**
      * get nearest residences from database
      *
-     * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
+     * @return array<int,Entity>
      *
      * @throws \InvalidArgumentException
      */
-    public function nearest(Location $location, Radius $radius, Page $page): PaginatedObject
+    public function nearest(Location $location, Radius $radius, Page $page): array
     {
-        $factory = new NearestResidencesQueryStatementFactory(
-            radius: $radius,
-            location: $location,
-            query: $this->query,
-            columns: $this->columns->make(),
-        );
+        $factory = new NearestResidencesQueryStatementFactory(radius: $radius, location: $location);
 
-        return $this->parent->paginate(
-            page: $page,
-            query: $factory->make(),
-            hydrator: $this->hydrator,
-        );
+        /** @phpstan-var array<int,ResidenceRecord> $residences */
+        $residences = $factory->make()->get()->toArray();
+
+        return $this->hydrator->hydrate(data: $residences);
     }
 
     /**

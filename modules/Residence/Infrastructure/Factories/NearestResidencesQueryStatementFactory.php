@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Factories;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Query\Builder;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 
@@ -28,20 +28,8 @@ final class NearestResidencesQueryStatementFactory
      */
     private readonly array $statements;
 
-    /**
-     * @var array<int,\Illuminate\Contracts\Database\Query\Expression|string>
-     */
-    private readonly array $columns;
-
-    private readonly ResidenceQueryFactory $query;
-
-    /**
-     * @param array<int,\Illuminate\Contracts\Database\Query\Expression|string> $columns
-     */
-    public function __construct(Radius $radius, Location $location, array $columns, ResidenceQueryFactory $query)
+    public function __construct(Radius $radius, Location $location)
     {
-        $this->query = $query;
-        $this->columns = $columns;
         $this->statements = self::replace(radius: $radius, location: $location);
     }
 
@@ -50,11 +38,24 @@ final class NearestResidencesQueryStatementFactory
      */
     public function make(): Builder
     {
-        return $this->query->make()
-            ->select(columns: [DB::raw(value: $this->statements['select']), ...$this->columns])
+        return DB::table(table: 'residences')
+            ->select(columns: $this->columns())
             ->whereRaw(sql: $this->statements['where'])
             ->havingRaw(sql: $this->statements['having'])
             ->orderBy(column: 'distance');
+    }
+
+    /**
+     * @return array<int,string|\Illuminate\Contracts\Database\Query\Expression>
+     */
+    private function columns(): array
+    {
+        return [
+            'id', 'name', 'address',
+            DB::raw('ST_X(location) AS latitude'),
+            DB::raw('ST_Y(location) AS longitude'),
+            DB::raw(value: $this->statements['select']),
+        ];
     }
 
     /**

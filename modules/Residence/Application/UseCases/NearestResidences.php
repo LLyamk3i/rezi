@@ -31,7 +31,7 @@ final readonly class NearestResidences implements NearestResidencesContract
     public function execute(NearestResidencesRequest $request): ResidencesResponse
     {
         try {
-            $pagination = $this->repository->nearest(
+            $residences = $this->repository->nearest(
                 page: $request->page,
                 radius: new Radius(value: $request->radius),
                 location: new Location(latitude: $request->latitude, longitude: $request->longitude),
@@ -46,7 +46,7 @@ final readonly class NearestResidences implements NearestResidencesContract
             );
         }
 
-        if ($pagination->items === []) {
+        if ($residences === []) {
             return new ResidencesResponse(
                 status: Http::NOT_FOUND,
                 failed: true,
@@ -57,8 +57,8 @@ final readonly class NearestResidences implements NearestResidencesContract
         return new ResidencesResponse(
             status: Http::OK,
             failed: false,
-            residences: $pagination,
-            message: $this->translator->choice(key: 'residence::messages.nearest.success', number: $pagination->total),
+            residences: $residences,
+            message: $this->translator->choice(key: 'residence::messages.nearest.success', number: \count(value: $residences)),
         );
     }
 }

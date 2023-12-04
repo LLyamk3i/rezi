@@ -10,13 +10,13 @@ use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
 final readonly class ResidencesResponse
 {
     /**
-     * @param null|PaginatedObject<\Modules\Residence\Domain\Entities\Residence> $residences
+     * @param null|PaginatedObject<\Modules\Residence\Domain\Entities\Residence>|array<int,\Modules\Residence\Domain\Entities\Residence> $residences
      */
     public function __construct(
         public Http $status,
         public bool $failed,
         public string $message,
-        public null | PaginatedObject $residences = null,
+        public null | PaginatedObject | array $residences = null,
     ) {
         //
     }

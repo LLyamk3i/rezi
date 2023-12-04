@@ -11,23 +11,17 @@ use Modules\Residence\Application\Services\Location\RandomPositionGeneratorServi
 use function Modules\Shared\Infrastructure\Helpers\residence_factory;
 use function Modules\Shared\Infrastructure\Helpers\using_sqlite;
 use function Pest\Laravel\getJson;
-use function PHPUnit\Framework\assertTrue;
 
 uses(
     \Tests\TestCase::class,
-    // \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'can not find nearest residence', closure: function (): void {
-    assertTrue(true);
-    return;
     $location = new Location(latitude: 48.864716, longitude: 2.349014); // Center longitude (Paris, France)
     $radius = new Radius(value: 25);
 
-    $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [
-        ...(array) $location,
-        'radius' => $radius->value,
-    ]));
+    $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [...(array) $location,'radius' => $radius->value]));
 
     $response->assertNotFound();
 
@@ -60,10 +54,7 @@ it(description: 'can find nearest residence', closure: function (): void {
 
     DB::table(table: 'residences')->insert(values: $residences);
 
-    $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [
-        ...(array) $location,
-        'radius' => $radius->value,
-    ]));
+    $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [...(array) $location,'radius' => $radius->value]));
 
     $response->assertOk();
     $response->assertJsonCount(count: $count, key: 'residences.items');

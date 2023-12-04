@@ -33,11 +33,11 @@ interface ResidenceRepository
     /**
      * get nearest residences from database
      *
-     * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
+     * @return array<int,\Modules\Residence\Domain\Entities\Residence>
      *
      * @throws \InvalidArgumentException
      */
-    public function nearest(Location $location, Radius $radius, Page $page): PaginatedObject;
+    public function nearest(Location $location, Radius $radius, Page $page): array;
 
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>

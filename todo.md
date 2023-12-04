@@ -32,7 +32,7 @@
 - [x] Créer une factory NearestResidencesQueryStatementFactory avec une méthode static make()
 - [] Rendre la vérification de disponibilité dans la recherche optionnel.
 - [x] Permet l'ajout, la suppression et la récupération de favoris.
-- [] Ajouter des vues.
+- [x] Ajouter des vues.
 - [] les residence proches:
   - [] Supprimer la pagination.
   - [] Retourner seulement le nom, l'address, la position et la distance.
