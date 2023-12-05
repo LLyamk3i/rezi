@@ -62,6 +62,8 @@ final class ResidenceFactory extends Factory
                 'visible' => random_int(min: 0, max: 1),
                 'rooms' => random_int(min: 1, max: 6),
                 'created_at' => (string) now(),
+                'user_id' => Ulid::generate(),
+                'type_id' => Ulid::generate(),
                 'updated_at' => (string) now(),
             ],
             callback: fn (mixed $value) => ! \is_null(value: $value),

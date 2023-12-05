@@ -43,6 +43,15 @@
   - [] Le poster.
   - [] La gallérie.
   - [] Les réservations.
+- [] Permet l'appréciation d'une residence.
+
+## Module Notification
+
+- [] Ajouter un system de notification
+
+## Module Comment
+
+- [] Ajouter un system de Commentaire
 
 ## Module Payment
 

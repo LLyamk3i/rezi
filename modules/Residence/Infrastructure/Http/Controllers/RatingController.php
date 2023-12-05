@@ -9,11 +9,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Modules\Shared\Domain\Enums\Http;
 use Illuminate\Validation\ValidationException;
-use Modules\Residence\Infrastructure\Models\View;
+use Modules\Residence\Infrastructure\Models\Rating;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-final class ViewController
+final class RatingController
 {
     /**
      * @throws \RuntimeException
@@ -22,23 +22,32 @@ final class ViewController
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate(rules: ['residence_id' => 'required|exists:residences,id']);
+        $request->validate(rules: [
+            'comment' => 'string',
+            'rating' => 'required|integer',
+            'residence_id' => 'required|exists:residences,id',
+        ]);
 
         $residence = string_value(value: $request->post(key: 'residence_id'));
 
         if (
-            View::query()
+            Rating::query()
                 ->where(column: 'user_id', operator: '=', value: Auth::id())
                 ->where(column: 'residence_id', operator: '=', value: $residence)
                 ->exists()
         ) {
             throw ValidationException::withMessages(messages: [
-                'residence_id' => [trans(key: 'residence::messages.view.add.error', replace: ['id' => Auth::id()])],
+                'residence_id' => [trans(key: 'residence::messages.rating.add.error', replace: ['id' => Auth::id()])],
             ]);
         }
 
         try {
-            View::query()->create(attributes: ['user_id' => Auth::id(), 'residence_id' => $residence]);
+            Rating::query()->create(attributes: [
+                'user_id' => Auth::id(),
+                'residence_id' => $residence,
+                'comment' => $request->post(key: 'comment'),
+                'value' => $request->post(key: 'rating'),
+            ]);
         } catch (\Throwable $th) {
             report(exception: $th);
 
@@ -52,7 +61,7 @@ final class ViewController
             status: Http::OK->value,
             data: [
                 'success' => true,
-                'message' => trans(key: 'residence::messages.view.add.success', replace: ['id' => Auth::id()]),
+                'message' => trans(key: 'residence::messages.rating.add.success', replace: ['id' => Auth::id()]),
             ]
         );
     }

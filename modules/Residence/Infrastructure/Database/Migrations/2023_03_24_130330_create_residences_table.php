@@ -27,8 +27,8 @@ return new class extends Migration
             $table->smallInteger(column: 'rooms', unsigned: true);
             $table->boolean(column: 'visible')->default(value: false);
 
-            $table->ulid(column: 'user_id')->nullable();
-            $table->ulid(column: 'type_id')->nullable();
+            $table->ulid(column: 'user_id');
+            $table->ulid(column: 'type_id');
 
             $table->timestamps();
 

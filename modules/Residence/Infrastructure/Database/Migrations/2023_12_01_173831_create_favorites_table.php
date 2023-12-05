@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create(table: 'favorites', callback: static function (Blueprint $table): void {
             $table->ulid(column: 'id')->primary();
-            $table->ulid(column: 'user_id')->nullable();
-            $table->ulid(column: 'residence_id')->nullable();
+            $table->ulid(column: 'user_id');
+            $table->ulid(column: 'residence_id');
             $table->timestamps();
         });
     }
