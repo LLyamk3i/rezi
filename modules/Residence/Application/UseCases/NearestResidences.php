@@ -23,6 +23,7 @@ final readonly class NearestResidences implements NearestResidencesContract
         private ExceptionHandler $exception,
         private ResidenceRepository $repository,
     ) {
+        //
     }
 
     /**
@@ -32,7 +33,6 @@ final readonly class NearestResidences implements NearestResidencesContract
     {
         try {
             $residences = $this->repository->nearest(
-                page: $request->page,
                 radius: new Radius(value: $request->radius),
                 location: new Location(latitude: $request->latitude, longitude: $request->longitude),
             );

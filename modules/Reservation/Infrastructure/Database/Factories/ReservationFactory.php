@@ -34,8 +34,8 @@ final class ReservationFactory extends Factory
             'id' => Ulid::generate(),
             'checkin_at' => (string) Carbon::now(),
             'checkout_at' => (string) Carbon::now()->addDay(),
-            'user_id' => User::factory(),
-            'residence_id' => Residence::factory(),
+            'user_id' => Ulid::generate(),
+            'residence_id' => Ulid::generate(),
             'status' => Arr::random(array: Status::values()),
             'cost' => random_int(min: 10000, max: 500_000),
             'created_at' => (string) Carbon::now(),
@@ -45,11 +45,11 @@ final class ReservationFactory extends Factory
 
     public function client(User $model): self
     {
-        return $this->state(state: ['user_id' => $model]);
+        return $this->state(state: ['user_id' => $model->id]);
     }
 
     public function residence(Residence $model): self
     {
-        return $this->state(state: ['residence_id' => $model]);
+        return $this->state(state: ['residence_id' => $model->id]);
     }
 }

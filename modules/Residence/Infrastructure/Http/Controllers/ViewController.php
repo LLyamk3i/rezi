@@ -22,7 +22,7 @@ final class ViewController
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate(rules: ['residence_id' => 'required|exists:residences,id']);
+        $request->validate(rules: ['residence_id' => 'required|string|exists:residences,id']);
 
         $residence = string_value(value: $request->post(key: 'residence_id'));
 

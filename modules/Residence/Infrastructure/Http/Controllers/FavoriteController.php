@@ -39,7 +39,7 @@ final class FavoriteController
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate(rules: ['residence_id' => 'required|exists:residences,id']);
+        $request->validate(rules: ['residence_id' => 'required|string|exists:residences,id']);
 
         try {
             Favorite::query()->create(attributes: [

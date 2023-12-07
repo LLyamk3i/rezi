@@ -33,9 +33,9 @@
 - [] Rendre la vérification de disponibilité dans la recherche optionnel.
 - [x] Permet l'ajout, la suppression et la récupération de favoris.
 - [x] Ajouter des vues.
-- [] les residence proches:
-  - [] Supprimer la pagination.
-  - [] Retourner seulement le nom, l'address, la position et la distance.
+- [x] les residence proches:
+  - [x] Supprimer la pagination.
+  - [x] Retourner seulement le nom, l'address, la position et la distance.
 - [] Pointer le listage des residences sur le filtrage sans clé.
 - [] Créer un endpoint pour les détails d'une résidence:
   - [] Le nombre de vue.
@@ -43,7 +43,7 @@
   - [] Le poster.
   - [] La gallérie.
   - [] Les réservations.
-- [] Permet l'appréciation d'une residence.
+- [x] Permet l'appréciation d'une residence.
 
 ## Module Notification
 

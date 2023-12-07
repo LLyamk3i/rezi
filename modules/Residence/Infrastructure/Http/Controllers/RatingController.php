@@ -25,7 +25,7 @@ final class RatingController
         $request->validate(rules: [
             'comment' => 'string',
             'rating' => 'required|integer',
-            'residence_id' => 'required|exists:residences,id',
+            'residence_id' => 'required|string|exists:residences,id',
         ]);
 
         $residence = string_value(value: $request->post(key: 'residence_id'));

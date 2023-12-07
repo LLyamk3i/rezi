@@ -76,7 +76,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
      *
      * @throws \InvalidArgumentException
      */
-    public function nearest(Location $location, Radius $radius, Page $page): array
+    public function nearest(Location $location, Radius $radius): array
     {
         $factory = new NearestResidencesQueryStatementFactory(radius: $radius, location: $location);
 

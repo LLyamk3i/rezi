@@ -19,13 +19,14 @@ final class ReservationSeeder extends Seeder
      * @param array<int,array{id:string,email:string,name:string,surname:string,password:string}> $admins
      * @param array<int,array{id:string,email:string,name:string,surname:string,password:string}> $providers
      *
-     * @phpstan-param array{residences:array<int,ResidenceFactoryResponse>}$residences
+     * @phpstan-param array{residences:array<int,ResidenceFactoryResponse>} $residences
      *
      * @phpstan-return array{reservations:array<int,ReservationFactoryResponse>}
      */
     public function run(array $admins, array $providers, array $residences, int $count, bool $persiste): array
     {
         $clients = [...$admins, ...$providers];
+
         $bookables = Arr::where(array: $residences, callback: static fn (array $residence): bool => $residence['visible'] === 1);
 
         $reservations = Reservation::factory()

@@ -37,7 +37,7 @@ interface ResidenceRepository
      *
      * @throws \InvalidArgumentException
      */
-    public function nearest(Location $location, Radius $radius, Page $page): array;
+    public function nearest(Location $location, Radius $radius): array;
 
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>

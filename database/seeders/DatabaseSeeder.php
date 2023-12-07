@@ -32,22 +32,18 @@ final class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Arr::map(array: self::SEEDERS, callback: function (array $dependencies, string $seeder): void {
-            (new TwoColumnDetail($this->command->getOutput()))
+            (new TwoColumnDetail(output: $this->command->getOutput()))
                 ->render(first: $seeder, second: '<fg=yellow;options=bold>RUNNING</>');
 
-            $startTime = microtime(true);
+            $startTime = microtime(as_float: true);
             $results = App::call(
                 callback: [resolve(name: $seeder), 'run'],
-                parameters: [
-                    ...$this->store,
-                    ...$dependencies,
-                    'persiste' => static::PERSISTE,
-                ]
+                parameters: [...$this->store, ...$dependencies, 'persiste' => static::PERSISTE]
             );
 
-            $runTime = number_format((microtime(true) - $startTime) * 1000, 2);
+            $runTime = number_format(num: (microtime(as_float: true) - $startTime) * 1000, decimals: 2);
 
-            (new TwoColumnDetail($this->command->getOutput()))
+            (new TwoColumnDetail(output: $this->command->getOutput()))
                 ->render(first: $seeder, second: "<fg=gray>{$runTime} ms</> <fg=green;options=bold>DONE</>");
 
             $this->command->getOutput()->writeln(messages: '');

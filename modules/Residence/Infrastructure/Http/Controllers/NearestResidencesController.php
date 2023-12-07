@@ -9,7 +9,7 @@ use Modules\Residence\Infrastructure\Http\Requests\NearestResidencesRequest;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesContract;
 
 /**
- * @see \Modules\Residence\Application\UseCases\NearestResidences\NearestResidences
+ * @see \Modules\Residence\Application\UseCases\NearestResidences
  */
 final class NearestResidencesController
 {
