@@ -42,7 +42,7 @@ final readonly class UploadIdentityCard implements UploadIdentityCardContract
             $this->repository->insert(
                 media: $identity->toArray(),
                 user: $request->account->id,
-                context: $request->map,
+                fileable: $request->fileable,
             );
         } catch (\Throwable $throwable) {
             report($throwable);

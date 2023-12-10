@@ -27,8 +27,9 @@ final class UploadUserIdentityCardRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'document_type' => 'required|string',
             'card.recto' => 'required|image|max:5120',
-            'card.verso' => 'required|image|max:5120',
+            'card.verso' => 'required_if:document_type,passeport|image|max:5120',
         ];
     }
 
@@ -63,9 +64,10 @@ final class UploadUserIdentityCardRequest extends FormRequest
                 recto: $recto,
                 verso: $verso,
                 factory: new FileFactory(),
+                document: (string) $this->string(key: 'document_type'),
                 disk: string_value(value: config(key: 'app.upload.disk')),
             ),
-            map: string_value(value: with(
+            fileable: string_value(value: with(
                 value: $user,
                 callback: static fn (User $user): string => $user->getMorphClass()
             )),

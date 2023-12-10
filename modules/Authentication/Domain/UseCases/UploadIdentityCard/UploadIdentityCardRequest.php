@@ -10,7 +10,7 @@ use Modules\Authentication\Domain\Services\UploadIdentityCardServiceContract;
 final readonly class UploadIdentityCardRequest
 {
     public function __construct(
-        public string $map,
+        public string $fileable,
         public User $account,
         public UploadIdentityCardServiceContract $upload,
     ) {

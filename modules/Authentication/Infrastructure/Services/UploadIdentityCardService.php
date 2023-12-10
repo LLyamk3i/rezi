@@ -20,6 +20,7 @@ final readonly class UploadIdentityCardService implements UploadIdentityCardServ
         private UploadedFile $verso,
         private FileFactory $factory,
         private string $disk,
+        private string $document,
     ) {
     }
 
@@ -32,7 +33,7 @@ final readonly class UploadIdentityCardService implements UploadIdentityCardServ
                 file: $file,
                 path: string_value(value: $path),
                 disk: $this->disk,
-                collection: 'identity-cards',
+                collection: "identity-cards/{$this->document}",
             );
         });
 

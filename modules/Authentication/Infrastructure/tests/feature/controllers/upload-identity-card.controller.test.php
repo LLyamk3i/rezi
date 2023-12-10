@@ -19,31 +19,35 @@ it(description: 'can save and register uploaded user identity card', closure: fu
     Storage::fake(disk: $disk = config(key: 'app.upload.disk'));
 
     $user = User::factory()->verified()->create();
+    $document = 'cni';
     $card = [
         'recto' =>  UploadedFile::fake()->image(name: 'card.recto.jpg', width: 500),
         'verso' =>  UploadedFile::fake()->image(name: 'card.verso.jpg'),
     ];
 
-    $response = actingAs(user: $user)->postJson(uri: '/api/auth/upload/identity-card', data: ['card' => $card]);
+    $response = actingAs(user: $user)->postJson(uri: '/api/auth/upload/identity-card', data: [
+        'card' => $card,
+        'document_type' => $document,
+    ]);
 
     $response->assertJson(value: [
         'success' => true,
         'message' => trans(key: 'authentication::messages.uploads.identity-card.success'),
     ]);
 
-    array_walk(array: $card, callback: function (File $file) use ($disk, $user): void {
+    array_walk(array: $card, callback: function (File $file) use ($disk, $user, $document): void {
         $path = 'users/identity-cards/' . $file->hashName();
-        
+
         tap(value: Storage::disk(name: $disk), callback: function (FilesystemAdapter $storage) use ($path): void {
             $storage->assertExists(path: $path);
         });
 
         assertDatabaseHas(table: 'media', data: [
             'path' => $path,
-            'size'=> $file->getSize(),
+            'size' => $file->getSize(),
             'fileable_id' => $user->id,
             'name' => $file->hashName(),
-            'collection' => 'identity-cards',
+            'collection' => "identity-cards/$document",
             'mime' => $file->getClientMimeType(),
             'disk' => config(key: 'app.upload.disk'),
             'fileable_type' => $user->getMorphClass(),

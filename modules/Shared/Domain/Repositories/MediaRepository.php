@@ -12,5 +12,5 @@ interface MediaRepository
     /**
      * @param File|array<int|string,File> $media
      */
-    public function insert(File | array $media, Ulid $user, string $context): void;
+    public function insert(File | array $media, Ulid $user, string $fileable): void;
 }

@@ -21,7 +21,7 @@ final readonly class EloquentMediaRepository implements MediaRepository
     /**
      * @param File|array<int|string,File> $media
      */
-    public function insert(File | array $media, Ulid $user, string $context): void
+    public function insert(File | array $media, Ulid $user, string $fileable): void
     {
         $ulid = $this->ulid;
 
@@ -30,7 +30,7 @@ final readonly class EloquentMediaRepository implements MediaRepository
             callback: static fn (File $file): array => [
                 'id' => $ulid->generate(),
                 ...$file->toArray(),
-                'fileable_type' => $context,
+                'fileable_type' => $fileable,
                 'fileable_id' => $user->value,
             ]
         ));
