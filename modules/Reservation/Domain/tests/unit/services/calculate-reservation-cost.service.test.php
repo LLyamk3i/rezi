@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Modules\Shared\Domain\ValueObjects\Price;
-use Modules\Reservation\Domain\Services\CalculateReservationCostService;
 use Modules\Shared\Domain\ValueObjects\Duration;
+use Modules\Reservation\Domain\Services\CalculateReservationCostService;
 
 uses(\Tests\TestCase::class);
 

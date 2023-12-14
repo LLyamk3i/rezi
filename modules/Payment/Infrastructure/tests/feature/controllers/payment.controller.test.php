@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 use Modules\Payment\Domain\Enums\Status;
-use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Payment\Infrastructure\Models\Payment;
+use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Reservation\Infrastructure\Models\Reservation;
 
 use function Pest\Laravel\actingAs;
+use function PHPUnit\Framework\assertSame;
 use function Pest\Laravel\assertDatabaseHas;
 use function PHPUnit\Framework\assertNotNull;
-use function PHPUnit\Framework\assertSame;
 
 uses(
     \Tests\TestCase::class,
@@ -59,7 +61,7 @@ it(description: 'can generate payment id for transaction', closure: function ():
         'success' => true,
         'amount' => $amount,
         'payment_id' => $payment->id,
-        'message' => trans(key: 'payment::messages.initialization.success')
+        'message' => trans(key: 'payment::messages.initialization.success'),
     ]);
 });
 
@@ -84,6 +86,6 @@ it(description: 'can patch the payment record with new response from payment get
         'success' => true,
         'payment_id' => $payment->id,
         'status' => $status->value,
-        'message' => trans(key: 'payment::messages.update.success')
+        'message' => trans(key: 'payment::messages.update.success'),
     ]);
 })->with([Status::Completed, Status::Canceled, Status::Failed]);

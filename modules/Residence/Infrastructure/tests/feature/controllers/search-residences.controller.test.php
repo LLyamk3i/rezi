@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Assert;
+use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Reservation\Infrastructure\Models\Reservation;
@@ -19,9 +19,9 @@ uses(
 it(description: 'can search residences by address', closure: function (): void {
     $keyword = 'fadiga';
     $data = [
-        ['name' => "residence $keyword"],
-        ['description' => "welcome to residence $keyword"],
-        ['address' => "456 Ghana Avenue, Kumasi, rue $keyword"],
+        ['name' => "residence {$keyword}"],
+        ['description' => "welcome to residence {$keyword}"],
+        ['address' => "456 Ghana Avenue, Kumasi, rue {$keyword}"],
     ];
 
     $seeds = Residence::factory()->template(data: $data)->count(count: 8)->make();
@@ -47,22 +47,23 @@ it(description: 'can search residences by address', closure: function (): void {
     ]));
 
     $response->assertOk();
-    $searchables = array_slice(array: $data, offset: 1, length: 2);
+    $searchables = \array_slice(array: $data, offset: 1, length: 2);
 
     $response->assertJson(value: [
         'success' => true,
-        'message' => count(value: $searchables) . ' résidences ont été trouvées pour les paramètres de recherche donnés.',
-        'residences' => ['total' => count(value: $searchables)],
+        'message' => \count(value: $searchables) . ' résidences ont été trouvées pour les paramètres de recherche donnés.',
+        'residences' => ['total' => \count(value: $searchables)],
     ]);
 
     $response->assertJsonPath(path: 'residences.items', expect: function (array $residences) use ($searchables): bool {
-        for ($i = 0; $i < count(value: $searchables); $i++) {
+        for ($i = 0; $i < \count(value: $searchables); $i++) {
             $searchable = $searchables[$i];
             foreach ($searchable as $key => $value) {
                 Assert::assertTrue(condition: isset($residences[$i][$key]));
                 Assert::assertTrue(condition: $residences[$i][$key] === $value);
             }
         }
+
         return true;
     });
 });

@@ -24,7 +24,7 @@ final class SharedServiceProvider extends ServiceProvider
      */
     public array $bindings = [
         Domain\Adapters\CacheAdapterContract::class => Infrastructure\Adapters\CacheAdapter::class,
-        Application\Repositories\Repository::class => Infrastructure\Repositories\QueryRepository::class,
+        Application\Repositories\Repository::class => Infrastructure\Eloquent\Repositories\QueryRepository::class,
     ];
 
     /**

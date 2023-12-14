@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 use Modules\Authentication\Infrastructure\Models\User;
 
-use Symfony\Component\Uid\Ulid;
+use Modules\Residence\Infrastructure\Models\Residence;
+use Modules\Reservation\Infrastructure\Models\Reservation;
 
 use function Pest\Laravel\actingAs;
-use Modules\Residence\Infrastructure\Models\Residence;
 use function Modules\Shared\Infrastructure\Helpers\route;
-use Modules\Reservation\Infrastructure\Models\Reservation;
 
 uses(
     \Tests\TestCase::class,
@@ -31,7 +30,7 @@ it(description: 'can verify availability of residence', closure: function (): vo
     Reservation::factory()->create(attributes: [
         'checkin_at' => $data['checkin_date'],
         'checkout_at' => $data['checkout_date'],
-        'residence_id' => $data['residence_id']
+        'residence_id' => $data['residence_id'],
     ]);
 
     $response = actingAs(user: $user)->getJson(uri: route(path: '/api/reservations/availability', queries: $data));

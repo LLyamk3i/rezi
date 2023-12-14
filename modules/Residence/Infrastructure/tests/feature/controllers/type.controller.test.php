@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Modules\Residence\Infrastructure\Models\Type;
 
 use function Pest\Laravel\getJson;
@@ -9,7 +11,7 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-test(description: 'listing all residence types', closure: function () {
+test(description: 'listing all residence types', closure: function (): void {
 
     $types = Type::factory()->count(count: 4)->create();
 

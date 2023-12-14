@@ -19,10 +19,12 @@ final class Timer
         //
     }
 
-    public function start(int $counter): void
+    public function init(int $counter): self
     {
         $this->counter = $counter;
         $this->cache->put(key: $this->key, value: $counter);
+
+        return $this;
     }
 
     /**

@@ -1,17 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
-use Modules\Authentication\Domain\Entities\User as Entity;
-use Modules\Authentication\Domain\Enums\Roles;
-use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentAccountRepository;
-use Modules\Authentication\Infrastructure\Models\Role;
-use Modules\Authentication\Infrastructure\Models\User as Model;
-use Modules\Shared\Domain\ValueObjects\Ulid;
-use Symfony\Component\Uid\Ulid as SymphonyUlid;
+declare(strict_types=1);
 
-use function Pest\Laravel\assertDatabaseHas;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Artisan;
+use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Authentication\Domain\Enums\Roles;
+use Symfony\Component\Uid\Ulid as SymphonyUlid;
+use Modules\Authentication\Infrastructure\Models\Role;
+use Modules\Authentication\Domain\Entities\User as Entity;
+use Modules\Authentication\Infrastructure\Models\User as Model;
+use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentAccountRepository;
+
 use function PHPUnit\Framework\assertTrue;
+use function Pest\Laravel\assertDatabaseHas;
 
 uses(
     \Tests\TestCase::class,
@@ -23,7 +25,7 @@ function account_repository(): EloquentAccountRepository
     return resolve(name: EloquentAccountRepository::class);
 }
 
-function user_entity_factory(): \Modules\Authentication\Domain\Entities\User
+function user_entity_factory(): Entity
 {
     return new Entity(
         id: new Ulid(value: SymphonyUlid::generate()),
@@ -53,7 +55,7 @@ test(description: 'it can create user with owner role', closure: function (): vo
     ]);
 
     assertDatabaseHas(table: 'role_user', data: [
-        'user_id' =>  $entity->id->value,
+        'user_id' => $entity->id->value,
         'role_id' => $role->id,
     ]);
 });
@@ -80,11 +82,11 @@ test(description: 'it can create user with owner and admin role', closure: funct
     ]);
 
     assertDatabaseHas(table: 'role_user', data: [
-        'user_id' =>  $entity->id->value,
+        'user_id' => $entity->id->value,
         'role_id' => $roles->first()->id,
     ]);
     assertDatabaseHas(table: 'role_user', data: [
-        'user_id' =>  $entity->id->value,
+        'user_id' => $entity->id->value,
         'role_id' => $roles->last()->id,
     ]);
 });

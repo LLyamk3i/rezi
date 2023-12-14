@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\postJson;
-
-use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Price;
+use Modules\Shared\Domain\ValueObjects\Duration;
+
+use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Reservation\Domain\Services\CalculateReservationCostService;
-use Modules\Shared\Domain\ValueObjects\Duration;
+
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\postJson;
+use function Pest\Laravel\assertDatabaseHas;
 
 uses(
     \Tests\TestCase::class,

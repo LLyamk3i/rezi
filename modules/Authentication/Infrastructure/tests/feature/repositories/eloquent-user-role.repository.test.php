@@ -1,10 +1,12 @@
 <?php
 
-use Modules\Authentication\Domain\Enums\Roles;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Artisan;
+use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Authentication\Infrastructure\Models\Role;
 use Modules\Authentication\Infrastructure\Models\User;
-use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentUserRoleRepository;
 
 uses(

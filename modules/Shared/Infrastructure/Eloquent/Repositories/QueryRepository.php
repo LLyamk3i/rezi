@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shared\Infrastructure\Repositories;
+namespace Modules\Shared\Infrastructure\Eloquent\Repositories;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Modules\Shared\Domain\Contracts\HydratorContract;

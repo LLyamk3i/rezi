@@ -24,7 +24,8 @@ final class User extends Authenticatable implements MustVerifyEmail
      */
     public function avatar(): MorphOne
     {
-        return $this->morphOne(related: Media::class, name: 'fileable')->where('type', EnumsMedia::Avatar);
+        return $this->morphOne(related: Media::class, name: 'fileable')
+            ->where(column: 'type', operator: '=', value: EnumsMedia::Avatar);
     }
 
     public static function query(): UserQueryBuilder

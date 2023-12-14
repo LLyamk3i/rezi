@@ -1,15 +1,16 @@
 <?php
 
-use function Modules\Shared\Infrastructure\Helpers\migrate_authentication;
-use function Pest\Laravel\postJson;
+declare(strict_types=1);
 
 use Illuminate\Support\Facades\Hash;
-use Modules\Authentication\Infrastructure\Notifications\OneTimePassword;
-use Illuminate\Support\Facades\Artisan;
+
 use Illuminate\Support\Facades\Notification;
 use Modules\Authentication\Domain\Enums\Roles;
 use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Authentication\Infrastructure\Notifications\OneTimePassword;
 use Modules\Authentication\Infrastructure\Database\Seeders\RoleTableSeeder;
+
+use function Pest\Laravel\postJson;
 
 uses(
     \Tests\TestCase::class,
@@ -25,7 +26,7 @@ it(description: 'can register user', closure: function (): void {
         'password' => 'password',
         'password_confirmation' => 'password',
     ];
-    
+
     RoleTableSeeder::make()->run();
 
     $response = postJson(uri: '/api/auth/register', data: $data);

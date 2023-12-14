@@ -12,7 +12,6 @@ final class ImageUrlFactory
     public static function make(mixed $path): array | null
     {
         if (\is_string(value: $path)) {
-
             return [
                 'link' => $path,
                 'usage' => route(

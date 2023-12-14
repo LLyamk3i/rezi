@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Testing\Assert;
 use Modules\Residence\Infrastructure\Models\Feature;
 
@@ -10,7 +12,7 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-test(description: 'listing all residence features', closure: function () {
+test(description: 'listing all residence features', closure: function (): void {
 
     $seed = Feature::factory()->icon()->count(count: 5)->create();
 
@@ -22,8 +24,9 @@ test(description: 'listing all residence features', closure: function () {
         'message' => 'La récupération des points forts résidentiels a été menée à bien.',
     ]);
 
-    $response->assertJsonPath(path: 'features', expect: function (array $features)use($seed):bool {
+    $response->assertJsonPath(path: 'features', expect: function (array $features) use ($seed): bool {
         Assert::assertCount(expectedCount: $seed->count(), haystack: $features);
+
         return true;
     });
 });

@@ -1,14 +1,16 @@
 <?php
 
-use Filament\Support\Assets\Asset;
+declare(strict_types=1);
+
 use Illuminate\Support\Arr;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Testing\Assert;
 
+use Modules\Authentication\Infrastructure\Models\User;
+
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\deleteJson;
 use function PHPUnit\Framework\assertCount;
-use Modules\Authentication\Infrastructure\Models\User;
 
 uses(
     \Tests\TestCase::class,
@@ -33,11 +35,12 @@ test(description: 'user can login', closure: function (): void {
     ]);
 
     $response->assertJsonPath(path: 'client', expect: function (array $client) use ($user): bool {
-        Assert::assertTrue(condition: is_string(value: Arr::get(array: $client, key: 'avatar.usage')));
-        Assert::assertTrue(condition: is_string(value: Arr::get(array: $client, key: 'avatar.link')));
+        Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.usage')));
+        Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.link')));
         Assert::assertSame(expected: $user->id, actual: $client['id']);
         Assert::assertSame(expected: $user->forename, actual: $client['forename']);
         Assert::assertSame(expected: $user->email, actual: $client['email']);
+
         return true;
     });
 });
@@ -51,7 +54,7 @@ test(description: 'users can not authenticate with invalid password', closure: f
         'password' => 'wrong-password',
     ]);
     $response->assertJsonValidationErrors(errors: [
-        'email' => "Les informations d'identification fournies sont incorrectes."
+        'email' => "Les informations d'identification fournies sont incorrectes.",
     ]);
 });
 

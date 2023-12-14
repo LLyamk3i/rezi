@@ -40,3 +40,4 @@ tests/*
 todo.md
 trash/*
 yarn-error.log
+database/rezi.sqlite

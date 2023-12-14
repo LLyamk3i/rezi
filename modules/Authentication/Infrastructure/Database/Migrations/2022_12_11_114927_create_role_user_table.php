@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(table: 'role_user', callback: static function (Blueprint $table): void {
-            $table->ulid(column: 'user_id')->constrained()->cascadeOnDelete();
-            $table->ulid(column: 'role_id')->constrained()->cascadeOnDelete();
+            $table->ulid(column: 'user_id');
+            $table->ulid(column: 'role_id');
             $table->timestamp(column: 'created_at')->useCurrent();
             $table->primary(columns: ['role_id', 'user_id']);
         });

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Application\Services\Location\BoundsCalculatorService;
 
 it(description: 'calculates bounds correctly', closure: function (): void {

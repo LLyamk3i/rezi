@@ -19,4 +19,7 @@ return [
             'credentials' => "Les informations d'identification fournies sont incorrectes.",
         ],
     ],
+    'profile' => [
+        'update' => 'Votre profil a été mis à jour avec succès.',
+    ],
 ];

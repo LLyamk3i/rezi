@@ -1,11 +1,13 @@
 <?php
 
-use function Pest\Laravel\patchJson;
+declare(strict_types=1);
 
 use Illuminate\Support\Facades\Cache;
-use function PHPUnit\Framework\assertNotNull;
+
 use Modules\Authentication\Infrastructure\Models\User;
-use function Modules\Shared\Infrastructure\Helpers\migrate_authentication;
+
+use function Pest\Laravel\patchJson;
+use function PHPUnit\Framework\assertNotNull;
 
 uses(
     \Tests\TestCase::class,
@@ -13,7 +15,6 @@ uses(
 );
 
 it(description: 'can verify user account', closure: function (): void {
-    
 
     $user = User::factory()->unverified()->create();
     $code = '784-852';
@@ -25,7 +26,7 @@ it(description: 'can verify user account', closure: function (): void {
 
     $response->assertJson(value: [
         'success' => true,
-        'message' => "Votre compte a bien été vérifié.",
+        'message' => 'Votre compte a bien été vérifié.',
     ]);
 
     assertNotNull(actual: $user->fresh()->email_verified_at);

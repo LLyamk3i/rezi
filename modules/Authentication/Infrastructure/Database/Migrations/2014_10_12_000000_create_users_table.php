@@ -17,6 +17,9 @@ return new class extends Migration
             $table->ulid(column: 'id')->primary();
             $table->string(column: 'forename');
             $table->string(column: 'surname');
+            $table->string(column: 'phone')->nullable();
+            $table->string(column: 'address')->nullable();
+            $table->string(column: 'emergency_contact')->nullable();
             $table->string(column: 'email')->unique();
             $table->timestamp(column: 'email_verified_at')->nullable();
             $table->string(column: 'password');

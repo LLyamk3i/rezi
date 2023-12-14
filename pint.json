@@ -64,8 +64,5 @@
     "exclude": [
         "trash",
         "database/factories"
-    ],
-    "notName": [
-        "*.test.php"
     ]
 }
