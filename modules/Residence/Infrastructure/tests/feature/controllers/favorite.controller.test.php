@@ -22,11 +22,17 @@ it(description: 'returns a list of favorite residences', closure: function (): v
     $client = User::factory()->create();
     $residences = Residence::factory()->poster()->count(count: 10)->create();
 
-    $favorites = $residences->random(number: 5);
+    $favorites = $residences->splice(offset: 0, length: 5);
     $seeds = $favorites->map(callback: fn (Residence $residence): array => [
         'id' => Ulid::generate(),
         'user_id' => $client->id,
         'residence_id' => $residence->id,
+    ]);
+
+    $seeds->merge(items: [
+        'id' => Ulid::generate(),
+        'user_id' => User::factory()->create()->id,
+        'residence_id' => $residences->first()->id,
     ]);
 
     DB::table(table: 'favorites')->insert(values: $seeds->toArray());

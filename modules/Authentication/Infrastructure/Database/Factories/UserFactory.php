@@ -12,7 +12,7 @@ use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Residence\Domain\Enums\Media as EnumsMedia;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Authentication\Infrastructure\Models\User>
+ * @extends Factory<User>
  *
  * @phpstan-type UserFactoryResponse array{id:string,forename:string,surname:string,email:string,email_verified_at:string,password:string,remember_token:string,created_at:string,updated_at:string}
  */
