@@ -17,6 +17,7 @@ use Modules\Reservation\Domain\Services\CalculateReservationCostService;
 use Modules\Reservation\Domain\UseCases\MakeReservation\MakeReservationRequest;
 use Modules\Reservation\Domain\UseCases\MakeReservation\MakeReservationContract;
 
+use function Modules\Shared\Infrastructure\Helpers\ulid;
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final readonly class MakeReservation implements MakeReservationContract
@@ -42,23 +43,27 @@ final readonly class MakeReservation implements MakeReservationContract
         }
 
         if (\is_null(value: $rent)) {
-            $message = $this->translator->get(key: 'reservation::messages.make.errors.residence', replace: ['id' => $request->residence->value]);
-
             return new Response(
                 failed: true,
-                status: Http::NOT_FOUND,
-                message: string_value(value: $message),
+                status: Http::BAD_REQUEST,
+                message: string_value(value: $this->translator->get(
+                    key: 'reservation::messages.make.errors.residence',
+                    replace: ['id' => $request->residence->value]
+                )),
             );
         }
 
+        $reservation = new Reservation(
+            id: ulid(),
+            stay: $request->stay,
+            user: $request->user,
+            residence: $request->residence,
+            cost: $this->cost(request: $request, rent: $rent),
+            status: Status::PENDING,
+        );
+
         try {
-            $this->reservations->save(entity: new Reservation(
-                stay: $request->stay,
-                user: $request->user,
-                residence: $request->residence,
-                cost: $this->cost(request: $request, rent: $rent),
-                status: Status::PENDING,
-            ));
+            $this->reservations->save(entity: $reservation);
         } catch (\Throwable $throwable) {
             return $this->error->handle(throwable: $throwable);
         }
@@ -66,6 +71,7 @@ final readonly class MakeReservation implements MakeReservationContract
         return new Response(
             failed: false,
             status: Http::CREATED,
+            data: ['reservation_id' => $reservation->id->value],
             message: string_value(value: $this->translator->get(key: 'reservation::messages.make.success')),
         );
     }

@@ -4,6 +4,8 @@ source ./bin/functions.sh
 rm *.zip
 rm -r public/storage
 
+composer u --no-dev
+
 FILENAME=$(get_app_name)
 
 case "$1" in

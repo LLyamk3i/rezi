@@ -12,11 +12,12 @@ use Modules\Shared\Domain\ValueObjects\Duration;
 final readonly class Reservation
 {
     public function __construct(
-        public Duration $stay,
+        public Ulid $id,
         public Ulid $user,
-        public Ulid $residence,
         public Price $cost,
+        public Duration $stay,
         public Status $status,
+        public Ulid $residence,
     ) {
     }
 }

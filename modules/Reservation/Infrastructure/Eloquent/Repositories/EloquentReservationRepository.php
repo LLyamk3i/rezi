@@ -7,7 +7,6 @@ namespace Modules\Reservation\Infrastructure\Eloquent\Repositories;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Modules\Shared\Domain\ValueObjects\Ulid;
-use Symfony\Component\Uid\Ulid as SymfonyUlid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Reservation\Domain\Entities\Reservation as Entity;
 use Modules\Reservation\Domain\Repositories\ReservationRepository;
@@ -18,7 +17,7 @@ final class EloquentReservationRepository implements ReservationRepository
     public function save(Entity $entity): void
     {
         DB::table(table: 'reservations')->insert(values: [
-            'id' => SymfonyUlid::generate(),
+            'id' => $entity->id->value,
             'checkin_at' => $entity->stay->start,
             'checkout_at' => $entity->stay->end,
             'user_id' => $entity->user->value,

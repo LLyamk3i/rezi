@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Authentication\Infrastructure\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Modules\Shared\Domain\Enums\Http;
 use Modules\Authentication\Infrastructure\Http\Requests\RegisterUserRequest;
 use Modules\Authentication\Domain\UseCases\RegisterUser\RegisterUserContract;
 use Modules\Authentication\Application\UseCases\RegisterUser\RegisterUserJsonPresenter;
@@ -25,7 +26,7 @@ final class RegisterUserController
         $json = $presenter->viewModel();
 
         return new JsonResponse(
-            status: $json->success ? JsonResponse::HTTP_CREATED : JsonResponse::HTTP_NOT_FOUND,
+            status: $json->success ? Http::CREATED : Http::BAD_REQUEST,
             data: [
                 'success' => $json->success,
                 'message' => $json->message,

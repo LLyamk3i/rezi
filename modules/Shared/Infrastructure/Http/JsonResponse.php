@@ -33,6 +33,7 @@ final readonly class JsonResponse implements Responsable
                 'success' => ! $this->response->failed,
                 'message' => $this->response->message,
                 ...$this->data,
+                ...$this->response->data,
             ]
         );
     }

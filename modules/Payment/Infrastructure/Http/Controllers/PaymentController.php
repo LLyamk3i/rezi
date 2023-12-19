@@ -21,12 +21,15 @@ final class PaymentController
     {
         $response = $payment->execute(request: $request->approved());
 
-        return response()->json(status: $response->status, data: [
-            'success' => ! $response->failed,
-            'message' => $response->message,
-            'payment_id' => $response->id,
-            'amount' => $response->amount,
-        ]);
+        return response()->json(
+            status: $response->status->value,
+            data: [
+                'success' => ! $response->failed,
+                'message' => $response->message,
+                'payment_id' => $response->id,
+                'amount' => $response->amount,
+            ]
+        );
     }
 
     /**
@@ -38,11 +41,14 @@ final class PaymentController
     {
         $response = $update->execute(request: $request->approved());
 
-        return response()->json(status: $response->status, data: array_filter(array: [
-            'success' => ! $response->failed,
-            'message' => $response->message,
-            'payment_id' => $response->payment_id,
-            'status' => $response->payment_status,
-        ]));
+        return response()->json(
+            status: $response->status->value,
+            data: array_filter(array: [
+                'success' => ! $response->failed,
+                'message' => $response->message,
+                'payment_id' => $response->payment_id,
+                'status' => $response->payment_status,
+            ])
+        );
     }
 }

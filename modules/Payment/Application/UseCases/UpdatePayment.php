@@ -35,7 +35,7 @@ final readonly class UpdatePayment implements UpdatePaymentContract
 
         if (\is_null(value: $payment)) {
             return new UpdatePaymentResponse(
-                status: Http::NOT_FOUND->value,
+                status: Http::BAD_REQUEST,
                 failed: true,
                 message: string_value(value: $this->translator->get(key: 'payment::messages.update.errors.missing')),
             );
@@ -56,14 +56,14 @@ final readonly class UpdatePayment implements UpdatePaymentContract
             $this->exception->report(e: $throwable);
 
             return new UpdatePaymentResponse(
-                status: Http::INTERNAL_SERVER_ERROR->value,
+                status: Http::INTERNAL_SERVER_ERROR,
                 failed: true,
                 message: string_value(value: $this->translator->get(key: 'payment::messages.update.errors.server')),
             );
         }
 
         return new UpdatePaymentResponse(
-            status: Http::ACCEPTED->value,
+            status: Http::ACCEPTED,
             failed: false,
             message: string_value(value: $this->translator->get(key: 'payment::messages.update.success')),
             payment_id: $updated->id->value,

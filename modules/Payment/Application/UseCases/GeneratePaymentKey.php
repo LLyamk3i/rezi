@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Payment\Application\UseCases;
 
+use Modules\Shared\Domain\Enums\Http;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Translation\Translator;
 use Modules\Payment\Domain\Repositories\PaymentRepository;
@@ -42,14 +43,14 @@ final readonly class GeneratePaymentKey implements GeneratePaymentKeyContract
             $this->exception->report(e: $throwable);
 
             return new GeneratePaymentKeyResponse(
-                status: 500,
+                status: Http::INTERNAL_SERVER_ERROR,
                 failed: true,
                 message: string_value(value: $this->translator->get(key: 'payment::messages.initialization.error')),
             );
         }
 
         return new GeneratePaymentKeyResponse(
-            status: 201,
+            status: Http::CREATED,
             failed: false,
             id: $payment->id->value,
             amount: $payment->amount->value,

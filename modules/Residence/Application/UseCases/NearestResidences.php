@@ -48,7 +48,7 @@ final readonly class NearestResidences implements NearestResidencesContract
 
         if ($residences === []) {
             return new ResidencesResponse(
-                status: Http::NOT_FOUND,
+                status: Http::BAD_REQUEST,
                 failed: true,
                 message: string_value(value: $this->translator->get(key: 'residence::messages.nearest.error')),
             );
