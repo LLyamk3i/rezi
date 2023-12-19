@@ -64,7 +64,19 @@ final class FavoriteController
     public function destroy(string $residence): JsonResponse
     {
         try {
-            Favorite::query()->where(column: 'residence_id', operator: '=', value: $residence)->delete();
+            $favorite = Favorite::query()->where(column: 'residence_id', operator: '=', value: $residence)->first();
+
+            if (\is_null(value: $favorite)) {
+                return response()->json(
+                    status: Http::OK->value,
+                    data: [
+                        'success' => false,
+                        'message' => trans(key: 'residence::messages.favorite.remove.error', replace: ['id' => $residence]),
+                    ]
+                );
+            }
+
+            $favorite->delete();
         } catch (\Throwable $th) {
             report(exception: $th);
 
@@ -76,7 +88,10 @@ final class FavoriteController
 
         return response()->json(
             status: Http::OK->value,
-            data: ['success' => true, 'message' => trans(key: 'residence::messages.favorite.remove')]
+            data: [
+                'success' => true,
+                'message' => trans(key: 'residence::messages.favorite.remove.success', replace: ['id' => $residence]),
+            ]
         );
     }
 }

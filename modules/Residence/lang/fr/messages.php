@@ -29,7 +29,10 @@ return [
     'favorite' => [
         'listing' => 'Voici la liste de vos résidences favoris.',
         'add' => 'La résidence a été ajoutée à votre liste de favoris avec succès.',
-        'remove' => 'La résidence a été retirée de votre liste de favoris avec succès.',
+        'remove' => [
+            'success' => 'La résidence #:id a été retirée de votre liste de favoris avec succès.',
+            'error' => "La résidence #:id n'existe pas dans votre liste de favoris.",
+        ],
     ],
 
     'view' => [
@@ -44,5 +47,9 @@ return [
             'success' => 'La résidence a été notée par :id avec succès.',
             'error' => 'La résidence a été déjà notée par :id.',
         ],
+    ],
+    'details' => [
+        'success' => 'Les détails de la résidence :id ont été récupérés avec succès.',
+        'error' => 'Une erreur est survenue lors de la récupération des détails de la résidence :id.',
     ],
 ];
