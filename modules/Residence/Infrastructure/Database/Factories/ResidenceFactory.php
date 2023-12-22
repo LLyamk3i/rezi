@@ -6,18 +6,17 @@ namespace Modules\Residence\Infrastructure\Database\Factories;
 
 use Symfony\Component\Uid\Ulid;
 use Illuminate\Support\Facades\DB;
-use Modules\Shared\Infrastructure\Models\Media;
+use Modules\Residence\Infrastructure\Models\Type;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
-use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Residence\Infrastructure\Models\Feature;
 use Modules\Residence\Infrastructure\Models\Residence;
-use Modules\Residence\Domain\Enums\Media as EnumsMedia;
+
+use Modules\Reservation\Infrastructure\Models\Reservation;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
 
-use function Modules\Shared\Infrastructure\Helpers\timer;
-use function Modules\Shared\Infrastructure\Helpers\integer_value;
 use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
 
 /**
@@ -27,9 +26,11 @@ use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
  */
 final class ResidenceFactory extends Factory
 {
-    /**
-     * @var class-string<\Modules\Residence\Infrastructure\Models\Residence>
-     */
+    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\MediaStates;
+    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\OwnerStates;
+    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\RatingStates;
+    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\ResidenceStates;
+
     protected $model = Residence::class;
 
     private null | RandomPositionGeneratorService $service = null;
@@ -70,63 +71,28 @@ final class ResidenceFactory extends Factory
         );
     }
 
-    public function poster(): self
+    public function reservations(int $count): self
     {
         return $this->has(
-            relationship: 'poster',
-            factory: Media::factory()->type(value: EnumsMedia::Poster->value),
+            relationship: 'reservations',
+            factory: Reservation::factory()->count(count: $count),
         );
     }
 
-    public function gallery(): self
+    public function features(int $count): self
     {
         return $this->has(
-            relationship: 'gallery',
-            factory: Media::factory()->count(count: rand(min: 1, max: 5))
-                ->type(value: EnumsMedia::Poster->value),
+            relationship: 'features',
+            factory: Feature::factory()->icon()->count(count: $count),
         );
     }
 
-    public function owners(int $count): self
+    public function type(string $name): self
     {
-        $owners = User::factory()->count(count: $count)->create();
-
-        return $this->state(state: ['user_id' => fn () => $owners->random()]);
-    }
-
-    public function unlocated(): self
-    {
-        return $this->state(state: ['location' => null]);
-    }
-
-    public function location(Location $value): self
-    {
-        return $this->state(state: ['location' => DB::raw("ST_PointFromText('POINT({$value->longitude} {$value->latitude})')")]);
-    }
-
-    public function id(string $value): self
-    {
-        return $this->state(state: ['id' => $value]);
-    }
-
-    /**
-     * data to use in each seeds row
-     *
-     * @param array<int,array<string,string|float|int>> $data
-     *
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public function template(array $data): self
-    {
-        $timer = timer();
-        $timer->start(counter: integer_value(value: $this->count ?? 0));
-
-        return $this->state(state: function () use ($timer, $data): array {
-            $timer->decrease();
-
-            return $data[$timer->loop() - 1] ?? [];
-        });
+        return $this->for(
+            relationship: 'type',
+            factory: Type::factory()->state(state: ['name' => $name]),
+        );
     }
 
     /**

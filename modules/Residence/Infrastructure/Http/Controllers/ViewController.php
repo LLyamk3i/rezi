@@ -16,7 +16,6 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 final class ViewController
 {
     /**
-     * @throws \RuntimeException
      * @throws \InvalidArgumentException
      * @throws \Illuminate\Validation\ValidationException
      */

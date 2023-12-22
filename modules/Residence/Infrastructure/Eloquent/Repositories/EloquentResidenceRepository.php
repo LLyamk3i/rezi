@@ -17,6 +17,7 @@ use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Residence\Infrastructure\Factories\ColumnsFactory;
 use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
+use Modules\Residence\Infrastructure\Queries\ResidenceDetailsQuery;
 use Modules\Residence\Infrastructure\Factories\ResidenceQueryFactory;
 use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
 use Modules\Residence\Infrastructure\Factories\NearestResidencesQueryStatementFactory;
@@ -31,6 +32,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
         private ColumnsFactory $columns,
         private ResidenceHydrator $hydrator,
         private ResidenceQueryFactory $query,
+        private ResidenceDetailsQuery $details,
     ) {
     }
 
@@ -47,12 +49,9 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
         );
     }
 
-    /**
-     * @throws \Exception
-     */
     public function find(Ulid $id): null | Entity
     {
-        throw new \Exception(message: 'Unimplemented method', code: 1);
+        return $this->details->run(id: $id);
     }
 
     /**
@@ -60,7 +59,10 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
      */
     public function rent(Ulid $id): null | Price
     {
-        $rent = DB::table(table: 'residences')->where('id', $id->value)->value(column: 'rent');
+        $rent = DB::table(table: 'residences')
+            ->where(column: 'id', operator: '=', value: $id->value)
+            ->where(column: 'visible', operator: '=', value: 1)
+            ->value(column: 'rent');
 
         if (\is_int(value: $rent)) {
             return new Price(value: $rent);

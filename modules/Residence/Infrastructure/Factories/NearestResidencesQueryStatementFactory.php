@@ -39,6 +39,7 @@ final class NearestResidencesQueryStatementFactory
     public function make(): Builder
     {
         return DB::table(table: 'residences')
+            ->where(column: 'visible', operator: '=', value: 1)
             ->select(columns: $this->columns())
             ->whereRaw(sql: $this->statements['where'])
             ->havingRaw(sql: $this->statements['having'])

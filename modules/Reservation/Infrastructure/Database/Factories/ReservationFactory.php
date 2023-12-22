@@ -25,8 +25,8 @@ final class ReservationFactory extends Factory
     /**
      * @phpstan-return ReservationFactoryResponse
      *
-     * @throws \InvalidArgumentException
      * @throws \Random\RandomException
+     * @throws \InvalidArgumentException
      */
     public function definition(): array
     {

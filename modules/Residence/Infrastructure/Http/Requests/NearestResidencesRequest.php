@@ -21,9 +21,6 @@ final class NearestResidencesRequest extends FormRequest
         ];
     }
 
-    /**
-     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
-     */
     public function approved(): Request
     {
         return new Request(

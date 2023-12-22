@@ -16,6 +16,7 @@ final class ResidenceServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $bindings = [
+        Domain\UseCases\ShowResidence\ShowResidenceContract::class => Application\UseCases\ShowResidence::class,
         Domain\UseCases\ListResidences\ListResidencesContract::class => Application\UseCases\ListResidences::class,
         Domain\UseCases\SearchResidences\SearchResidencesContract::class => Application\UseCases\SearchResidences::class,
         Domain\UseCases\NearestResidences\NearestResidencesContract::class => Application\UseCases\NearestResidences::class,

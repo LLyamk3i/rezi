@@ -13,6 +13,14 @@ final readonly class Duration
         //
     }
 
+    public function __serialize(): array
+    {
+        return [
+            'start' => $this->start->format(format: 'Y-m-d H:i:s'),
+            'end' => $this->end->format(format: 'Y-m-d H:i:s'),
+        ];
+    }
+
     public function length(): int
     {
         return $this->start->diff(targetObject: $this->end)->d;

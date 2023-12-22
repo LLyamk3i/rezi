@@ -56,7 +56,7 @@ final readonly class MakeReservation implements MakeReservationContract
         $reservation = new Reservation(
             id: ulid(),
             stay: $request->stay,
-            user: $request->user,
+            owner: $request->user,
             residence: $request->residence,
             cost: $this->cost(request: $request, rent: $rent),
             status: Status::PENDING,

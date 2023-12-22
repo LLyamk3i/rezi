@@ -8,6 +8,9 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
+    /**
+     * @throws \RuntimeException
+     */
     public function up(): void
     {
         Schema::create(table: 'ratings', callback: static function (Blueprint $table): void {
@@ -21,6 +24,9 @@ return new class extends Migration
         });
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public function down(): void
     {
         Schema::dropIfExists(table: 'ratings');

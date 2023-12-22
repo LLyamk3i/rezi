@@ -79,7 +79,7 @@ it(description: 'removes a favorite residence', closure: function (): void {
     $response->assertOk();
     $response->assertJson(value: [
         'success' => true,
-        'message' => 'La résidence a été retirée de votre liste de favoris avec succès.',
+        'message' => "La résidence #{$residence->id} a été retirée de votre liste de favoris avec succès.",
     ]);
 
     assertDatabaseMissing(table: 'favorites', data: [

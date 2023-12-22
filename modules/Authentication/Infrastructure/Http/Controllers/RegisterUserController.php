@@ -26,7 +26,7 @@ final class RegisterUserController
         $json = $presenter->viewModel();
 
         return new JsonResponse(
-            status: $json->success ? Http::CREATED : Http::BAD_REQUEST,
+            status: $json->success ? Http::CREATED->value : Http::BAD_REQUEST->value,
             data: [
                 'success' => $json->success,
                 'message' => $json->message,

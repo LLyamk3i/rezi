@@ -16,6 +16,9 @@ function make_ulid_value(mixed $value): Ulid
     return new Ulid(value: string_value(value: $value));
 }
 
+/**
+ * @throws \InvalidArgumentException
+ */
 function ulid(): Ulid
 {
     return make_ulid_value(value: SymfonyUlid::generate());

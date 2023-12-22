@@ -6,8 +6,10 @@ namespace Modules\Residence\Infrastructure\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Support\Responsable;
-use Modules\Residence\Infrastructure\Resources\ResidencesResource;
+use Modules\Residence\Infrastructure\Resources\ResidenceResource;
 use Modules\Residence\Domain\UseCases\ResidencesResponse as UseCasesResidencesResponse;
+
+use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
 
 final class ResidenceResponse implements Responsable
 {
@@ -26,16 +28,28 @@ final class ResidenceResponse implements Responsable
     {
         return new JsonResponse(
             status: $this->response->status->value,
-            data: [
+            data: array_filter_filled(array: [
                 'success' => ! $this->response->failed,
                 'message' => $this->response->message,
                 'residences' => $this->residences(),
-            ],
+                'residence' => $this->residence(),
+            ]),
+        );
+    }
+
+    public function residence(): ResidenceResource | null
+    {
+        if ($this->response->residence === null) {
+            return null;
+        }
+
+        return new ResidenceResource(
+            resource: $this->response->residence
         );
     }
 
     /**
-     * @return null|array{total:int}
+     * @return null|array<string,mixed>
      */
     private function residences(): array | null
     {
@@ -46,13 +60,13 @@ final class ResidenceResponse implements Responsable
         if (\is_array(value: $this->response->residences)) {
             return [
                 'total' => \count(value: $this->response->residences),
-                'items' => ResidencesResource::collection(resource: $this->response->residences),
+                'items' => ResidenceResource::collection(resource: $this->response->residences),
             ];
         }
 
         return [
             'total' => $this->response->residences->total,
-            'items' => ResidencesResource::collection(resource: $this->response->residences->items),
+            'items' => ResidenceResource::collection(resource: $this->response->residences->items),
             'page' => [
                 'per' => $this->response->residences->page->per,
                 'last' => $this->response->residences->page->last,

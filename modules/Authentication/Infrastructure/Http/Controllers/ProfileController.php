@@ -13,7 +13,7 @@ final class ProfileController
     public function update(ProfileUpdateRequest $request): JsonResponse
     {
         try {
-            $request->user()->update(attributes: $request->validated());
+            $request->user()?->update(attributes: $request->validated());
         } catch (\Throwable $th) {
             report(exception: $th);
 

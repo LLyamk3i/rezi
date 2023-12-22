@@ -15,14 +15,36 @@ function route(string $path, array $queries): string
 /**
  * @template T
  *
- * @phpstan-param T $array
+ * @phpstan-param array<T|null> $array
  *
- * @phpstan-return T
+ * @phpstan-return array<T|null>
  */
-function array_filter_nulls(array $array): array
+function array_filter_filled(array $array): array
 {
     return array_filter(
         array: $array,
-        callback: static fn (mixed $value) => ! \is_null(value: $value),
+        callback: static fn (mixed $value) => filled(value: $value),
     );
+}
+
+/**
+ * @template T
+ *
+ * @phpstan-param array<T> $original
+ *
+ * @param array<int,string> $keys
+ *
+ * @phpstan-return array<T>
+ */
+function array_pull_and_exclude(array &$original, array $keys): array
+{
+    $result = [];
+    foreach ($keys as $key) {
+        if (\array_key_exists($key, $original)) {
+            $result[$key] = $original[$key];
+            unset($original[$key]);
+        }
+    }
+
+    return $result;
 }

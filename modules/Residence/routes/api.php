@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Residence\Infrastructure\Http\Controllers;
 
 Route::get(uri: '/', action: [Controllers\ResidenceController::class, 'index']);
-Route::get(uri: '/{residence}', action: [Controllers\ResidenceController::class, 'show'])->where(name: 'residence', expression: '#^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$#');
+Route::get(uri: '/{residence}', action: [Controllers\ResidenceController::class, 'show'])->where(name: 'residence', expression: '[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}');
 Route::get(uri: '/nearest', action: Controllers\NearestResidencesController::class);
 Route::get(uri: '/search', action: Controllers\SearchResidencesController::class);
 Route::get(uri: '/types', action: [Controllers\TypeController::class, 'index']);

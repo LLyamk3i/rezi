@@ -73,7 +73,8 @@ final class Residence extends Model
      */
     public function poster(): MorphOne
     {
-        return $this->morphOne(related: Media::class, name: 'fileable')->where('type', MediaType::Poster);
+        return $this->morphOne(related: Media::class, name: 'fileable')
+            ->where(column: 'type', operator: '=', value: MediaType::Poster);
     }
 
     /**
@@ -81,7 +82,8 @@ final class Residence extends Model
      */
     public function gallery(): MorphMany
     {
-        return $this->morphMany(related: Media::class, name: 'fileable')->where('type', MediaType::Gallery);
+        return $this->morphMany(related: Media::class, name: 'fileable')
+            ->where(column: 'type', operator: '=', value: MediaType::Gallery);
     }
 
     /**
@@ -98,6 +100,14 @@ final class Residence extends Model
     public function features(): BelongsToMany
     {
         return $this->belongsToMany(related: Feature::class);
+    }
+
+    /**
+     * @return HasMany<Rating>
+     */
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(related: Rating::class);
     }
 
     /*

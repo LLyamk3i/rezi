@@ -37,7 +37,9 @@ final class RatingController
                 ->exists()
         ) {
             throw ValidationException::withMessages(messages: [
-                'residence_id' => [trans(key: 'residence::messages.rating.add.error', replace: ['id' => Auth::id()])],
+                'residence_id' => [
+                    trans(key: 'residence::messages.rating.add.error', replace: ['id' => string_value(value: Auth::id())]),
+                ],
             ]);
         }
 
@@ -61,7 +63,7 @@ final class RatingController
             status: Http::OK->value,
             data: [
                 'success' => true,
-                'message' => trans(key: 'residence::messages.rating.add.success', replace: ['id' => Auth::id()]),
+                'message' => trans(key: 'residence::messages.rating.add.success', replace: ['id' => string_value(value: Auth::id())]),
             ]
         );
     }

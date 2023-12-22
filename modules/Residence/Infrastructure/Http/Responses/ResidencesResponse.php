@@ -6,7 +6,7 @@ namespace Modules\Residence\Infrastructure\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Support\Responsable;
-use Modules\Residence\Infrastructure\Resources\ResidencesResource;
+use Modules\Residence\Infrastructure\Resources\ResidenceResource;
 use Modules\Residence\Domain\UseCases\ResidencesResponse as UseCasesResidencesResponse;
 
 final class ResidenceResponse implements Responsable
@@ -46,13 +46,13 @@ final class ResidenceResponse implements Responsable
         if (\is_array(value: $this->response->residences)) {
             return [
                 'total' => \count(value: $this->response->residences),
-                'items' => ResidencesResource::collection(resource: $this->response->residences),
+                'items' => ResidenceResource::collection(resource: $this->response->residences),
             ];
         }
 
         return [
             'total' => $this->response->residences->total,
-            'items' => ResidencesResource::collection(resource: $this->response->residences->items),
+            'items' => ResidenceResource::collection(resource: $this->response->residences->items),
             'page' => [
                 'per' => $this->response->residences->page->per,
                 'last' => $this->response->residences->page->last,

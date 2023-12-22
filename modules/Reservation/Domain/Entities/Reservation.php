@@ -9,15 +9,36 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Shared\Domain\ValueObjects\Duration;
 
+use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
+
+/**
+ * @phpstan-type ReservationFormat array{}
+ */
 final readonly class Reservation
 {
     public function __construct(
         public Ulid $id,
-        public Ulid $user,
-        public Price $cost,
         public Duration $stay,
-        public Status $status,
-        public Ulid $residence,
+        public Ulid | null $owner = null,
+        public Price | null $cost = null,
+        public Status | null $status = null,
+        public Ulid | null $residence = null,
     ) {
+        //
+    }
+
+    /**
+     * @phpstan-return ReservationFormat
+     */
+    public function __serialize(): array
+    {
+        return array_filter_filled(array: [
+            'id' => $this->id->value,
+            'owner' => $this->owner?->value,
+            'cost' => $this->cost?->value,
+            'stay' => $this->stay->__serialize(),
+            'status' => $this->status?->value,
+            'residence' => $this->residence?->value,
+        ]);
     }
 }

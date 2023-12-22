@@ -20,10 +20,10 @@ final class EloquentReservationRepository implements ReservationRepository
             'id' => $entity->id->value,
             'checkin_at' => $entity->stay->start,
             'checkout_at' => $entity->stay->end,
-            'user_id' => $entity->user->value,
-            'residence_id' => $entity->residence->value,
-            'status' => $entity->status->value,
-            'cost' => $entity->cost->value,
+            'user_id' => $entity->owner?->value,
+            'residence_id' => $entity->residence?->value,
+            'status' => $entity->status?->value,
+            'cost' => $entity->cost?->value,
         ]);
     }
 

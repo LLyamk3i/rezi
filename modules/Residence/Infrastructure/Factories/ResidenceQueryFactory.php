@@ -15,11 +15,12 @@ final class ResidenceQueryFactory
     public function make(): Builder
     {
         return DB::table(table: 'residences')
+            ->where(column: 'visible', operator: '=', value: 1)
             ->leftJoin(table: 'users', first: 'residences.user_id', operator: '=', second: 'users.id')
             ->leftJoin(table: 'media', first: static function (JoinClause $join): void {
                 $join->on(first: 'media.fileable_id', operator: '=', second: 'residences.id')
-                    ->where('media.fileable_type', (new Residence())->getMorphClass())
-                    ->where('media.type', Media::Poster->value);
+                    ->where(column: 'media.fileable_type', operator: '=', value: (new Residence())->getMorphClass())
+                    ->where(column: 'media.type', operator: '=', value: Media::Poster->value);
             });
     }
 }

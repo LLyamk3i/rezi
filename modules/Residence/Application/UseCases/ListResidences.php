@@ -44,7 +44,7 @@ final readonly class ListResidences implements ListResidencesContract
         if ($pagination->items === []) {
             return new ResidencesResponse(
                 failed: true,
-                status: Http::NOT_FOUND,
+                status: Http::BAD_REQUEST,
                 message: string_value(value: $this->translator->get(key: 'residence::messages.listing.error')),
             );
         }

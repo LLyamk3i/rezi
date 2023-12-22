@@ -33,7 +33,7 @@ final readonly class SearchResidences implements SearchResidencesContract
             $pagination = $this->repository->search(
                 page: $request->page,
                 stay: $request->stay,
-                key: $request->location,
+                key: string_value(value: $request->location),
             );
         } catch (\Throwable $throwable) {
             $this->exception->report(e: $throwable);
@@ -48,7 +48,7 @@ final readonly class SearchResidences implements SearchResidencesContract
         if ($pagination->items === []) {
             return new ResidencesResponse(
                 failed: true,
-                status: Http::NOT_FOUND,
+                status: Http::BAD_REQUEST,
                 message: string_value(value: $this->translator->get(key: 'residence::messages.search.error')),
             );
         }

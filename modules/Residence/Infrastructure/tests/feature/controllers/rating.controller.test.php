@@ -31,7 +31,7 @@ it(description: 'can rate residence', closure: function (): void {
     $response->assertOk();
     $response->assertJson(value: [
         'success' => true,
-        'message' => "La résidence a été notée par {$client->id} avec succès.",
+        'message' => "La résidence a été notée par #{$client->id} avec succès.",
     ]);
 
     assertDatabaseHas(table: 'ratings', data: [
@@ -61,7 +61,7 @@ it(description: 'cannot rerate residence', closure: function (): void {
 
     $response->assertUnprocessable();
     $response->assertJsonValidationErrors(errors: [
-        'residence_id' => "La résidence a été déjà notée par {$client->id}.",
+        'residence_id' => "La résidence a été déjà notée par #{$client->id}.",
     ]);
 
     assertDatabaseCount(table: 'ratings', count: 1);
