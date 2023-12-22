@@ -23,12 +23,12 @@ it(description: 'can save and register uploaded user identity card', closure: fu
     $user = User::factory()->verified()->create();
     $document = 'cni';
     $card = [
-        'recto' => UploadedFile::fake()->image(name: 'card.recto.jpg', width: 500),
-        'verso' => UploadedFile::fake()->image(name: 'card.verso.jpg'),
+        'card_recto' => UploadedFile::fake()->image(name: 'card.recto.jpg', width: 500),
+        'card_verso' => UploadedFile::fake()->image(name: 'card.verso.jpg'),
     ];
 
     $response = actingAs(user: $user)->postJson(uri: '/api/auth/upload/identity-card', data: [
-        'card' => $card,
+        ...$card,
         'document_type' => $document,
     ]);
 

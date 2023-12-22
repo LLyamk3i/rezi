@@ -28,8 +28,8 @@ final class UploadUserIdentityCardRequest extends FormRequest
     {
         return [
             'document_type' => 'required|string',
-            'card.recto' => 'required|image|max:5120',
-            'card.verso' => 'required_if:document_type,passeport|image|max:5120',
+            'card_recto' => 'image|max:5120|required',
+            'card_verso' => 'image|max:5120|required_if:document_type,passeport',
         ];
     }
 
@@ -40,8 +40,8 @@ final class UploadUserIdentityCardRequest extends FormRequest
     public function approved(): Request
     {
         $user = $this->user();
-        $recto = $this->file(key: 'card.recto');
-        $verso = $this->file(key: 'card.verso');
+        $recto = $this->file(key: 'card_recto');
+        $verso = $this->file(key: 'card_verso');
 
         if (! ($user instanceof User)) {
             throw new \RuntimeException(message: 'Account not found', code: 1);
