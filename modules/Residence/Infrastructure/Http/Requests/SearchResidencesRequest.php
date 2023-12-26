@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
+use Modules\Shared\Infrastructure\Rules\Keys;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 use Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesRequest as Request;
@@ -17,7 +18,7 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 final class SearchResidencesRequest extends FormRequest
 {
     /**
-     * @return array{checkin_date:string,checkout_date:string,location:string}
+     * @return array<string,mixed>
      */
     public function rules(): array
     {
@@ -27,8 +28,8 @@ final class SearchResidencesRequest extends FormRequest
             'checkin_date' => 'date',
             'checkout_date' => 'date',
             'location' => 'string',
-            'type_id' => 'string|exists:types,id',
-            'feature_id' => 'string|exists:features,id',
+            'type_ids' => [new Keys(table: 'types')],
+            'feature_ids' => [new Keys(table: 'features')],
             'rent_min' => 'integer|min:0',
             'rent_max' => 'integer|min:0',
         ];
@@ -44,14 +45,19 @@ final class SearchResidencesRequest extends FormRequest
         return new Request(
             rent: $this->rent() ?? [],
             stay: $this->stay(start: 'checkin_date', end: 'checkout_date'),
-            type: $this->has(key: 'type') ? new Ulid(value: (string) $this->string(key: 'type')) : null,
-            feature: $this->has(key: 'feature') ? new Ulid(value: (string) $this->string(key: 'feature')) : null,
+            types: $this->ids(key: 'type_ids'),
+            features: $this->ids(key: 'feature_ids'),
             location: $this->has(key: 'location') ? (string) $this->string(key: 'location') : null,
             page: new Page(
                 current: $this->integer(key: 'page', default: 1),
                 per: $this->integer(key: 'per_page', default: 20)
             )
         );
+    }
+
+    private function ids(string $key): array
+    {
+        return array_map(array: $this->input(key: $key, default: []), callback: static fn (string $id) => new Ulid(value: $id));
     }
 
     /**

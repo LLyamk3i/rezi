@@ -12,12 +12,14 @@ final readonly class SearchResidencesRequest
 {
     /**
      * @param array{min:integer,max:integer}|null $rent
+     * @param array<int,Ulid>                     $types
+     * @param array<int,Ulid>                     $features
      */
     public function __construct(
         public Page $page,
+        public array $types = [],
+        public array $features = [],
         public array | null $rent = null,
-        public Ulid | null $type = null,
-        public Ulid | null $feature = null,
         public Duration | null $stay = null,
         public string | null $location = null,
     ) {
