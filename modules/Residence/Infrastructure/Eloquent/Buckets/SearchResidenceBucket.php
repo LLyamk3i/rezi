@@ -14,8 +14,8 @@ final class SearchResidenceBucket
     /**
      * @var array<string,class-string<FilterContract>>
      */
-    private array $filters = [
-        'key' => \Modules\Residence\Infrastructure\Eloquent\Filters\KeywordFilter::class,
+    private const FILTERS = [
+        'keyword' => \Modules\Residence\Infrastructure\Eloquent\Filters\KeywordFilter::class,
         'stay' => \Modules\Residence\Infrastructure\Eloquent\Filters\StayDurationFilter::class,
     ];
 
@@ -45,14 +45,13 @@ final class SearchResidenceBucket
      */
     private function filters(): array
     {
-        return array_filter(array: Arr::only(
-            array: $this->payloads,
-            keys: array_keys($this->filters)
-        ));
+        return array_filter(array: Arr::only(array: $this->payloads, keys: array_keys(self::FILTERS)));
     }
 
     private function resolve(string $filter, string | Duration $payload): FilterContract
     {
-        return new $this->filters[$filter](query: $this->query, payload: $payload);
+        $filter = self::FILTERS[$filter];
+
+        return new $filter(query: $this->query, payload: $payload);
     }
 }

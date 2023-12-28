@@ -30,11 +30,7 @@ final readonly class SearchResidences implements SearchResidencesContract
     public function execute(SearchResidencesRequest $request): ResidencesResponse
     {
         try {
-            $pagination = $this->repository->search(
-                page: $request->page,
-                stay: $request->stay,
-                key: string_value(value: $request->location),
-            );
+            $pagination = $this->repository->search(page: $request->page, data: $request->data());
         } catch (\Throwable $throwable) {
             $this->exception->report(e: $throwable);
 
@@ -57,6 +53,7 @@ final readonly class SearchResidences implements SearchResidencesContract
             failed: false,
             status: Http::OK,
             residences: $pagination,
+            inventory: ['id', 'name', 'address', 'rent', 'description', 'poster', 'owner', 'location'],
             message: $this->translator->choice(key: 'residence::messages.search.success', number: $pagination->total),
         );
     }

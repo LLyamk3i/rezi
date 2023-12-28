@@ -65,7 +65,7 @@ it(description: 'can generate payment id for transaction', closure: function ():
     ]);
 });
 
-it(description: 'can patch the payment record with new response from payment getaway', closure: function (Status $status): void {
+it(description: 'can patch the payment record with new response from payment getaway', closure: static function (Status $status): void {
 
     $user = User::factory()->verified()->create();
     $payment = Payment::factory()->client(model: $user)->create();

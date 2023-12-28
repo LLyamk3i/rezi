@@ -37,12 +37,19 @@
   - [x] Supprimer la pagination.
   - [x] Retourner seulement le nom, l'address, la position et la distance.
 - [] Pointer le listage des residences sur le filtrage sans clé.
+- [] Filtrer en fonction de:
+  - [] Latest
+  - [] types
+  - [] features
+  - [] rent
+  - [x] stay
+  - [x] keyword
 - [] Créer un endpoint pour les détails d'une résidence:
-  - [] Le nombre de vue.
-  - [] Un booléen pour mis en favoris.
-  - [] Le poster.
-  - [] La gallérie.
-  - [] Les réservations.
+  - [x] Le nombre de vue.
+  - [x] Un booléen pour mis en favoris.
+  - [x] Le poster.
+  - [x] La gallérie.
+  - [x] Les réservations.
 - [x] Permet l'appréciation d'une residence.
 
 ## Module Notification

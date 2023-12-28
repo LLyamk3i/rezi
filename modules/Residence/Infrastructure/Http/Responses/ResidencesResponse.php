@@ -9,10 +9,10 @@ use Illuminate\Contracts\Support\Responsable;
 use Modules\Residence\Infrastructure\Resources\ResidenceResource;
 use Modules\Residence\Domain\UseCases\ResidencesResponse as UseCasesResidencesResponse;
 
-final class ResidenceResponse implements Responsable
+final readonly class ResidenceResponse implements Responsable
 {
     public function __construct(
-        public readonly UseCasesResidencesResponse $response,
+        public UseCasesResidencesResponse $response,
     ) {
         //
     }

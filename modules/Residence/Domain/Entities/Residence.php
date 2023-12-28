@@ -9,10 +9,8 @@ use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
-use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
-
 /**
- * @phpstan-type ResidenceFormat array{id:string,name:string,address:string,description:string,distance:string,location:Location,poster?:string,rent:array{value:float,format:string},owner?:array{id:string,name:string}}
+ * @phpstan-type ResidenceFormat array{id:string,name:string,view:int,favoured:bool,address:string,description:string,distance:string,location:Location,poster?:string,rent:array{value:float,format:string},owner?:array{id:string,name:string}}
  */
 final readonly class Residence
 {
@@ -24,11 +22,14 @@ final readonly class Residence
      */
     public function __construct(
         public Ulid $id,
+        public int $view,
+        public int $rooms,
         public Price $rent,
         public string $name,
         public string $address,
         public Distance $distance,
         public Location $location,
+        public bool $favoured = false,
         public Type | null $type = null,
         public float | null $note = null,
         public Owner | null $owner = null,
@@ -36,9 +37,9 @@ final readonly class Residence
         public string | null $poster = null,
         public array | null $gallery = null,
         public array | null $features = null,
+        public string | null $residence = null,
         public array | null $reservations = null,
         public string | null $description = null,
-        public string | null $residence = null,
     ) {
         //
     }
@@ -48,19 +49,24 @@ final readonly class Residence
      */
     public function __serialize(): array
     {
-        return array_filter_filled(array: [
-            'id' => $this->id->value,
+        return [
             'name' => $this->name,
-            'address' => $this->address,
-            'description' => $this->description,
-            'distance' => (string) $this->distance,
-            'location' => $this->location,
+            'rooms' => $this->rooms,
+            'view' => $this->view,
+            'id' => $this->id->value,
             'poster' => $this->poster,
+            'address' => $this->address,
+            'favoured' => $this->favoured,
+            'note' => $this->note,
+            'description' => $this->description,
             'type' => $this->type?->__serialize(),
+            'distance' => (string) $this->distance,
+            'location' => $this->location->__serialize(),
+            'gallery' => $this->gallery,
             'rent' => [
                 'value' => $this->rent->value,
                 'format' => number_format(num: $this->rent->value, thousands_separator: ' ') . ' ' . Price::CURRENCY,
             ],
-        ]);
+        ];
     }
 }

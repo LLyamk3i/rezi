@@ -11,7 +11,7 @@ use Illuminate\Contracts\Translation\Translator;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
-final class InternalServerErrorResponse
+final readonly class InternalServerErrorResponse
 {
     public function __construct(
         private ExceptionHandler $exception,

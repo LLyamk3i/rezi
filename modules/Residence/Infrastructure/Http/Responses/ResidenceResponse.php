@@ -6,15 +6,14 @@ namespace Modules\Residence\Infrastructure\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Support\Responsable;
+use Modules\Shared\Domain\Contracts\StoreContract;
 use Modules\Residence\Infrastructure\Resources\ResidenceResource;
 use Modules\Residence\Domain\UseCases\ResidencesResponse as UseCasesResidencesResponse;
 
-use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
-
-final class ResidenceResponse implements Responsable
+final readonly class ResidenceResponse implements Responsable
 {
     public function __construct(
-        public readonly UseCasesResidencesResponse $response,
+        public UseCasesResidencesResponse $response,
     ) {
         //
     }
@@ -26,20 +25,22 @@ final class ResidenceResponse implements Responsable
      */
     public function toResponse($request): JsonResponse
     {
+        app(abstract: StoreContract::class)->put(key: 'inventory', value: $this->response->inventory);
+
         return new JsonResponse(
             status: $this->response->status->value,
-            data: array_filter_filled(array: [
+            data: [
                 'success' => ! $this->response->failed,
                 'message' => $this->response->message,
                 'residences' => $this->residences(),
                 'residence' => $this->residence(),
-            ]),
+            ],
         );
     }
 
     public function residence(): ResidenceResource | null
     {
-        if ($this->response->residence === null) {
+        if (! $this->response->residence instanceof \Modules\Residence\Domain\Entities\Residence) {
             return null;
         }
 

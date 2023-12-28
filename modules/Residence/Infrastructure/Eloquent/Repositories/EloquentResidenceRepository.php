@@ -7,7 +7,6 @@ namespace Modules\Residence\Infrastructure\Eloquent\Repositories;
 use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
-use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Shared\Application\Repositories\Repository;
 use Modules\Shared\Domain\ValueObjects\Pagination\Page;
@@ -21,6 +20,8 @@ use Modules\Residence\Infrastructure\Queries\ResidenceDetailsQuery;
 use Modules\Residence\Infrastructure\Factories\ResidenceQueryFactory;
 use Modules\Residence\Infrastructure\Eloquent\Buckets\SearchResidenceBucket;
 use Modules\Residence\Infrastructure\Factories\NearestResidencesQueryStatementFactory;
+
+use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
 
 /**
  * @phpstan-import-type ResidenceRecord from \Modules\Residence\Domain\Factories\ResidenceFactory
@@ -91,11 +92,11 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    public function search(string $key, null | Duration $stay = null, Page $page): PaginatedObject
+    public function search(Page $page, array $data): PaginatedObject
     {
         $bucket = new SearchResidenceBucket(
             query: $this->query->make(),
-            payloads: array_filter(array: ['key' => $key, 'stay' => $stay]),
+            payloads: array_filter_filled(array: $data),
         );
 
         return $this->parent->paginate(

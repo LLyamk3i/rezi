@@ -23,7 +23,7 @@ it(description: 'returns a list of favorite residences', closure: function (): v
     $residences = Residence::factory()->poster()->count(count: 10)->create();
 
     $favorites = $residences->splice(offset: 0, length: 5);
-    $seeds = $favorites->map(callback: fn (Residence $residence): array => [
+    $seeds = $favorites->map(callback: static fn (Residence $residence): array => [
         'id' => Ulid::generate(),
         'user_id' => $client->id,
         'residence_id' => $residence->id,

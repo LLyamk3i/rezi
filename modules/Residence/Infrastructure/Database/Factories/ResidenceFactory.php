@@ -7,16 +7,20 @@ namespace Modules\Residence\Infrastructure\Database\Factories;
 use Symfony\Component\Uid\Ulid;
 use Illuminate\Support\Facades\DB;
 use Modules\Residence\Infrastructure\Models\Type;
+use Modules\Residence\Infrastructure\Models\View;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Infrastructure\Models\Feature;
-use Modules\Residence\Infrastructure\Models\Residence;
+use Modules\Residence\Infrastructure\Models\Favorite;
 
+use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Reservation\Infrastructure\Models\Reservation;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
 
+use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
 use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
 
 /**
@@ -52,22 +56,35 @@ final class ResidenceFactory extends Factory
 
         $coordinates = $this->service->execute();
 
-        return array_filter(
-            array: [
-                'id' => Ulid::generate(),
-                'name' => fake()->streetAddress(),
-                'address' => fake()->address(),
-                'location' => $this->coordinates(value: $coordinates),
-                'rent' => random_int(min: 15_000, max: 1_000_000),
-                'description' => fake()->sentence(),
-                'visible' => random_int(min: 0, max: 1),
-                'rooms' => random_int(min: 1, max: 6),
-                'created_at' => (string) now(),
-                'user_id' => Ulid::generate(),
-                'type_id' => Ulid::generate(),
-                'updated_at' => (string) now(),
-            ],
-            callback: fn (mixed $value) => ! \is_null(value: $value),
+        return array_filter_filled(array: [
+            'id' => Ulid::generate(),
+            'name' => fake()->streetAddress(),
+            'address' => fake()->address(),
+            'location' => $this->coordinates(value: $coordinates),
+            'rent' => random_int(min: 15_000, max: 1_000_000),
+            'description' => fake()->sentence(),
+            'visible' => random_int(min: 0, max: 1),
+            'rooms' => random_int(min: 1, max: 6),
+            'created_at' => (string) now(),
+            'user_id' => Ulid::generate(),
+            'type_id' => Ulid::generate(),
+            'updated_at' => (string) now(),
+        ]);
+    }
+
+    public function favoured(User $client): self
+    {
+        return $this->has(
+            relationship: 'favorites',
+            factory: Favorite::factory()->state(state: ['user_id' => $client]),
+        );
+    }
+
+    public function views(int $count): self
+    {
+        return $this->has(
+            relationship: 'views',
+            factory: View::factory()->count(count: $count),
         );
     }
 

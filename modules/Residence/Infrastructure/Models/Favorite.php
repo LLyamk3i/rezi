@@ -7,6 +7,7 @@ namespace Modules\Residence\Infrastructure\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Residence\Infrastructure\Database\Factories\FavoriteFactory;
 
 final class Favorite extends Model
 {
@@ -28,5 +29,10 @@ final class Favorite extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(related: User::class);
+    }
+
+    public static function factory(): FavoriteFactory
+    {
+        return FavoriteFactory::new();
     }
 }

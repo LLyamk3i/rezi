@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Queries;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Query\JoinClause;
 use Modules\Residence\Domain\Enums\Media;
+use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Residence\Domain\Factories\TypeFactory;
 use Modules\Residence\Domain\Factories\OwnerFactory;
@@ -19,8 +21,8 @@ use Modules\Residence\Domain\Factories\ResidenceFactory;
 use Modules\Residence\Domain\Entities\Residence as Entity;
 use Modules\Reservation\Domain\Hydrators\ReservationHydrator;
 use Modules\Residence\Infrastructure\Factories\ColumnsFactory;
-
 use Modules\Residence\Infrastructure\Models\Residence as Model;
+
 use Modules\Residence\Infrastructure\Factories\ResidenceQueryFactory;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
@@ -29,15 +31,15 @@ use function Modules\Shared\Infrastructure\Helpers\array_pull_and_exclude;
 final readonly class ResidenceDetailsQuery
 {
     public function __construct(
-        private ColumnsFactory $columns,
-        private ResidenceQueryFactory $query,
-        private Repository $repository,
-        private ResidenceFactory $residence,
-        private OwnerFactory $owner,
         private TypeFactory $type,
+        private OwnerFactory $owner,
+        private Repository $repository,
+        private ColumnsFactory $columns,
         private RatingHydrator $ratings,
-        private ReservationHydrator $reservations,
         private FeatureHydrator $features,
+        private ResidenceFactory $residence,
+        private ResidenceQueryFactory $query,
+        private ReservationHydrator $reservations,
     ) {
         //
     }
@@ -56,17 +58,10 @@ final readonly class ResidenceDetailsQuery
         }
 
         $residence_id = string_value(value: $residence['id']);
-
-        $residence = [...$residence,  'owner_avatar' => $this->avatar(owner: $residence_id)];
-
-        $reviews = $this->reviews(residence: $residence_id);
-
-        $owner = $this->owner->make(data: array_pull_and_exclude(
-            original: $residence,
-            keys: ['owner_avatar', 'owner_id', 'owner_forename', 'owner_surname']
-        ));
-
+        $owner_data = array_pull_and_exclude(original: $residence, keys: ['owner_id', 'owner_forename', 'owner_surname']);
+        $owner = $this->owner->make(data: [...$owner_data, 'owner_avatar' => $this->avatar(owner: $owner_data['owner_id'])]);
         $type = $this->type->make(data: array_pull_and_exclude(original: $residence, keys: ['type_name', 'type_id']));
+        $reviews = $this->reviews(residence: $residence_id);
 
         return $this->residence->make(data: [
             ...$residence,
@@ -74,11 +69,31 @@ final readonly class ResidenceDetailsQuery
             'type' => $type,
             'note' => $reviews['note'],
             'ratings' => $reviews['ratings'],
-            'gallery' => $this->gallery(residence: $residence_id),
-            'reservations' => $this->reservations(residence: $residence_id),
-            'features' => $this->features(residence: $residence_id),
             'poster' => $residence['poster'],
+            'view' => $this->view(residence: $residence_id),
+            'gallery' => $this->gallery(residence: $residence_id),
+            'features' => $this->features(residence: $residence_id),
+            'favoured' => $this->favoured(residence: $residence_id),
+            'reservations' => $this->reservations(residence: $residence_id),
         ]);
+    }
+
+    private function favoured(string $residence): bool
+    {
+        if (Auth::check()) {
+
+            return DB::table(table: 'favorites')
+                ->where(column: 'user_id', operator: '=', value: Auth::id())
+                ->where(column: 'residence_id', operator: '=', value: $residence)
+                ->exists();
+        }
+
+        return false;
+    }
+
+    private function view(string $residence): int
+    {
+        return DB::table(table: 'views')->where(column: 'residence_id', operator: '=', value: $residence)->count(columns: 'id');
     }
 
     /**
@@ -88,7 +103,7 @@ final readonly class ResidenceDetailsQuery
      */
     private function features(string $residence): array
     {
-        $sub = static fn () => DB::table(table: 'feature_residence')
+        $sub = static fn (): \Illuminate\Database\Query\Builder => DB::table(table: 'feature_residence')
             ->select(columns: ['feature_id'])
             ->where(column: 'residence_id', operator: '=', value: $residence);
 
@@ -109,12 +124,16 @@ final readonly class ResidenceDetailsQuery
     {
         return $this->reservations->hydrate(
             data: DB::table(table: 'reservations')
+                ->where(column: 'status', operator: '=', value: Status::CONFIRMED->value)
                 ->where(column: 'residence_id', operator: '=', value: $residence)
                 ->get(columns: ['id', 'checkin_at', 'checkout_at'])
                 ->toArray()
         );
     }
 
+    /**
+     * @return array{note:float|int|null,ratings:\Modules\Residence\Domain\Entities\Rating[]}
+     */
     private function reviews(string $residence): array
     {
         $ratings = DB::table(table: 'ratings')
@@ -145,6 +164,9 @@ final readonly class ResidenceDetailsQuery
             ->value(column: 'path');
     }
 
+    /**
+     * @return array<int,string>
+     */
     private function gallery(string $residence): array
     {
         return DB::table(table: 'media')
@@ -152,7 +174,7 @@ final readonly class ResidenceDetailsQuery
             ->where(column: 'media.fileable_id', operator: '=', value: $residence)
             ->where(column: 'media.type', operator: '=', value: Media::Gallery->value)
             ->pluck(column: 'path')
-            ->map(callback: static fn (string $path) => route(name: 'image.show', parameters: ['path' => $path]))
+            ->map(callback: static fn (string $path): string => route(name: 'image.show', parameters: ['path' => $path]))
             ->toArray();
     }
 }

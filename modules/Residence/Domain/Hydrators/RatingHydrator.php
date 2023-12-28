@@ -36,9 +36,12 @@ final readonly class RatingHydrator implements HydratorContract
         return Arr::map(
             array: $data,
             callback: function (array $row): Rating {
-                $owner = $this->owner->make(data: array_pull_and_exclude(original: $row, keys: ['owner_id', 'owner_surname', 'owner_forename']));
-
-                return $this->rating->make(data: [...$row, 'owner' => $owner]);
+                return $this->rating->make(data: [
+                    ...$row,
+                    'owner' => $this->owner->make(
+                        data: array_pull_and_exclude(original: $row, keys: ['owner_id', 'owner_surname', 'owner_forename'])
+                    ),
+                ]);
             },
         );
     }

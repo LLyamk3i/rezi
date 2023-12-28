@@ -14,8 +14,8 @@ final class ProfileController
     {
         try {
             $request->user()?->update(attributes: $request->validated());
-        } catch (\Throwable $th) {
-            report(exception: $th);
+        } catch (\Throwable $throwable) {
+            report(exception: $throwable);
 
             return response()->json(
                 status: Http::INTERNAL_SERVER_ERROR->value,

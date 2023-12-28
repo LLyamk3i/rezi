@@ -14,13 +14,13 @@ trait RatingStates
     public function ratings(int $count): self
     {
         $closure = static function (string $owner, int $time) use ($count): string {
-            $list = Cache::remember(key: 'residence.rating', ttl: 60 * 5, callback: static function () use ($count, $owner): array {
+            $list = Cache::remember(key: 'residence.rating', ttl: 60 * 5, callback: function () use ($count, $owner): array {
                 $result = DB::table(table: 'users')
                     ->where(column: 'id', operator: '!=', value: $owner)
                     ->limit(value: $count)
                     ->pluck(column: 'id');
 
-                $factory = static fn (int $count) => User::factory()
+                $factory = static fn (int $count): \Illuminate\Support\Collection => User::factory()
                     ->count(count: abs(num: $count))
                     ->create()
                     ->pluck(value: 'id');

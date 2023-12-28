@@ -29,7 +29,7 @@ it(description: 'can not find nearest residence', closure: function (): void {
         'residences' => null,
         'message' => "Aucune résidence proche n'a été trouvée pour l'adresse demandée.",
     ]);
-})->skip(conditionOrMessage: fn () => using_sqlite());
+})->skip(conditionOrMessage: static fn (): bool => using_sqlite());
 
 it(description: 'can find nearest residence', closure: function (): void {
     $location = new Location(latitude: 48.864716, longitude: 2.349014); // Center longitude (Paris, France)
@@ -61,4 +61,4 @@ it(description: 'can find nearest residence', closure: function (): void {
         'success' => true,
         'message' => "{$count} résidences ont été trouvées dans la localité demandée.",
     ]);
-})->skip(conditionOrMessage: fn () => using_sqlite());
+})->skip(conditionOrMessage: static fn (): bool => using_sqlite());

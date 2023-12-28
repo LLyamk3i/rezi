@@ -17,6 +17,6 @@ trait OwnerStates
     {
         $owners = User::factory()->avatar()->count(count: $count)->create();
 
-        return $this->state(state: ['user_id' => static fn () => $owners->random()]);
+        return $this->state(state: ['user_id' => static fn (): \Illuminate\Support\Collection | \Illuminate\Database\Eloquent\Model => $owners->random()]);
     }
 }

@@ -7,7 +7,6 @@ namespace Modules\Residence\Domain\Repositories;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Residence\Domain\Entities\Residence;
-use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 use Modules\Residence\Domain\ValueObjects\Distance as Radius;
@@ -42,5 +41,5 @@ interface ResidenceRepository
     /**
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
-    public function search(string $key, Duration | null $stay = null, Page $page): PaginatedObject;
+    public function search(Page $page, array $data): PaginatedObject;
 }

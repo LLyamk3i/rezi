@@ -21,7 +21,7 @@ trait MediaStates
     {
         return $this->has(
             relationship: 'gallery',
-            factory: Media::factory()->count(count: rand(min: 1, max: 5))->type(value: EnumsMedia::Gallery->value),
+            factory: Media::factory()->count(count: random_int(min: 1, max: 5))->type(value: EnumsMedia::Gallery->value),
         );
     }
 }

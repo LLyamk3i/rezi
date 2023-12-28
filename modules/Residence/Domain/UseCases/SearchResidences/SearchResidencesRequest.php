@@ -4,25 +4,43 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Domain\UseCases\SearchResidences;
 
-use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 
+/**
+ * @phpstan-type Search array{}
+ */
 final readonly class SearchResidencesRequest
 {
     /**
-     * @param array{min:integer,max:integer}|null $rent
-     * @param array<int,Ulid>                     $types
-     * @param array<int,Ulid>                     $features
+     * @param array<int,\Modules\Shared\Domain\ValueObjects\Ulid> $types
+     * @param array<int,\Modules\Shared\Domain\ValueObjects\Ulid> $features
+     * @param array{min?:integer,max?:integer}                    $rent
      */
     public function __construct(
         public Page $page,
         public array $types = [],
+        public bool $latest = true,
         public array $features = [],
-        public array | null $rent = null,
+        public array $rent = [],
         public Duration | null $stay = null,
-        public string | null $location = null,
+        public string | null $keyword = null,
     ) {
         //
+    }
+
+    /**
+     * @return array{types:\Modules\Shared\Domain\ValueObjects\Ulid[],latest:bool,features:\Modules\Shared\Domain\ValueObjects\Ulid[],rent:array{min?:int,max?:int},stay:Duration|null,keyword:string|null}
+     */
+    public function data(): array
+    {
+        return [
+            'types' => $this->types,
+            'latest' => $this->latest,
+            'features' => $this->features,
+            'rent' => $this->rent,
+            'stay' => $this->stay,
+            'keyword' => $this->keyword,
+        ];
     }
 }

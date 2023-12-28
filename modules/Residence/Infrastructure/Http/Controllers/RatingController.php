@@ -50,8 +50,8 @@ final class RatingController
                 'comment' => $request->post(key: 'comment'),
                 'value' => $request->post(key: 'rating'),
             ]);
-        } catch (\Throwable $th) {
-            report(exception: $th);
+        } catch (\Throwable $throwable) {
+            report(exception: $throwable);
 
             return response()->json(
                 status: Http::INTERNAL_SERVER_ERROR->value,

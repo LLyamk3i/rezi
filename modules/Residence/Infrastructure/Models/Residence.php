@@ -110,6 +110,14 @@ final class Residence extends Model
         return $this->hasMany(related: Rating::class);
     }
 
+    /**
+     * @return HasMany<View>
+     */
+    public function views(): HasMany
+    {
+        return $this->hasMany(related: View::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Factory

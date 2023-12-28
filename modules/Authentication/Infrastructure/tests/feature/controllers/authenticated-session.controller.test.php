@@ -34,7 +34,7 @@ test(description: 'user can login', closure: function (): void {
         'message' => "L'utilisateur s'est connecté avec succès.",
     ]);
 
-    $response->assertJsonPath(path: 'client', expect: function (array $client) use ($user): bool {
+    $response->assertJsonPath(path: 'client', expect: static function (array $client) use ($user): bool {
         Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.usage')));
         Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.link')));
         Assert::assertSame(expected: $user->id, actual: $client['id']);

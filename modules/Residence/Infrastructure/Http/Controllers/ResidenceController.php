@@ -40,9 +40,9 @@ final class ResidenceController
     public function show(ShowResidenceContract $show, string $residence): ResidenceResponse
     {
         return new ResidenceResponse(
-            response: $show->execute(
-                request: new ShowResidenceRequest(residence: new Ulid(value: $residence))
-            )
+            response: $show->execute(request: new ShowResidenceRequest(
+                residence: new Ulid(value: $residence)
+            ))
         );
     }
 }

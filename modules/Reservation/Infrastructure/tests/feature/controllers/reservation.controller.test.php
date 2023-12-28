@@ -52,7 +52,7 @@ it(description: 'can make reservation', closure: function (): void {
         'success' => true,
         'message' => 'La réservation a été effectuée avec succès.',
     ]);
-    $response->assertJsonPath(path: 'reservation_id', expect: fn (string $_) => true);
+    $response->assertJsonPath(path: 'reservation_id', expect: static fn (string $_): true => true);
     assertDatabaseHas(table: 'reservations', data: [
         'cost' => $cost->value,
         'user_id' => $user->id,

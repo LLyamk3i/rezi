@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 final class FastPaginatorService
 {
+    /**
+     * @return array{items: \Illuminate\Support\Collection, total: int}
+     */
     public function run(int $page = 1): mixed
     {
         $ids = DB::table(table: 'residences')

@@ -43,8 +43,8 @@ final class ViewController
 
         try {
             View::query()->create(attributes: ['device' => $device, 'residence_id' => $residence]);
-        } catch (\Throwable $th) {
-            report(exception: $th);
+        } catch (\Throwable $throwable) {
+            report(exception: $throwable);
 
             return response()->json(
                 status: Http::INTERNAL_SERVER_ERROR->value,

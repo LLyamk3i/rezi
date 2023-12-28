@@ -29,6 +29,7 @@ return static function (Rector\Config\RectorConfig $rectorConfig): void {
         \Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector::class,
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
         \Rector\CodingStyle\Rector\Closure\StaticClosureRector::class,
+        \Rector\DeadCode\Rector\ClassMethod\RemoveDelegatingParentCallRector::class,
     ]);
 
     // register a single rule

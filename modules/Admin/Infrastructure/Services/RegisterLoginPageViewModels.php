@@ -10,10 +10,10 @@ use Modules\Admin\Infrastructure\Database\Records\AdminRecord;
 use Modules\Admin\Infrastructure\Database\Records\OwnerRecord;
 use Modules\Admin\Infrastructure\Database\Records\ProviderRecord;
 
-final class RegisterLoginPageViewModels
+final readonly class RegisterLoginPageViewModels
 {
     public function __construct(
-        private readonly StoreContract $store,
+        private StoreContract $store,
     ) {
         //
     }
@@ -33,16 +33,14 @@ final class RegisterLoginPageViewModels
             email: AdminRecord::data()['email'],
         ));
 
-        $this->store->put(key: 'view-models.providers', value: static function (): array {
-            return array_map(
-                callback: static fn (array $record): LoginPageViewModel => new LoginPageViewModel(
-                    email: $record['email'],
-                    redirect: '/provider',
-                    guard: 'web:provider',
-                    label: 'Login as provider ' . $record['surname'],
-                ),
-                array: ProviderRecord::data()
-            );
-        });
+        $this->store->put(key: 'view-models.providers', value: static fn (): array => array_map(
+            callback: static fn (array $record): LoginPageViewModel => new LoginPageViewModel(
+                email: $record['email'],
+                redirect: '/provider',
+                guard: 'web:provider',
+                label: 'Login as provider ' . $record['surname'],
+            ),
+            array: ProviderRecord::data()
+        ));
     }
 }

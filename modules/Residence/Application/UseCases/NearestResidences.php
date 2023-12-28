@@ -40,24 +40,25 @@ final readonly class NearestResidences implements NearestResidencesContract
             $this->exception->report(e: $throwable);
 
             return new ResidencesResponse(
-                status: Http::INTERNAL_SERVER_ERROR,
                 failed: true,
+                status: Http::INTERNAL_SERVER_ERROR,
                 message: string_value(value: $this->translator->get(key: 'shared::messages.errors.server')),
             );
         }
 
         if ($residences === []) {
             return new ResidencesResponse(
-                status: Http::BAD_REQUEST,
                 failed: true,
+                status: Http::BAD_REQUEST,
                 message: string_value(value: $this->translator->get(key: 'residence::messages.nearest.error')),
             );
         }
 
         return new ResidencesResponse(
-            status: Http::OK,
             failed: false,
+            status: Http::OK,
             residences: $residences,
+            inventory: ['id', 'name', 'address', 'location', 'distance'],
             message: $this->translator->choice(key: 'residence::messages.nearest.success', number: \count(value: $residences)),
         );
     }

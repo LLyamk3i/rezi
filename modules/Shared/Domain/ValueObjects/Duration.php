@@ -13,6 +13,9 @@ final readonly class Duration
         //
     }
 
+    /**
+     * @return array{start: string, end: string}
+     */
     public function __serialize(): array
     {
         return [

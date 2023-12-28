@@ -23,7 +23,7 @@ function array_filter_filled(array $array): array
 {
     return array_filter(
         array: $array,
-        callback: static fn (mixed $value) => filled(value: $value),
+        callback: static fn (mixed $value): bool => filled(value: $value),
     );
 }
 

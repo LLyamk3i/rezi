@@ -12,13 +12,15 @@ final readonly class ResidencesResponse
 {
     /**
      * @param null|PaginatedObject<Residence>|array<int,Residence> $residences
+     * @param array<int,string>|null                               $inventory
      */
     public function __construct(
         public Http $status,
         public bool $failed,
         public string $message,
-        public PaginatedObject | array | null $residences = null,
+        public array | null $inventory = null,
         public Residence | null $residence = null,
+        public PaginatedObject | array | null $residences = null,
     ) {
         //
     }

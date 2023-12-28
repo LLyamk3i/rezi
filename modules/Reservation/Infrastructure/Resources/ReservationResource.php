@@ -7,8 +7,6 @@ namespace Modules\Reservation\Infrastructure\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
-
 final class ReservationResource extends JsonResource
 {
     /**
@@ -21,9 +19,9 @@ final class ReservationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return array_filter_filled(array: [
+        return [
             'id' => $this->resource->id->value,
             ...$this->resource->stay->__serialize(),
-        ]);
+        ];
     }
 }

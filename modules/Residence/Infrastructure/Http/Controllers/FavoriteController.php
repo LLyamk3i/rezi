@@ -46,8 +46,8 @@ final class FavoriteController
                 'user_id' => Auth::id(),
                 'residence_id' => $request->post(key: 'residence_id'),
             ]);
-        } catch (\Throwable $th) {
-            report(exception: $th);
+        } catch (\Throwable $throwable) {
+            report(exception: $throwable);
 
             return response()->json(
                 status: Http::INTERNAL_SERVER_ERROR->value,
@@ -77,8 +77,8 @@ final class FavoriteController
             }
 
             $favorite->delete();
-        } catch (\Throwable $th) {
-            report(exception: $th);
+        } catch (\Throwable $throwable) {
+            report(exception: $throwable);
 
             return response()->json(
                 status: Http::INTERNAL_SERVER_ERROR->value,

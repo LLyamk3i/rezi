@@ -16,7 +16,43 @@ uses(
     \Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-it(description: 'can search residences by address', closure: function (): void {
+it(description: 'can search residences by keyword', closure: function (): void {
+    $keyword = 'fadiga';
+    $data = [
+        ['name' => "residence {$keyword}"],
+        ['description' => "welcome to residence {$keyword}"],
+        ['address' => "456 Ghana Avenue, Kumasi, rue {$keyword}"],
+    ];
+
+    $seeds = Residence::factory()->template(data: $data)->count(count: 8)->make();
+
+    DB::table(table: 'residences')->insert(values: $seeds->toArray());
+
+    $response = getJson(uri: route(path: 'api/residences/search', queries: ['keyword' => $keyword]));
+
+    $response->assertOk();
+
+    $searchables = \array_slice(array: $data, offset: 1, length: 2);
+
+    $response->assertJson(value: [
+        'success' => true,
+        'message' => \count(value: $searchables) . ' résidences ont été trouvées pour les paramètres de recherche donnés.',
+        'residences' => ['total' => \count(value: $searchables)],
+    ]);
+
+    $response->assertJsonPath(path: 'residences.items', expect: static function (array $residences) use ($searchables): bool {
+        foreach ($searchables as $i => $searchable) {
+            foreach ($searchable as $key => $value) {
+                Assert::assertTrue(condition: isset($residences[$i][$key]));
+                Assert::assertTrue(condition: $residences[$i][$key] === $value);
+            }
+        }
+
+        return true;
+    });
+});
+
+it(description: 'can search residences by stay', closure: function (): void {
     $keyword = 'fadiga';
     $data = [
         ['name' => "residence {$keyword}"],
@@ -47,6 +83,7 @@ it(description: 'can search residences by address', closure: function (): void {
     ]));
 
     $response->assertOk();
+
     $searchables = \array_slice(array: $data, offset: 1, length: 2);
 
     $response->assertJson(value: [
@@ -55,9 +92,8 @@ it(description: 'can search residences by address', closure: function (): void {
         'residences' => ['total' => \count(value: $searchables)],
     ]);
 
-    $response->assertJsonPath(path: 'residences.items', expect: function (array $residences) use ($searchables): bool {
-        for ($i = 0; $i < \count(value: $searchables); $i++) {
-            $searchable = $searchables[$i];
+    $response->assertJsonPath(path: 'residences.items', expect: static function (array $residences) use ($searchables): bool {
+        foreach ($searchables as $i => $searchable) {
             foreach ($searchable as $key => $value) {
                 Assert::assertTrue(condition: isset($residences[$i][$key]));
                 Assert::assertTrue(condition: $residences[$i][$key] === $value);

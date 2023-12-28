@@ -55,7 +55,7 @@ trait ResidenceStates
         $timer = timer();
         $timer->init(counter: integer_value(value: $this->count ?? 0));
 
-        return $this->state(state: static function () use ($timer, $data): array {
+        return $this->state(state: function () use ($timer, $data): array {
             $timer->decrease();
 
             return $data[$timer->loop() - 1] ?? [];

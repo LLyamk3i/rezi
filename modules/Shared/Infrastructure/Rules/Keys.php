@@ -9,10 +9,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-final class Keys implements ValidationRule
+final readonly class Keys implements ValidationRule
 {
     public function __construct(
-        private readonly string $table,
+        private string $table,
     ) {
         //
     }

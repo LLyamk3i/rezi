@@ -25,6 +25,7 @@ final class CreateResidence extends CreateRecord
         if (! \is_string(value: auth()->id())) {
             throw new \UnexpectedValueException(message: 'User id must be string', code: 1);
         }
+
         if (
             \is_array(value: $data['location']) &&
             (isset($data['location']['lat']) || isset($data['location']['lng']))

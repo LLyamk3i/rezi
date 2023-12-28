@@ -9,8 +9,6 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Shared\Domain\ValueObjects\Duration;
 
-use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
-
 /**
  * @phpstan-type ReservationFormat array{}
  */
@@ -32,13 +30,13 @@ final readonly class Reservation
      */
     public function __serialize(): array
     {
-        return array_filter_filled(array: [
+        return [
             'id' => $this->id->value,
             'owner' => $this->owner?->value,
             'cost' => $this->cost?->value,
             'stay' => $this->stay->__serialize(),
             'status' => $this->status?->value,
             'residence' => $this->residence?->value,
-        ]);
+        ];
     }
 }

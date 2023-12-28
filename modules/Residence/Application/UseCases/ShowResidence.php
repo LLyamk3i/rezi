@@ -16,6 +16,11 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 final readonly class ShowResidence implements ShowResidenceContract
 {
+    private const INVENTORY = [
+        'id', 'name', 'note', 'rent', 'type', 'view', 'owner', 'favoured', 'location',
+        'rooms', 'poster', 'address', 'gallery', 'ratings', 'features', 'description', 'reservations',
+    ];
+
     public function __construct(
         private Translator $translator,
         private ExceptionHandler $exception,
@@ -56,9 +61,10 @@ final readonly class ShowResidence implements ShowResidenceContract
             failed: false,
             status: Http::OK,
             residence: $residence,
+            inventory: self::INVENTORY,
             message: string_value(value: $this->translator->get(
                 key: 'residence::messages.details.success',
-                replace: ['id' => $request->residence->value],
+                replace: ['id' => $request->residence->value]
             )),
         );
     }

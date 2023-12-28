@@ -40,6 +40,7 @@ final class Store implements StoreContract
         if ($this->has($key)) {
             return $this->get($key);
         }
+
         $this->put($key, $result = $callback($key));
 
         return $result;

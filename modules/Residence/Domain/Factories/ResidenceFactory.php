@@ -11,7 +11,7 @@ use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
 /**
- * @phpstan-type ResidenceRecord array{id:string,note?:float,name:string,rent?:float,poster?:string,address:string,distance?:float,latitude?:float,longitude?:float,description?:string,gallery?:array<int,string>,type?:\Modules\Residence\Domain\Entities\Type,owner?:\Modules\Residence\Domain\Entities\Owner,ratings?:array<int,\Modules\Residence\Domain\Entities\Rating>,features?:array<int,\Modules\Residence\Domain\Entities\Feature>,reservations?:array<int,\Modules\Reservation\Domain\Entities\Reservation>}
+ * @phpstan-type ResidenceRecord array{id:string,name:string,rooms:int,address:string,view?:int,note?:float,favoured?:bool,rent?:float,poster?:string,distance?:float,latitude?:float,longitude?:float,description?:string,gallery?:array<int,string>,type?:\Modules\Residence\Domain\Entities\Type,owner?:\Modules\Residence\Domain\Entities\Owner,ratings?:array<int,\Modules\Residence\Domain\Entities\Rating>,features?:array<int,\Modules\Residence\Domain\Entities\Feature>,reservations?:array<int,\Modules\Reservation\Domain\Entities\Reservation>}
  */
 final class ResidenceFactory
 {
@@ -25,6 +25,8 @@ final class ResidenceFactory
     {
         return new Residence(
             name: $data['name'],
+            rooms: $data['rooms'],
+            view: $data['view'] ?? 0,
             address: $data['address'],
             note: $data['note'] ?? null,
             type: $data['type'] ?? null,
@@ -34,6 +36,7 @@ final class ResidenceFactory
             gallery: $data['gallery'] ?? null,
             ratings: $data['ratings'] ?? null,
             features: $data['features'] ?? null,
+            favoured: $data['favoured'] ?? false,
             description: $data['description'] ?? null,
             rent: new Price(value: $data['rent'] ?? 0),
             reservations: $data['reservations'] ?? null,

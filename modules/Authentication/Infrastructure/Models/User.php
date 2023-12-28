@@ -6,6 +6,7 @@ namespace Modules\Authentication\Infrastructure\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Modules\Shared\Infrastructure\Models\Media;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Modules\Residence\Domain\Enums\Media as EnumsMedia;
@@ -44,5 +45,16 @@ final class User extends Authenticatable implements MustVerifyEmail
     public static function factory(): UserFactory
     {
         return new UserFactory();
+    }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: static fn (mixed $value, array $attributes) => sprintf(
+                '%s %s',
+                $attributes['forename'],
+                $attributes['surname']
+            ),
+        );
     }
 }

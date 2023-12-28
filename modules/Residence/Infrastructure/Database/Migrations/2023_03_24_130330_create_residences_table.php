@@ -24,6 +24,7 @@ return new class extends Migration
             if (can_use_spatial_index()) {
                 $table->point(column: 'location');
             }
+
             $table->smallInteger(column: 'rooms', unsigned: true);
             $table->boolean(column: 'visible')->default(value: false);
 

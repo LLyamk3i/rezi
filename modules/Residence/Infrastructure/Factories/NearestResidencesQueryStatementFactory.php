@@ -64,7 +64,7 @@ final class NearestResidencesQueryStatementFactory
      */
     private static function replace(Radius $radius, Location $location): array
     {
-        return array_map(array: self::RAW_STATEMENTS, callback: static fn (string $statement) => str_replace(
+        return array_map(array: self::RAW_STATEMENTS, callback: static fn (string $statement): string => str_replace(
             subject: $statement,
             search: [':lat', ':lng', ':rad'],
             replace: [$location->latitude, $location->longitude, $radius->value],

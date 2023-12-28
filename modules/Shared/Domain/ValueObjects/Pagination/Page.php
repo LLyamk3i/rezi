@@ -18,6 +18,7 @@ final readonly class Page
         if ($per < 1) {
             throw new InvalidValueObjectException(value: $per, object: self::class);
         }
+
         if ($current < 1) {
             throw new InvalidValueObjectException(value: $per, object: self::class);
         }

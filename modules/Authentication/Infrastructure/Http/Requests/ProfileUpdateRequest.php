@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 final class ProfileUpdateRequest extends FormRequest
 {
     /**
-     * @return array<string,string>
+     * @return array{emergency_contact: string, forename: string, surname: string, address: string}
      */
     public function rules(): array
     {

@@ -7,8 +7,6 @@ namespace Modules\Residence\Infrastructure\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
-
 final class RatingResource extends JsonResource
 {
     /**
@@ -21,9 +19,9 @@ final class RatingResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return array_filter_filled(array: [
+        return [
             ...$this->resource->__serialize(),
             'owner' => new OwnerResource(resource: $this->resource->owner),
-        ]);
+        ];
     }
 }

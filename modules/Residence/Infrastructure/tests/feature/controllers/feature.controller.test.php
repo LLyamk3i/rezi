@@ -24,7 +24,7 @@ test(description: 'listing all residence features', closure: function (): void {
         'message' => 'La récupération des points forts résidentiels a été menée à bien.',
     ]);
 
-    $response->assertJsonPath(path: 'features', expect: function (array $features) use ($seed): bool {
+    $response->assertJsonPath(path: 'features', expect: static function (array $features) use ($seed): bool {
         Assert::assertCount(expectedCount: $seed->count(), haystack: $features);
 
         return true;
