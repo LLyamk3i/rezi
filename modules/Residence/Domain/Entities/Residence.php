@@ -15,21 +15,21 @@ use Modules\Residence\Domain\ValueObjects\Location;
 final readonly class Residence
 {
     /**
-     * @param array<int,string>    |null                                       $gallery
-     * @param array<int,\Modules\Residence\Domain\Entities\Feature> |null      $features
+     * @param array<int,string>|null                                           $gallery
+     * @param array<int,\Modules\Residence\Domain\Entities\Feature>|null       $features
      * @param array<int,\Modules\Residence\Domain\Entities\Rating>|null        $ratings
      * @param array<int,\Modules\Reservation\Domain\Entities\Reservation>|null $reservations
      */
     public function __construct(
         public Ulid $id,
         public int $view,
-        public int $rooms,
         public Price $rent,
         public string $name,
         public string $address,
         public Distance $distance,
         public Location $location,
         public bool $favoured = false,
+        public int | null $rooms = null,
         public Type | null $type = null,
         public float | null $note = null,
         public Owner | null $owner = null,

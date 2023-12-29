@@ -25,7 +25,7 @@ final class ResidenceFactory
     {
         return new Residence(
             name: $data['name'],
-            rooms: $data['rooms'],
+            rooms: $data['rooms'] ?? null,
             view: $data['view'] ?? 0,
             address: $data['address'],
             note: $data['note'] ?? null,

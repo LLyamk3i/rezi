@@ -1,8 +1,13 @@
 #!/bin/bash
 
 directories=("database/factories" "modules" "tests" "routes")
-needles=("closure: static function (): void {" "state(state: static" ", callback: static function")
 patterns='-ipath '*/database/Factories/*' -o -name *.test.php -o -name console.php'
+needles=(
+    "closure: static function (): void {"
+    "state(state: static"
+    ", callback: static function"
+    "conditionOrMessage: static fn (): bool"
+)
 
 for dir in "${directories[@]}"; do
     for needle in "${needles[@]}"; do

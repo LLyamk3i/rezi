@@ -35,6 +35,7 @@ function residence_factory(float $latitude, float $longitude): array
 {
     return Residence::factory()
         ->location(value: new Location(...[$latitude, $longitude]))
+        ->visible()
         ->make()
         ->getAttributes();
 }
