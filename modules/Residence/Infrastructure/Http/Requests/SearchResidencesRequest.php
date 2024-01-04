@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Residence\Infrastructure\Http\Requests;
 
+use Illuminate\Support\Arr;
 use Illuminate\Foundation\Http\FormRequest;
-
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Shared\Infrastructure\Rules\Keys;
@@ -15,6 +15,9 @@ use Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesRequest a
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
+/**
+ * @phpstan-import-type Search from \Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesRequest
+ */
 final class SearchResidencesRequest extends FormRequest
 {
     /**
@@ -24,15 +27,15 @@ final class SearchResidencesRequest extends FormRequest
     {
         return [
             'page' => 'integer',
+            'keyword' => 'string',
+            'latest' => 'boolean',
             'per_page' => 'integer',
             'checkin_date' => 'date',
             'checkout_date' => 'date',
-            'keyword' => 'string',
-            'type_ids' => [new Keys(table: 'types')],
-            'feature_ids' => [new Keys(table: 'features')],
             'rent_min' => 'integer|min:0',
             'rent_max' => 'integer|min:0',
-            'latest' => 'boolean',
+            'feature_ids' => [new Keys(table: 'features')],
+            'type_ids' => [new Keys(table: 'residences', column: 'type_id')],
         ];
     }
 
@@ -59,27 +62,22 @@ final class SearchResidencesRequest extends FormRequest
 
     private function ids(string $key): array
     {
-        return array_map(array: $this->input(key: $key, default: []), callback: static fn (string $id): \Modules\Shared\Domain\ValueObjects\Ulid => new Ulid(value: $id));
+        return array_map(
+            array: Arr::wrap($this->input(key: $key, default: [])),
+            callback: static fn (string $id): Ulid => new Ulid(value: $id)
+        );
     }
 
     /**
-     * @return array{min?:int,max?:int}
-     *
      * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     *
+     * @phpstan-return Search['rent']
      */
     private function rent(): array
     {
-        if (! $this->has(key: 'rent_min')) {
-            return [];
-        }
-        if (! $this->has(key: 'rent_max')) {
-            return [];
-        }
-
-        return [
-            'min' => new Price(value: $this->integer(key: 'rent_min')),
-            'max' => new Price(value: $this->integer(key: 'rent_max')),
-        ];
+        return collect($this->only(keys: ['rent_min', 'rent_max']))
+            ->flatMap(callback: static fn (int $value, string $key): array => [ltrim(string: $key, characters: 'rent_') => new Price(value: $value)])
+            ->toArray();
     }
 
     /**
@@ -90,22 +88,14 @@ final class SearchResidencesRequest extends FormRequest
         if (! $this->has(key: $start)) {
             return null;
         }
+
         if (! $this->has(key: $end)) {
             return null;
         }
 
         return new Duration(
-            start: $this->datetime(key: $start),
-            end: $this->datetime(key: $end),
+            end: new \DateTime(datetime: string_value(value: $this->input(key: $end))),
+            start: new \DateTime(datetime: string_value(value: $this->input(key: $start))),
         );
-    }
-
-    /**
-     * @throws \Exception
-     * @throws \InvalidArgumentException
-     */
-    private function datetime(string $key): \DateTime
-    {
-        return new \DateTime(datetime: string_value(value: $this->input(key: $key)));
     }
 }

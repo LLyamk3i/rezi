@@ -16,13 +16,13 @@ final class ViewFactory extends Factory
     protected $model = View::class;
 
     /**
-     * @return array<string,string>
+     * @return array{id: string, device: string, residence_id: string}
      */
     public function definition(): array
     {
         return [
             'id' => Ulid::generate(),
-            'device' => sprintf('%s/%s', fake()->userName(), Ulid::generate()),
+            'device' => sprintf('%s/%s', fake()->word(), Ulid::generate()),
             'residence_id' => Ulid::generate(),
         ];
     }

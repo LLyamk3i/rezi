@@ -47,10 +47,10 @@ final class User extends Authenticatable implements MustVerifyEmail
         return new UserFactory();
     }
 
-    protected function name(): Attribute
+    public function name(): Attribute
     {
         return Attribute::make(
-            get: static fn (mixed $value, array $attributes) => sprintf(
+            get: static fn (mixed $value, array $attributes): string => sprintf(
                 '%s %s',
                 $attributes['forename'],
                 $attributes['surname']

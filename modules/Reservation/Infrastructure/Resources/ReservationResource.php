@@ -15,7 +15,7 @@ final class ReservationResource extends JsonResource
     public $resource;
 
     /**
-     * @return array<string,string>
+     * @return array{id: string, start: string, end: string}
      */
     public function toArray(Request $request): array
     {

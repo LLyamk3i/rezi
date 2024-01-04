@@ -22,6 +22,7 @@ trait RatingStates
 
                 $factory = static fn (int $count): \Illuminate\Support\Collection => User::factory()
                     ->count(count: abs(num: $count))
+                    ->avatar()
                     ->create()
                     ->pluck(value: 'id');
 

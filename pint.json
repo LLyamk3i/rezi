@@ -62,7 +62,6 @@
         }
     },
     "exclude": [
-        "trash",
-        "database/factories"
+        "trash"
     ]
 }

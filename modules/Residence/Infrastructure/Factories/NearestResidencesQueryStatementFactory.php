@@ -18,19 +18,14 @@ final class NearestResidencesQueryStatementFactory
      * @phpstan-var Statements
      */
     private const RAW_STATEMENTS = [
-        'having' => 'distance < :rad',
-        'select' => '(6371 * ACOS(COS(RADIANS(:lat)) * COS(RADIANS(ST_Y(location))) * COS(RADIANS(ST_X(location)) - RADIANS(:lng))+ SIN(RADIANS(:lat)) * SIN(RADIANS(ST_Y(location))))) AS distance',
         'where' => 'MBRContains(LineString(Point(:lng + :rad / (111.320 * COS(RADIANS(:lat))), :lat + :rad / 111.133),Point(:lng - :rad / (111.320 * COS(RADIANS(:lat))), :lat - :rad / 111.133)), location)',
     ];
 
-    /**
-     * @phpstan-var Statements
-     */
-    private readonly array $statements;
-
-    public function __construct(Radius $radius, Location $location)
-    {
-        $this->statements = self::replace(radius: $radius, location: $location);
+    public function __construct(
+        private readonly Radius $radius,
+        private readonly Location $location,
+    ) {
+        //
     }
 
     /**
@@ -39,10 +34,10 @@ final class NearestResidencesQueryStatementFactory
     public function make(): Builder
     {
         return DB::table(table: 'residences')
-            ->where(column: 'visible', operator: '=', value: 1)
+            ->where(column: 'visible', operator: '=', value: true)
             ->select(columns: $this->columns())
-            ->whereRaw(sql: $this->statements['where'])
-            ->havingRaw(sql: $this->statements['having'])
+            // ->whereRaw(sql: $this->statements['where'])
+            ->having(column: 'distance', operator: '<', value: $this->radius->value)
             ->orderBy(column: 'distance');
     }
 
@@ -55,19 +50,14 @@ final class NearestResidencesQueryStatementFactory
             'id', 'name', 'address',
             DB::raw('ST_X(location) AS latitude'),
             DB::raw('ST_Y(location) AS longitude'),
-            DB::raw(value: $this->statements['select']),
+            DB::raw(value: sprintf(
+                '(6371 * ACOS(%.16f * COS(RADIANS(ST_X(location))) 
+                * COS(RADIANS(ST_Y(location)) - %.16f) + %.16f
+                * SIN(RADIANS(ST_X(location))))) AS distance',
+                cos(num: deg2rad(num: $this->location->latitude)),
+                deg2rad(num: $this->location->longitude),
+                sin(num: deg2rad(num: $this->location->latitude))
+            )),
         ];
-    }
-
-    /**
-     * @phpstan-return Statements
-     */
-    private static function replace(Radius $radius, Location $location): array
-    {
-        return array_map(array: self::RAW_STATEMENTS, callback: static fn (string $statement): string => str_replace(
-            subject: $statement,
-            search: [':lat', ':lng', ':rad'],
-            replace: [$location->latitude, $location->longitude, $radius->value],
-        ));
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create(table: 'views', callback: static function (Blueprint $table): void {
             $table->ulid(column: 'id')->primary();
-            $table->ulid(column: 'device');
+            $table->string(column: 'device', length: 40);
             $table->ulid(column: 'residence_id');
             $table->unique(columns: ['device', 'residence_id']);
             $table->timestamps();

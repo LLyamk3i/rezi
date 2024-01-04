@@ -20,7 +20,8 @@ final readonly class ReservationOwnershipVerificationQuery implements Reservatio
     public function run(): bool
     {
         return DB::table(table: 'reservations')
-            ->where(['user_id' => $this->owner->value, 'id' => $this->reservation->value])
+            ->where(column: 'user_id', operator: '=', value: $this->owner->value)
+            ->where(column: 'id', operator: '=', value: $this->reservation->value)
             ->exists();
     }
 }

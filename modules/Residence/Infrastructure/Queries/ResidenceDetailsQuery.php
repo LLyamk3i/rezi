@@ -11,7 +11,6 @@ use Modules\Residence\Domain\Enums\Media;
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Residence\Domain\Factories\TypeFactory;
-use Modules\Residence\Domain\Factories\OwnerFactory;
 use Modules\Residence\Infrastructure\Models\Feature;
 use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Residence\Domain\Hydrators\RatingHydrator;
@@ -32,7 +31,6 @@ final readonly class ResidenceDetailsQuery
 {
     public function __construct(
         private TypeFactory $type,
-        private OwnerFactory $owner,
         private Repository $repository,
         private ColumnsFactory $columns,
         private RatingHydrator $ratings,
@@ -58,14 +56,11 @@ final readonly class ResidenceDetailsQuery
         }
 
         $residence_id = string_value(value: $residence['id']);
-        $owner_data = array_pull_and_exclude(original: $residence, keys: ['owner_id', 'owner_forename', 'owner_surname']);
-        $owner = $this->owner->make(data: [...$owner_data, 'owner_avatar' => $this->avatar(owner: $owner_data['owner_id'])]);
         $type = $this->type->make(data: array_pull_and_exclude(original: $residence, keys: ['type_name', 'type_id']));
         $reviews = $this->reviews(residence: $residence_id);
 
         return $this->residence->make(data: [
             ...$residence,
-            'owner' => $owner,
             'type' => $type,
             'note' => $reviews['note'],
             'ratings' => $reviews['ratings'],
@@ -75,6 +70,7 @@ final readonly class ResidenceDetailsQuery
             'features' => $this->features(residence: $residence_id),
             'favoured' => $this->favoured(residence: $residence_id),
             'reservations' => $this->reservations(residence: $residence_id),
+            'owner_avatar' => $this->avatar(owner: $residence['owner_id']),
         ]);
     }
 
@@ -139,14 +135,14 @@ final readonly class ResidenceDetailsQuery
         $ratings = DB::table(table: 'ratings')
             ->where(column: 'residence_id', operator: '=', value: $residence)
             ->leftJoin(table: 'users', first: 'ratings.user_id', operator: '=', second: 'users.id')
+            ->leftJoin(table: 'media', first: 'ratings.user_id', operator: '=', second: 'media.fileable_id')
+            ->where(column: 'media.fileable_type', operator: '=', value: (new User())->getMorphClass())
+            ->where(column: 'media.type', operator: '=', value: Media::Avatar->value)
             ->get(columns: [
-                'ratings.id',
-                'ratings.value',
-                'ratings.comment',
-                'ratings.created_at',
-                'users.id as owner_id',
-                'users.surname as owner_surname',
-                'users.forename as owner_forename',
+                'ratings.id', 'ratings.value',
+                'ratings.comment', 'ratings.created_at',
+                'users.id as owner_id', 'users.surname as owner_surname',
+                'users.forename as owner_forename', 'media.path as owner_avatar',
             ]);
 
         return [

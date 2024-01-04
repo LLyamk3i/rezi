@@ -6,52 +6,48 @@ namespace Modules\Residence\Infrastructure\Eloquent\Buckets;
 
 use Illuminate\Support\Arr;
 use Illuminate\Database\Query\Builder;
-use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Residence\Domain\Contracts\FilterContract;
 
-final class SearchResidenceBucket
+final readonly class SearchResidenceBucket
 {
     /**
      * @var array<string,class-string<FilterContract>>
      */
     private const FILTERS = [
+        'stay' => \Modules\Residence\Infrastructure\Eloquent\Filters\StayFilter::class,
+        'rent' => \Modules\Residence\Infrastructure\Eloquent\Filters\RentFilter::class,
+        'types' => \Modules\Residence\Infrastructure\Eloquent\Filters\TypesFilter::class,
+        'latest' => \Modules\Residence\Infrastructure\Eloquent\Filters\LatestFilter::class,
         'keyword' => \Modules\Residence\Infrastructure\Eloquent\Filters\KeywordFilter::class,
-        'stay' => \Modules\Residence\Infrastructure\Eloquent\Filters\StayDurationFilter::class,
+        'features' => \Modules\Residence\Infrastructure\Eloquent\Filters\FeaturesFilter::class,
     ];
 
     /**
-     * @param array<string,string|Duration> $payloads
+     * @param array<string,mixed> $payloads
      */
     public function __construct(
-        private readonly Builder $query,
-        private readonly array $payloads,
+        private Builder $query,
+        private array $payloads,
     ) {
         //
     }
 
     public function filter(): Builder
     {
-        $filters = $this->filters();
+        $filtrables = Arr::only(array: $this->payloads, keys: array_keys(array: self::FILTERS));
 
-        array_walk(array: $filters, callback: function (string | Duration $value, string $filter): void {
+        array_walk(array: $filtrables, callback: function (mixed $value, string $filter): void {
             $this->resolve(filter: $filter, payload: $value)->filter();
         });
 
         return $this->query;
     }
 
-    /**
-     * @return array{key?:string,stay?:\Modules\Shared\Domain\ValueObjects\Duration}
-     */
-    private function filters(): array
+    private function resolve(string $filter, mixed $payload): FilterContract
     {
-        return array_filter(array: Arr::only(array: $this->payloads, keys: array_keys(self::FILTERS)));
-    }
-
-    private function resolve(string $filter, string | Duration $payload): FilterContract
-    {
-        $filter = self::FILTERS[$filter];
-
-        return new $filter(query: $this->query, payload: $payload);
+        return resolve(
+            name: self::FILTERS[$filter],
+            parameters: ['query' => $this->query, 'payload' => $payload]
+        );
     }
 }

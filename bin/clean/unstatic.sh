@@ -3,10 +3,11 @@
 directories=("database/factories" "modules" "tests" "routes")
 patterns='-ipath '*/database/Factories/*' -o -name *.test.php -o -name console.php'
 needles=(
-    "closure: static function (): void {"
+    "closure: static function ("
     "state(state: static"
     ", callback: static function"
     "conditionOrMessage: static fn (): bool"
+    "' => static fn ()"
 )
 
 for dir in "${directories[@]}"; do

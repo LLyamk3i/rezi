@@ -13,6 +13,7 @@ final readonly class Keys implements ValidationRule
 {
     public function __construct(
         private string $table,
+        private string $column = 'id',
     ) {
         //
     }
@@ -26,8 +27,8 @@ final readonly class Keys implements ValidationRule
     {
         $keys = Arr::wrap(value: $value);
 
-        if (! DB::table(table: $this->table)->whereIn(column: 'id', values: $keys)->exists()) {
-            $fail('shared::messages.validation.ids')->translate(replace: ['attribute' => $attribute]);
+        if (! DB::table(table: $this->table)->whereIn(column: $this->column, values: $keys)->exists()) {
+            $fail('shared::messages.validation.ids')->translate(replace: ['attribute' => $attribute, 'table' => $this->table]);
         }
     }
 }

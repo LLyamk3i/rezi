@@ -22,16 +22,17 @@ final class EloquentUserRoleRepository implements RepositoriesUserRoleRepository
             return false;
         }
 
-        $results = Role::whereRelation('users', 'id', $user->value)
+        $results = Role::query()
+            ->whereRelation(relation: 'users', column: 'id', operator: '=', value: $user->value)
             ->getQuery()
-            ->pluck('name');
+            ->pluck(column: 'name');
 
         if ($results->count() !== \count(value: $roles)) {
             return false;
         }
 
         return $results
-            ->diff(array_map(callback: static fn (Roles $role): string => $role->value, array: $roles))
+            ->diff(items: array_map(callback: static fn (Roles $role): string => $role->value, array: $roles))
             ->isEmpty();
     }
 }

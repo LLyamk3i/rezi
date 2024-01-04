@@ -22,12 +22,12 @@ final readonly class Residence
      */
     public function __construct(
         public Ulid $id,
-        public int $view,
         public Price $rent,
         public string $name,
         public string $address,
         public Distance $distance,
         public Location $location,
+        public int | null $view = null,
         public bool $favoured = false,
         public int | null $rooms = null,
         public Type | null $type = null,

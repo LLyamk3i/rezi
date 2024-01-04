@@ -16,7 +16,7 @@ final class FavoriteFactory extends Factory
     protected $model = Favorite::class;
 
     /**
-     * @return array<string,mixed>
+     * @return array{id: string, user_id: string, residence_id: string}
      */
     public function definition(): array
     {

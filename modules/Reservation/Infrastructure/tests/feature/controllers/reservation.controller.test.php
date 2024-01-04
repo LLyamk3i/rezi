@@ -27,8 +27,6 @@ test(description: 'an unauthenticated user cannot make a reservation', closure: 
 });
 
 it(description: 'can make reservation', closure: function (): void {
-    // \Illuminate\Support\Facades\DB::table('reservations')->truncate();
-
     /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
     $user = User::factory()->create();
     $residence = Residence::factory()->visible()->create();

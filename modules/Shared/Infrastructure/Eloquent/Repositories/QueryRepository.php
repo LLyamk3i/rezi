@@ -17,10 +17,10 @@ final class QueryRepository implements Repository
      *
      * @return array<string,string|int|float>|null
      */
-    public function find(Builder $query, array $columns = []): null | array
+    public function find(Builder $query, array $columns = ['*']): null | array
     {
         /** @var \Illuminate\Database\Query\Builder $query */
-        return $query->limit(value: 1)->get(columns: $this->columns(value: $columns))->first();
+        return $query->limit(value: 1)->get(columns: $columns)->first();
     }
 
     /**
@@ -32,13 +32,13 @@ final class QueryRepository implements Repository
      *
      * @return PaginatedObject<H2>
      */
-    public function paginate(Builder $query, Page $page, HydratorContract $hydrator, array $columns = []): PaginatedObject
+    public function paginate(Builder $query, Page $page, HydratorContract $hydrator, array $columns = ['*']): PaginatedObject
     {
         /** @var \Illuminate\Database\Query\Builder $query */
         $pagination = $query->paginate(
+            columns: $columns,
             perPage: $page->per,
             page: $page->current,
-            columns: $this->columns(value: $columns)
         );
 
         return new PaginatedObject(
@@ -48,15 +48,5 @@ final class QueryRepository implements Repository
             current_page: $pagination->currentPage(),
             items: $hydrator->hydrate(data: $pagination->items())
         );
-    }
-
-    /**
-     * @param array<int,\Illuminate\Contracts\Database\Query\Expression|string> $value
-     *
-     * @return array<int,\Illuminate\Contracts\Database\Query\Expression|string>
-     */
-    private function columns(array $value): array
-    {
-        return $value === [] ? ['*'] : $value;
     }
 }

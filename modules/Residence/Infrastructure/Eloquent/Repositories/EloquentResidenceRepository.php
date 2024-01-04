@@ -42,12 +42,7 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
      */
     public function all(Page $page): PaginatedObject
     {
-        return $this->parent->paginate(
-            page: $page,
-            hydrator: $this->hydrator,
-            query: $this->query->make(),
-            columns: $this->columns->make(),
-        );
+        return $this->search(page: $page, data: ['latest' => true]);
     }
 
     public function find(Ulid $id): null | Entity

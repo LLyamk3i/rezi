@@ -6,6 +6,7 @@ namespace Modules\Residence\Infrastructure\Database\Factories;
 
 use Symfony\Component\Uid\Ulid;
 use Illuminate\Support\Facades\DB;
+use Modules\Reservation\Domain\Enums\Status;
 use Modules\Residence\Infrastructure\Models\Type;
 use Modules\Residence\Infrastructure\Models\View;
 use Illuminate\Contracts\Database\Query\Expression;
@@ -14,7 +15,6 @@ use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Infrastructure\Models\Feature;
 use Modules\Residence\Infrastructure\Models\Favorite;
-
 use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Reservation\Infrastructure\Models\Reservation;
@@ -31,7 +31,6 @@ use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
 final class ResidenceFactory extends Factory
 {
     use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\MediaStates;
-    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\OwnerStates;
     use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\RatingStates;
     use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\ResidenceStates;
 
@@ -72,6 +71,11 @@ final class ResidenceFactory extends Factory
         ]);
     }
 
+    public function owner(): self
+    {
+        return $this->state(state: ['user_id' => User::factory()->avatar()]);
+    }
+
     public function favoured(User $client): self
     {
         return $this->has(
@@ -88,12 +92,14 @@ final class ResidenceFactory extends Factory
         );
     }
 
-    public function reservations(int $count): self
+    public function reservations(int $count, bool $confirmed = false): self
     {
-        return $this->has(
-            relationship: 'reservations',
-            factory: Reservation::factory()->count(count: $count),
-        );
+        $factory = Reservation::factory()->count(count: $count);
+        if ($confirmed) {
+            $factory->state(state: ['status' => Status::CONFIRMED->value]);
+        }
+
+        return $this->has(relationship: 'reservations', factory: $factory);
     }
 
     public function features(int $count): self

@@ -22,7 +22,8 @@ final class Feature extends Model
      */
     public function icon(): MorphOne
     {
-        return $this->morphOne(related: Media::class, name: 'fileable')->where('type', Type::Icon);
+        return $this->morphOne(related: Media::class, name: 'fileable')
+            ->where(column: 'type', operator : '=', value: Type::Icon);
     }
 
     /**

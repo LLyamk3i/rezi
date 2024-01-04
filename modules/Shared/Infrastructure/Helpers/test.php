@@ -12,6 +12,9 @@ use Modules\Residence\Infrastructure\Models\Residence;
 
 function listen_queries(): void
 {
+    $trace = debug_backtrace(options: \DEBUG_BACKTRACE_IGNORE_ARGS, limit: 1);
+    echo sprintf('listening on %s:%d', $trace[0]['file'], $trace[0]['line']) . \PHP_EOL;
+
     DB::listen(static function (QueryExecuted $query): void {
         dump(['query' => $query->sql, 'bindings' => $query->bindings]);
     });
@@ -34,7 +37,7 @@ function migrate_authentication(): void
 function residence_factory(float $latitude, float $longitude): array
 {
     return Residence::factory()
-        ->location(value: new Location(...[$latitude, $longitude]))
+        ->location(value: new Location(latitude: $latitude, longitude: $longitude))
         ->visible()
         ->make()
         ->getAttributes();

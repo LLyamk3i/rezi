@@ -37,11 +37,11 @@
   - [x] Supprimer la pagination.
   - [x] Retourner seulement le nom, l'address, la position et la distance.
 - [] Pointer le listage des residences sur le filtrage sans clé.
-- [] Filtrer en fonction de:
-  - [] Latest
-  - [] types
-  - [] features
-  - [] rent
+- [x] Filtrer en fonction de:
+  - [x] Latest
+  - [x] types
+  - [x] features
+  - [x] rent
   - [x] stay
   - [x] keyword
 - [] Créer un endpoint pour les détails d'une résidence:

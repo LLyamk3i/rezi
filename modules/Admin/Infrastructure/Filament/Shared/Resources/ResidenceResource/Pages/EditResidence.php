@@ -31,7 +31,7 @@ final class EditResidence extends EditRecord
     protected function resolveRecord(int | string $key): Residence
     {
         parent::resolveRecord($key);
-        $record = Residence::query()->where('id', $key)
+        $record = Residence::query()->where(column: 'id', operator: '=', value: $key)
             ->first(columns: [
                 '*',
                 DB::raw(value: 'ST_X(location) AS latitude'),

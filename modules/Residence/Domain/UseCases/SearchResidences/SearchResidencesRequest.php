@@ -8,14 +8,15 @@ use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 
 /**
- * @phpstan-type Search array{}
+ * @phpstan-type Search array{types:\Modules\Shared\Domain\ValueObjects\Ulid[],latest:bool,features:\Modules\Shared\Domain\ValueObjects\Ulid[],rent:array{min?:int,max?:int},stay:Duration|null,keyword:string|null}
  */
 final readonly class SearchResidencesRequest
 {
     /**
      * @param array<int,\Modules\Shared\Domain\ValueObjects\Ulid> $types
      * @param array<int,\Modules\Shared\Domain\ValueObjects\Ulid> $features
-     * @param array{min?:integer,max?:integer}                    $rent
+     *
+     * @phpstan-param Search['rent']                    $rent
      */
     public function __construct(
         public Page $page,
@@ -30,7 +31,7 @@ final readonly class SearchResidencesRequest
     }
 
     /**
-     * @return array{types:\Modules\Shared\Domain\ValueObjects\Ulid[],latest:bool,features:\Modules\Shared\Domain\ValueObjects\Ulid[],rent:array{min?:int,max?:int},stay:Duration|null,keyword:string|null}
+     * @phpstan-return Search
      */
     public function data(): array
     {

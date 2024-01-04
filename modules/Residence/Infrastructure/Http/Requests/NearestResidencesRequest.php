@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Modules\Residence\Infrastructure\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Residence\Domain\ValueObjects\Location;
+use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesRequest as Request;
 
 final class NearestResidencesRequest extends FormRequest
@@ -24,9 +26,11 @@ final class NearestResidencesRequest extends FormRequest
     public function approved(): Request
     {
         return new Request(
-            latitude: (float) $this->query(key: 'latitude'),
-            longitude: (float) $this->query(key: 'longitude'),
-            radius: (int) $this->query(key: 'radius', default: '15'),
+            radius: new Radius(value: $this->integer(key: 'radius', default: '15')),
+            location: new Location(
+                latitude: $this->float(key: 'latitude'),
+                longitude: $this->float(key: 'longitude')
+            ),
         );
     }
 }

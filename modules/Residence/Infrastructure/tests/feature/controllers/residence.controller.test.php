@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Illuminate\Support\Arr;
 use Illuminate\Testing\Assert;
-use Illuminate\Support\Facades\DB;
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Infrastructure\Models\Media;
 use Modules\Residence\Domain\ValueObjects\Location;
@@ -16,8 +15,8 @@ use Modules\Shared\Infrastructure\Factories\ImageUrlFactory;
 
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\actingAs;
+use function Modules\Shared\Infrastructure\Helpers\route as r;
 use function Modules\Shared\Infrastructure\Helpers\using_sqlite;
-use function Modules\Shared\Infrastructure\Helpers\listen_queries;
 
 uses(
     \Tests\TestCase::class,
@@ -25,9 +24,8 @@ uses(
 );
 
 it(description: 'can list all residences', closure: function (): void {
-    DB::table(table: 'residences')->truncate();
     Residence::factory()->invisible()->create();
-    $residences = Residence::factory()->visible()->count(count: 5)->create();
+    $residences = Residence::factory()->owner()->visible()->count(count: 5)->create();
 
     $response = getJson(uri: 'api/residences');
     $response->assertOk();
@@ -42,29 +40,21 @@ it(description: 'can list all residences', closure: function (): void {
 
 it(description: 'can paginate residences', closure: function (): void {
     $total = 10;
-    $page = ['max' => 3, 'current' => 2];
+    $page = ['per' => 3, 'current' => 2, 'last' => (int) ceil(num: $total / 3)];
+    $residences = Residence::factory()->count(count: $total)->visible()->poster()->owner()->create();
+    $ids = $residences->forPage(page: $page['current'], perPage: $page['per'])->pluck(value: 'id');
 
-    DB::table(table: 'residences')->truncate();
-    $residences = Residence::factory()->visible()->poster()->owners(count: 3)->count(count: $total)->create();
-    $ids = $residences->forPage(page: $page['current'], perPage: $page['max'])->pluck(value: 'id');
-
-    $response = getJson(uri: 'api/residences?' . http_build_query(data: ['page' => $page['current'], 'per_page' => $page['max']]));
+    $response = getJson(uri: r(
+        path: 'api/residences',
+        queries: ['page' => $page['current'], 'per_page' => $page['per']]
+    ));
 
     $response->assertOk();
     $response->assertJson(value: [
         'success' => true,
         'message' => 'La récupération des résidences a été effectuée avec succès.',
-        'residences' => [
-            'total' => $total,
-            'page' => [
-                'per' => $page['max'],
-                'current' => $page['current'],
-                'last' => (int) ceil(num: $total / $page['max']),
-            ],
-        ],
+        'residences' => ['total' => $total, 'page' => $page],
     ]);
-
-    // dd($response->json());
 
     $response->assertJsonPath(path: 'residences.items', expect: static function (array $residences) use ($ids): bool {
         collect(value: $residences)->each(callback: static function (array $residence) use ($ids): void {
@@ -79,8 +69,7 @@ it(description: 'can paginate residences', closure: function (): void {
     });
 });
 
-test(description: 'fetch residence details', closure: function (): void {
-
+test(description: 'fetch residence details without favorite', closure: function (): void {
     Residence::factory()->create();
     $location = new Location(latitude: 0.13, longitude: 1.23);
     $residence = Residence::factory()
@@ -96,17 +85,8 @@ test(description: 'fetch residence details', closure: function (): void {
         ->owner()
         ->create();
 
-    // listen_queries();
     $response = getJson(uri: "api/residences/{$residence->id}");
-
-    // file_put_contents(
-    //     filename: base_path(path: 'trash/details.json'),
-    //     data: json_encode(value: $response->json(), flags: \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES)
-    // );
-
     $response->assertOk();
-
-    // dd($response->json());
 
     $response->assertJson(value: [
         'success' => true,
@@ -155,16 +135,14 @@ test(description: 'fetch residence details', closure: function (): void {
             'ratings' => $residence->ratings()
                 ->with(relations: ['owner:id,forename,surname', 'owner.avatar'])
                 ->get(columns: ['id', 'value', 'user_id', 'comment', 'created_at'])
-                ->map(callback: static function (Rating $rating): array {
-                    return [
-                        ...$rating->makeHidden(attributes: ['user_id'])->toArray(),
-                        'owner' => [
-                            'id' => $rating->owner->id,
-                            'name' => $rating->owner->name,
-                            'avatar' => $rating->owner->avatar,
-                        ],
-                    ];
-                })
+                ->map(callback: static fn (Rating $rating): array => [
+                    ...$rating->makeHidden(attributes: ['user_id'])->toArray(),
+                    'owner' => [
+                        'id' => $rating->owner->id,
+                        'name' => $rating->owner->name,
+                        'avatar' => route(name: 'image.show', parameters: ['path' => $rating->owner?->avatar?->path, 'h' => 50, 'w' => 50]),
+                    ],
+                ])
                 ->toArray(),
         ],
     ]);

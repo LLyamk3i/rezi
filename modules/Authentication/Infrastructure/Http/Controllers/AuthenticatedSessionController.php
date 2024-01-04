@@ -24,7 +24,7 @@ final class AuthenticatedSessionController
      */
     public function store(AuthenticatedSessionRequest $request): JsonResponse
     {
-        $user = User::query()->where('email', $request->input(key: 'email'))->first();
+        $user = User::query()->where(column: 'email', operator: '=', value: $request->input(key: 'email'))->first();
 
         if (
             ! ($user instanceof User)

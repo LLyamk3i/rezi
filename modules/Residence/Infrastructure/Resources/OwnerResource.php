@@ -15,7 +15,7 @@ final class OwnerResource extends JsonResource
     public $resource;
 
     /**
-     * @return array<string,array<string,float|string>|\Modules\Residence\Domain\ValueObjects\Location|string>
+     * @return array{id: string, name: string, avatar: string|null}
      */
     public function toArray(Request $request): array
     {

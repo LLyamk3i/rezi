@@ -15,7 +15,7 @@ final class FeatureResource extends JsonResource
     public $resource;
 
     /**
-     * @return array<string,string>
+     * @return array{id: string, name: string, icon: string}
      */
     public function toArray(Request $request): array
     {

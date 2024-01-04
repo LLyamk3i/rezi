@@ -24,13 +24,13 @@ final readonly class ReservationAvailabilityVerificationQuery implements Reserva
         $stay = $this->stay;
 
         return DB::table(table: 'reservations')
-            ->where('residence_id', $this->residence->value)
+            ->where(column: 'residence_id', operator: '=', value: $this->residence->value)
             ->where(static function (Builder $query) use ($stay): void {
-                $query->whereBetween('checkin_at', [$stay->start, $stay->end])
-                    ->orWhereBetween('checkout_at', [$stay->start, $stay->end])
-                    ->orWhere(static function (Builder $query) use ($stay): void {
-                        $query->where('checkin_at', '<=', $stay->start)
-                            ->where('checkout_at', '>=', $stay->end);
+                $query->whereBetween(column: 'checkin_at', values: [$stay->start, $stay->end])
+                    ->orWhereBetween(column: 'checkout_at', values: [$stay->start, $stay->end])
+                    ->orWhere(column: static function (Builder $query) use ($stay): void {
+                        $query->where(column: 'checkin_at', operator: '<=', value: $stay->start)
+                            ->where(column: 'checkout_at', operator: '>=', value: $stay->end);
                     });
             })
             ->exists();

@@ -7,9 +7,7 @@ namespace Modules\Residence\Application\UseCases;
 use Modules\Shared\Domain\Enums\Http;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Translation\Translator;
-use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Domain\UseCases\ResidencesResponse;
-use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Residence\Domain\Repositories\ResidenceRepository;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesRequest;
 use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesContract;
@@ -32,10 +30,8 @@ final readonly class NearestResidences implements NearestResidencesContract
     public function execute(NearestResidencesRequest $request): ResidencesResponse
     {
         try {
-            $residences = $this->repository->nearest(
-                radius: new Radius(value: $request->radius),
-                location: new Location(latitude: $request->latitude, longitude: $request->longitude),
-            );
+            $residences = $this->repository->nearest(radius: $request->radius, location: $request->location);
+
         } catch (\Throwable $throwable) {
             $this->exception->report(e: $throwable);
 

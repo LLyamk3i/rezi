@@ -54,6 +54,7 @@ final readonly class ListResidences implements ListResidencesContract
             status: Http::OK,
             residences: $pagination,
             message: string_value(value: $this->translator->get(key: 'residence::messages.listing.success')),
+            inventory: ['id', 'name', 'owner', 'poster', 'address', 'favoured', 'description', 'distance', 'location', 'rent'],
         );
     }
 }

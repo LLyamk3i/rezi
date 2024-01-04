@@ -21,9 +21,9 @@ final readonly class KeywordFilter implements FilterContract
         $attributes = ['residences.name', 'residences.address', 'residences.description'];
         $key = $this->payload;
 
-        $this->query->where(static function (Builder $query) use ($key, $attributes): void {
+        $this->query->where(column: static function (Builder $query) use ($key, $attributes): void {
             array_walk(array: $attributes, callback: static function (string $attribute) use ($query, $key): void {
-                $query->orWhere(static function (Builder $query) use ($key, $attribute): void {
+                $query->orWhere(column: static function (Builder $query) use ($key, $attribute): void {
                     $keys = explode(' ', $key);
                     array_walk(array: $keys, callback: static function (string $k) use ($query, $attribute): void {
                         $query->orWhere(column: $attribute, operator: 'LIKE', value: "%{$k}%");

@@ -56,17 +56,19 @@ final readonly class EloquentPaymentRepository implements PaymentRepository
     public function exists(Ulid $payment, Ulid $client): bool
     {
         return DB::table(table: 'payments')
-            ->where(['id' => $payment->value, 'user_id' => $client->value])
+            ->where(column: ['id' => $payment->value, 'user_id' => $client->value])
             ->exists();
     }
 
     public function update(Ulid $id, Payment $payment): bool
     {
-        $affected = DB::table(table: 'payments')->where('id', $id->value)->update(values: [
-            'status' => $payment->status->value,
-            'payed_at' => $payment->payed,
-            'updated_at' => now(),
-        ]);
+        $affected = DB::table(table: 'payments')
+            ->where(column: 'id', operator: '=', value: $id->value)
+            ->update(values: [
+                'status' => $payment->status->value,
+                'payed_at' => $payment->payed,
+                'updated_at' => now(),
+            ]);
 
         return $affected === 1;
     }

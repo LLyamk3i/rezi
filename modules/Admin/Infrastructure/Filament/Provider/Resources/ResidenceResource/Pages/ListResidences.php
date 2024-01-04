@@ -18,6 +18,6 @@ final class ListResidences extends ParentResidences
      */
     protected function getTableQuery(): Builder
     {
-        return Residence::query()->where('user_id', Auth::id());
+        return Residence::query()->where(column: 'user_id', operator: '=', value: Auth::id());
     }
 }

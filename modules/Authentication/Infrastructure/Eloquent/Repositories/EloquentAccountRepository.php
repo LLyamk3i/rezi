@@ -34,7 +34,7 @@ final readonly class EloquentAccountRepository implements AccountRepository
         /** @phpstan-var UserRecord|null $result */
         $result = $this->parent->find(
             columns: ['*'],
-            query: DB::table(table: 'users')->where('email', $email->value),
+            query: DB::table(table: 'users')->where(column: 'email', operator: '=', value: $email->value),
         );
 
         return \is_array(value: $result)
@@ -67,7 +67,7 @@ final readonly class EloquentAccountRepository implements AccountRepository
     public function verify(Ulid $id): bool
     {
         $affected = DB::table(table: 'users')
-            ->where('id', $id->value)
+            ->where(column: 'id', operator: '=', value: $id->value)
             ->update(values: ['email_verified_at' => (string) now()]);
 
         return $affected === 1;

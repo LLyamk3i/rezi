@@ -55,7 +55,7 @@ it(description: 'can generate payment id for transaction', closure: function ():
         'payed_at' => null,
     ]);
 
-    $payment = Payment::query()->where(['user_id' => $user->id, 'reservation_id' => $reservation->id])->first();
+    $payment = Payment::query()->where(column: ['user_id' => $user->id, 'reservation_id' => $reservation->id])->first();
 
     $response->assertJson(value: [
         'success' => true,
@@ -65,7 +65,7 @@ it(description: 'can generate payment id for transaction', closure: function ():
     ]);
 });
 
-it(description: 'can patch the payment record with new response from payment getaway', closure: static function (Status $status): void {
+it(description: 'can patch the payment record with new response from payment getaway', closure: function (Status $status): void {
 
     $user = User::factory()->verified()->create();
     $payment = Payment::factory()->client(model: $user)->create();
@@ -74,7 +74,7 @@ it(description: 'can patch the payment record with new response from payment get
 
     $response->assertAccepted();
 
-    $record = Payment::query()->where(['id' => $payment->id, 'user_id' => $user->id])->first();
+    $record = Payment::query()->where(column: ['id' => $payment->id, 'user_id' => $user->id])->first();
 
     if ($status === Status::Completed) {
         assertNotNull(actual: $record->payed_at);

@@ -24,7 +24,7 @@ it(description: 'can not find nearest residence', closure: function (): void {
 
     $response = getJson(uri: 'api/residences/nearest?' . http_build_query(data: [...(array) $location, 'radius' => $radius->value]));
 
-    $response->assertNotFound();
+    $response->assertBadRequest();
 
     $response->assertJson(value: [
         'success' => false,
@@ -39,7 +39,8 @@ it(description: 'can find nearest residence', closure: function (): void {
     $generator = new RandomPositionGeneratorService(location: $location, radius: $radius);
 
     $count = 10;
-    $residences = $others = [];
+    $residences = [];
+    $others = [];
 
     // Insert 10 positions within the radius
     for ($i = 1; $i <= $count; $i++) {

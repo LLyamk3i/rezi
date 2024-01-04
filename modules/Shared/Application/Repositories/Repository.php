@@ -16,7 +16,7 @@ interface Repository
      *
      * @return array<string,string|int|float>|null
      */
-    public function find(Builder $query, array $columns = []): null | array;
+    public function find(Builder $query, array $columns = ['*']): null | array;
 
     /**
      * @template H1
@@ -27,5 +27,5 @@ interface Repository
      *
      * @return PaginatedObject<H2>
      */
-    public function paginate(Builder $query, Page $page, HydratorContract $hydrator, array $columns = []): PaginatedObject;
+    public function paginate(Builder $query, Page $page, HydratorContract $hydrator, array $columns = ['*']): PaginatedObject;
 }

@@ -34,7 +34,7 @@ trait ResidenceStates
             return $this;
         }
 
-        return $this->state(state: ['location' => DB::raw("ST_PointFromText('POINT({$value->longitude} {$value->latitude})')")]);
+        return $this->state(state: ['location' => DB::raw("ST_PointFromText('POINT({$value->latitude} {$value->longitude})')")]);
     }
 
     public function id(string $value): self
