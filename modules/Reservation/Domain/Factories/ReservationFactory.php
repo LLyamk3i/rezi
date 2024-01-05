@@ -26,7 +26,7 @@ final class ReservationFactory
         return new Reservation(
             id: new Ulid(value: $data['id']),
             stay: $this->stay(data: $data),
-            owner: isset($data['user']) ? new Ulid(value: $data['owner']) : null,
+            owner: isset($data['user']) ? new Ulid(value: $data['user']) : null,
             cost: isset($data['cost']) ? new Ulid(value: $data['cost']) : null,
             status: isset($data['status']) ? Status::tryFrom(value: $data['status']) : null,
             residence: isset($data['residence']) ? new Ulid(value: $data['residence']) : null,

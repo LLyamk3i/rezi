@@ -30,13 +30,13 @@
 - [x] Utiliser le DTO PaginatedObject
 - [x] Utiliser le shared repository pour le find
 - [x] Créer une factory NearestResidencesQueryStatementFactory avec une méthode static make()
-- [] Rendre la vérification de disponibilité dans la recherche optionnel.
+- [x] Rendre la vérification de disponibilité dans la recherche optionnel.
 - [x] Permet l'ajout, la suppression et la récupération de favoris.
 - [x] Ajouter des vues.
 - [x] les residence proches:
   - [x] Supprimer la pagination.
   - [x] Retourner seulement le nom, l'address, la position et la distance.
-- [] Pointer le listage des residences sur le filtrage sans clé.
+- [x] Pointer le listage des residences sur le filtrage sans clé.
 - [x] Filtrer en fonction de:
   - [x] Latest
   - [x] types
@@ -44,13 +44,15 @@
   - [x] rent
   - [x] stay
   - [x] keyword
-- [] Créer un endpoint pour les détails d'une résidence:
+- [x] Créer un endpoint pour les détails d'une résidence:
   - [x] Le nombre de vue.
   - [x] Un booléen pour mis en favoris.
   - [x] Le poster.
   - [x] La gallérie.
   - [x] Les réservations.
+  - [x] Les avis.
 - [x] Permet l'appréciation d'une residence.
+- [] Ajouter le côté host
 
 ## Module Notification
 
@@ -72,6 +74,15 @@
 - [] Ajouter l'annulation de réservation.
 - [] Notifiez le propriétaire d'une nouvelle réservation.
 
+## Module Authentication
+
+- [x] Notifier un code OPT.
+- [x] Vérifier le compte avec le code OPT.
+- [x] Ajouter les champs:
+  - [x] carte d'identité (rector, verso).
+- [] Ajouter l'historique des réservations du client
+- [] Ajouter la confirmation du compte vérifier
+
 ## Module Admin
 
 - [] Ajouter les widgets cotés admin, provider.
@@ -83,13 +94,6 @@
 - [x] Ajouter ClientResource
 - [x] Ajouter la traduction dans le fichier fr.json
 - [x] Créer un ... contenant retournant [Hidden, FileUpload].
-
-## Module Authentication
-
-- [x] Notifier un code OPT.
-- [x] Vérifier le compte avec le code OPT.
-- [x] Ajouter les champs:
-  - [x] carte d'identité (rector, verso).
 
 ### ResidenceResource
 

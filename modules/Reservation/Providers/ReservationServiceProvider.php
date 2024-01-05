@@ -28,6 +28,6 @@ final class ReservationServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->register(provider: \Modules\Reservation\Providers\RouteServiceProvider::class);
+        $this->app->register(provider: RouteServiceProvider::class);
     }
 }

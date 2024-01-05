@@ -76,19 +76,19 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => \Modules\Authentication\Infrastructure\Models\User::class,
+            'model' => Modules\Authentication\Infrastructure\Models\User::class,
         ],
         'owner' => [
             'driver' => 'eloquent',
-            'model' => \Modules\Admin\Infrastructure\Models\Owner::class,
+            'model' => Modules\Admin\Infrastructure\Models\Owner::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => \Modules\Admin\Infrastructure\Models\Admin::class,
+            'model' => Modules\Admin\Infrastructure\Models\Admin::class,
         ],
         'providers' => [
             'driver' => 'eloquent',
-            'model' => \Modules\Admin\Infrastructure\Models\Provider::class,
+            'model' => Modules\Admin\Infrastructure\Models\Provider::class,
         ],
     ],
 

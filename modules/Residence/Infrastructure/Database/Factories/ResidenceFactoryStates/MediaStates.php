@@ -17,6 +17,9 @@ trait MediaStates
         );
     }
 
+    /**
+     * @throws \Random\RandomException
+     */
     public function gallery(): self
     {
         return $this->has(

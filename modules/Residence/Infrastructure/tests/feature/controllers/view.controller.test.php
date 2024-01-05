@@ -11,8 +11,8 @@ use function Pest\Laravel\postJson;
 use function Pest\Laravel\assertDatabaseHas;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'stores a new view residence', closure: function (): void {

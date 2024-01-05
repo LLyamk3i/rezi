@@ -200,12 +200,12 @@ return [
         /*
          * Modules Service Providers...
          */
-        \Modules\Authentication\Providers\AuthenticationServiceProvider::class,
-        \Modules\Shared\Providers\SharedServiceProvider::class,
-        \Modules\Residence\Providers\ResidenceServiceProvider::class,
-        \Modules\Reservation\Providers\ReservationServiceProvider::class,
-        \Modules\Admin\Providers\AdminServiceProvider::class,
-        \Modules\Payment\Providers\PaymentServiceProvider::class,
+        Modules\Authentication\Providers\AuthenticationServiceProvider::class,
+        Modules\Shared\Providers\SharedServiceProvider::class,
+        Modules\Residence\Providers\ResidenceServiceProvider::class,
+        Modules\Reservation\Providers\ReservationServiceProvider::class,
+        Modules\Admin\Providers\AdminServiceProvider::class,
+        Modules\Payment\Providers\PaymentServiceProvider::class,
     ],
 
     /*
@@ -221,7 +221,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Store' => Modules\Shared\Infrastructure\Facades\Store::class,
-        'ViteManifest' => \Modules\Admin\Infrastructure\Services\ViteManifestRetrieverService::class,
+        'ViteManifest' => Modules\Admin\Infrastructure\Services\ViteManifestRetrieverService::class,
     ])->toArray(),
 
 ];

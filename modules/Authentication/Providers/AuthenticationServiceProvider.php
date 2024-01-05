@@ -19,12 +19,12 @@ final class AuthenticationServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $bindings = [
+        Domain\UseCases\RegisterUser\RegisterUserContract::class => Application\UseCases\RegisterUser::class,
         Domain\Services\AuthenticatedUserService::class => Infrastructure\Services\AuthenticatedUserService::class,
         Domain\Actions\DispatchOneTimePasswordContract::class => Application\Actions\DispatchOneTimePassword::class,
         Domain\Contracts\CreateAccountManagerContract::class => Infrastructure\Managers\CreateAccountManager::class,
         Domain\Repositories\AuthRepository::class => Infrastructure\Eloquent\Repositories\EloquentAuthRepository::class,
         Domain\Contracts\VerifyUserAccessManagerContract::class => Infrastructure\Managers\VerifyUserAccessManager::class,
-        Domain\UseCases\RegisterUser\RegisterUserContract::class => Application\UseCases\RegisterUser\RegisterUser::class,
         Domain\Commands\RetrievesOneTimePasswordContract::class => Infrastructure\Commands\RetrievesOneTimePassword::class,
         Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract::class => Application\UseCases\VerifyUserAccount::class,
         Domain\Repositories\AccountRepository::class => Infrastructure\Eloquent\Repositories\EloquentAccountRepository::class,
@@ -47,6 +47,6 @@ final class AuthenticationServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(abstract: GenerateOneTimePasswordContract::class, concrete: static fn (): GenerateOneTimePassword => new GenerateOneTimePassword(generator: new NumberGenerator()));
-        $this->app->register(provider: \Modules\Authentication\Providers\RouteServiceProvider::class);
+        $this->app->register(provider: RouteServiceProvider::class);
     }
 }

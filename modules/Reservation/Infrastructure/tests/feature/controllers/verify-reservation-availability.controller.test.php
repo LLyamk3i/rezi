@@ -11,13 +11,13 @@ use function Pest\Laravel\actingAs;
 use function Modules\Shared\Infrastructure\Helpers\route;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'can verify availability of residence', closure: function (): void {
 
-    /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+    /** @var Illuminate\Contracts\Auth\Authenticatable $user */
     $user = User::factory()->create();
     $residence = Residence::factory()->create();
 

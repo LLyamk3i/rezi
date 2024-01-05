@@ -56,7 +56,7 @@ final class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Shared\Resources\UserResource\Pages\ManageUsers::route(path: '/'),
+            'index' => UserResource\Pages\ManageUsers::route(path: '/'),
         ];
     }
 }

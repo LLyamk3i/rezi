@@ -12,8 +12,8 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseCount;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'can rate residence', closure: function (): void {

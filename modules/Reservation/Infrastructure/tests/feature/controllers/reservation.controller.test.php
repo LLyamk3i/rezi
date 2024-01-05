@@ -16,8 +16,8 @@ use function Pest\Laravel\postJson;
 use function Pest\Laravel\assertDatabaseHas;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 test(description: 'an unauthenticated user cannot make a reservation', closure: function (): void {
@@ -27,7 +27,7 @@ test(description: 'an unauthenticated user cannot make a reservation', closure: 
 });
 
 it(description: 'can make reservation', closure: function (): void {
-    /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+    /** @var Illuminate\Contracts\Auth\Authenticatable $user */
     $user = User::factory()->create();
     $residence = Residence::factory()->visible()->create();
     $calculator = new CalculateReservationCostService();
@@ -39,8 +39,8 @@ it(description: 'can make reservation', closure: function (): void {
     ];
 
     $cost = $calculator->execute(price: new Price(value: $residence->rent), duration: new Duration(
-        end: new \DateTime(datetime: $data['checkout_date']),
-        start: new \DateTime(datetime: $data['checkin_date']),
+        end: new DateTime(datetime: $data['checkout_date']),
+        start: new DateTime(datetime: $data['checkin_date']),
     ));
 
     $response = actingAs(user: $user)->postJson(uri: '/api/reservations', data: $data);

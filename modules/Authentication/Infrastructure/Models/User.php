@@ -20,15 +20,6 @@ final class User extends Authenticatable implements MustVerifyEmail
     use \Laravel\Sanctum\HasApiTokens;
     use \Modules\Shared\Infrastructure\Concerns\Model\UserConcern;
 
-    /**
-     * @return MorphOne<Media>
-     */
-    public function avatar(): MorphOne
-    {
-        return $this->morphOne(related: Media::class, name: 'fileable')
-            ->where(column: 'type', operator: '=', value: EnumsMedia::Avatar);
-    }
-
     public static function query(): UserQueryBuilder
     {
         return parent::query();
@@ -42,19 +33,36 @@ final class User extends Authenticatable implements MustVerifyEmail
         return new UserQueryBuilder(query: $query);
     }
 
-    public static function factory(): UserFactory
+    /**
+     * @return MorphOne<Media>
+     */
+    public function avatar(): MorphOne
     {
-        return new UserFactory();
+        return $this->morphOne(related: Media::class, name: 'fileable')
+            ->where(column: 'type', operator: '=', value: EnumsMedia::Avatar);
     }
 
+    /**
+     * @return Attribute<string,null>
+     */
     public function name(): Attribute
     {
         return Attribute::make(
-            get: static fn (mixed $value, array $attributes): string => sprintf(
+            get: static fn (mixed $_, array $attributes): string => sprintf(
                 '%s %s',
                 $attributes['forename'],
                 $attributes['surname']
             ),
         );
+    }
+
+    public function phoneNumber(): Attribute
+    {
+        return Attribute::make(get: static fn (mixed $_, array $attributes): string => $attributes['phone']);
+    }
+
+    public static function factory(): UserFactory
+    {
+        return new UserFactory();
     }
 }

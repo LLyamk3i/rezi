@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Modules\Authentication\Infrastructure\Commands;
 
 use Illuminate\Support\Facades\Notification;
-use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Authentication\Domain\Entities\User as Entity;
+use Modules\Authentication\Infrastructure\Models\User as Model;
 use Modules\Authentication\Infrastructure\Notifications\OneTimePassword;
 use Modules\Authentication\Domain\Commands\SendOneTimePasswordNotificationContract;
 
@@ -14,13 +15,12 @@ final class SendOneTimePasswordNotification implements SendOneTimePasswordNotifi
     /**
      * @throws \RuntimeException
      */
-    public function handle(string $code, string $email): void
+    public function handle(string $code, Entity $user): void
     {
-        $user = new User(attributes: ['email' => $email]);
-
-        Notification::send(
-            notifiables: $user,
-            notification: new OneTimePassword(code: $code)
-        );
+        Notification::send(notification: new OneTimePassword(otp: $code), notifiables: new Model(attributes: [
+            'id' => $user->id,
+            'email' => $user->email,
+            'phone' => $user->phone,
+        ]));
     }
 }

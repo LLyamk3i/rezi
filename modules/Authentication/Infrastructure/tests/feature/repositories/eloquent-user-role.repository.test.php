@@ -10,8 +10,8 @@ use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Authentication\Infrastructure\Eloquent\Repositories\EloquentUserRoleRepository;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 // uses(
 //     \Tests\TestCase::class,

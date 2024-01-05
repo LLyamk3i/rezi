@@ -17,7 +17,7 @@ function route(string $path, array $queries): string
  *
  * @phpstan-param array<T|null> $array
  *
- * @phpstan-return array<T|null>
+ * @phpstan-return array<T>
  */
 function array_filter_filled(array $array): array
 {
@@ -28,13 +28,14 @@ function array_filter_filled(array $array): array
 }
 
 /**
- * @template T
+ * @template K
+ * @template V
  *
- * @phpstan-param array<T> $original
+ * @phpstan-param array<K,V> $original
  *
  * @param array<int,string> $keys
  *
- * @phpstan-return array<T>
+ * @phpstan-return array<K,V>
  */
 function array_pull_and_exclude(array &$original, array $keys): array
 {
@@ -46,5 +47,5 @@ function array_pull_and_exclude(array &$original, array $keys): array
         }
     }
 
-    return $result;
+    return array_filter_filled(array: $result);
 }

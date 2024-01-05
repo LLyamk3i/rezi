@@ -39,7 +39,7 @@ final class ReservationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Shared\Resources\ReservationResource\Pages\ManageReservations::route(path: '/'),
+            'index' => ReservationResource\Pages\ManageReservations::route(path: '/'),
         ];
     }
 }

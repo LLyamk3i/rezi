@@ -6,8 +6,10 @@ namespace Modules\Residence\Infrastructure\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Modules\Shared\Domain\Enums\Http;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Modules\Residence\Infrastructure\Models\Rating;
 
@@ -18,11 +20,11 @@ final class RatingController
     /**
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate(rules: [
+        Validator::validate(data: $request->all(), rules: [
             'comment' => 'string',
             'rating' => 'required|integer',
             'residence_id' => 'required|string|exists:residences,id',
@@ -31,7 +33,7 @@ final class RatingController
         $residence = string_value(value: $request->post(key: 'residence_id'));
 
         if (
-            Rating::query()
+            DB::table(table: 'ratings')
                 ->where(column: 'user_id', operator: '=', value: Auth::id())
                 ->where(column: 'residence_id', operator: '=', value: $residence)
                 ->exists()

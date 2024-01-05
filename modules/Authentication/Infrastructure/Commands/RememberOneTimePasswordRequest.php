@@ -12,7 +12,7 @@ final class RememberOneTimePasswordRequest implements RememberOneTimePasswordReq
     public function handle(string $email, string $code): void
     {
         Cache::remember(
-            key: "{$email}-one-time-password",
+            key: "{$email}-otp",
             ttl: (60 * 15), // 15 minutes,
             callback: static fn (): array => ['email' => $email, 'code' => $code],
         );

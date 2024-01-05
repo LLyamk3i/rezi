@@ -22,4 +22,15 @@ return [
     'profile' => [
         'update' => 'Votre profil a été mis à jour avec succès.',
     ],
+    'register' => [
+        'errors' => [
+            'creation' => "Échec de la création d'un utilisateur. Veuillez réessayer plus tard.",
+            'binding' => "Échec de l'association du rôle à l'utilisateur. Veuillez réessayer.",
+        ],
+        'success' => "L'enregistrement a été effectué avec succès. Vous pouvez maintenant vous connecter.",
+        'opt' => [
+            'sms' => "Votre code d'authentification est : :code. N'oubliez pas de ne pas partager ce code avec d'autres. Merci!",
+            'mail' => "Veuillez vérifier votre adresse électronique à l'aide du code suivant :",
+        ],
+    ],
 ];

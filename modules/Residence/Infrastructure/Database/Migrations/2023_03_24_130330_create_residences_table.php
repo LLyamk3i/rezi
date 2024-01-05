@@ -11,7 +11,7 @@ use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
 return new class extends Migration
 {
     /**
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function up(): void
     {
@@ -40,7 +40,7 @@ return new class extends Migration
     }
 
     /**
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function down(): void
     {

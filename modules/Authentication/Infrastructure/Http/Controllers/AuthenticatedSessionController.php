@@ -20,11 +20,11 @@ final class AuthenticatedSessionController
     /**
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(AuthenticatedSessionRequest $request): JsonResponse
     {
-        $user = User::query()->where(column: 'email', operator: '=', value: $request->input(key: 'email'))->first();
+        $user = User::query()->where(column: $request->access())->first();
 
         if (
             ! ($user instanceof User)

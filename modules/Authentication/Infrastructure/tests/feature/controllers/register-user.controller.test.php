@@ -13,8 +13,8 @@ use Modules\Authentication\Infrastructure\Database\Seeders\RoleTableSeeder;
 use function Pest\Laravel\postJson;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'can register user', closure: function (): void {
@@ -24,6 +24,7 @@ it(description: 'can register user', closure: function (): void {
         'surname' => 'test surname',
         'email' => 'test@example.com',
         'password' => 'password',
+        'phone' => fake()->phoneNumber(),
         'password_confirmation' => 'password',
     ];
 

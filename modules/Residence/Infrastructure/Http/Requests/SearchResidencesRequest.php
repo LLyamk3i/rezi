@@ -60,6 +60,9 @@ final class SearchResidencesRequest extends FormRequest
         );
     }
 
+    /**
+     * @return array<int,Ulid>
+     */
     private function ids(string $key): array
     {
         return array_map(
@@ -69,8 +72,6 @@ final class SearchResidencesRequest extends FormRequest
     }
 
     /**
-     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
-     *
      * @phpstan-return Search['rent']
      */
     private function rent(): array

@@ -9,7 +9,7 @@ use Modules\Shared\Domain\Exceptions\InvalidValueObjectException;
 final readonly class Otp implements \Stringable
 {
     /**
-     * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
+     * @throws InvalidValueObjectException
      */
     public function __construct(
         public string $value,

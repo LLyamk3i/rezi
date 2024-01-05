@@ -35,6 +35,7 @@ final class ResidenceServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->register(provider: \Modules\Residence\Providers\RouteServiceProvider::class);
+        $this->app->register(provider: EloquentServiceProvider::class);
+        $this->app->register(provider: RouteServiceProvider::class);
     }
 }

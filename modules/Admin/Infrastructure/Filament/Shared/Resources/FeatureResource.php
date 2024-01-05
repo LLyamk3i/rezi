@@ -65,7 +65,7 @@ final class FeatureResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Shared\Resources\FeatureResource\Pages\ManageFeatures::route(path: '/'),
+            'index' => FeatureResource\Pages\ManageFeatures::route(path: '/'),
         ];
     }
 }

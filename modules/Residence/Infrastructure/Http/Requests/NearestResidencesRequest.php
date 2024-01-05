@@ -23,10 +23,13 @@ final class NearestResidencesRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function approved(): Request
     {
         return new Request(
-            radius: new Radius(value: $this->integer(key: 'radius', default: '15')),
+            radius: new Radius(value: $this->integer(key: 'radius', default: 15)),
             location: new Location(
                 latitude: $this->float(key: 'latitude'),
                 longitude: $this->float(key: 'longitude')

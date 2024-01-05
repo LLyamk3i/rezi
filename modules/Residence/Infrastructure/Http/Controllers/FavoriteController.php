@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Modules\Shared\Domain\Enums\Http;
+use Illuminate\Support\Facades\Validator;
 use Modules\Residence\Infrastructure\Models\Favorite;
 use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Residence\Infrastructure\Http\Resources\FavoriteResidenceResource;
@@ -39,7 +40,7 @@ final class FavoriteController
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate(rules: ['residence_id' => 'required|string|exists:residences,id']);
+        Validator::validate(data: $request->all(), rules: ['residence_id' => 'required|string|exists:residences,id']);
 
         try {
             Favorite::query()->create(attributes: [

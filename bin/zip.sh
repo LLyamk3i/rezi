@@ -1,12 +1,16 @@
 #!/bin/bash
+
+echo $1
 source ./bin/functions.sh
 
 rm *.zip
 rm -r public/storage
 
-composer u --no-dev
+# composer u --no-dev
 
-FILENAME=$(get_app_name)
+./bin/version/versioning.sh
+
+FILENAME="$(jq '.version' composer.json | tr -d \")-$(get_app_name)"
 
 case "$1" in
 

@@ -10,7 +10,7 @@ use Modules\Authentication\Domain\Exceptions\OneTimePasswordGenerationException;
 final class NumberGenerator implements GeneratorContract
 {
     /**
-     * @throws \Modules\Authentication\Domain\Exceptions\OneTimePasswordGenerationException
+     * @throws OneTimePasswordGenerationException
      */
     public function generate(): string
     {

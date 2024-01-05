@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Modules\Shared\Domain\Enums\Http;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Modules\Residence\Infrastructure\Models\View;
 
@@ -16,12 +17,13 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 final class ViewController
 {
     /**
+     * @throws \RuntimeException
      * @throws \InvalidArgumentException
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate(rules: [
+        Validator::validate(data: $request->all(), rules: [
             'device_name' => 'required|string',
             'device_token' => 'required|string',
             'residence_id' => 'required|string|exists:residences,id',

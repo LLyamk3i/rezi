@@ -11,7 +11,7 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 return new class extends Migration
 {
     /**
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function up(): void
     {
@@ -37,7 +37,7 @@ return new class extends Migration
     }
 
     /**
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function down(): void
     {

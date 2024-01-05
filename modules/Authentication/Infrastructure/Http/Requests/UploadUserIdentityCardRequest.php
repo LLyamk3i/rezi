@@ -22,7 +22,7 @@ use function Modules\Shared\Infrastructure\Helpers\string_value;
 final class UploadUserIdentityCardRequest extends FormRequest
 {
     /**
-     * @return array{'card.recto':string,'card.verso':string}
+     * @return array{card_recto:string,card_verso:string,document_type:string}
      */
     public function rules(): array
     {

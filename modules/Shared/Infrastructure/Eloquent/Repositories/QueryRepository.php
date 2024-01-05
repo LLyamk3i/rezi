@@ -20,7 +20,11 @@ final class QueryRepository implements Repository
     public function find(Builder $query, array $columns = ['*']): null | array
     {
         /** @var \Illuminate\Database\Query\Builder $query */
-        return $query->limit(value: 1)->get(columns: $columns)->first();
+        $result = $query->limit(value: 1)->get(columns: $columns)->first();
+        if (\is_array($result)) {
+            return $result;
+        }
+
     }
 
     /**

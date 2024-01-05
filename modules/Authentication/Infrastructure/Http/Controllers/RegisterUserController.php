@@ -4,33 +4,21 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Infrastructure\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-use Modules\Shared\Domain\Enums\Http;
+use Modules\Shared\Infrastructure\Http\JsonResponse;
 use Modules\Authentication\Infrastructure\Http\Requests\RegisterUserRequest;
 use Modules\Authentication\Domain\UseCases\RegisterUser\RegisterUserContract;
-use Modules\Authentication\Application\UseCases\RegisterUser\RegisterUserJsonPresenter;
 
 final class RegisterUserController
 {
     /**
+     * @see \Modules\Authentication\Application\UseCases\RegisterUser
+     *
      * @throws \InvalidArgumentException
      */
-    public function __invoke(
-        RegisterUserRequest $request,
-        RegisterUserContract $useCase,
-        RegisterUserJsonPresenter $presenter,
-    ): JsonResponse {
-
-        $useCase->execute(request: $request->approved(), presenter: $presenter);
-
-        $json = $presenter->viewModel();
-
+    public function __invoke(RegisterUserRequest $request, RegisterUserContract $register): JsonResponse
+    {
         return new JsonResponse(
-            status: $json->success ? Http::CREATED->value : Http::BAD_REQUEST->value,
-            data: [
-                'success' => $json->success,
-                'message' => $json->message,
-            ],
+            response: $register->execute(request: $request->approved())
         );
     }
 }

@@ -16,8 +16,8 @@ use function Pest\Laravel\postJson;
 use function Modules\Shared\Infrastructure\Helpers\route;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 test(description: 'search residences by keyword', closure: function (): void {
@@ -50,8 +50,8 @@ test(description: 'search residences by keyword', closure: function (): void {
 
 test(description: 'search residences by stay', closure: function (): void {
     $stay = new Duration(
-        start: new \DateTime(datetime: now()->toString()),
-        end: new \DateTime(datetime: now()->addDays(value: 8)->toString())
+        start: new DateTime(datetime: now()->toString()),
+        end: new DateTime(datetime: now()->addDays(value: 8)->toString())
     );
     $residences = Residence::factory()->owner()->visible()->count(count: 5)->create();
     $searchables = $residences->slice(offset: 1);

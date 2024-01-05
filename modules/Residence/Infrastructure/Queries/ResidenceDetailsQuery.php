@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Query\JoinClause;
 use Modules\Residence\Domain\Enums\Media;
+use Modules\Residence\Domain\Entities\Type;
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Residence\Domain\Factories\TypeFactory;
@@ -21,7 +22,6 @@ use Modules\Residence\Domain\Entities\Residence as Entity;
 use Modules\Reservation\Domain\Hydrators\ReservationHydrator;
 use Modules\Residence\Infrastructure\Factories\ColumnsFactory;
 use Modules\Residence\Infrastructure\Models\Residence as Model;
-
 use Modules\Residence\Infrastructure\Factories\ResidenceQueryFactory;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
@@ -42,6 +42,9 @@ final readonly class ResidenceDetailsQuery
         //
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function run(Ulid $id): Entity | null
     {
         $residence = $this->repository->find(
@@ -56,14 +59,10 @@ final readonly class ResidenceDetailsQuery
         }
 
         $residence_id = string_value(value: $residence['id']);
-        $type = $this->type->make(data: array_pull_and_exclude(original: $residence, keys: ['type_name', 'type_id']));
-        $reviews = $this->reviews(residence: $residence_id);
 
         return $this->residence->make(data: [
             ...$residence,
-            'type' => $type,
-            'note' => $reviews['note'],
-            'ratings' => $reviews['ratings'],
+            ...$this->reviews(residence: $residence_id),
             'poster' => $residence['poster'],
             'view' => $this->view(residence: $residence_id),
             'gallery' => $this->gallery(residence: $residence_id),
@@ -71,9 +70,22 @@ final readonly class ResidenceDetailsQuery
             'favoured' => $this->favoured(residence: $residence_id),
             'reservations' => $this->reservations(residence: $residence_id),
             'owner_avatar' => $this->avatar(owner: $residence['owner_id']),
+            'type' => $this->type(data: array_pull_and_exclude(original: $residence, keys: ['type_name', 'type_id'])),
         ]);
     }
 
+    private function type(array $data): null | Type
+    {
+        if ($data === []) {
+            return null;
+        }
+
+        return $this->type->make(data: $data);
+    }
+
+    /**
+     * @throws \RuntimeException
+     */
     private function favoured(string $residence): bool
     {
         if (Auth::check()) {

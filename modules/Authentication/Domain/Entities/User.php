@@ -13,9 +13,22 @@ final readonly class User
         public string $forename,
         public string $surname,
         public string $email,
-        public null | string $password = null,
+        public string $phone,
         public bool $verified = false,
+        public null | string $password = null,
     ) {
         //
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'forename' => $this->forename,
+            'surname' => $this->surname,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'verified' => $this->verified,
+        ];
     }
 }

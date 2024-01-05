@@ -16,8 +16,8 @@ final class AppServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->register(provider: \App\Providers\EloquentServiceProvider::class);
-        $this->app->register(provider: \App\Providers\DatabaseServiceProvider::class);
+        $this->app->register(provider: EloquentServiceProvider::class);
+        $this->app->register(provider: DatabaseServiceProvider::class);
 
         if (\boolval(value: $this->app->environment('production'))) {
             return;
@@ -25,7 +25,7 @@ final class AppServiceProvider extends ServiceProvider
 
         if (class_exists(class: \Laravel\Telescope\TelescopeServiceProvider::class)) {
             $this->app->register(provider: \Laravel\Telescope\TelescopeServiceProvider::class);
-            $this->app->register(provider: \App\Providers\TelescopeServiceProvider::class);
+            $this->app->register(provider: TelescopeServiceProvider::class);
         }
     }
 }

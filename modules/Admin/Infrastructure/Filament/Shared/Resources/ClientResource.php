@@ -57,7 +57,7 @@ final class ClientResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Shared\Resources\ClientResource\Pages\ManageClients::route(path: '/'),
+            'index' => ClientResource\Pages\ManageClients::route(path: '/'),
         ];
     }
 }

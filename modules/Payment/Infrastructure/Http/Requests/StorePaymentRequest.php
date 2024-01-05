@@ -32,7 +32,7 @@ final class StorePaymentRequest extends FormRequest
      */
     public function approved(): GeneratePaymentKeyRequest
     {
-        /** @var \Modules\Authentication\Domain\Services\AuthenticatedUserService $service */
+        /** @var AuthenticatedUserService $service */
         $service = resolve(AuthenticatedUserService::class);
 
         return new GeneratePaymentKeyRequest(

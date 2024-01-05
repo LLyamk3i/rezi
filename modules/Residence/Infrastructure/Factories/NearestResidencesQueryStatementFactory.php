@@ -14,13 +14,6 @@ use Modules\Residence\Domain\ValueObjects\Distance as Radius;
  */
 final class NearestResidencesQueryStatementFactory
 {
-    /**
-     * @phpstan-var Statements
-     */
-    private const RAW_STATEMENTS = [
-        'where' => 'MBRContains(LineString(Point(:lng + :rad / (111.320 * COS(RADIANS(:lat))), :lat + :rad / 111.133),Point(:lng - :rad / (111.320 * COS(RADIANS(:lat))), :lat - :rad / 111.133)), location)',
-    ];
-
     public function __construct(
         private readonly Radius $radius,
         private readonly Location $location,

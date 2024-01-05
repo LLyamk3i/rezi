@@ -13,8 +13,8 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'can save and register uploaded user identity card', closure: function (): void {

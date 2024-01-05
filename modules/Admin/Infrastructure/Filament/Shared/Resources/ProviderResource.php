@@ -44,7 +44,7 @@ final class ProviderResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Shared\Resources\ProviderResource\Pages\ManageProviders::route(path: '/'),
+            'index' => ProviderResource\Pages\ManageProviders::route(path: '/'),
         ];
     }
 }

@@ -14,8 +14,8 @@ use function Modules\Shared\Infrastructure\Helpers\using_sqlite;
 use function Modules\Shared\Infrastructure\Helpers\residence_factory;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'can not find nearest residence', closure: function (): void {

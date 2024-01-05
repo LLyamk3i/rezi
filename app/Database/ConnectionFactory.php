@@ -20,7 +20,7 @@ final class ConnectionFactory extends DatabaseConnectionFactory
      * @param string              $prefix
      * @param array<string,mixed> $config
      *
-     * @return \Illuminate\Database\Connection
+     * @return Connection
      *
      * @throws \InvalidArgumentException
      */

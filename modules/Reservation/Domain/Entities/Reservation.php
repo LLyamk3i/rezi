@@ -10,7 +10,7 @@ use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Shared\Domain\ValueObjects\Duration;
 
 /**
- * @phpstan-type ReservationFormat array{}
+ * @phpstan-type ReservationFormat array{id:string,owner:string|null,cost:float|null,stay:array{start:string,end:string},status:'cancelled'|'completed'|'confirmed'|'pending'|null,residence:string|null}
  */
 final readonly class Reservation
 {

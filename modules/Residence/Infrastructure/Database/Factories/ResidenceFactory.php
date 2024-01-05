@@ -20,7 +20,6 @@ use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Reservation\Infrastructure\Models\Reservation;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
 
-use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
 use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
 
 /**
@@ -30,9 +29,9 @@ use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
  */
 final class ResidenceFactory extends Factory
 {
-    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\MediaStates;
-    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\RatingStates;
-    use \Modules\Residence\Infrastructure\Database\Factories\ResidenceFactoryStates\ResidenceStates;
+    use ResidenceFactoryStates\MediaStates;
+    use ResidenceFactoryStates\RatingStates;
+    use ResidenceFactoryStates\ResidenceStates;
 
     protected $model = Residence::class;
 
@@ -48,14 +47,14 @@ final class ResidenceFactory extends Factory
     {
         if (\is_null(value: $this->service)) {
             $this->service = new RandomPositionGeneratorService(
-                location: new Location(latitude: 7.662327159867307, longitude: -5.571228414825439),
                 radius: new Distance(value: 396.23),
+                location: new Location(latitude: 7.662327159867307, longitude: -5.571228414825439),
             );
         }
 
         $coordinates = $this->service->execute();
 
-        return array_filter_filled(array: [
+        return [
             'id' => Ulid::generate(),
             'name' => fake()->streetAddress(),
             'address' => fake()->address(),
@@ -64,11 +63,11 @@ final class ResidenceFactory extends Factory
             'description' => fake()->sentence(),
             'visible' => random_int(min: 0, max: 1),
             'rooms' => random_int(min: 1, max: 6),
-            'created_at' => (string) now(),
             'user_id' => Ulid::generate(),
             'type_id' => Ulid::generate(),
+            'created_at' => (string) now(),
             'updated_at' => (string) now(),
-        ]);
+        ];
     }
 
     public function owner(): self
@@ -124,7 +123,7 @@ final class ResidenceFactory extends Factory
     private function coordinates(array $value): null | Expression
     {
         if (can_use_spatial_index()) {
-            return DB::raw("ST_PointFromText('POINT({$value['latitude']} {$value['longitude']})')");
+            return DB::raw(value: "ST_PointFromText('POINT({$value['latitude']} {$value['longitude']})')");
         }
 
         return null;

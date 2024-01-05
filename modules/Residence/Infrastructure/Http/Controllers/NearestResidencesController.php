@@ -13,6 +13,9 @@ use Modules\Residence\Domain\UseCases\NearestResidences\NearestResidencesContrac
  */
 final class NearestResidencesController
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function __invoke(NearestResidencesRequest $request, NearestResidencesContract $useCase): ResidenceResponse
     {
         return new ResidenceResponse(

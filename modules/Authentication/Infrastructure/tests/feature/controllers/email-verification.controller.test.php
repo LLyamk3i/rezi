@@ -10,8 +10,8 @@ use function Pest\Laravel\patchJson;
 use function PHPUnit\Framework\assertNotNull;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'can verify user account', closure: function (): void {

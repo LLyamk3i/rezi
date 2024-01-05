@@ -8,8 +8,8 @@ use Modules\Residence\Infrastructure\Models\Feature;
 use function Pest\Laravel\getJson;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 test(description: 'listing all residence features', closure: function (): void {

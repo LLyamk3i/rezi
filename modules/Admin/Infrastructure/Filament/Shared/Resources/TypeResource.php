@@ -7,7 +7,6 @@ namespace Modules\Admin\Infrastructure\Filament\Shared\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Resources\Resource;
-use Modules\Admin\Infrastructure\Filament\Shared;
 use Modules\Residence\Infrastructure\Models\Type;
 
 final class TypeResource extends Resource
@@ -48,7 +47,7 @@ final class TypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Shared\Resources\TypeResource\Pages\ManageTypes::route(path: '/'),
+            'index' => TypeResource\Pages\ManageTypes::route(path: '/'),
         ];
     }
 }

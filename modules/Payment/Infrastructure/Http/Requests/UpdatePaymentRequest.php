@@ -30,7 +30,7 @@ final class UpdatePaymentRequest extends FormRequest
      */
     public function approved(): Request
     {
-        /** @var \Modules\Authentication\Domain\Services\AuthenticatedUserService $service */
+        /** @var AuthenticatedUserService $service */
         $service = resolve(AuthenticatedUserService::class);
 
         $status = $this->enum(key: 'status', enumClass: Status::class);

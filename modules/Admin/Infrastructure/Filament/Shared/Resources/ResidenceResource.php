@@ -29,11 +29,11 @@ class ResidenceResource extends Resource
             Forms\Components\TextInput::make(name: 'rent')->required()->numeric()->translateLabel()->prefix(label: 'Franc FCFA'),
             Forms\Components\TextInput::make(name: 'address')->required()->translateLabel(),
             Forms\Components\TextInput::make(name: 'rooms')->required()->numeric()->translateLabel()->minValue(value: 1)->maxValue(value: 8),
-            Shared\Resources\ResidenceResource\Fields\TypeField::make(),
-            Shared\Resources\ResidenceResource\Fields\FeaturesField::make(),
+            ResidenceResource\Fields\TypeField::make(),
+            ResidenceResource\Fields\FeaturesField::make(),
             Forms\Components\Textarea::make(name: 'description')->columnSpanFull(),
-            Shared\Resources\ResidenceResource\Fields\PosterField::make(),
-            Shared\Resources\ResidenceResource\Fields\LocationField::make(),
+            ResidenceResource\Fields\PosterField::make(),
+            ResidenceResource\Fields\LocationField::make(),
         ]);
     }
 
@@ -47,7 +47,7 @@ class ResidenceResource extends Resource
                 Tables\Columns\TextColumn::make(name: 'address')->searchable()->translateLabel(),
                 Tables\Columns\TextColumn::make(name: 'description')->searchable()->toggleable(isToggledHiddenByDefault: true),
                 Shared\Tables\Columns\VisibilityColumn::make(name: 'visible')->sortable(),
-                Shared\Resources\ResidenceResource\Tables\Columns\ProviderColumn::make(),
+                ResidenceResource\Tables\Columns\ProviderColumn::make(),
                 Shared\Tables\Columns\DateTimeColumn::make(name: 'created_at')->translateLabel(),
                 Shared\Tables\Columns\DateTimeColumn::make(name: 'updated_at')->translateLabel(),
             ]))
@@ -56,7 +56,7 @@ class ResidenceResource extends Resource
             ])
             ->actions(actions: array_filter(array: [
                 Tables\Actions\EditAction::make(),
-                Shared\Resources\ResidenceResource\Tables\Actions\ToggleResidenceVisibilityAction::make(),
+                ResidenceResource\Tables\Actions\ToggleResidenceVisibilityAction::make(),
             ]))
             ->bulkActions(actions: [
                 Tables\Actions\DeleteBulkAction::make(),
@@ -69,7 +69,7 @@ class ResidenceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            Shared\Resources\ResidenceResource\RelationManagers\GalleryRelationManager::class,
+            ResidenceResource\RelationManagers\GalleryRelationManager::class,
         ];
     }
 
@@ -79,9 +79,9 @@ class ResidenceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Shared\Resources\ResidenceResource\Pages\ListResidences::route(path: '/'),
-            'create' => Shared\Resources\ResidenceResource\Pages\CreateResidence::route(path: '/create'),
-            'edit' => Shared\Resources\ResidenceResource\Pages\EditResidence::route(path: '/{record}/edit'),
+            'index' => ResidenceResource\Pages\ListResidences::route(path: '/'),
+            'create' => ResidenceResource\Pages\CreateResidence::route(path: '/create'),
+            'edit' => ResidenceResource\Pages\EditResidence::route(path: '/{record}/edit'),
         ];
     }
 }

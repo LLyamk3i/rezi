@@ -13,16 +13,15 @@ use function Pest\Laravel\deleteJson;
 use function PHPUnit\Framework\assertCount;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-test(description: 'user can login', closure: function (): void {
-
-    $user = User::factory()->avatar()->create();
+test(description: 'user can login', closure: function ($access): void {
+    $user = User::factory()->state(state: $access)->avatar()->create();
 
     $response = postJson(uri: '/api/auth/login', data: [
-        'email' => $user->email,
+        ...$access,
         'device' => 'test',
         'password' => 'password',
     ]);
@@ -43,7 +42,10 @@ test(description: 'user can login', closure: function (): void {
 
         return true;
     });
-});
+})->with(data: [
+    'phone' => fn () => ['phone' => fake()->phoneNumber()],
+    'email' => fn () => ['email' => fake()->safeEmail()],
+]);
 
 test(description: 'users can not authenticate with invalid password', closure: function (): void {
     $user = User::factory()->create();

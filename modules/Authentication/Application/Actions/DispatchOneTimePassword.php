@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Application\Actions;
 
+use Modules\Authentication\Domain\Entities\User;
 use Modules\Authentication\Domain\Actions\DispatchOneTimePasswordContract;
 use Modules\Authentication\Domain\Commands\GenerateOneTimePasswordContract;
 use Modules\Authentication\Domain\Commands\RememberOneTimePasswordRequestContract;
@@ -13,17 +14,17 @@ final readonly class DispatchOneTimePassword implements DispatchOneTimePasswordC
 {
     public function __construct(
         private GenerateOneTimePasswordContract $code,
-        private SendOneTimePasswordNotificationContract $notification,
         private RememberOneTimePasswordRequestContract $remember,
+        private SendOneTimePasswordNotificationContract $notification,
     ) {
         //
     }
 
-    public function execute(string $email): void
+    public function execute(User $user): void
     {
-        tap(value: $this->code->handle(), callback: function (string $code) use ($email): void {
-            $this->notification->handle(code: $code, email: $email);
-            $this->remember->handle(email: $email, code: $code);
+        tap(value: $this->code->handle(), callback: function (string $code) use ($user): void {
+            $this->notification->handle(code: $code, user: $user);
+            $this->remember->handle(email: $user->email, code: $code);
         });
     }
 }

@@ -31,7 +31,11 @@ trait RatingStates
                 return $diff < 0 ? [...$result, ...$factory($diff)] : $result->toArray();
             });
 
-            return $list[$time];
+            $result = $list[$time];
+
+            throw_if(condition: ! \is_string(value: $result));
+
+            return $result;
         };
 
         return $this->has(

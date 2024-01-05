@@ -13,8 +13,8 @@ use function Pest\Laravel\assertDatabaseHas;
 use function PHPUnit\Framework\assertNotNull;
 
 uses(
-    \Tests\TestCase::class,
-    \Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Tests\TestCase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
 it(description: 'must reject payment attempt from non owner reservation', closure: function (): void {

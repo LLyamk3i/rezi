@@ -36,7 +36,7 @@ final class Admin extends Authenticatable implements FilamentUser, HasName
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        /** @var \Modules\Authentication\Domain\Contracts\VerifyUserAccessManagerContract $verify */
+        /** @var VerifyUserAccessManagerContract $verify */
         $verify = app(abstract: VerifyUserAccessManagerContract::class);
 
         return $verify->admin(user: make_ulid_value(value: $this->id));
