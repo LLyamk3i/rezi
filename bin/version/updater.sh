@@ -31,6 +31,6 @@ fi
 
 
 git add composer.json package.json
-git commit --amend --no-edit -n
+git commit --only composer.json package.json --amend --no-edit -n
 
 echo "Updated version: $version"
