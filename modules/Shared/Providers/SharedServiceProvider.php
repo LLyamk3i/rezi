@@ -31,7 +31,7 @@ final class SharedServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $singletons = [
-        Domain\Contracts\StoreContract::class => Infrastructure\Supports\Store::class,
+        Domain\Supports\StoreContract::class => Infrastructure\Supports\Store::class,
     ];
 
     public function boot(): void

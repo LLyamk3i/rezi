@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Admin\Infrastructure\Services;
 
-use Modules\Shared\Domain\Contracts\StoreContract;
+use Modules\Shared\Domain\Supports\StoreContract;
 use Modules\Admin\Application\ViewModels\LoginPageViewModel;
 use Modules\Admin\Infrastructure\Database\Records\AdminRecord;
 use Modules\Admin\Infrastructure\Database\Records\OwnerRecord;

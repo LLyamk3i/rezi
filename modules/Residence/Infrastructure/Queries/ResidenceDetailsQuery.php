@@ -43,6 +43,7 @@ final readonly class ResidenceDetailsQuery
     }
 
     /**
+     * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function run(Ulid $id): Entity | null
@@ -69,11 +70,16 @@ final readonly class ResidenceDetailsQuery
             'features' => $this->features(residence: $residence_id),
             'favoured' => $this->favoured(residence: $residence_id),
             'reservations' => $this->reservations(residence: $residence_id),
-            'owner_avatar' => $this->avatar(owner: $residence['owner_id']),
+            'owner_avatar' => $this->avatar(owner: string_value(value: $residence['owner_id'])),
             'type' => $this->type(data: array_pull_and_exclude(original: $residence, keys: ['type_name', 'type_id'])),
         ]);
     }
 
+    /**
+     * @param array<string,string> $data
+     *
+     * @throws \InvalidArgumentException
+     */
     private function type(array $data): null | Type
     {
         if ($data === []) {

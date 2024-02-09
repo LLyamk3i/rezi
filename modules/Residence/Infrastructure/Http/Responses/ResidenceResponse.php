@@ -6,7 +6,7 @@ namespace Modules\Residence\Infrastructure\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Support\Responsable;
-use Modules\Shared\Domain\Contracts\StoreContract;
+use Modules\Shared\Domain\Supports\StoreContract;
 use Modules\Residence\Infrastructure\Resources\ResidenceResource;
 use Modules\Residence\Domain\UseCases\ResidencesResponse as UseCasesResidencesResponse;
 

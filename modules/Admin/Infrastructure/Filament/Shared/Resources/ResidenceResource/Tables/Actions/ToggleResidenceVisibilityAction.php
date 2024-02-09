@@ -6,7 +6,6 @@ namespace Modules\Admin\Infrastructure\Filament\Shared\Resources\ResidenceResour
 
 use Filament\Tables\Actions\Action;
 use Modules\Residence\Infrastructure\Models\Residence;
-
 use Modules\Admin\Infrastructure\Filament\Shared\Tables\Actions\ToggleVisibilityAction;
 
 final class ToggleResidenceVisibilityAction
@@ -15,7 +14,16 @@ final class ToggleResidenceVisibilityAction
     {
         return ToggleVisibilityAction::make()
             ->action(action: static fn (Residence $record) => $record->visible()->toggle())
-            ->modalHeading(heading: 'désactivé la residence')
-            ->tooltip(tooltip: static fn (Residence $record): string => ($record->visible()->value() ? 'désactive' : 'active') . ' la residence');
+            ->modalHeading(heading: static fn (Residence $record): string => self::instruction(residence: $record))
+            ->tooltip(tooltip: static fn (Residence $record): string => self::instruction(residence: $record));
+    }
+
+    private static function instruction(Residence $residence): string
+    {
+        if ($residence->visible()->value()) {
+            return trans(key: 'admin::messages.modals.disable');
+        }
+
+        return trans(key: 'admin::messages.modals.enable');
     }
 }

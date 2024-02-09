@@ -9,7 +9,6 @@ use Filament\Tables;
 use Filament\Resources\Resource;
 use Modules\Admin\Infrastructure\Filament\Shared;
 use Modules\Residence\Infrastructure\Models\Residence;
-use Modules\Admin\Infrastructure\Enums\Libraries\Labels;
 
 class ResidenceResource extends Resource
 {
@@ -41,9 +40,9 @@ class ResidenceResource extends Resource
     {
         return $table
             ->columns(components: array_filter(array: [
-                Tables\Columns\ImageColumn::make(name: 'poster.path')->toggleable()->label(label: Labels::Poster->value),
+                ResidenceResource\Tables\Columns\PosterColumn::make(),
                 Tables\Columns\TextColumn::make(name: 'name')->sortable()->searchable()->translateLabel(),
-                Tables\Columns\TextColumn::make(name: 'rent')->money()->searchable()->sortable()->translateLabel()->toggleable(isToggledHiddenByDefault: true),
+                ResidenceResource\Tables\Columns\RentColumn::make(),
                 Tables\Columns\TextColumn::make(name: 'address')->searchable()->translateLabel(),
                 Tables\Columns\TextColumn::make(name: 'description')->searchable()->toggleable(isToggledHiddenByDefault: true),
                 Shared\Tables\Columns\VisibilityColumn::make(name: 'visible')->sortable(),

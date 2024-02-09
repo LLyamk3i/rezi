@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shared\Domain\Contracts;
+namespace Modules\Shared\Domain\Supports;
 
 interface StoreContract
 {

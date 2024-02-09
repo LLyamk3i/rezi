@@ -4,5 +4,5 @@ declare(strict_types=1);
 
 return [
     'hash' => 'sha512',
-    'disk' => 'local',
+    'disk' => 'private',
 ];

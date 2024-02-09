@@ -38,6 +38,14 @@ return [
             'throw' => false,
         ],
 
+        'private' => [
+            'driver' => 'local',
+            'root' => storage_path(path: 'app/private'),
+            'url' => env(key: 'APP_URL') . '/private',
+            'visibility' => 'private',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path(path: 'app/public'),
@@ -72,6 +80,7 @@ return [
     */
 
     'links' => [
+        public_path(path: 'private') => storage_path(path: 'app/private'),
         public_path(path: 'storage') => storage_path(path: 'app/public'),
     ],
 

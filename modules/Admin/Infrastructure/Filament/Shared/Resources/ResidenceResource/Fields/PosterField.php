@@ -22,26 +22,33 @@ final class PosterField
     {
         return Fieldset::make(label: 'photo')
             ->relationship(name: 'poster')
-            ->mutateRelationshipDataBeforeCreateUsing(callback: static function (array $data): array {
-                /** @var \Illuminate\Filesystem\FilesystemAdapter $storage */
-                $storage = Storage::disk(name: $disk = string_value(value: config(key: 'app.upload.disk')));
-                $path = $storage->path(path: string_value(value: $data['path']));
-                $name = File::basename(path: $path);
-
-                return [
-                    ...$data,
-                    'disk' => $disk,
-                    'name' => $name,
-                    'original' => $name,
-                    'size' => File::size(path: $path),
-                    'mime' => File::mimeType(path: $path),
-                    'hash' => File::hash(path: $path, algorithm: string_value(value: config(key: 'app.upload.hash'))),
-                ];
-            })
+            ->mutateRelationshipDataBeforeCreateUsing(callback: self::mutate())
+            ->mutateRelationshipDataBeforeSaveUsing(callback: self::mutate())
             ->schema(components: MediaUpload::make(
                 type: Media::Poster,
                 directory: Directories::Residence,
                 required: true,
+                mimes: ['image/jpeg', 'image/jpg', 'image/png'],
             ));
+    }
+
+    private static function mutate(): callable
+    {
+        return static function (array $data): array {
+            /** @var \Illuminate\Filesystem\FilesystemAdapter $storage */
+            $storage = Storage::disk(name: $disk = string_value(value: config(key: 'app.upload.disk')));
+            $path = $storage->path(path: string_value(value: $data['path']));
+            $name = File::basename(path: $path);
+
+            return [
+                ...$data,
+                'disk' => $disk,
+                'name' => $name,
+                'original' => $name,
+                'size' => File::size(path: $path),
+                'mime' => File::mimeType(path: $path),
+                'hash' => File::hash(path: $path, algorithm: string_value(value: config(key: 'app.upload.hash'))),
+            ];
+        };
     }
 }

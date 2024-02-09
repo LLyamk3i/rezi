@@ -7,7 +7,7 @@ namespace Modules\Residence\Infrastructure\Resources;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Modules\Shared\Domain\Contracts\StoreContract;
+use Modules\Shared\Domain\Supports\StoreContract;
 use Modules\Shared\Infrastructure\Factories\ImageUrlFactory;
 
 use Modules\Reservation\Infrastructure\Resources\ReservationResource;

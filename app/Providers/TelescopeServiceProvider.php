@@ -10,9 +10,6 @@ use Laravel\Telescope\TelescopeApplicationServiceProvider;
 
 final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         Telescope::night();
@@ -53,9 +50,9 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             return;
         }
 
-        Telescope::hideRequestParameters(['_token']);
+        Telescope::hideRequestParameters(attributes: ['_token']);
 
-        Telescope::hideRequestHeaders([
+        Telescope::hideRequestHeaders(headers: [
             'cookie',
             'x-csrf-token',
             'x-xsrf-token',

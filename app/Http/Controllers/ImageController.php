@@ -6,20 +6,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use League\Glide\ServerFactory;
-use Illuminate\Filesystem\FilesystemAdapter;
+use Modules\Shared\Domain\Enums\Http;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use League\Glide\Responses\LaravelResponseFactory;
+use Modules\Shared\Infrastructure\Services\ImagePathVerificationService;
 
 final class ImageController
 {
+    public function __construct(
+        private readonly Filesystem $filesystem,
+        private readonly ImagePathVerificationService $service,
+    ) {
+        //
+    }
+
     /**
      * @throws \InvalidArgumentException
      */
-    public function show(FilesystemAdapter $filesystem, Request $request, string $path): mixed
+    public function show(Request $request, string $path): mixed
     {
+
+        $path = $this->service->run(path: $path);
+
+        if (\is_null(value: $path)) {
+            abort(code: Http::NOT_FOUND->value);
+        }
+
         $server = ServerFactory::create(config: [
             'response' => new LaravelResponseFactory(request: $request),
-            'source' => $filesystem->getDriver(),
-            'cache' => $filesystem->getDriver(),
+            'source' => with(value: $this->filesystem)->getDriver(),
+            'cache' => with(value: $this->filesystem)->getDriver(),
             'cache_path_prefix' => '.caches',
             'base_url' => 'images',
         ]);

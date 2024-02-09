@@ -20,6 +20,7 @@ use Modules\Residence\Infrastructure\Models\Residence;
 use Modules\Reservation\Infrastructure\Models\Reservation;
 use Modules\Residence\Application\Services\Location\RandomPositionGeneratorService;
 
+use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
 use function Modules\Shared\Infrastructure\Helpers\can_use_spatial_index;
 
 /**
@@ -54,7 +55,7 @@ final class ResidenceFactory extends Factory
 
         $coordinates = $this->service->execute();
 
-        return [
+        return array_filter_filled(array: [
             'id' => Ulid::generate(),
             'name' => fake()->streetAddress(),
             'address' => fake()->address(),
@@ -67,7 +68,7 @@ final class ResidenceFactory extends Factory
             'type_id' => Ulid::generate(),
             'created_at' => (string) now(),
             'updated_at' => (string) now(),
-        ];
+        ]);
     }
 
     public function owner(): self

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string(column: 'mime');
             $table->string(column: 'collection');
             $table->string(column: 'disk')->default(value: string_value(value: config(key: 'app.upload.disk')));
-            $table->string(column: 'hash', length: 128)->unique();
+            $table->string(column: 'hash', length: 128);
             $table->unsignedBigInteger(column: 'size');
 
             $table->timestamps();

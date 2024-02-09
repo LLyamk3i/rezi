@@ -1,6 +1,3 @@
 "*.php":
     - ./bin/clean.sh
     - ./vendor/bin/pest
-".*":
-    - ./bin/version/middleware.sh
-    - ./bin/version/updater.sh

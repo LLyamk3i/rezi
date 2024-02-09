@@ -15,13 +15,22 @@ final class FeatureResource extends JsonResource
     public $resource;
 
     /**
-     * @return array{id: string, name: string, icon: string}
+     * @return array{id:string,name:string,icon:string|null}
      */
     public function toArray(Request $request): array
     {
         return [
             ...$this->resource->__serialize(),
-            'icon' => route(name: 'image.show', parameters: ['path' => $this->resource->icon]),
+            'icon' => $this->icon(value: $this->resource->icon),
         ];
+    }
+
+    private function icon(string | null $value): null | string
+    {
+        if (\is_string(value: $value)) {
+            return route(name: 'image.show', parameters: ['path' => $value]);
+        }
+
+        return null;
     }
 }

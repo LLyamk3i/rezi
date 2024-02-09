@@ -21,10 +21,12 @@ final class QueryRepository implements Repository
     {
         /** @var \Illuminate\Database\Query\Builder $query */
         $result = $query->limit(value: 1)->get(columns: $columns)->first();
+
         if (\is_array($result)) {
             return $result;
         }
 
+        return null;
     }
 
     /**

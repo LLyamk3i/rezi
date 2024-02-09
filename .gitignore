@@ -14,6 +14,7 @@
 /public/css
 /public/js
 /public/storage
+/public/private
 /storage/*.key
 /vendor
 auth.json
@@ -24,3 +25,4 @@ public/vendor
 trash/
 yarn-error.log
 .v*
+.phpintel/

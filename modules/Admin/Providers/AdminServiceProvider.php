@@ -12,6 +12,7 @@ final class AdminServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadViewsFrom(namespace: 'admin', path: __DIR__ . '/../resources/views');
+        $this->loadTranslationsFrom(path: __DIR__ . '/../lang', namespace: 'admin');
     }
 
     public function register(): void

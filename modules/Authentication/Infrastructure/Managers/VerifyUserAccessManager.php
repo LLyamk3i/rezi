@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Authentication\Infrastructure\Managers;
 
 use Modules\Shared\Domain\ValueObjects\Ulid;
-use Modules\Shared\Domain\Contracts\StoreContract;
+use Modules\Shared\Domain\Supports\StoreContract;
 use Modules\Authentication\Domain\Repositories\UserRoleRepository;
 use Modules\Authentication\Domain\DataTransferObjects\RolesGroupsObject;
 use Modules\Authentication\Domain\Contracts\VerifyUserAccessManagerContract;

@@ -14,10 +14,7 @@ final class ImageUrlFactory
         if (\is_string(value: $path)) {
             return [
                 'link' => $path,
-                'usage' => route(
-                    name: 'image.show',
-                    parameters: ['h' => 50, 'w' => 50, 'path' => $path]
-                ),
+                'usage' => route(name: 'image.show', parameters: ['h' => 50, 'w' => 50, 'path' => $path]),
             ];
         }
 

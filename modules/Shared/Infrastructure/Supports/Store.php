@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Shared\Infrastructure\Supports;
 
-use Modules\Shared\Domain\Contracts\StoreContract;
+use Modules\Shared\Domain\Supports\StoreContract;
 
 final class Store implements StoreContract
 {

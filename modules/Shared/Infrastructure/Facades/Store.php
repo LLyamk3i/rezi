@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Modules\Shared\Infrastructure\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Modules\Shared\Domain\Contracts\StoreContract;
+use Modules\Shared\Domain\Supports\StoreContract;
 
 final class Store extends Facade
 {

@@ -39,6 +39,7 @@ final class MediaUpload
         return array_filter(array: [
             $named ? TextInput::make(name: 'name')->translateLabel()->columnSpanFull() : null,
             Hidden::make(name: 'collection')->default(state: $type->value),
+            Hidden::make(name: 'type')->default(state: $type->value),
             $file->disk(name: string_value(value: config(key: 'app.upload.disk')))
                 ->directory(directory: $directory->value)
                 ->columnSpanFull()
