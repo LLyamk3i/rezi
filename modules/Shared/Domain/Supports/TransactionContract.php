@@ -6,4 +6,9 @@ namespace Modules\Shared\Domain\Supports;
 
 interface TransactionContract
 {
+    public function start(): void;
+
+    public function commit(): void;
+
+    public function cancel(): void;
 }

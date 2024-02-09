@@ -12,6 +12,8 @@ use Illuminate\Support\ServiceProvider;
 use Modules\Shared\Application\Utils\Timer;
 use Modules\Shared\Application\Commands\GenerateUlid;
 use Modules\Shared\Domain\Repositories\MediaRepository;
+use Modules\Shared\Domain\Supports\TransactionContract;
+use Modules\Shared\Infrastructure\Supports\Transaction;
 use Modules\Shared\Domain\Commands\GenerateUlidContract;
 use Illuminate\Contracts\Foundation\Application as Laravel;
 use Modules\Shared\Infrastructure\Generators\UlidGenerator;
@@ -23,6 +25,7 @@ final class SharedServiceProvider extends ServiceProvider
      * @var array<class-string,class-string>
      */
     public array $bindings = [
+        TransactionContract::class => Transaction::class,
         Domain\Adapters\CacheAdapterContract::class => Infrastructure\Adapters\CacheAdapter::class,
         Application\Repositories\Repository::class => Infrastructure\Eloquent\Repositories\QueryRepository::class,
     ];

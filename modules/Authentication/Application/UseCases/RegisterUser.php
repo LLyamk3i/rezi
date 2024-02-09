@@ -9,6 +9,7 @@ use Modules\Shared\Domain\UseCases\Response;
 use Modules\Authentication\Domain\Enums\Roles;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Translation\Translator;
+use Modules\Shared\Domain\Supports\TransactionContract;
 use Modules\Authentication\Domain\Repositories\AuthRepository;
 use Modules\Authentication\Domain\Actions\DispatchOneTimePasswordContract;
 use Modules\Authentication\Domain\UseCases\RegisterUser\RegisterUserRequest;
@@ -23,6 +24,7 @@ final readonly class RegisterUser implements RegisterUserContract
         private AuthRepository $repository,
         private ExceptionHandler $exception,
         private DispatchOneTimePasswordContract $otp,
+        private TransactionContract $transaction,
     ) {
         //
     }
@@ -32,6 +34,8 @@ final readonly class RegisterUser implements RegisterUserContract
      */
     public function execute(RegisterUserRequest $request): Response
     {
+        $this->transaction->start();
+
         try {
             if (! $this->repository->register(user: $request->user)) {
                 return new Response(
@@ -42,6 +46,7 @@ final readonly class RegisterUser implements RegisterUserContract
             }
         } catch (\Throwable $throwable) {
             $this->exception->report(e: $throwable);
+            $this->transaction->cancel();
 
             return new Response(
                 failed: true,
@@ -60,6 +65,7 @@ final readonly class RegisterUser implements RegisterUserContract
             }
         } catch (\Throwable $throwable) {
             $this->exception->report(e: $throwable);
+            $this->transaction->cancel();
 
             return new Response(
                 failed: true,
@@ -68,7 +74,19 @@ final readonly class RegisterUser implements RegisterUserContract
             );
         }
 
-        $this->otp->execute(user: $request->user);
+        try {
+            $this->otp->execute(user: $request->user);
+        } catch (\Throwable $throwable) {
+            $this->exception->report(e: $throwable);
+
+            return new Response(
+                failed: true,
+                status: Http::INTERNAL_SERVER_ERROR,
+                message: string_value(value: $this->translator->get(key: 'authentication::messages.register.errors.otp')),
+            );
+        }
+
+        $this->transaction->commit();
 
         return new Response(
             status: Http::CREATED,

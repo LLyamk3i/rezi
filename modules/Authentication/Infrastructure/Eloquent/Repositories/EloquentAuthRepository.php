@@ -41,10 +41,7 @@ final class EloquentAuthRepository implements AuthRepository
         $data = DB::table(table: 'roles')
             ->whereIn(column: 'name', values: $roles)
             ->get(columns: ['id'])
-            ->map(callback: static fn (array $data): array => [
-                'user_id' => $user->value,
-                'role_id' => $data['id'],
-            ]);
+            ->map(callback: static fn (array $data): array => ['user_id' => $user->value, 'role_id' => $data['id']]);
 
         return DB::table(table: 'role_user')->insert(values: $data->toArray());
     }

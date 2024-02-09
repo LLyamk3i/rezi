@@ -17,10 +17,13 @@ final class SendOneTimePasswordNotification implements SendOneTimePasswordNotifi
      */
     public function handle(string $code, Entity $user): void
     {
-        Notification::send(notification: new OneTimePassword(otp: $code), notifiables: new Model(attributes: [
-            'id' => $user->id,
-            'email' => $user->email,
-            'phone' => $user->phone,
-        ]));
+        Notification::send(
+            notification: new OneTimePassword(otp: $code),
+            notifiables: new Model(attributes: [
+                // 'id' => $user->id,
+                'email' => $user->email,
+                'phone' => $user->phone,
+            ])
+        );
     }
 }

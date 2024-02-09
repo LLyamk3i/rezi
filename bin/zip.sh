@@ -6,7 +6,7 @@ source ./bin/functions.sh
 rm *.zip
 rm -r public/storage
 
-# composer u --no-dev
+composer u --no-dev
 
 ./bin/version/versioning.sh
 ./bin/version/updater.sh

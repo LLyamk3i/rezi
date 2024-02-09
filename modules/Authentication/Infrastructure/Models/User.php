@@ -20,6 +20,8 @@ final class User extends Authenticatable implements MustVerifyEmail
     use \Laravel\Sanctum\HasApiTokens;
     use \Modules\Shared\Infrastructure\Concerns\Model\UserConcern;
 
+    protected $guarded = ['id', 'updated_at', 'created_at'];
+
     public static function query(): UserQueryBuilder
     {
         return parent::query();

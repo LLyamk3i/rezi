@@ -26,6 +26,7 @@ return [
         'errors' => [
             'creation' => "Échec de la création d'un utilisateur. Veuillez réessayer plus tard.",
             'binding' => "Échec de l'association du rôle à l'utilisateur. Veuillez réessayer.",
+            'otp' => "Échec de l'envoi d'otp",
         ],
         'success' => "L'enregistrement a été effectué avec succès. Vous pouvez maintenant vous connecter.",
         'opt' => [

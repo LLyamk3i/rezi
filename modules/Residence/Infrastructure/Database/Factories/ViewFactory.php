@@ -22,7 +22,7 @@ final class ViewFactory extends Factory
     {
         return [
             'id' => Ulid::generate(),
-            'device' => sprintf('%s/%s', fake()->word(), Ulid::generate()),
+            'device' => sprintf('%s/%s', 'linux', fake()->word()),
             'residence_id' => Ulid::generate(),
         ];
     }
