@@ -26,6 +26,14 @@ final readonly class Location implements \Stringable
      */
     public function __serialize(): array
     {
+        return $this->serialize();
+    }
+
+    /**
+     * @return array{longitude:float,latitude:float}
+     */
+    public function serialize(): array
+    {
         return [
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,

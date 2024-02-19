@@ -4,63 +4,88 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Application\UseCases;
 
+use Modules\Shared\Domain\Enums\Http;
+use Modules\Shared\Domain\UseCases\Response;
+use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Modules\Authentication\Domain\Repositories\AccountRepository;
 use Modules\Authentication\Domain\Commands\RetrievesOneTimePasswordContract;
 use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountRequest;
 use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract;
-use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountResponse;
+
+use function Modules\Shared\Infrastructure\Helpers\string_value;
+use function Modules\Shared\Infrastructure\Helpers\boolean_value;
 
 final readonly class VerifyUserAccount implements VerifyUserAccountContract
 {
     public function __construct(
+        private ConfigContract $config,
+        private Translator $translator,
         private AccountRepository $repository,
         private RetrievesOneTimePasswordContract $retriever,
     ) {
         //
     }
 
-    public function execute(VerifyUserAccountRequest $request): VerifyUserAccountResponse
+    /**
+     * @throws \InvalidArgumentException
+     */
+    public function execute(VerifyUserAccountRequest $request): Response
     {
         $account = $this->repository->find(email: $request->email);
 
         if (\is_null(value: $account)) {
-            return new VerifyUserAccountResponse(
-                status: 400,
+            return new Response(
                 failed: true,
-                message: "Compte introuvable : Veuillez vérifier vos informations d'identification.",
+                status: Http::BAD_REQUEST,
+                message: string_value(
+                    value: $this->translator->get(key: 'authentication::messages.verification.errors.account.missing')
+                ),
             );
         }
 
         if ($account->verified) {
-            return new VerifyUserAccountResponse(
-                status: 400,
+            return new Response(
                 failed: true,
-                message: 'Compte déjà vérifié : Vous êtes prêt à commencer !',
+                status: Http::BAD_REQUEST,
+                message: string_value(value: $this->translator->get(key: 'authentication::messages.verification.errors.account.verified')),
             );
         }
 
         $code = $this->retriever->handle(email: $account->email);
 
-        if ($code !== $request->code->value) {
-            return new VerifyUserAccountResponse(
-                status: 500,
+        if ($this->checkpoint(actual: $code, expected: $request->code->value)) {
+            return new Response(
                 failed: true,
-                message: 'Le code fournie est incorrect.',
+                status: Http::BAD_REQUEST,
+                message: string_value(value: $this->translator->get(key: 'authentication::messages.verification.errors.incorrect')),
             );
         }
 
         if (! $this->repository->verify(id: $account->id)) {
-            return new VerifyUserAccountResponse(
-                status: 500,
+            return new Response(
                 failed: true,
-                message: "Une erreur s'est produite lors de la vérification du compte. Veuillez réessayer ou contacter le support.",
+                status: Http::INTERNAL_SERVER_ERROR,
+                message: string_value(value: $this->translator->get(key: 'authentication::messages.verification.errors.account.cannot')),
             );
         }
 
-        return new VerifyUserAccountResponse(
-            status: 200,
+        return new Response(
+            status: Http::OK,
             failed: false,
-            message: 'Votre compte a bien été vérifié.',
+            message: string_value(value: $this->translator->get(key: 'authentication::messages.verification.success')),
         );
+    }
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    private function checkpoint(string $actual, string $expected): bool
+    {
+        if (! boolean_value(value: $this->config->get(key: 'app.setting.otp.enable'))) {
+            return true;
+        }
+
+        return $actual !== $expected;
     }
 }

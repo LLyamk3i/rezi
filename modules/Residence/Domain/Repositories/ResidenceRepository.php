@@ -12,6 +12,9 @@ use Modules\Shared\Domain\ValueObjects\Pagination\Page;
 use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
 
+/**
+ * @phpstan-import-type Search from \Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesRequest
+ */
 interface ResidenceRepository
 {
     /**
@@ -39,6 +42,8 @@ interface ResidenceRepository
     public function nearest(Location $location, Radius $radius): array;
 
     /**
+     * @phpstan-param Search $data
+     *
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
     public function search(Page $page, array $data): PaginatedObject;

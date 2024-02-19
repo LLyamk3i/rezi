@@ -6,6 +6,7 @@
 - [x] Créé une class commande app:setup.
 - [] Trouver comment rendre la monnaie "Franc CFA" réutilisable.
 - [+] Régler le bug se suppression de final par ./bin/pint
+- [] Ajouter le middleware "verified" sur tous les routes
 
 ## Module Shared
 
@@ -122,6 +123,7 @@
 - [] Ajouter une page de "viewing records" pour permettre à l'admin de voir la résidence.
 - [] Ajouter un BULK Action pour ajouter plusieurs  images
 - [] Remplacer la class déprécier DeleteAction dans EditResidence
+- [] Ajouter un card pour la visibilité de la résidence.
 
 ### ClientResource
 

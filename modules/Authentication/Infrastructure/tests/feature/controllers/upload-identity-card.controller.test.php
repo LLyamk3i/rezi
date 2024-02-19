@@ -10,7 +10,6 @@ use Modules\Authentication\Infrastructure\Models\User;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
-use function Modules\Shared\Infrastructure\Helpers\string_value;
 
 uses(
     Tests\TestCase::class,
@@ -56,11 +55,9 @@ it(description: 'can save and register uploaded user identity card', closure: fu
             'original' => $file->getClientOriginalName(),
             'hash' => hash_file(
                 algo: config(key: 'app.upload.hash'),
-                filename: string_value(
-                    value: with(
-                        value: Storage::disk(name: $disk),
-                        callback: static fn (FilesystemAdapter $filesystem): string => $filesystem->path(path: $path)
-                    )
+                filename: with(
+                    value: Storage::disk(name: $disk),
+                    callback: static fn (FilesystemAdapter $filesystem): string => $filesystem->path(path: $path)
                 ),
             ),
         ]);

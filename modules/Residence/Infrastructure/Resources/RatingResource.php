@@ -15,7 +15,7 @@ final class RatingResource extends JsonResource
     public $resource;
 
     /**
-     * @return array{id: string, value: string, comment: string, residence?: string, owner: \Modules\Residence\Infrastructure\Resources\OwnerResource}
+     * @return array{id:string,value:float,comment:string,residence?:string,owner:\Modules\Residence\Infrastructure\Resources\OwnerResource}
      */
     public function toArray(Request $request): array
     {

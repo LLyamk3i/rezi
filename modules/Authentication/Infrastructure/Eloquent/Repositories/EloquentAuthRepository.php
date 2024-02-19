@@ -21,10 +21,7 @@ final class EloquentAuthRepository implements AuthRepository
     public function register(User $user): bool
     {
         return DB::table(table: 'users')->insert(values: [
-            'id' => $user->id->value,
-            'forename' => $user->forename,
-            'surname' => $user->surname,
-            'email' => $user->email,
+            ...$user->serialize(saveable: true),
             'password' => Hash::make(value: string_value(value: $user->password)),
         ]);
     }

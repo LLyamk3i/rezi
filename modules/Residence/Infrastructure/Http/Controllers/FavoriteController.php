@@ -36,7 +36,7 @@ final class FavoriteController
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws \RuntimeException
      */
     public function store(Request $request): JsonResponse
     {

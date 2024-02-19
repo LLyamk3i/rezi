@@ -76,7 +76,7 @@ final readonly class ResidenceDetailsQuery
     }
 
     /**
-     * @param array<string,string> $data
+     * @param array<string,float|int|string> $data
      *
      * @throws \InvalidArgumentException
      */
@@ -111,8 +111,6 @@ final readonly class ResidenceDetailsQuery
     }
 
     /**
-     * Undocumented function
-     *
      * @return array<int,\Modules\Residence\Domain\Entities\Feature>
      */
     private function features(string $residence): array
@@ -134,6 +132,9 @@ final readonly class ResidenceDetailsQuery
         );
     }
 
+    /**
+     * @return array<int,\Modules\Reservation\Domain\Entities\Reservation>
+     */
     private function reservations(string $residence): array
     {
         return $this->reservations->hydrate(
@@ -171,11 +172,13 @@ final readonly class ResidenceDetailsQuery
 
     private function avatar(string $owner): string | null
     {
-        return DB::table(table: 'media')
+        $path = DB::table(table: 'media')
             ->where(column: 'media.fileable_type', operator: '=', value: (new User())->getMorphClass())
             ->where(column: 'media.fileable_id', operator: '=', value: $owner)
             ->where(column: 'media.type', operator: '=', value: Media::Avatar->value)
             ->value(column: 'path');
+
+        return \is_string(value: $path) ? $path : null;
     }
 
     /**

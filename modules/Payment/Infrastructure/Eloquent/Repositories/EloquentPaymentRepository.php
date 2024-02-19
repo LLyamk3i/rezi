@@ -24,6 +24,8 @@ final readonly class EloquentPaymentRepository implements PaymentRepository
     }
 
     /**
+     * @throws \TypeError
+     * @throws \ValueError
      * @throws \Exception
      */
     public function find(Ulid $id): null | Payment

@@ -25,6 +25,7 @@ use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
 
 /**
  * @phpstan-import-type ResidenceRecord from \Modules\Residence\Domain\Factories\ResidenceFactory
+ * @phpstan-import-type Search from \Modules\Residence\Domain\UseCases\SearchResidences\SearchResidencesRequest
  */
 final readonly class EloquentResidenceRepository implements ResidenceRepository
 {
@@ -85,6 +86,8 @@ final readonly class EloquentResidenceRepository implements ResidenceRepository
     }
 
     /**
+     * @phpstan-param Search $data
+     *
      * @return PaginatedObject<\Modules\Residence\Domain\Entities\Residence>
      */
     public function search(Page $page, array $data): PaginatedObject

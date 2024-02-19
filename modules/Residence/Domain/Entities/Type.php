@@ -23,6 +23,14 @@ final readonly class Type
      */
     public function __serialize(): array
     {
+        return $this->serialize();
+    }
+
+    /**
+     * @phpstan-return TypeFormat
+     */
+    public function serialize(): array
+    {
         return [
             'name' => $this->name,
             'id' => $this->id->value,

@@ -36,6 +36,9 @@ class ResidenceResource extends Resource
         ]);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table

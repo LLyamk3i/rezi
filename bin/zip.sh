@@ -8,8 +8,8 @@ rm -r public/storage
 
 composer u --no-dev
 
-./bin/version/versioning.sh
 ./bin/version/updater.sh
+./bin/version/versioning.sh
 
 FILENAME="$(jq '.version' composer.json | tr -d \")-$(get_app_name)"
 

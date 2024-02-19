@@ -16,7 +16,7 @@ use Modules\Reservation\Infrastructure\Models\Reservation;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Reservation\Infrastructure\Models\Reservation>
  *
- * @phpstan-type ReservationFactoryResponse array{id:string,checkin_at:string,checkout_at:string,user_id:null,residence_id:null,status:mixed,cost:int<10000,500000>,created_at:string,updated_at:string}
+ * @phpstan-type ReservationFactoryResponse array{id:string,checkin_at:string,checkout_at:string,user_id:string,residence_id:string,status:mixed,cost:int<10000,500000>,created_at:string,updated_at:string}
  */
 final class ReservationFactory extends Factory
 {

@@ -10,6 +10,8 @@ use Modules\Shared\Domain\Supports\StoreContract;
 use Modules\Residence\Infrastructure\Resources\ResidenceResource;
 use Modules\Residence\Domain\UseCases\ResidencesResponse as UseCasesResidencesResponse;
 
+use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
+
 final readonly class ResidenceResponse implements Responsable
 {
     public function __construct(
@@ -29,12 +31,12 @@ final readonly class ResidenceResponse implements Responsable
 
         return new JsonResponse(
             status: $this->response->status->value,
-            data: [
+            data: array_filter_filled(array: [
                 'success' => ! $this->response->failed,
                 'message' => $this->response->message,
                 'residences' => $this->residences(),
                 'residence' => $this->residence(),
-            ],
+            ]),
         );
     }
 

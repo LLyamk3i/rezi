@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\File;
 final class ImagePathVerificationService
 {
     /**
-     * @return void
-     *
      * @throws \RuntimeException
      */
     public function run(string $path): string | null

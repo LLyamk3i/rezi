@@ -26,3 +26,4 @@ trash/
 yarn-error.log
 .v*
 .phpintel/
+.php-version

@@ -10,7 +10,7 @@ use Modules\Residence\Domain\ValueObjects\Distance;
 use Modules\Residence\Domain\ValueObjects\Location;
 
 /**
- * @phpstan-type ResidenceFormat array{id:string,name:string,view:int,favoured:bool,address:string,description:string,distance:string,location:Location,poster?:string,rent:array{value:float,format:string},owner?:array{id:string,name:string}}
+ * @phpstan-type ResidenceFormat array{id:string,name:string,view:int,favoured:bool,address:string,description:string,distance:string,location:array<string,float>,poster?:string,rent:array{value:float,format:string},owner?:array{id:string,name:string}}
  */
 final readonly class Residence
 {
@@ -49,6 +49,14 @@ final readonly class Residence
      */
     public function __serialize(): array
     {
+        return $this->serialize();
+    }
+
+    /**
+     * @phpstan-return ResidenceFormat
+     */
+    public function serialize(): array
+    {
         return [
             'name' => $this->name,
             'rooms' => $this->rooms,
@@ -59,9 +67,9 @@ final readonly class Residence
             'favoured' => $this->favoured,
             'note' => $this->note,
             'description' => $this->description,
-            'type' => $this->type?->__serialize(),
+            'type' => $this->type?->serialize(),
             'distance' => (string) $this->distance,
-            'location' => $this->location->__serialize(),
+            'location' => $this->location->serialize(),
             'gallery' => $this->gallery,
             'rent' => [
                 'value' => $this->rent->value,

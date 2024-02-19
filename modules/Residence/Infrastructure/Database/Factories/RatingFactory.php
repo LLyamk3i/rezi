@@ -20,7 +20,7 @@ final class RatingFactory extends Factory
     protected $model = Rating::class;
 
     /**
-     * @return array{id: string, value: int, user_id: string, residence_id: string, comment: string, created_at: string, updated_at: string}
+     * @return array{id:string,value:int,user_id:string,residence_id:string,comment:string,created_at:string,updated_at:string}
      *
      * @throws \Random\RandomException
      */

@@ -7,7 +7,7 @@ namespace Modules\Residence\Domain\Entities;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 
 /**
- * @phpstan-type FeatureFormat array{id:string,name:string,icon?:string}
+ * @phpstan-type FeatureFormat array{id:string,name:string,icon?:string|null}
  */
 final readonly class Feature
 {

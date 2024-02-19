@@ -16,6 +16,8 @@ final class PaymentFactory
 {
     /**
      * @throws \Exception
+     * @throws \TypeError
+     * @throws \ValueError
      * @throws \Modules\Shared\Domain\Exceptions\InvalidValueObjectException
      *
      * @phpstan-param PaymentRecord $data

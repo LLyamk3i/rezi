@@ -6,11 +6,12 @@ namespace Modules\Reservation\Domain\Factories;
 
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Ulid;
+use Modules\Shared\Domain\ValueObjects\Price;
 use Modules\Shared\Domain\ValueObjects\Duration;
 use Modules\Reservation\Domain\Entities\Reservation;
 
 /**
- * @phpstan-type ReservationRecord array{}
+ * @phpstan-type ReservationRecord array{id:string,user?:string,cost?:float,status?:string,residence?:string,checkin_at:string,checkout_at:string}
  */
 final class ReservationFactory
 {
@@ -27,7 +28,7 @@ final class ReservationFactory
             id: new Ulid(value: $data['id']),
             stay: $this->stay(data: $data),
             owner: isset($data['user']) ? new Ulid(value: $data['user']) : null,
-            cost: isset($data['cost']) ? new Ulid(value: $data['cost']) : null,
+            cost: isset($data['cost']) ? new Price(value: $data['cost']) : null,
             status: isset($data['status']) ? Status::tryFrom(value: $data['status']) : null,
             residence: isset($data['residence']) ? new Ulid(value: $data['residence']) : null,
         );

@@ -10,7 +10,7 @@ use Modules\Authentication\Domain\Factories\UserFactory;
 use Modules\Authentication\Domain\Services\AuthenticatedUserService as Contract;
 
 /**
- * @phpstan-type UserRecord array{id:string,forename:string,surname:string,email:string,password?:string,email_verified_at:string|null}
+ * @phpstan-type UserRecord array{id:string,forename:string,surname:string,phone:string,email:string,password?:string,email_verified_at:string|null}
  */
 final readonly class AuthenticatedUserService implements Contract
 {

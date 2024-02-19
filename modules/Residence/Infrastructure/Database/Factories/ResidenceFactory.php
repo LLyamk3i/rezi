@@ -39,7 +39,7 @@ final class ResidenceFactory extends Factory
     private null | RandomPositionGeneratorService $service = null;
 
     /**
-     * @phpstan-return ResidenceFactoryResponse
+     * @return array<\Illuminate\Contracts\Database\Query\Expression|int|string>
      *
      * @throws \Random\RandomException
      * @throws \InvalidArgumentException

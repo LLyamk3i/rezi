@@ -18,6 +18,9 @@ final class ToggleResidenceVisibilityAction
             ->tooltip(tooltip: static fn (Residence $record): string => self::instruction(residence: $record));
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     private static function instruction(Residence $residence): string
     {
         if ($residence->visible()->value()) {

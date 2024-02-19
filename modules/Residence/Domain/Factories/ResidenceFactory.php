@@ -33,15 +33,15 @@ final class ResidenceFactory
     public function make(array $data): Residence
     {
         return new Residence(
+            id: new Ulid(value: $data['id']),
             name: $data['name'],
-            rooms: $data['rooms'] ?? null,
+            rooms: $data['rooms'],
             view: $data['view'] ?? null,
             address: $data['address'],
             note: $data['note'] ?? null,
             type: $data['type'] ?? null,
             owner: $this->owner(data: $data),
             poster: $data['poster'] ?? null,
-            id: new Ulid(value: $data['id']),
             gallery: $data['gallery'] ?? null,
             ratings: $data['ratings'] ?? null,
             features: $data['features'] ?? null,
@@ -54,6 +54,11 @@ final class ResidenceFactory
         );
     }
 
+    /**
+     * @param array<string,string> $data
+     *
+     * @throws \InvalidArgumentException
+     */
     private function owner(array $data): Owner | null
     {
         $owner_data = array_pull_and_exclude(original: $data, keys: ['owner_id', 'owner_forename', 'owner_surname', 'owner_avatar']);

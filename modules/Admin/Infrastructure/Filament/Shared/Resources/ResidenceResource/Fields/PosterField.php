@@ -32,7 +32,7 @@ final class PosterField
             ));
     }
 
-    private static function mutate(): callable
+    private static function mutate(): \Closure
     {
         return static function (array $data): array {
             /** @var \Illuminate\Filesystem\FilesystemAdapter $storage */

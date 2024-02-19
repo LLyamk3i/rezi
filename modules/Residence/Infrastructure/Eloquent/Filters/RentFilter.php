@@ -27,12 +27,12 @@ final readonly class RentFilter implements FilterContract
     {
         $this->query
             ->when(
-                value: $this->payload['min'],
-                callback: static fn (Builder $query, Price $value): \Illuminate\Database\Query\Builder => $query->where(column: 'rent', operator: '>=', value: $value->value)
+                value: $this->payload['min'] ?? null,
+                callback: static fn (Builder $query, Price $value): Builder => $query->where(column: 'rent', operator: '>=', value: $value->value)
             )
             ->when(
                 value: $this->payload['max'] ?? null,
-                callback: static fn (Builder $query, Price $value): \Illuminate\Database\Query\Builder => $query->where(column: 'rent', operator: '<=', value: $value->value)
+                callback: static fn (Builder $query, Price $value): Builder => $query->where(column: 'rent', operator: '<=', value: $value->value)
             );
     }
 }

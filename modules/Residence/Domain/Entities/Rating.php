@@ -7,7 +7,7 @@ namespace Modules\Residence\Domain\Entities;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 
 /**
- * @phpstan-type RatingFormat array{id:string,value:string,comment:string,residence?:string}
+ * @phpstan-type RatingFormat array{id:string,value:float,comment:string,residence?:string|null}
  */
 final readonly class Rating
 {

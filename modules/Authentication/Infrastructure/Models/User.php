@@ -58,6 +58,9 @@ final class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    /**
+     * @return Attribute<string,null>
+     */
     public function phoneNumber(): Attribute
     {
         return Attribute::make(get: static fn (mixed $_, array $attributes): string => $attributes['phone']);
