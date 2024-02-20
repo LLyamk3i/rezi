@@ -54,7 +54,7 @@ final readonly class NearestResidences implements NearestResidencesContract
             failed: false,
             status: Http::OK,
             residences: $residences,
-            inventory: ['id', 'name', 'address', 'location', 'distance'],
+            inventory: ['id', 'name', 'address', 'location', 'distance', 'rent'],
             message: $this->translator->choice(key: 'residence::messages.nearest.success', number: \count(value: $residences)),
         );
     }

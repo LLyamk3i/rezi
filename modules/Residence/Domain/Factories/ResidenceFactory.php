@@ -35,7 +35,7 @@ final class ResidenceFactory
         return new Residence(
             id: new Ulid(value: $data['id']),
             name: $data['name'],
-            rooms: $data['rooms'],
+            rooms: $data['rooms'] ?? null,
             view: $data['view'] ?? null,
             address: $data['address'],
             note: $data['note'] ?? null,

@@ -76,6 +76,10 @@ it(description: 'can find nearest residence', closure: function (): void {
             Assert::assertArrayHasKey(key: 'longitude', array: $item['location']);
             Assert::assertIsFloat(actual: $item['location']['latitude']);
             Assert::assertIsFloat(actual: $item['location']['longitude']);
+            Assert::assertArrayHasKey(key: 'value', array: $item['rent']);
+            Assert::assertArrayHasKey(key: 'format', array: $item['rent']);
+            Assert::assertIsInt(actual: $item['rent']['value']);
+            Assert::assertIsString(actual: $item['rent']['format']);
             Assert::assertEquals(
                 expected: [...collect(value: $residences)->pluck(value: 'id')->sortDesc()],
                 actual: [...collect(value: $items)->pluck(value: 'id')->sortDesc()],

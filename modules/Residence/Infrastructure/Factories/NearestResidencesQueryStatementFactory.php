@@ -40,11 +40,11 @@ final class NearestResidencesQueryStatementFactory
     private function columns(): array
     {
         return [
-            'id', 'name', 'address',
+            'id', 'name', 'address', 'rent',
             DB::raw('ST_X(location) AS latitude'),
             DB::raw('ST_Y(location) AS longitude'),
             DB::raw(value: sprintf(
-                '(6371 * ACOS(%.16f * COS(RADIANS(ST_X(location))) 
+                '(6371 * ACOS(%.16f * COS(RADIANS(ST_X(location)))
                 * COS(RADIANS(ST_Y(location)) - %.16f) + %.16f
                 * SIN(RADIANS(ST_X(location))))) AS distance',
                 cos(num: deg2rad(num: $this->location->latitude)),
