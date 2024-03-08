@@ -36,6 +36,8 @@ test(description: 'user can login', closure: function ($access): void {
     $response->assertJsonPath(path: 'client', expect: static function (array $client) use ($user): bool {
         Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.usage')));
         Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.link')));
+        Assert::assertTrue(condition: \is_bool(value: Arr::get(array: $client, key: 'verified.otp')));
+        Assert::assertTrue(condition: \is_bool(value: Arr::get(array: $client, key: 'verified.identity')));
         Assert::assertSame(expected: $user->id, actual: $client['id']);
         Assert::assertSame(expected: $user->forename, actual: $client['forename']);
         Assert::assertSame(expected: $user->email, actual: $client['email']);

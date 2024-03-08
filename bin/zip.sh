@@ -6,22 +6,24 @@ source ./bin/functions.sh
 rm *.zip
 rm -r public/storage
 
-composer u --no-dev
-
 ./bin/version/updater.sh
 ./bin/version/versioning.sh
 
 FILENAME="$(jq '.version' composer.json | tr -d \")-$(get_app_name)"
 
-case "$1" in
+read -p "choose the amount of compression ('git', 'time' or 'all'): " choice
+
+case "$choice" in
 
 "git")
-    git archive --format=zip HEAD -o $FILENAME
+    git log -1 --name-only --pretty=format:HEAD | zip $FILENAME -@
     ;;
 "time")
+    composer u --no-dev
     zip -r $FILENAME $(find . -type f -mtime -$2 | grep -Ev -f .zipignore)
     ;;
-*)
+"all")
+    composer u --no-dev
     zip -r $FILENAME . --exclude @.zipignore
     ;;
 esac

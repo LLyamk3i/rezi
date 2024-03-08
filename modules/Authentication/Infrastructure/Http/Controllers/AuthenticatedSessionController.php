@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Modules\Shared\Domain\Enums\Http;
 use Illuminate\Validation\ValidationException;
 use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Authentication\Infrastructure\Commands\UserAccountStatus;
 use Modules\Authentication\Infrastructure\Http\Resources\UserResource;
+
 use Modules\Authentication\Infrastructure\Http\Requests\AuthenticatedSessionRequest;
 
 use function Modules\Shared\Infrastructure\Helpers\string_value;
@@ -22,7 +24,7 @@ final class AuthenticatedSessionController
      * @throws \RuntimeException
      * @throws ValidationException
      */
-    public function store(AuthenticatedSessionRequest $request): JsonResponse
+    public function store(AuthenticatedSessionRequest $request, UserAccountStatus $verification): JsonResponse
     {
         $user = User::query()->where(column: $request->access())->first();
 
@@ -45,15 +47,27 @@ final class AuthenticatedSessionController
             data: [
                 'success' => true,
                 'token' => $token->plainTextToken,
-                'client' => new UserResource(resource: $user),
+                'verified' => $verification->handle(user: $user),
                 'message' => trans(key: 'authentication::messages.login.success'),
+                'client' => new UserResource(
+                    resource: $user->setHidden(hidden: ['updated_at', 'created_at', 'deleted_at', 'email_verified_at'])
+                ),
             ]
         );
     }
 
+    /**
+     * @throws \RuntimeException
+     */
     public function destroy(Request $request): JsonResponse
     {
-        $request->user()?->tokens()->delete();
+        $user = $request->user();
+
+        if (! ($user instanceof User)) {
+            throw new \RuntimeException(message: 'Error Processing Request', code: 1);
+        }
+
+        $user->tokens()->delete();
 
         return response()->json(
             status: Http::OK->value,

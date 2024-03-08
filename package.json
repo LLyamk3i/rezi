@@ -1,6 +1,6 @@
 {
     "private": true,
-    "version": "0.1.5",
+    "version": "0.1.6",
     "devDependencies": {
         "husky": "^8.0.3",
         "lint-staged": "^13.3.0"

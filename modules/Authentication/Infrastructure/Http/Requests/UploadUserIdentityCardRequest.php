@@ -8,9 +8,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Authentication\Domain\Factories\UserFactory;
-
 use Modules\Shared\Infrastructure\Factories\FileFactory;
-
 use Modules\Authentication\Infrastructure\Services\UploadIdentityCardService;
 use Modules\Authentication\Domain\UseCases\UploadIdentityCard\UploadIdentityCardRequest as Request;
 
@@ -29,7 +27,7 @@ final class UploadUserIdentityCardRequest extends FormRequest
         return [
             'document_type' => 'required|string',
             'card_recto' => 'image|max:5120|required',
-            'card_verso' => 'image|max:5120|required_if:document_type,passeport',
+            'card_verso' => 'image|max:5120|required_unless:document_type,passeport',
         ];
     }
 
@@ -51,11 +49,11 @@ final class UploadUserIdentityCardRequest extends FormRequest
         $data = $user->toArray();
 
         if (! ($recto instanceof UploadedFile)) {
-            throw new \RuntimeException(message: 'Identity card not uploaded', code: 1);
+            throw new \RuntimeException(message: 'Identity card recto not uploaded', code: 1);
         }
 
-        if (! ($verso instanceof UploadedFile)) {
-            throw new \RuntimeException(message: 'Identity card not uploaded', code: 1);
+        if ((! \is_null(value: $verso)) && ! ($verso instanceof UploadedFile)) {
+            throw new \RuntimeException(message: 'Identity card verso not uploaded', code: 1);
         }
 
         return new Request(

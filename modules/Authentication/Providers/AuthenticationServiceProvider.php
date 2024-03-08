@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Modules\Authentication\Application\Generators\NumberGenerator;
 use Modules\Authentication\Application\Commands\GenerateOneTimePassword;
 use Modules\Authentication\Domain\Commands\GenerateOneTimePasswordContract;
+use Modules\Authentication\Domain\UseCases\UploadIdentityCard\UploadIdentityCardContract;
 
 final class AuthenticationServiceProvider extends ServiceProvider
 {
@@ -28,15 +29,16 @@ final class AuthenticationServiceProvider extends ServiceProvider
         Domain\Commands\RetrievesOneTimePasswordContract::class => Infrastructure\Commands\RetrievesOneTimePassword::class,
         Domain\UseCases\VerifyUserAccount\VerifyUserAccountContract::class => Application\UseCases\VerifyUserAccount::class,
         Domain\Repositories\AccountRepository::class => Infrastructure\Eloquent\Repositories\EloquentAccountRepository::class,
-        Domain\UseCases\UploadIdentityCard\UploadIdentityCardContract::class => Application\UseCases\UploadIdentityCard::class,
+        UploadIdentityCardContract::class => Application\UseCases\UploadIdentityCard::class,
         Domain\Repositories\UserRoleRepository::class => Infrastructure\Eloquent\Repositories\EloquentUserRoleRepository::class,
+        Domain\Contracts\MediaIdentityExistsQueryContract::class => Infrastructure\Eloquent\Queries\MediaIdentityExistsQuery::class,
         Domain\Commands\RememberOneTimePasswordRequestContract::class => Infrastructure\Commands\RememberOneTimePasswordRequest::class,
         Domain\Commands\SendOneTimePasswordNotificationContract::class => Infrastructure\Commands\SendOneTimePasswordNotification::class,
     ];
 
     public function boot(): void
     {
-        Relation::enforceMorphMap([
+        Relation::enforceMorphMap(map: [
             'user' => Infrastructure\Models\User::class,
         ]);
 
@@ -46,7 +48,7 @@ final class AuthenticationServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->bind(abstract: GenerateOneTimePasswordContract::class, concrete: static fn (): GenerateOneTimePassword => new GenerateOneTimePassword(generator: new NumberGenerator()));
         $this->app->register(provider: RouteServiceProvider::class);
+        $this->app->bind(abstract: GenerateOneTimePasswordContract::class, concrete: static fn (): GenerateOneTimePassword => new GenerateOneTimePassword(generator: new NumberGenerator()));
     }
 }

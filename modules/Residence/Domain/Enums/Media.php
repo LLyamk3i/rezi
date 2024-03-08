@@ -11,5 +11,6 @@ enum Media: string
     case Icon = 'images/icon';
     case Poster = 'images/poster';
     case Avatar = 'images/avatar';
+    case Identity = 'images/identity';
     case Gallery = 'images/gallery';
 }

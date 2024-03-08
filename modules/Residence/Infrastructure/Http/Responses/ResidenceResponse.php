@@ -10,8 +10,6 @@ use Modules\Shared\Domain\Supports\StoreContract;
 use Modules\Residence\Infrastructure\Resources\ResidenceResource;
 use Modules\Residence\Domain\UseCases\ResidencesResponse as UseCasesResidencesResponse;
 
-use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
-
 final readonly class ResidenceResponse implements Responsable
 {
     public function __construct(
@@ -31,49 +29,54 @@ final readonly class ResidenceResponse implements Responsable
 
         return new JsonResponse(
             status: $this->response->status->value,
-            data: array_filter_filled(array: [
+            data: [
                 'success' => ! $this->response->failed,
                 'message' => $this->response->message,
-                'residences' => $this->residences(),
-                'residence' => $this->residence(),
-            ]),
-        );
-    }
-
-    public function residence(): ResidenceResource | null
-    {
-        if (! $this->response->residence instanceof \Modules\Residence\Domain\Entities\Residence) {
-            return null;
-        }
-
-        return new ResidenceResource(
-            resource: $this->response->residence
+                ...$this->residences(),
+                ...$this->residence(),
+            ],
         );
     }
 
     /**
-     * @return null|array<string,mixed>
+     * @return array<string,ResidenceResource|null>
      */
-    private function residences(): array | null
+    public function residence(): array
+    {
+        if (! $this->response->residence instanceof \Modules\Residence\Domain\Entities\Residence) {
+            return ['residence' => null];
+        }
+
+        return ['residence' => new ResidenceResource(resource: $this->response->residence)];
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    private function residences(): array
     {
         if ($this->response->residences === null) {
-            return null;
+            return ['residences' => null];
         }
 
         if (\is_array(value: $this->response->residences)) {
             return [
-                'total' => \count(value: $this->response->residences),
-                'items' => ResidenceResource::collection(resource: $this->response->residences),
+                'residences' => [
+                    'total' => \count(value: $this->response->residences),
+                    'items' => ResidenceResource::collection(resource: $this->response->residences),
+                ],
             ];
         }
 
         return [
-            'total' => $this->response->residences->total,
-            'items' => ResidenceResource::collection(resource: $this->response->residences->items),
-            'page' => [
-                'per' => $this->response->residences->page->per,
-                'last' => $this->response->residences->page->last,
-                'current' => $this->response->residences->page->current,
+            'residences' => [
+                'total' => $this->response->residences->total,
+                'items' => ResidenceResource::collection(resource: $this->response->residences->items),
+                'page' => [
+                    'per' => $this->response->residences->page->per,
+                    'last' => $this->response->residences->page->last,
+                    'current' => $this->response->residences->page->current,
+                ],
             ],
         ];
     }

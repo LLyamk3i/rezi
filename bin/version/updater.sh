@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-read -p "Enter 'feat' or 'fix': " choice
+read -p "choose your versioning type ('feat' or 'fix'): " choice
 
 version=$(jq '.version' composer.json | tr -d \")
 

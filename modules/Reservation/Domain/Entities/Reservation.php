@@ -7,6 +7,7 @@ namespace Modules\Reservation\Domain\Entities;
 use Modules\Reservation\Domain\Enums\Status;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Price;
+use Modules\Shared\Domain\Concerns\Serializable;
 use Modules\Shared\Domain\ValueObjects\Duration;
 
 /**
@@ -14,6 +15,8 @@ use Modules\Shared\Domain\ValueObjects\Duration;
  */
 final readonly class Reservation
 {
+    use Serializable;
+
     public function __construct(
         public Ulid $id,
         public Duration $stay,
@@ -28,13 +31,13 @@ final readonly class Reservation
     /**
      * @phpstan-return ReservationFormat
      */
-    public function __serialize(): array
+    public function serialize(): array
     {
         return [
             'id' => $this->id->value,
             'owner' => $this->owner?->value,
             'cost' => $this->cost?->value,
-            'stay' => $this->stay->__serialize(),
+            'stay' => $this->stay->serialize(),
             'status' => $this->status?->value,
             'residence' => $this->residence?->value,
         ];

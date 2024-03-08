@@ -1,0 +1,12 @@
+API:
+- create account: /api/auth/register
+- verify otp code: /api/auth/confirm/account
+    if env OTP_ENABLE=false is disable you can send any otp code like 000-000 to confirm the account.
+- upload identity card: /api/auth/upload/identity-card
+- login with username and password: /api/auth/login
+- logout: /api/auth/logout
+
+Dynamic Web:
+- register residence: admin/login
+    use the same credentials as "create account"
+- API docs: /docs/api

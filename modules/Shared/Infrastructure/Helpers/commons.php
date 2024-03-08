@@ -41,7 +41,7 @@ function array_pull_and_exclude(array &$original, array $keys): array
 {
     $result = [];
     foreach ($keys as $key) {
-        if (\array_key_exists($key, $original)) {
+        if (\array_key_exists(key: $key, array: $original)) {
             $result[$key] = $original[$key];
             unset($original[$key]);
         }

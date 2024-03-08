@@ -6,6 +6,8 @@ namespace Modules\Shared\Domain\ValueObjects;
 
 final readonly class Duration
 {
+    use \Modules\Shared\Domain\Concerns\Serializable;
+
     public function __construct(
         public \DateTime $start,
         public \DateTime $end,
@@ -14,9 +16,9 @@ final readonly class Duration
     }
 
     /**
-     * @return array{start: string, end: string}
+     * @return array{start:string,end:string}
      */
-    public function __serialize(): array
+    public function serialize(): array
     {
         return [
             'start' => $this->start->format(format: 'Y-m-d H:i:s'),

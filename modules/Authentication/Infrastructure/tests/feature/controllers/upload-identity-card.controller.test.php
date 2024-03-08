@@ -6,7 +6,9 @@ use Illuminate\Http\Testing\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\FilesystemAdapter;
+use Modules\Shared\Infrastructure\Models\Media;
 use Modules\Authentication\Infrastructure\Models\User;
+use Modules\Residence\Domain\Enums\Media as EnumsMedia;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
@@ -16,7 +18,7 @@ uses(
     Illuminate\Foundation\Testing\RefreshDatabase::class,
 );
 
-it(description: 'can save and register uploaded user identity card', closure: function (): void {
+test(description: 'user can upload identity card', closure: function (): void {
     Storage::fake(disk: $disk = config(key: 'app.upload.disk'));
 
     $user = User::factory()->verified()->create();
@@ -47,12 +49,12 @@ it(description: 'can save and register uploaded user identity card', closure: fu
             'path' => $path,
             'size' => $file->getSize(),
             'fileable_id' => $user->id,
-            'name' => $file->hashName(),
+            'name' => $file->getClientOriginalName(),
             'collection' => "identity-cards/{$document}",
             'mime' => $file->getClientMimeType(),
             'disk' => config(key: 'app.upload.disk'),
             'fileable_type' => $user->getMorphClass(),
-            'original' => $file->getClientOriginalName(),
+            'original' => $file->hashName(),
             'hash' => hash_file(
                 algo: config(key: 'app.upload.hash'),
                 filename: with(
@@ -62,4 +64,20 @@ it(description: 'can save and register uploaded user identity card', closure: fu
             ),
         ]);
     });
+});
+
+test(description: 'user cannot upload identity card twice', closure: function (): void {
+
+    $user = User::factory()->verified()->create();
+    Media::factory()->type(value: EnumsMedia::Identity->value)->for(factory: $user, relationship: 'fileable')->create();
+
+    $response = actingAs(user: $user)->postJson(uri: '/api/auth/upload/identity-card', data: [
+        'document_type' => 'passeport',
+        'card_recto' => UploadedFile::fake()->image(name: 'card.recto.jpg', width: 500),
+    ]);
+
+    $response->assertJson(value: [
+        'success' => false,
+        'message' => trans(key: 'authentication::messages.uploads.identity-card.errors.exists'),
+    ]);
 });

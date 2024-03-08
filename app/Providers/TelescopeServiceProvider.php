@@ -12,7 +12,7 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 {
     public function register(): void
     {
-        if(config(key: 'app.env') !== 'local'){
+        if ($this->app->environment() !== 'local') {
             return;
         }
         Telescope::night();
@@ -49,7 +49,7 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     private function hideSensitiveRequestDetails(): void
     {
-        if ((bool) $this->app->environment('local')) {
+        if ($this->app->environment() === 'local') {
             return;
         }
 

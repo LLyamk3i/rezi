@@ -86,11 +86,6 @@ parameters:
 			path: modules/Residence/Domain/Factories/ResidenceFactory.php
 
 		-
-			message: "#^Parameter \\$data of method Modules\\\\Residence\\\\Domain\\\\Factories\\\\ResidenceFactory\\:\\:owner\\(\\) expects array\\<string, string\\>, array\\<string, array\\<int, Modules\\\\Reservation\\\\Domain\\\\Entities\\\\Reservation\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Feature\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Rating\\|string\\>\\|bool\\|float\\|int\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Owner\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Type\\|string\\> given\\.$#"
-			count: 1
-			path: modules/Residence/Domain/Factories/ResidenceFactory.php
-
-		-
 			message: "#^Parameter \\$data of method Modules\\\\Residence\\\\Domain\\\\Factories\\\\OwnerFactory\\:\\:make\\(\\) expects array\\{id\\: string, name\\: string, avatar\\?\\: string, surname\\: string, forename\\: string, owner_id\\?\\: string, owner_avatar\\?\\: string, owner_surname\\?\\: string, \\.\\.\\.\\}, array\\<int\\|string, mixed\\> given\\.$#"
 			count: 1
 			path: modules/Residence/Domain/Hydrators/RatingHydrator.php
@@ -166,7 +161,7 @@ parameters:
 			path: modules/Residence/Infrastructure/Queries/ResidenceDetailsQuery.php
 
 		-
-			message: "#^Parameter \\$data of method Modules\\\\Residence\\\\Domain\\\\Factories\\\\ResidenceFactory\\:\\:make\\(\\) expects array\\{id\\: string, name\\: string, rooms\\: int, address\\: string, view\\?\\: int, note\\?\\: float, favoured\\?\\: bool, rent\\?\\: float, \\.\\.\\.\\}, non\\-empty\\-array\\<string, array\\<Modules\\\\Reservation\\\\Domain\\\\Entities\\\\Reservation\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Feature\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Rating\\|string\\>\\|bool\\|float\\|int\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Type\\|string\\|null\\> given\\.$#"
+			message: "#^Parameter \\$data of method Modules\\\\Residence\\\\Domain\\\\Factories\\\\ResidenceFactory\\:\\:make\\(\\) expects array\\{id\\: string, name\\: string, rooms\\?\\: int\\|null, address\\: string, view\\?\\: int, note\\?\\: float, favoured\\?\\: bool, rent\\?\\: float, \\.\\.\\.\\}, non\\-empty\\-array\\<string, array\\<Modules\\\\Reservation\\\\Domain\\\\Entities\\\\Reservation\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Feature\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Rating\\|string\\>\\|bool\\|float\\|int\\|Modules\\\\Residence\\\\Domain\\\\Entities\\\\Type\\|string\\|null\\> given\\.$#"
 			count: 1
 			path: modules/Residence/Infrastructure/Queries/ResidenceDetailsQuery.php
 

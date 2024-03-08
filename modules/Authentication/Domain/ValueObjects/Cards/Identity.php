@@ -10,13 +10,13 @@ final readonly class Identity
 {
     public function __construct(
         public File $recto,
-        public File $verso,
+        public File | null $verso = null,
     ) {
         //
     }
 
     /**
-     * @return array{recto:File,verso:File}
+     * @return array{recto:File,verso:File|null}
      */
     public function toArray(): array
     {

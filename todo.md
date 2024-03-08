@@ -83,6 +83,9 @@
   - [x] carte d'identité (rector, verso).
 - [] Ajouter l'historique des réservations du client
 - [] Ajouter la confirmation du compte vérifier
+- [] Ajouter les champs :
+    - [] emergency_contact
+    - [] address
 
 ## Module Admin
 

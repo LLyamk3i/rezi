@@ -30,7 +30,7 @@ final class ResidenceResource extends JsonResource
         $keys = $store->get(key: 'inventory');
 
         return Arr::only(keys: $keys, array: [
-            ...$this->resource->__serialize(),
+            ...$this->resource->serialize(),
             'owner' => new OwnerResource(resource: $this->resource->owner),
             'poster' => ImageUrlFactory::make(path: $this->resource->poster),
             'ratings' => RatingResource::collection(resource: $this->resource->ratings ?? []),

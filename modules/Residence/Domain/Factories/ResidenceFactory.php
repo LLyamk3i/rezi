@@ -14,7 +14,7 @@ use Modules\Residence\Domain\ValueObjects\Location;
 use function Modules\Shared\Infrastructure\Helpers\array_pull_and_exclude;
 
 /**
- * @phpstan-type ResidenceRecord array{id:string,name:string,rooms:int,address:string,view?:int,note?:float,favoured?:bool,rent?:float,poster?:string,distance?:float,latitude?:float,longitude?:float,description?:string,gallery?:array<int,string>,type?:\Modules\Residence\Domain\Entities\Type,owner?:\Modules\Residence\Domain\Entities\Owner,ratings?:array<int,\Modules\Residence\Domain\Entities\Rating>,features?:array<int,\Modules\Residence\Domain\Entities\Feature>,reservations?:array<int,\Modules\Reservation\Domain\Entities\Reservation>}
+ * @phpstan-type ResidenceRecord array{id:string,name:string,rooms?:int|null,address:string,view?:int,note?:float,favoured?:bool,rent?:float,poster?:string,distance?:float,latitude?:float,longitude?:float,description?:string,gallery?:array<int,string>,type?:\Modules\Residence\Domain\Entities\Type,owner?:\Modules\Residence\Domain\Entities\Owner,ratings?:array<int,\Modules\Residence\Domain\Entities\Rating>,features?:array<int,\Modules\Residence\Domain\Entities\Feature>,reservations?:array<int,\Modules\Reservation\Domain\Entities\Reservation>}
  */
 final class ResidenceFactory
 {
@@ -55,18 +55,19 @@ final class ResidenceFactory
     }
 
     /**
-     * @param array<string,string> $data
+     * @param array<string,mixed> $data
      *
      * @throws \InvalidArgumentException
      */
     private function owner(array $data): Owner | null
     {
-        $owner_data = array_pull_and_exclude(original: $data, keys: ['owner_id', 'owner_forename', 'owner_surname', 'owner_avatar']);
+        /** @var array<string,string> $data */
+        $data = array_pull_and_exclude(original: $data, keys: ['owner_id', 'owner_forename', 'owner_surname', 'owner_avatar']);
 
-        if ($owner_data === []) {
+        if ($data === []) {
             return null;
         }
 
-        return $this->owner->make(data: $owner_data);
+        return $this->owner->make(data: $data);
     }
 }

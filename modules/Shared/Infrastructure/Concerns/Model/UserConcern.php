@@ -30,7 +30,7 @@ trait UserConcern
      */
     public function getHidden(): array
     {
-        return ['password', 'remember_token'];
+        return ['password', 'remember_token', ...parent::getHidden()];
     }
 
     /**

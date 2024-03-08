@@ -10,7 +10,7 @@ use Modules\Authentication\Domain\ValueObjects\Email;
 use Modules\Authentication\Infrastructure\Rules\Otp as RulesOtp;
 use Modules\Authentication\Domain\UseCases\VerifyUserAccount\VerifyUserAccountRequest;
 
-final class EmailVerificationRequest extends FormRequest
+final class AccountConfirmationRequest extends FormRequest
 {
     /**
      * @return array{email:string,code:array{'required',RulesOtp}}

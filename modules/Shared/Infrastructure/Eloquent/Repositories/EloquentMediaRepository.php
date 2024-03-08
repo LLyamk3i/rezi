@@ -11,6 +11,10 @@ use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\Contracts\GeneratorContract;
 use Modules\Shared\Domain\Repositories\MediaRepository;
 
+use Modules\Shared\Domain\Contracts\MediaExistsQueryContract;
+
+use function Modules\Shared\Infrastructure\Helpers\array_filter_filled;
+
 final readonly class EloquentMediaRepository implements MediaRepository
 {
     public function __construct(
@@ -21,18 +25,23 @@ final readonly class EloquentMediaRepository implements MediaRepository
     /**
      * @param File|array<int|string,File> $media
      */
-    public function insert(File | array $media, Ulid $user, string $fileable): void
+    public function insert(File | array $media, Ulid $user, string $fileable): bool
     {
         $ulid = $this->ulid;
 
-        DB::table(table: 'media')->insert(values: array_map(
-            array: Arr::wrap($media),
+        return DB::table(table: 'media')->insert(values: array_map(
+            array: array_filter_filled(array: Arr::wrap(value: $media)),
             callback: static fn (File $file): array => [
                 'id' => $ulid->generate(),
-                ...$file->toArray(),
+                ...$file->serialize(),
                 'fileable_type' => $fileable,
                 'fileable_id' => $user->value,
             ]
         ));
+    }
+
+    public function exists(MediaExistsQueryContract $query): bool
+    {
+        return $query->execute();
     }
 }
