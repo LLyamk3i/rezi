@@ -10,4 +10,7 @@ return [
             'reservation' => 'Impossible de créer la réservation. Veuillez vérifier les informations fournies et réessayer.',
         ],
     ],
+    'history' => [
+        'success' => 'Voici votre historique de réservations.',
+    ]
 ];

@@ -6,13 +6,13 @@ namespace Modules\Reservation\Application\Commands;
 
 use Modules\Reservation\Domain\Repositories\ReservationRepository;
 use Modules\Reservation\Domain\Commands\VerifyReservationOwnershipContract;
-use Modules\Reservation\Domain\Contracts\ReservationVerificationQueryContract;
+use Modules\Reservation\Domain\Contracts\ReservationExistsQueryContract;
 
 final readonly class VerifyReservationOwnership implements VerifyReservationOwnershipContract
 {
     public function __construct(
         private ReservationRepository $repository,
-        private ReservationVerificationQueryContract $query,
+        private ReservationExistsQueryContract $query,
     ) {
         //
     }

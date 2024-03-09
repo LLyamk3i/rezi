@@ -74,6 +74,7 @@
 
 - [] Ajouter l'annulation de réservation.
 - [] Notifiez le propriétaire d'une nouvelle réservation.
+- [] Ajouter l'historique des réservations du client
 
 ## Module Authentication
 
@@ -81,9 +82,8 @@
 - [x] Vérifier le compte avec le code OPT.
 - [x] Ajouter les champs:
   - [x] carte d'identité (rector, verso).
-- [] Ajouter l'historique des réservations du client
-- [] Ajouter la confirmation du compte vérifier
-- [] Ajouter les champs :
+- [x] Ajouter la confirmation du compte vérifier
+- [] Ajouter les champs dans la creation d'un compte :
     - [] emergency_contact
     - [] address
 

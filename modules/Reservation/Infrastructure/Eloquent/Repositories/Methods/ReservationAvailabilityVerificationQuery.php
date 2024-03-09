@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Shared\Domain\ValueObjects\Duration;
-use Modules\Reservation\Domain\Contracts\ReservationVerificationQueryContract;
+use Modules\Reservation\Domain\Contracts\ReservationExistsQueryContract;
 
-final readonly class ReservationAvailabilityVerificationQuery implements ReservationVerificationQueryContract
+final readonly class ReservationAvailabilityVerificationQuery implements ReservationExistsQueryContract
 {
     public function __construct(
         private Duration $stay,

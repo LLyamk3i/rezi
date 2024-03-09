@@ -6,9 +6,9 @@ namespace Modules\Reservation\Infrastructure\Eloquent\Repositories\Methods;
 
 use Illuminate\Support\Facades\DB;
 use Modules\Shared\Domain\ValueObjects\Ulid;
-use Modules\Reservation\Domain\Contracts\ReservationVerificationQueryContract;
+use Modules\Reservation\Domain\Contracts\ReservationExistsQueryContract;
 
-final readonly class ReservationOwnershipVerificationQuery implements ReservationVerificationQueryContract
+final readonly class ReservationOwnershipVerificationQuery implements ReservationExistsQueryContract
 {
     public function __construct(
         private Ulid $owner,

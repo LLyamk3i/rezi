@@ -15,13 +15,13 @@ final class ReservationResource extends JsonResource
     public $resource;
 
     /**
-     * @return array{id: string, start: string, end: string}
+     * @return array{id:string,start:string,end:string}
      */
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->resource->id->value,
-            ...$this->resource->stay->__serialize(),
+            ...$this->resource->stay->serialize(),
         ];
     }
 }

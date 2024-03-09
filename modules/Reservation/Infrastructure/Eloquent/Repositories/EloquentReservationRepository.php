@@ -7,13 +7,18 @@ namespace Modules\Reservation\Infrastructure\Eloquent\Repositories;
 use Illuminate\Support\Facades\DB;
 use Modules\Reservation\Domain\Entities\Reservation as Entity;
 use Modules\Reservation\Domain\Repositories\ReservationRepository;
-use Modules\Reservation\Domain\Contracts\ReservationVerificationQueryContract;
+use Modules\Reservation\Domain\Contracts\ReservationExistsQueryContract;
+use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
+use Modules\Shared\Domain\ValueObjects\Ulid;
+
+use function Modules\Shared\Infrastructure\Helpers\listen_queries;
+use function PHPUnit\Framework\returnSelf;
 
 final class EloquentReservationRepository implements ReservationRepository
 {
-    public function save(Entity $entity): void
+    public function save(Entity $entity): bool
     {
-        DB::table(table: 'reservations')->insert(values: [
+        return DB::table(table: 'reservations')->insert(values: [
             'id' => $entity->id->value,
             'checkin_at' => $entity->stay->start,
             'checkout_at' => $entity->stay->end,
@@ -24,7 +29,18 @@ final class EloquentReservationRepository implements ReservationRepository
         ]);
     }
 
-    public function exists(ReservationVerificationQueryContract $checker): bool
+    /**
+     * @return array<int,mixed>
+     */
+    public function history(Ulid $owner): array
+    {
+        return DB::table(table: 'reservations')
+            ->where(column: 'user_id', operator: '=', value: $owner->value)
+            ->get()
+            ->toArray();
+    }
+
+    public function exists(ReservationExistsQueryContract $checker): bool
     {
         return $checker->run();
     }

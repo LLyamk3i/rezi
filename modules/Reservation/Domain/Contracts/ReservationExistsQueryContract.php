@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Reservation\Domain\Contracts;
 
-interface ReservationVerificationQueryContract
+interface ReservationExistsQueryContract
 {
     public function run(): bool;
 }

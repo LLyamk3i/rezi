@@ -15,12 +15,13 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         if ($this->app->environment() !== 'local') {
             return;
         }
+
         Telescope::night();
 
         $this->hideSensitiveRequestDetails();
 
-        Telescope::filter(function (IncomingEntry $entry): bool {
-            if ((bool) $this->app->environment('local')) {
+        Telescope::filter(callback: function (IncomingEntry $entry): bool {
+            if ($this->app->environment() === 'local') {
                 return true;
             }
 
@@ -54,11 +55,6 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         }
 
         Telescope::hideRequestParameters(attributes: ['_token']);
-
-        Telescope::hideRequestHeaders(headers: [
-            'cookie',
-            'x-csrf-token',
-            'x-xsrf-token',
-        ]);
+        Telescope::hideRequestHeaders(headers: ['cookie', 'x-csrf-token', 'x-xsrf-token']);
     }
 }
