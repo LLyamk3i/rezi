@@ -18,10 +18,10 @@ final class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureRateLimiting();
-        $this->routes(static function (): void {
+        $this->routes(routesCallback: static function (): void {
             Route::middleware('api')
                 ->prefix('api/reservations')
-                ->group(__DIR__ . '/../routes/api.php');
+                ->group(callback: __DIR__ . '/../routes/api.php');
         });
     }
 
@@ -30,7 +30,7 @@ final class RouteServiceProvider extends ServiceProvider
      */
     private function configureRateLimiting(): void
     {
-        RateLimiter::for('api', static fn (Request $request): Limit => Limit::perMinute(60)
-            ->by($request->user()?->id ?? $request->ip()));
+        RateLimiter::for(name: 'api', callback: static fn (Request $request): Limit => Limit::perMinute(maxAttempts: 60)
+            ->by(key: $request->user()?->id ?? $request->ip()));
     }
 }

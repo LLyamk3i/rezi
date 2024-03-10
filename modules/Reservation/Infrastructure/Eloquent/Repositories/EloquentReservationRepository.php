@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace Modules\Reservation\Infrastructure\Eloquent\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Reservation\Domain\Entities\Reservation as Entity;
 use Modules\Reservation\Domain\Repositories\ReservationRepository;
 use Modules\Reservation\Domain\Contracts\ReservationExistsQueryContract;
-use Modules\Shared\Domain\DataTransferObjects\PaginatedObject;
-use Modules\Shared\Domain\ValueObjects\Ulid;
-
-use function Modules\Shared\Infrastructure\Helpers\listen_queries;
-use function PHPUnit\Framework\returnSelf;
 
 final class EloquentReservationRepository implements ReservationRepository
 {

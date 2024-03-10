@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Authentication\Infrastructure\Commands;
 
+use Modules\Shared\Domain\ValueObjects\Ulid;
 use Modules\Authentication\Infrastructure\Models\User;
 use Modules\Shared\Domain\Repositories\MediaRepository;
 use Modules\Authentication\Infrastructure\Eloquent\Queries\MediaIdentityExistsQuery;
@@ -26,7 +27,7 @@ final class UserAccountStatus
         return [
             'otp' => ! \is_null(value: $user->getAttribute(key: 'email_verified_at')),
             'identity' => $this->media->exists(query: new MediaIdentityExistsQuery(
-                user: string_value(value: $user->getAttribute(key: 'id'))
+                user: new Ulid(value: string_value(value: $user->getAttribute(key: 'id')))
             )),
         ];
     }

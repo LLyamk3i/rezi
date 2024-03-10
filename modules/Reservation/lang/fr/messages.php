@@ -12,5 +12,5 @@ return [
     ],
     'history' => [
         'success' => 'Voici votre historique de réservations.',
-    ]
+    ],
 ];

@@ -13,7 +13,7 @@ final class LocationField
     {
         return Map::make(name: 'location')
             ->defaultLocation(location: [5.1892604473931, -3.9852047386115])
-            ->defaultZoom(8)
+            ->defaultZoom(defaultZoom: 8)
             ->geolocate()
             ->geolocateLabel(geolocateLabel: Labels::Geolocate->value)
             ->required()

@@ -19,7 +19,6 @@ final class AppServiceProvider extends ServiceProvider
         $this->app->register(provider: EloquentServiceProvider::class);
         $this->app->register(provider: DatabaseServiceProvider::class);
 
-
         if ($this->app->environment() !== 'local') {
             return;
         }

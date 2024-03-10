@@ -25,7 +25,7 @@ final class ResidenceServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Relation::enforceMorphMap([
+        Relation::enforceMorphMap(map: [
             'feat' => Infrastructure\Models\Feature::class,
             'resi' => Infrastructure\Models\Residence::class,
         ]);

@@ -17,8 +17,6 @@ final class RetrievesOneTimePassword implements RetrievesOneTimePasswordContract
      */
     public function handle(string $email): string
     {
-        return string_value(
-            value: Cache::get(key: "{$email}-one-time-password")
-        );
+        return string_value(value: Cache::get(key: "{$email}-one-time-password"));
     }
 }

@@ -36,7 +36,7 @@ final class ResidenceSeeder extends Seeder
         $residences = Residence::factory()
             ->count(count: $count)
             ->make()
-            ->map(static fn (Residence $residence): array => [
+            ->map(callback: static fn (Residence $residence): array => [
                 ...$residence->getAttributes(),
                 'user_id' => value(static fn (array $values) => $values['id'], Arr::random(array: $providers)),
                 'type_id' => value(static fn (array $values) => $values['id'], Arr::random(array: $types)),
@@ -48,7 +48,7 @@ final class ResidenceSeeder extends Seeder
                 array: Arr::pluck(array: $residences, value: 'id'),
                 callback: static fn (string $residence_id): array => array_map(
                     array: collect(value: $features)->pluck(value: 'id')
-                        ->random(number: integer_value(value: with(1, static fn (int $value): int => $value < 0 ? 0 : random_int(min: 0, max: $value))))
+                        ->random(number: integer_value(value: with(value: 1, callback: static fn (int $value): int => $value < 0 ? 0 : random_int(min: 0, max: $value))))
                         ->toArray(),
                     callback: static fn (string $feature_id): array => ['residence_id' => $residence_id, 'feature_id' => $feature_id],
                 )

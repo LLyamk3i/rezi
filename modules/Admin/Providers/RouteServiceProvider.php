@@ -11,11 +11,11 @@ final class RouteServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->routes(static function (): void {
+        $this->routes(routesCallback: static function (): void {
             Route::middleware('web')
                 ->name('admin.')
                 ->prefix('admin')
-                ->group(__DIR__ . '/../routes/web.php');
+                ->group(callback: __DIR__ . '/../routes/web.php');
         });
     }
 }

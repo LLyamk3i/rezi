@@ -19,7 +19,7 @@ it(description: 'can verify user account', closure: function (): void {
     $user = User::factory()->unverified()->create();
     $code = '784-852';
     Cache::set(key: "{$user->email}-one-time-password", value: $code);
-    $response = patchJson(uri: '/api/auth/verifications/email', data: [
+    $response = patchJson(uri: '/api/auth/confirm/account', data: [
         'email' => $user->email,
         'code' => $code,
     ]);

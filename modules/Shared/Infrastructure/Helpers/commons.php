@@ -9,7 +9,7 @@ namespace Modules\Shared\Infrastructure\Helpers;
  */
 function route(string $path, array $queries): string
 {
-    return $path . '?' . http_build_query($queries);
+    return $path . '?' . http_build_query(data: $queries);
 }
 
 /**

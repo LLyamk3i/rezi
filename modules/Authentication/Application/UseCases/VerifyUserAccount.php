@@ -41,9 +41,7 @@ final readonly class VerifyUserAccount implements VerifyUserAccountContract
                 return new Response(
                     failed: true,
                     status: Http::BAD_REQUEST,
-                    message: string_value(
-                        value: $this->translator->get(key: 'authentication::messages.verification.errors.account.missing')
-                    ),
+                    message: $this->translator->choice(key: 'authentication::messages.verification.errors.account.missing', number: 0),
                 );
             }
 

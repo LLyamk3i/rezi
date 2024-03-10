@@ -30,7 +30,7 @@ final class EditResidence extends EditRecord
      */
     protected function resolveRecord(int | string $key): Residence
     {
-        parent::resolveRecord($key);
+        parent::resolveRecord(key: $key);
         $record = Residence::query()->where(column: 'id', operator: '=', value: $key)
             ->first(columns: [
                 '*',
@@ -54,10 +54,7 @@ final class EditResidence extends EditRecord
     {
         return [
             ...$data,
-            'location' => [
-                'lat' => $data['latitude'],
-                'lng' => $data['longitude'],
-            ],
+            'location' => ['lat' => $data['latitude'], 'lng' => $data['longitude']],
         ];
     }
 

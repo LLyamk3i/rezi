@@ -19,10 +19,10 @@ final class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        $this->routes(static function (): void {
+        $this->routes(routesCallback: static function (): void {
             Route::middleware('api')
                 ->prefix('api/residences')
-                ->group(__DIR__ . '/../routes/api.php');
+                ->group(callback: __DIR__ . '/../routes/api.php');
         });
     }
 

@@ -17,7 +17,7 @@ final class TypeField
             ->preload()
             ->required()
             ->translateLabel()
-            ->createOptionForm([
+            ->createOptionForm(schema: [
                 TextInput::make(name: 'name')
                     ->required()
                     ->translateLabel()

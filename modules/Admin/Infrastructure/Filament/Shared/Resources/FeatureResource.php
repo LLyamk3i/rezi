@@ -28,7 +28,7 @@ final class FeatureResource extends Resource
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
-            ->schema([
+            ->schema(components: [
                 Forms\Components\TextInput::make(name: 'name')->required()->translateLabel()->columnSpanFull(),
                 Forms\Components\Fieldset::make(label: 'icon')
                     ->relationship(name: 'icon')

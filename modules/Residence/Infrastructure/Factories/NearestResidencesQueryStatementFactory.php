@@ -10,7 +10,7 @@ use Modules\Residence\Domain\ValueObjects\Location;
 use Modules\Residence\Domain\ValueObjects\Distance as Radius;
 
 /**
- * @phpstan-type Statements array{having: string, select: string, where: string}
+ * @phpstan-type Statements array{having:string,select:string,where:string}
  */
 final class NearestResidencesQueryStatementFactory
 {
@@ -29,7 +29,6 @@ final class NearestResidencesQueryStatementFactory
         return DB::table(table: 'residences')
             ->where(column: 'visible', operator: '=', value: true)
             ->select(columns: $this->columns())
-            // ->whereRaw(sql: $this->statements['where'])
             ->having(column: 'distance', operator: '<', value: $this->radius->value)
             ->orderBy(column: 'distance');
     }
@@ -41,8 +40,8 @@ final class NearestResidencesQueryStatementFactory
     {
         return [
             'id', 'name', 'address', 'rent',
-            DB::raw('ST_X(location) AS latitude'),
-            DB::raw('ST_Y(location) AS longitude'),
+            DB::raw(value: 'ST_X(location) AS latitude'),
+            DB::raw(value: 'ST_Y(location) AS longitude'),
             DB::raw(value: sprintf(
                 '(6371 * ACOS(%.16f * COS(RADIANS(ST_X(location)))
                 * COS(RADIANS(ST_Y(location)) - %.16f) + %.16f

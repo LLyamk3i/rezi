@@ -4,20 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\Shared\Infrastructure\Adapters;
 
-use Illuminate\Cache\CacheManager;
+use Illuminate\Support\Facades\Cache;
 use Modules\Shared\Domain\Adapters\CacheAdapterContract;
 
 final readonly class CacheAdapter implements CacheAdapterContract
 {
-    public function __construct(
-        private CacheManager $cache,
-    ) {
-        //
-    }
-
     public function put(string $key, mixed $value): void
     {
-        $this->cache->put($key, $value);
+        Cache::put(key: $key, value: $value);
     }
 
     /**
@@ -25,6 +19,6 @@ final readonly class CacheAdapter implements CacheAdapterContract
      */
     public function get(string $key): mixed
     {
-        return $this->cache->get($key);
+        return Cache::get(key: $key);
     }
 }

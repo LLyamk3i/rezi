@@ -33,11 +33,15 @@ test(description: 'user can login', closure: function ($access): void {
         'message' => "L'utilisateur s'est connecté avec succès.",
     ]);
 
+    $response->assertJsonPath(path: 'verified', expect: static function (array $verified): bool {
+        Assert::assertIsBool(actual: $verified['otp']);
+        Assert::assertIsBool(actual: $verified['identity']);
+
+        return true;
+    });
     $response->assertJsonPath(path: 'client', expect: static function (array $client) use ($user): bool {
-        Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.usage')));
-        Assert::assertTrue(condition: \is_string(value: Arr::get(array: $client, key: 'avatar.link')));
-        Assert::assertTrue(condition: \is_bool(value: Arr::get(array: $client, key: 'verified.otp')));
-        Assert::assertTrue(condition: \is_bool(value: Arr::get(array: $client, key: 'verified.identity')));
+        Assert::assertIsString(actual: Arr::get(array: $client, key: 'avatar.usage'));
+        Assert::assertIsString(actual: Arr::get(array: $client, key: 'avatar.link'));
         Assert::assertSame(expected: $user->id, actual: $client['id']);
         Assert::assertSame(expected: $user->forename, actual: $client['forename']);
         Assert::assertSame(expected: $user->email, actual: $client['email']);

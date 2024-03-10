@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('media', static function (Blueprint $table): void {
+        Schema::create(table: 'media', callback: static function (Blueprint $table): void {
             $table->ulid(column: 'id')->primary();
 
             $table->string(column: 'fileable_type', length: 4);
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists(table: 'media');
     }
 };
