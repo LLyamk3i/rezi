@@ -206,6 +206,7 @@ return [
         Modules\Reservation\Providers\ReservationServiceProvider::class,
         Modules\Admin\Providers\AdminServiceProvider::class,
         Modules\Payment\Providers\PaymentServiceProvider::class,
+        Modules\Notification\Providers\NotificationServiceProvider::class,
     ],
 
     /*

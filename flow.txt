@@ -1,10 +1,39 @@
 API:
-- create account: /api/auth/register
-- verify otp code: /api/auth/confirm/account
+*Authentification:
+- create account: /api/auth/register ................................................................................................................... Modules\Authentication\Infrastructure\Http\Controllers\RegisterUserController
+- verify otp code: /api/auth/confirm/account..................................................................................................... Modules\Authentication\Infrastructure\Http\Controllers\AccountConfirmationController
     if env OTP_ENABLE=false is disable you can send any otp code like 000-000 to confirm the account.
-- upload identity card: /api/auth/upload/identity-card
-- login with username and password: /api/auth/login
-- logout: /api/auth/logout
+- upload identity card: /api/auth/upload/identity-card ................................................................................................. Modules\Authentication\Infrastructure\Http\Controllers\UploadIdentityCardController
+- login with username and password: /api/auth/login........................................................................................................ Modules\Authentication\Infrastructure\Http\Controllers\AuthenticatedSessionController@store
+- logout: /api/auth/logout ..................................................................................................... Modules\Authentication\Infrastructure\Http\Controllers\AuthenticatedSessionController@destroy
+- update user profile: api/auth/profile .................................................................................................................. Modules\Authentication\Infrastructure\Http\Controllers\ProfileController@update
+
+*Notification:
+- Récupérer tous les notifications d'un utilisateur: /api/notifications .................................................................... Modules\Notification\Infrastructure\Http\Controllers\UserNotificationsController@index
+- Marquer tous les notifications comme lu :/api/notifications/reads ............................................................ Modules\Notification\Infrastructure\Http\Controllers\ReadNotificationsController@destroy
+- Marquer une notification comme lu :/api/notifications/reads/{notification} .............................................. Modules\Notification\Infrastructure\Http\Controllers\ReadNotificationController@destroy
+
+*Payment:
+- Initialiser un paiement :/api/payments ........................................................................................ Modules\Payment\Infrastructure\Http\Controllers\PaymentController@store
+- Mettre à jour le type de paiement :/api/payments/{payment} ............................................................................. Modules\Payment\Infrastructure\Http\Controllers\PaymentController@update
+
+*Reservation:
+- Ajouter une reservations :/api/reservations ............................................................................ Modules\Reservation\Infrastructure\Http\Controllers\ReservationController@store
+- Vérifier la disponibilité d'une residence :/api/reservations/availability ................................................... Modules\Reservation\Infrastructure\Http\Controllers\VerifyReservationAvailabilityController
+- Lister l'historique des réservation d'un client :/api/reservations/history/{user} ...................................................... Modules\Reservation\Infrastructure\Http\Controllers\ReservationHistoryController@index
+
+*Residence
+- Récupérer tous les residences :/api/residences .................................................................................. Modules\Residence\Infrastructure\Http\Controllers\ResidenceController@index
+- Récupérer les residences favorites d'un client :/api/residences/favorites ....................................................... favorites.index › Modules\Residence\Infrastructure\Http\Controllers\FavoriteController@index
+- Ajouter une residence au favoris :/api/residences/favorites ....................................................... favorites.store › Modules\Residence\Infrastructure\Http\Controllers\FavoriteController@store
+- Enlever une residence aux favoris :/api/residences/favorites/{favorite} ........................................ favorites.destroy › Modules\Residence\Infrastructure\Http\Controllers\FavoriteController@destroy
+- Récupérer tous les points forts :/api/residences/features ........................................................................... Modules\Residence\Infrastructure\Http\Controllers\FeatureController@index
+- Récupérer les residence proches :/api/residences/nearest ........................................................................ Modules\Residence\Infrastructure\Http\Controllers\NearestResidencesController
+- Ajouter un avis :/api/residences/ratings ............................................................................. Modules\Residence\Infrastructure\Http\Controllers\RatingController@store
+- Faire une recherche :/api/residences/search ....................................................................... Modules\Residence\Infrastructure\Http\Controllers\SearchResidencesController
+- Récupérer tous les types de residences :/api/residences/types ................................................................................. Modules\Residence\Infrastructure\Http\Controllers\TypeController@index
+- Marquer une residence comme vue par un client :/api/residences/views ................................................................................. Modules\Residence\Infrastructure\Http\Controllers\ViewController@store
+- Récupérer les details d'une residence :/api/residences/{residence} ....................................................................... Modules\Residence\Infrastructure\Http\Controllers\ResidenceController@show
 
 Dynamic Web:
 - register residence: admin/login

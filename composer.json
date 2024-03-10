@@ -10,7 +10,7 @@
         "cheesegrits/filament-google-maps": "^3.0.13",
         "dedoc/scramble": "^0.8.6",
         "doctrine/dbal": "^3.8.3",
-        "filament/filament": "^3.2.46",
+        "filament/filament": "^3.2.47",
         "guzzlehttp/guzzle": "^7.8.1",
         "laravel-notification-channels/twilio": "^3.3.1",
         "laravel/framework": "^10.47.0",
